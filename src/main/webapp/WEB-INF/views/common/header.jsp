@@ -65,9 +65,8 @@
     <section id="content">
     
     <script>
-    
-    ////a,ksjdflajsdlkjf;alksjdfklj
-	$(info).mouseover(() =>{
+    // header branch
+    $(info).mouseover(() =>{
         $(".pagenavsbox").show(),
         $(".pagenavsbox2").hide(),
         $(".pagenavsbox3").hide()
