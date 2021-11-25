@@ -31,6 +31,7 @@ public class JdbcTemplate {
 		Properties prop = new Properties();
 		try {
 			prop.load(new FileReader(datasourceConfigPath));
+			System.out.println(prop);
 			driverClass = prop.getProperty("driverClass");
 			url = prop.getProperty("url");
 			user = prop.getProperty("user");
