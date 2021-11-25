@@ -16,10 +16,8 @@
                <div class="title"><a href="#">타이틀</a></div>
                <ul class="lists" >
                    <li id="info"><a href="#">정보</a></li>
-                    
                    <li id="board"><a href="#">게시판</a></li>
                    <li id="market"><a href="#">마켓</a></li>
-                 
                </ul>
                <ul>
                    <!--관리자페이지표시 안 보이게 할 때 아래 한 줄만 처리해야 흐트러지지 않음 -->
@@ -37,7 +35,7 @@
         </section>
         <div class="navbox-container">
 	        <div class="info-navsbox">
-	            <ul class="navs">
+	            <ul class="info-pagenavs">
 	                <li class="info-pagenav" id="hospital"><a href="#">동물병원</a></li>
 	                <li class="info-pagenav" id="cafe"><a href="#">카페</a></li>
 	                <li class="info-pagenav" id="food"><a href="#">음식점</a></li>
@@ -46,13 +44,13 @@
 	            </ul>
 	        </div> 
 	        <div class="board-navsbox">
-	            <ul class="navs">
+	            <ul class="board-pagenavs">
 	                <li class="board-pagenav" id="board"><a href="#">자유게시판</a></li>
 	                <li class="board-pagenav" id="review"><a href="#">후기</a></li>
 	            </ul>
 	        </div> 
 	        <div class="market-navsbox">
-	            <ul class="navs">
+	            <ul class="market-pagenavs">
 	                <!-- <li class="pagenav3" id="point"><a href="#">내 Point 확인</a></li> -->
 	                <li class="market-pagenav" id="store"><a href="#">일반상점</a></li>
 	                <li class="market-pagenav" id="used"><a href="#">중고 매매</a></li>
@@ -65,31 +63,10 @@
     <section id="content">
     
     <script>
-    // header branch
-    $(info).mouseover(() =>{
-        $(".info-navsbox").show(),
-        $(".info-navsbox2").hide(),
-        $(".info-navsbox3").hide()
-	});
-	$(".info-navsbox").mouseleave(() =>{
-        $(".info-navsbox").hide()
-	});
-
-	$(board).mouseover(() =>{
-        $(".pagenavsbox2").show(),
-        $(".pagenavsbox").hide(),
-        $(".pagenavsbox3").hide()
-	});
-	$(".pagenavsbox2").mouseleave(() =>{
-        $(".pagenavsbox2").hide()
-	});
-
-	$(market).mouseover(() =>{
-        $(".pagenavsbox3").show(),
-        $(".pagenavsbox").hide(),
-        $(".pagenavsbox2").hide()
-	});
-	$(".pagenavsbox3").mouseleave(() =>{
-        $(".pagenavsbox3").hide()
+    //중복코드제거(+이벤트버블링활용)
+    $(".lists").mouseover((e) =>{
+    	const id = $(e.target).parent().attr('id');
+    	$(".navbox-container").children().hide();
+        $(`.\${id}-navsbox`).show();
 	});
 </script>
