@@ -63,6 +63,7 @@
     <section id="content">
     
     <script>
+    //master
 	$(info).mouseover(() =>{
         $(".pagenavsbox").show(),
         $(".pagenavsbox2").hide(),
