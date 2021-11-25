@@ -108,7 +108,7 @@
         margin-bottom: 3px;
         padding-bottom: 9px;
     }
-    .pagenavsbox{
+    .info-navsbox{
         display: none;
         padding-left: 130px;
         /* margin: auto; */
@@ -116,20 +116,20 @@
         border-color:rgba(128, 128, 128, 0.432);
         border-width: 1px;
         } 
-    .pagenav{
+    .info-pagenav{
            font-size: 14px;
            margin-left: 30px;
        }
-    .pagenav a {
+    .info-pagenav a {
            text-decoration-line: none;
            color: black;
        } 
-    .pagenavs{
+    .info-pagenavs{
         display: flex;
            list-style: none;
            margin-left: auto;
        }
-    .pagenavsbox2{
+    .board-navsbox{
         display: none;
         padding-left: 200px;
         /* margin: auto; */
@@ -137,20 +137,20 @@
         border-color:rgba(128, 128, 128, 0.432);
         border-width: 1px;
         } 
-    .pagenav2{
+    .board-pagenav{
            font-size: 14px;
            margin-left: 30px;
        }
-    .pagenav2 a {
+    .board-pagenav a {
            text-decoration-line: none;
            color: black;
        } 
-    .pagenavs2{
+    .board-pagenavs{
         display: flex;
         list-style: none;
         margin-left: auto;
        }
-    .pagenavsbox3{
+    .market-navsbox{
         display: none;
         padding-left: 290px;
         /* margin: auto; */
@@ -158,15 +158,15 @@
         border-color:rgba(128, 128, 128, 0.432);
         border-width: 1px;
         } 
-    .pagenav3{
+    .market-pagenav{
            font-size: 14px;
            margin-left: 30px;
        }
-    .pagenav3 a {
+    .market-pagenav a {
            text-decoration-line: none;
            color: black;
        } 
-    .pagenavs3{
+    .market-pagenavs{
         display: flex;
         list-style: none;
         margin-left: auto;
