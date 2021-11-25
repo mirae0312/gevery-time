@@ -38,26 +38,26 @@
         <div class="navbox-container">
 	        <div class="info-navsbox">
 	            <ul class="info-navs">
-	                <li class="pagenav" id="hospital"><a href="#">동물병원</a></li>
-	                <li class="pagenav" id="cafe"><a href="#">카페</a></li>
-	                <li class="pagenav" id="food"><a href="#">음식점</a></li>
-	                <li class="pagenav" id="pension"><a href="#">펜션</a></li>
-	                <li class="pagenav" id="salon"><a href="#">미용실</a></li>
+	                <li class="info-pagenav" id="hospital"><a href="#">동물병원</a></li>
+	                <li class="info-pagenav" id="cafe"><a href="#">카페</a></li>
+	                <li class="info-pagenav" id="food"><a href="#">음식점</a></li>
+	                <li class="info-pagenav" id="pension"><a href="#">펜션</a></li>
+	                <li class="info-pagenav" id="salon"><a href="#">미용실</a></li>
 	            </ul>
 	        </div> 
 	        <div class="board-navsbox">
 	            <ul class="board-navs">
-	                <li class="pagenav2" id="board"><a href="#">자유게시판</a></li>
-	                <li class="pagenav2" id="review"><a href="#">후기</a></li>
+	                <li class="board-pagenav" id="board"><a href="#">자유게시판</a></li>
+	                <li class="board-pagenav" id="review"><a href="#">후기</a></li>
 	            </ul>
 	        </div> 
 	        <div class="market-navsbox">
 	            <ul class="market-navs">
 	                <!-- <li class="pagenav3" id="point"><a href="#">내 Point 확인</a></li> -->
-	                <li class="pagenav3" id="store"><a href="#">일반상점</a></li>
-	                <li class="pagenav3" id="used"><a href="#">중고 매매</a></li>
-	                <li class="pagenav3" id="list"><a href="#">찜 목록</a></li>
-	                <li class="pagenav3" id="cart"><a href="#">장바구니</a></li>
+	                <li class="market-pagenav" id="store"><a href="#">일반상점</a></li>
+	                <li class="market-pagenav" id="used"><a href="#">중고 매매</a></li>
+	                <li class="market-pagenav" id="list"><a href="#">찜 목록</a></li>
+	                <li class="market-pagenav" id="cart"><a href="#">장바구니</a></li>
 	            </ul>
 	        </div>
         </div>
