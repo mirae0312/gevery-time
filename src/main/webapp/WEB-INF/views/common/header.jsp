@@ -37,7 +37,7 @@
         </section>
         <div class="navbox-container">
 	        <div class="info-navsbox">
-	            <ul class="info-navs">
+	            <ul class="navs">
 	                <li class="info-pagenav" id="hospital"><a href="#">동물병원</a></li>
 	                <li class="info-pagenav" id="cafe"><a href="#">카페</a></li>
 	                <li class="info-pagenav" id="food"><a href="#">음식점</a></li>
@@ -46,13 +46,13 @@
 	            </ul>
 	        </div> 
 	        <div class="board-navsbox">
-	            <ul class="board-navs">
+	            <ul class="navs">
 	                <li class="board-pagenav" id="board"><a href="#">자유게시판</a></li>
 	                <li class="board-pagenav" id="review"><a href="#">후기</a></li>
 	            </ul>
 	        </div> 
 	        <div class="market-navsbox">
-	            <ul class="market-navs">
+	            <ul class="navs">
 	                <!-- <li class="pagenav3" id="point"><a href="#">내 Point 확인</a></li> -->
 	                <li class="market-pagenav" id="store"><a href="#">일반상점</a></li>
 	                <li class="market-pagenav" id="used"><a href="#">중고 매매</a></li>
@@ -67,12 +67,12 @@
     <script>
     // header branch
     $(info).mouseover(() =>{
-        $(".pagenavsbox").show(),
-        $(".pagenavsbox2").hide(),
-        $(".pagenavsbox3").hide()
+        $(".info-navsbox").show(),
+        $(".info-navsbox2").hide(),
+        $(".info-navsbox3").hide()
 	});
-	$(".pagenavsbox").mouseleave(() =>{
-        $(".pagenavsbox").hide()
+	$(".info-navsbox").mouseleave(() =>{
+        $(".info-navsbox").hide()
 	});
 
 	$(board).mouseover(() =>{
