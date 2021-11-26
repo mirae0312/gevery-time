@@ -32,8 +32,11 @@ public class ProductSaleBoardEnroll extends HttpServlet {
 		
 		System.out.println("상품 번호 : " + pdtNo);
 		
+		// 상품 판매상태 가져오기
+		
+		
 		// vo객체에 담기
-		ProductBoard pdtBoard = new ProductBoard(0, null, title, content, null, author, pdtNo);
+		ProductBoard pdtBoard = new ProductBoard(0, null, title, content, null, author, pdtNo, null);
 		
 		// DB 등록 프로세스 진행
 		int result = pdtService.productSaleBoardEnroll(pdtBoard);

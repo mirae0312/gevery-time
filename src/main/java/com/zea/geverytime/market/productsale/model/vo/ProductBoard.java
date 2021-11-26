@@ -15,14 +15,16 @@ public class ProductBoard implements Serializable {
 	private Date regDate;
 	private String sellerId;
 	private int productNo;
+	private String productState;
 	
 	
 	public ProductBoard() {
 		super();
 		// TODO Auto-generated constructor stub
 	}
+	
 	public ProductBoard(int boardNo, String orCode, String title, String content, Date regDate, String sellerId,
-			int productNo) {
+			int productNo, String productState) {
 		super();
 		this.boardNo = boardNo;
 		this.orCode = orCode;
@@ -31,7 +33,9 @@ public class ProductBoard implements Serializable {
 		this.regDate = regDate;
 		this.sellerId = sellerId;
 		this.productNo = productNo;
+		this.productState = productState;
 	}
+
 	public int getBoardNo() {
 		return boardNo;
 	}
@@ -74,11 +78,22 @@ public class ProductBoard implements Serializable {
 	public void setProductNo(int productNo) {
 		this.productNo = productNo;
 	}
+
+	public String getProductState() {
+		return productState;
+	}
+
+	public void setProductState(String productState) {
+		this.productState = productState;
+	}
+
 	@Override
 	public String toString() {
 		return "ProductBoard [boardNo=" + boardNo + ", orCode=" + orCode + ", title=" + title + ", content=" + content
-				+ ", regDate=" + regDate + ", sellerId=" + sellerId + ", productNo=" + productNo + "]";
+				+ ", regDate=" + regDate + ", sellerId=" + sellerId + ", productNo=" + productNo + ", productState="
+				+ productState + "]";
 	}
+	
 	
 	
 	
