@@ -13,10 +13,10 @@
     <div id="container">
         <section id="header" >
            <div class="wrapper">
-               <div class="title"><a href="#">타이틀</a></div>
+               <div class="title"><a href="<%=request.getContextPath() %>/">타이틀</a></div>
                <ul class="lists" >
                    <li id="info"><a href="#">정보</a></li>
-                   <li id="board"><a href="#">게시판</a></li>
+                   <li id="board"><a href="<%=request.getContextPath() %>/board/freeMain">게시판</a></li>
                    <li id="market"><a href="#">마켓</a></li>
                </ul>
                <ul>
@@ -45,7 +45,7 @@
 	        </div> 
 	        <div class="board-navsbox">
 	            <ul class="board-pagenavs">
-	                <li class="board-pagenav" id="board"><a href="#">자유게시판</a></li>
+	                <li class="board-pagenav" id="board"><a href="<%=request.getContextPath() %>/board/freeMain">자유게시판</a></li>
 	                <li class="board-pagenav" id="review"><a href="#">후기</a></li>
 	            </ul>
 	        </div> 
