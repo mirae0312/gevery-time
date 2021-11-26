@@ -80,4 +80,60 @@ public class ProductSaleDao {
 		return list;
 	}
 
+	public List<ProductBoard> getProductSaleBoardAll(Connection conn) {
+		PreparedStatement pstmt = null;
+		ResultSet rset = null;
+		String sql = prop.getProperty("getProductSaleBoardAll");
+		List<ProductBoard> list = new ArrayList<>();
+		
+		try {
+			pstmt = conn.prepareStatement(sql);
+			rset = pstmt.executeQuery();
+			
+			while(rset.next()) {
+				ProductBoard pb = new ProductBoard();
+				pb.setBoardNo(rset.getInt("no"));
+				pb.setTitle(rset.getString("title"));
+				pb.setRegDate(rset.getDate("reg_date"));
+				pb.setSellerId(rset.getString("seller_id"));
+				pb.setProductState(rset.getString("state"));
+				list.add(pb);
+			}
+		} catch (SQLException e) {
+			e.printStackTrace();
+		} finally {
+			close(rset);
+			close(pstmt);
+		}
+		return list;
+	}
+
+	public ProductBoard getProductSaleBoard(Connection conn, int no) {
+		PreparedStatement pstmt = null;
+		ResultSet rset = null;
+		String sql = prop.getProperty("getProductSaleBoard");
+		ProductBoard board = new ProductBoard();
+		
+		try {
+			pstmt = conn.prepareStatement(sql);
+			pstmt.setInt(1, no);
+			rset = pstmt.executeQuery();
+			
+			if(rset.next()) {
+				board.setBoardNo(rset.getInt("no"));
+				board.setOrCode(rset.getString("or_code"));
+				board.setTitle(rset.getString("title"));
+				board.setContent(rset.getString("content"));
+				board.setRegDate(rset.getDate("reg_date"));
+				board.setSellerId(rset.getString("seller_id"));
+				board.setProductNo(rset.getInt("product_no"));
+				board.setProductState(rset.getString("state"));
+			}
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		return board;
+	}
+
 }

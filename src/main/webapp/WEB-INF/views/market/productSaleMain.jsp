@@ -1,6 +1,12 @@
+<%@page import="com.zea.geverytime.market.productsale.model.vo.ProductBoard"%>
+<%@page import="java.util.List"%>
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
 <%@ include file="/WEB-INF/views/common/header.jsp" %>	
+<%
+	List<ProductBoard> list = (List<ProductBoard>) request.getAttribute("list");
+
+%>
 <!DOCTYPE html>
 <html>
 <head>
@@ -45,21 +51,31 @@
 		<table id="pdtTable">
 			<thead>
 				<tr>
-					<th>1</th>
-					<th>2</th>
-					<th>3</th>
-					<th>4</th>
-					<th>5</th>
+					<th>no</th>
+					<th>섬네일</th>
+					<th>상태</th>
+					<th>제목</th>
+					<th>판매자</th>
+					<th>게시일</th>
 				</tr>
 			</thead>
 			<tbody>
+			<%
+			int no = 1;
+			for(ProductBoard pb : list) {
+			%>
 				<tr>
-					<td>a</td>
-					<td>b</td>
-					<td>c</td>
-					<td>d</td>
-					<td>e</td>
+					<td><%= no %></td>
+					<td>섬네일 예정</td>
+					<td><%= pb.getProductState() %></td>
+					<td><a href="<%= request.getContextPath() %>/product/boardView?no=<%= pb.getBoardNo() %>"><%= pb.getTitle() %></a></td>
+					<td><%= pb.getSellerId() %></td>
+					<td><%= pb.getRegDate() %></td>
 				</tr>
+			<%
+				no++;
+			}
+			%>
 			</tbody>
 		</table>
 	</div>

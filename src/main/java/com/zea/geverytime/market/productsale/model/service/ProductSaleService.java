@@ -40,6 +40,20 @@ public class ProductSaleService {
 		
 		return list;
 	}
+
+	public List<ProductBoard> getProductSaleBoardAll() {
+		Connection conn = getConnection();
+		List<ProductBoard> list = pdtDao.getProductSaleBoardAll(conn);
+		close(conn);
+		return list;
+	}
+
+	public ProductBoard getProductSaleBoard(int no) {
+		Connection conn = getConnection();
+		ProductBoard board = pdtDao.getProductSaleBoard(conn, no);
+		close(conn);
+		return board;
+	}
 	
 	
 }
