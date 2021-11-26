@@ -1,0 +1,45 @@
+package com.zea.geverytime.market.productsale.model.service;
+
+import static com.zea.geverytime.common.JdbcTemplate.close;
+import static com.zea.geverytime.common.JdbcTemplate.commit;
+import static com.zea.geverytime.common.JdbcTemplate.getConnection;
+import static com.zea.geverytime.common.JdbcTemplate.rollback;
+
+import java.sql.Connection;
+import java.util.List;
+
+import com.zea.geverytime.market.productsale.model.dao.ProductSaleDao;
+import com.zea.geverytime.market.productsale.model.vo.Product;
+import com.zea.geverytime.market.productsale.model.vo.ProductBoard;
+
+public class ProductSaleService {
+	private ProductSaleDao pdtDao = new ProductSaleDao();
+
+	public int productSaleBoardEnroll(ProductBoard pdtBoard) {
+		Connection conn = null;
+		int result = 0;
+		
+		try {
+			conn = getConnection();
+			result = pdtDao.productSaleBoardEnroll(conn, pdtBoard);
+			commit(conn);
+		} catch(Exception e) {
+			rollback(conn);
+			e.printStackTrace();
+		} finally {
+			close(conn);
+		}
+		
+		return result;
+	}
+
+	public List<Product> getSellerProduct(String sellerId) {
+		Connection conn = getConnection();
+		List<Product> list = pdtDao.getSellerProduct(conn, sellerId);
+		close(conn);
+		
+		return list;
+	}
+	
+	
+}
