@@ -9,14 +9,15 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
+import com.google.gson.Gson;
 import com.zea.geverytime.info.model.service.InfoService;
 import com.zea.geverytime.info.model.vo.Info;
 
 /**
- * Servlet implementation class InfoAllListServlet
+ * Servlet implementation class InfoScrollServlet
  */
-@WebServlet("/info/allList")
-public class InfoAllListServlet extends HttpServlet {
+@WebServlet("/info/scrollList")
+public class InfoScrollServlet extends HttpServlet {
 	private static final long serialVersionUID = 1L;
 	private InfoService infoService = new InfoService();
 
@@ -24,32 +25,26 @@ public class InfoAllListServlet extends HttpServlet {
 	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse response)
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		
-		try {
-			int start = 1;
-			int end = 5;
+
+		try {			
+			final int numPerPage = 5;
+			int page = Integer.parseInt(request.getParameter("page"));
 			
-			// 인기 게시물
-//			List<Info> popList = infoService.selectPopList();
-//			System.out.println("[InfoAllListServlet] + popList : " + popList);
+			int start = (page - 1) * numPerPage + 1;
+			int end = page * numPerPage;
 			
 			// 전체 게시물
-//			List<Info> list = infoService.selectAllList(start, end);
-//			System.out.println("[InfoAllListServlet] + list : " + list);
+			List<Info> list = infoService.selectAllList(start, end);
+			System.out.println("[InfoScrollServlet] + list : " + list);
 			
-//			if(popList != null)
-//				request.setAttribute("popList", popList);
-//			if(list != null)
-//				request.setAttribute("list", list);
-			request
-				.getRequestDispatcher("/WEB-INF/views/info/allInfoList.jsp")
-				.forward(request, response);
+			response.setContentType("application/json; charset=utf-8");
+			new Gson().toJson(list, response.getWriter());
 			
 		} catch(Exception e) {
 			e.printStackTrace();
 			throw e;
 		}
-			
+		
 	}
 
 }
