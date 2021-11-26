@@ -17,6 +17,8 @@
                <ul class="lists" >
                    <li id="info"><a href="#">정보</a></li>
                    <li id="board"><a href="<%=request.getContextPath() %>/board/freeMain">게시판</a></li>
+                   <li id="info"><a href="<%= request.getContextPath() %>/info/allList">정보</a></li>
+                   <li id="board"><a href="#">게시판</a></li>
                    <li id="market"><a href="#">마켓</a></li>
                </ul>
                <ul>
@@ -69,4 +71,4 @@
     	$(".navbox-container").children().hide();
         $(`.\${id}-navsbox`).show();
 	});
-</script>
+	</script>
