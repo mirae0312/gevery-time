@@ -15,7 +15,7 @@
            <div class="wrapper">
                <div class="title"><a href="#">타이틀</a></div>
                <ul class="lists" >
-                   <li id="info"><a href="#">정보</a></li>
+                   <li id="info"><a href="<%= request.getContextPath() %>/info/allList">정보</a></li>
                    <li id="board"><a href="#">게시판</a></li>
                    <li id="market"><a href="#">마켓</a></li>
                </ul>
@@ -74,4 +74,5 @@
     $("#store").click((e) => {
     	location.href="<%= request.getContextPath() %>/productSale/main";
     });
+
 	</script>
