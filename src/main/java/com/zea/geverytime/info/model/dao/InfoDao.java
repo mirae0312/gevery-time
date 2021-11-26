@@ -90,20 +90,7 @@ public class InfoDao {
 				info.setHeadContent(rset.getString("head_content"));
 				info.setBodyContents(rset.getString("body_contents"));
 				
-				
-				List<InfoAttachment> attachments = new ArrayList<>();
-				InfoAttachment attach = new InfoAttachment();
-				attach.setNo(rset.getInt("no"));
-				attach.setCode(rset.getString("code"));
-				attach.setOriginalFilename(rset.getString("original_filename"));
-				attach.setRenamedFilename(rset.getString("renamed_filename"));
-				attach.setRegDate(rset.getDate("reg_date"));
-				
-				attachments.add(attach);
-				info.setAttachments(attachments);
 				list.add(info);
-
-				
 			}
 		} catch (SQLException e) {
 			throw new InfoBoardException("게시글 불러오기 실패!", e);

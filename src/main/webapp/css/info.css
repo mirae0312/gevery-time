@@ -1,0 +1,16 @@
+@charset "UTF-8";
+.info-wrapper{
+	display: flex;
+	flex-direction: column;
+	border: 1px solid red;
+}
+
+.pop-contetn{
+	float: left;
+	margin: 50px, 0;
+}
+
+#info-write{
+	width: 90px;
+	height: 30px;
+}

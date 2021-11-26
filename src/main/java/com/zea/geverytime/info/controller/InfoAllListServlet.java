@@ -34,13 +34,13 @@ public class InfoAllListServlet extends HttpServlet {
 //			System.out.println("[InfoAllListServlet] + popList : " + popList);
 			
 			// 전체 게시물
-//			List<Info> list = infoService.selectAllList(start, end);
-//			System.out.println("[InfoAllListServlet] + list : " + list);
+			List<Info> list = infoService.selectAllList(start, end);
+			System.out.println("[InfoAllListServlet] + list : " + list);
 			
 //			if(popList != null)
 //				request.setAttribute("popList", popList);
-//			if(list != null)
-//				request.setAttribute("list", list);
+			if(list != null)
+				request.setAttribute("list", list);
 			request
 				.getRequestDispatcher("/WEB-INF/views/info/allInfoList.jsp")
 				.forward(request, response);
