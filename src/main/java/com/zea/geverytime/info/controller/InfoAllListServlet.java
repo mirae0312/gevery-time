@@ -24,14 +24,7 @@ public class InfoAllListServlet extends HttpServlet {
 	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse response)
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		
-		// 인기 게시물
-		List<Info> popList = infoService.selectPopList();
-		System.out.println("[InfoAllListServlet] + popList : " + popList);
-		// 전체 게시물
-		List<Info> list = infoService.selectAllList();
-		System.out.println("[InfoAllListServlet] + list : " + list);
-		
+
 		
 		
 	}
