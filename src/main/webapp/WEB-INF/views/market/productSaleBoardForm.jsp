@@ -8,7 +8,7 @@
 <title>매매글 작성</title>
 </head>
 <body>
-	<form action="<%= request.getContextPath() %>/productSale/boardEnroll" name="productEnrollFrm" method="POST">
+	<form action="<%= request.getContextPath() %>/product/boardEnroll" name="productEnrollFrm" method="POST">
 		<table>
 			<tr>
 				<th>제목</th>

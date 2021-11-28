@@ -72,7 +72,7 @@
     
     // 일반상점 이동
     $("#store").click((e) => {
-    	location.href="<%= request.getContextPath() %>/productSale/main";
+    	location.href="<%= request.getContextPath() %>/product/main";
     });
 
 	</script>

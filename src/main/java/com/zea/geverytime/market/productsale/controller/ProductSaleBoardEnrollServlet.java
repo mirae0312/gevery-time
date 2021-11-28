@@ -14,8 +14,8 @@ import com.zea.geverytime.market.productsale.model.vo.ProductBoard;
 /**
  * Servlet implementation class ProductSaleBoardEnroll
  */
-@WebServlet("/productSale/boardEnroll")
-public class ProductSaleBoardEnroll extends HttpServlet {
+@WebServlet("/product/boardEnroll")
+public class ProductSaleBoardEnrollServlet extends HttpServlet {
 	private static final long serialVersionUID = 1L;
 	private ProductSaleService pdtService = new ProductSaleService();
 
@@ -32,15 +32,19 @@ public class ProductSaleBoardEnroll extends HttpServlet {
 		
 		System.out.println("상품 번호 : " + pdtNo);
 		
-		// 상품 판매상태 가져오기
-		
-		
 		// vo객체에 담기
-		ProductBoard pdtBoard = new ProductBoard(0, null, title, content, null, author, pdtNo, null);
+		ProductBoard pdtBoard = new ProductBoard(0, null, title, content, null, author, pdtNo);
 		
-		// DB 등록 프로세스 진행
+		// DB 등록 프로세스 진행(ProductBoard + int)
 		int result = pdtService.productSaleBoardEnroll(pdtBoard);
 		System.out.println("serv@result:" + result);
+		
+		// boardNo 가져오기
+		int boardNo = pdtBoard.getBoardNo();
+		System.out.println("bdEnrollServ@boardNo :" + boardNo);
+		
+		
+		response.sendRedirect(request.getContextPath()+"/product/boardView?no="+boardNo);
 	}
 
 }

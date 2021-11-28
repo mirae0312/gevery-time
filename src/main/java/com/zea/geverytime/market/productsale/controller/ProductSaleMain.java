@@ -15,7 +15,7 @@ import com.zea.geverytime.market.productsale.model.vo.ProductBoard;
 /**
  * Servlet implementation class ProductSaleMain
  */
-@WebServlet("/productSale/main")
+@WebServlet("/product/main")
 public class ProductSaleMain extends HttpServlet {
 	private static final long serialVersionUID = 1L;
 	private ProductSaleService pdtService = new ProductSaleService();

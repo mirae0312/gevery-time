@@ -22,6 +22,11 @@ public class ProductSaleService {
 		try {
 			conn = getConnection();
 			result = pdtDao.productSaleBoardEnroll(conn, pdtBoard);
+			
+			// 게시글 등록 후 boardNo set
+			int boardNo = pdtDao.getLastBoard(conn);
+			pdtBoard.setBoardNo(boardNo);
+			
 			commit(conn);
 		} catch(Exception e) {
 			rollback(conn);
@@ -53,6 +58,21 @@ public class ProductSaleService {
 		ProductBoard board = pdtDao.getProductSaleBoard(conn, no);
 		close(conn);
 		return board;
+	}
+
+	public int productEnroll(Product pdt) {
+		Connection conn = getConnection();
+		int result = 0;
+		try {
+			result = pdtDao.productEnroll(conn, pdt);
+			commit(conn);
+		} catch(Exception e) {
+			rollback(conn);
+			e.printStackTrace();
+		} finally {
+			close(conn);
+		}
+		return result;
 	}
 	
 	

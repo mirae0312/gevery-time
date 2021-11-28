@@ -48,6 +48,29 @@ public class ProductSaleDao {
 		}
 		return result;
 	}
+	
+	public int getLastBoard(Connection conn) {
+		PreparedStatement pstmt = null;
+		ResultSet rset = null;
+		String sql = prop.getProperty("getLastBoard");
+		int boardNo = 0;
+		
+		try {
+			pstmt = conn.prepareStatement(sql);
+			rset = pstmt.executeQuery();
+			
+			if(rset.next()) {
+				boardNo = rset.getInt("currval");
+			}
+		} catch (SQLException e) {
+			e.printStackTrace();
+		} finally {
+			close(pstmt);
+			close(rset);
+		}
+		
+		return boardNo;
+	}
 
 	public List<Product> getSellerProduct(Connection conn, String sellerId) {
 		PreparedStatement pstmt = null;
@@ -91,12 +114,22 @@ public class ProductSaleDao {
 			rset = pstmt.executeQuery();
 			
 			while(rset.next()) {
+				// productBoard객체에 담기
 				ProductBoard pb = new ProductBoard();
 				pb.setBoardNo(rset.getInt("no"));
 				pb.setTitle(rset.getString("title"));
 				pb.setRegDate(rset.getDate("reg_date"));
-				pb.setSellerId(rset.getString("seller_id"));
-				pb.setProductState(rset.getString("state"));
+				pb.setSellerId(rset.getString("pdtSellerId"));
+				// product 객체 생성
+				Product pdt = new Product();
+				pdt.setPdtNo(rset.getInt("product_no"));
+				pdt.setPdtName(rset.getString("name"));
+				pdt.setPdtPrice(rset.getInt("price"));
+				pdt.setPdtDiv(rset.getString("div"));
+				pdt.setSellerId(rset.getString("pdtSellerId"));
+				pdt.setState(rset.getString("state"));
+				// product를 productBoard객체에 담기
+				pb.setProduct(pdt);
 				list.add(pb);
 			}
 		} catch (SQLException e) {
@@ -108,6 +141,7 @@ public class ProductSaleDao {
 		return list;
 	}
 
+	// 게시글 상세보기(view)
 	public ProductBoard getProductSaleBoard(Connection conn, int no) {
 		PreparedStatement pstmt = null;
 		ResultSet rset = null;
@@ -126,8 +160,16 @@ public class ProductSaleDao {
 				board.setContent(rset.getString("content"));
 				board.setRegDate(rset.getDate("reg_date"));
 				board.setSellerId(rset.getString("seller_id"));
-				board.setProductNo(rset.getInt("product_no"));
-				board.setProductState(rset.getString("state"));
+				// product 객체 생성
+				Product pdt = new Product();
+				pdt.setPdtNo(rset.getInt("product_no"));
+				pdt.setPdtName(rset.getString("name"));
+				pdt.setPdtPrice(rset.getInt("price"));
+				pdt.setPdtDiv(rset.getString("div"));
+				pdt.setSellerId(rset.getString("pdtSellerId"));
+				pdt.setState(rset.getString("state"));
+				// product를 productBoard객체에 담기
+				board.setProduct(pdt);
 			}
 		} catch (SQLException e) {
 			// TODO Auto-generated catch block
@@ -135,5 +177,29 @@ public class ProductSaleDao {
 		}
 		return board;
 	}
+
+	public int productEnroll(Connection conn, Product pdt) {
+		PreparedStatement pstmt = null;
+		String sql = prop.getProperty("productEnroll");
+		int result = 0;
+		
+		try {
+			pstmt = conn.prepareStatement(sql);
+			pstmt.setString(1, pdt.getPdtName());
+			pstmt.setInt(2, pdt.getPdtPrice());
+			pstmt.setString(3, pdt.getPdtDiv());
+			pstmt.setString(4, pdt.getSellerId());
+			
+			result = pstmt.executeUpdate();
+		} catch (SQLException e) {
+			e.printStackTrace();
+		} finally {
+			close(pstmt);
+		}
+		
+		return result;
+	}
+
+
 
 }

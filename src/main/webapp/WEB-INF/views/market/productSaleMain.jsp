@@ -5,6 +5,8 @@
 <%@ include file="/WEB-INF/views/common/header.jsp" %>	
 <%
 	List<ProductBoard> list = (List<ProductBoard>) request.getAttribute("list");
+	String msg = (String) session.getAttribute("msg");
+	if(msg != null) session.removeAttribute("msg");
 
 %>
 <!DOCTYPE html>
@@ -29,8 +31,18 @@
 	#pdtTable tr, td, th{
 		border : 1px solid black;
 	}
-	
 </style>
+<script>
+	$(()=>{
+<%
+	if(msg != null) {
+%>
+		alert("<%= msg %>");
+<%
+	}
+%>
+	});
+</script>
 </head>
 <body>
 	<div id="pdtDivOption">
@@ -45,7 +57,8 @@
 		<label for="select3">조회기능3</label><input type="checkbox" name="" id="select3" />
 	</div>
 	
-	<button id="pdtBoardWrite">등록하기</button>
+	<button id="pdtBoardEnroll">등록하기</button>
+	<button id="pdtEnroll">상품 등록하기</button>
 	
 	<div id="pdtList">
 		<table id="pdtTable">
@@ -67,7 +80,7 @@
 				<tr>
 					<td><%= no %></td>
 					<td>섬네일 예정</td>
-					<td><%= pb.getProductState() %></td>
+					<td><%= pb.getProduct().getState() %></td>
 					<td><a href="<%= request.getContextPath() %>/product/boardView?no=<%= pb.getBoardNo() %>"><%= pb.getTitle() %></a></td>
 					<td><%= pb.getSellerId() %></td>
 					<td><%= pb.getRegDate() %></td>
@@ -81,9 +94,17 @@
 	</div>
 	
 	<script>
-		$("#pdtBoardWrite").click((e) => {
-			location.href="<%= request.getContextPath() %>/productSale/boardForm";
-		})
+		// 상품 등록하기
+		$("#pdtEnroll").click((e) => {
+			console.log("click");
+			location.href="<%= request.getContextPath() %>/product/productForm";
+		});
+		
+		// 상품 게시글 등록하기
+		$("#pdtBoardEnroll").click((e) => {
+			location.href="<%= request.getContextPath() %>/product/boardForm";
+		});
+		
 	</script>
 </body>
 </html>

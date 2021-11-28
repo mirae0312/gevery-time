@@ -15,21 +15,29 @@
 	<table>
 		<thead>
 			<tr>
-				<th>제목</th>
-				<th>작성자</th>
-				<th>판매상태</th>
-				<th>내용</th>
+				<th>판매게시글</th>
 			</tr>
 		</thead>
-		
 		<tbody>
 			<tr>
+				<th>제목</th>
 				<td><%= board.getTitle() %></td>
+			<tr>
+				<th>작성자</th>
 				<td><%= board.getSellerId() %></td>
-				<td><%= board.getProductState() %></td>
-				<td><%= board.getContent() %></td>
+			</tr>
+			<tr>
+				<th>판매상태</th>
+				<td><%= board.getProduct().getState() %></td>
+			</tr>
+			<tr>
+				<th colspan=2>내용</th>
+			</tr>
+			<tr>
+				<td colspan=2><%= board.getContent() %></td>
 			</tr>
 		</tbody>
+		
 	</table>
 </body>
 </html>

@@ -10,20 +10,21 @@ public class Product implements Serializable {
 	private String pdtName;
 	private int pdtPrice;
 	private String pdtDiv;
-	private String seller_id;
+	private String sellerId;
 	private String state;
+	
 	public Product() {
 		super();
 		// TODO Auto-generated constructor stub
 	}
 	
-	public Product(int pdtNo, String pdtName, int pdtPrice, String pdtDiv, String seller_id, String state) {
+	public Product(int pdtNo, String pdtName, int pdtPrice, String pdtDiv, String sellerId, String state) {
 		super();
 		this.pdtNo = pdtNo;
 		this.pdtName = pdtName;
 		this.pdtPrice = pdtPrice;
 		this.pdtDiv = pdtDiv;
-		this.seller_id = seller_id;
+		this.sellerId = sellerId;
 		this.state = state;
 	}
 
@@ -53,11 +54,11 @@ public class Product implements Serializable {
 	public void setPdtDiv(String pdtDiv) {
 		this.pdtDiv = pdtDiv;
 	}
-	public String getSeller_id() {
-		return seller_id;
+	public String getSellerId() {
+		return sellerId;
 	}
-	public void setSeller_id(String seller_id) {
-		this.seller_id = seller_id;
+	public void setSellerId(String sellerId) {
+		this.sellerId = sellerId;
 	}
 	public String getState() {
 		return state;
@@ -68,7 +69,7 @@ public class Product implements Serializable {
 	@Override
 	public String toString() {
 		return "Product [pdtName=" + pdtName + ", pdtPrice=" + pdtPrice + ", pdtDiv=" + pdtDiv + ", seller_id="
-				+ seller_id + ", state=" + state + "]";
+				+ sellerId + ", state=" + state + "]";
 	}
 	
 	
