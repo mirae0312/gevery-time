@@ -2,6 +2,8 @@ package com.zea.geverytime.board.model.vo;
 
 import java.io.Serializable;
 import java.sql.Date;
+import java.util.ArrayList;
+import java.util.List;
 
 public class Board implements Serializable{
 
@@ -18,6 +20,8 @@ public class Board implements Serializable{
 	private int readCount;
 	private int likeCount;
 	private Date regDate;
+	private List<BoardAttachment> attachments = new ArrayList<>();
+	
 	public Board() {
 		super();
 		// TODO Auto-generated constructor stub
@@ -34,6 +38,20 @@ public class Board implements Serializable{
 		this.likeCount = likeCount;
 		this.regDate = regDate;
 	}
+	public Board(int no, String orCode, String title, String writer, String content, int readCount, int likeCount,
+			Date regDate, List<BoardAttachment> attachments) {
+		super();
+		this.no = no;
+		this.orCode = orCode;
+		this.title = title;
+		this.writer = writer;
+		this.content = content;
+		this.readCount = readCount;
+		this.likeCount = likeCount;
+		this.regDate = regDate;
+		this.attachments = attachments;
+	}
+
 	public int getNo() {
 		return no;
 	}
@@ -82,11 +100,22 @@ public class Board implements Serializable{
 	public void setRegDate(Date regDate) {
 		this.regDate = regDate;
 	}
+	
+	public List<BoardAttachment> getAttachments() {
+		return attachments;
+	}
+
+	public void setAttachments(List<BoardAttachment> attachments) {
+		this.attachments = attachments;
+	}
+
 	@Override
 	public String toString() {
 		return "Board [no=" + no + ", orCode=" + orCode + ", title=" + title + ", writer=" + writer + ", content="
-				+ content + ", readCount=" + readCount + ", likeCount=" + likeCount + ", regDate=" + regDate + "]";
+				+ content + ", readCount=" + readCount + ", likeCount=" + likeCount + ", regDate=" + regDate + ", attachments="
+				+ attachments + "]";
 	}
-	
+
+
 	
 }
