@@ -14,13 +14,13 @@ public class InfoService {
 	
 	private InfoDao infoDao = new InfoDao();
 
-	public List<Info> selectPopList() {
+	public List<Info> selectPopList(String board) {
 		Connection conn = null;
 		List<Info> popList = null;
 		List<InfoAttachment> attach = null;
 		try {
 			conn = getConnection();
-			popList = infoDao.selectPopList(conn);
+			popList = infoDao.selectPopList(board, conn);	
 			for(int i = 0; i < popList.size(); i++) {
 				String code = popList.get(i).getCode();
 				attach = infoDao.selectPopAttach(conn, code);
@@ -36,13 +36,13 @@ public class InfoService {
 		return popList;
 	}
 
-	public List<Info> selectAllList(int start, int end) {
+	public List<Info> selectAllList(String board, int start, int end) {
 		Connection conn = null;
 		List<Info> list = null;
 		List<InfoAttachment> attach = null;
 		try {
 			conn = getConnection();
-			list = infoDao.selectAllList(conn, start, end);
+			list = infoDao.selectAllList(board, conn, start, end);
 			for(int i = 0; i < list.size(); i++) {
 				String code = list.get(i).getCode();
 				attach = infoDao.selectAllAttach(conn, code, start, end);
@@ -61,5 +61,6 @@ public class InfoService {
 		}
 		return list;
 	}
+
 
 }

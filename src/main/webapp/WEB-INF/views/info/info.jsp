@@ -5,6 +5,7 @@
 <%
 	List<Info> list = (List<Info>) request.getAttribute("list");
 	List<Info> popList = (List<Info>) request.getAttribute("popList");
+	String check = (String) request.getAttribute("check");
 %>
 <%@ include file="/WEB-INF/views/common/header.jsp" %>	
 <link rel="stylesheet" href="<%=request.getContextPath() %>/css/info.css" />
@@ -13,12 +14,14 @@
 	<button id="info-write" onclick="infoEnroll()">게시글 작성</button>
 <%-- } --%>
 	<div class="pop-contents">
-<% for(Info popInfo : popList){ %>
+<% if(popList != null && !popList.isEmpty()){ %>
+	<% for(Info popInfo : popList){ %>
 			<div class="business-name"><%= popInfo.getBusinessName() %></div>
 			<div class="head-content"><%= popInfo.getHeadContent() %></div>
 			<div class="list-thumbnail"><%= popInfo.getAttachments().get(0).getRenamedFilename() %></div>
 			<div class="recommend-count"><%= popInfo.getRecommend() %></div>
 			<div class="view-count"><%= popInfo.getViewCount() %></div>
+	<% } %>
 <% } %>
 	</div>
 	<div class="select-contents">
@@ -28,14 +31,14 @@
 	</div>
 	<div class="all-contents">
 		<div class="info-content">
-<% for(Info info : list){ %>
+<% if(list != null && !list.isEmpty()){ %>
+	<% for(Info info : list){ %>
 			<div class="business-name"><%= info.getBusinessName() %></div>
 			<div class="head-content"><%= info.getHeadContent() %></div>
-	<%-- if(info.getAttachments() != null && !info.getAttachments().isEmpty()){ --%>
 			<div class="list-thumbnail"><%= info.getAttachments().get(0).getRenamedFilename() %></div>
-	<%-- } --%>
 			<div class="recommend-count"><%= info.getRecommend() %></div>
 			<div class="view-count"><%= info.getViewCount() %></div>
+	<% } %>
 <% } %>
 			<hr />
 		</div>
@@ -49,12 +52,13 @@ const infoEnroll = () => {
 
 
 var loading = false;
-var page = 1;
+var page = 2;
+var pageCheck = "<%= check %>";
 
 const scrollPage = () => {
 	$.ajax({
 		url: "<%= request.getContextPath() %>/info/scrollList",
-		data: {'page':page},
+		data: {'page':page, 'pageCheck':pageCheck},
 		dataType: "json",
 		success(data){
 			const $data = $(data);
@@ -62,11 +66,12 @@ const scrollPage = () => {
 			
 			const $div = $(".info-content");
 			
-			$data.each((i, {businessName, headContent, attachments, recommend, viewCount}) =>{
-				console.log(i,businessName, headContent);
+			$data.each((i, {businessName, headContent, attachments, recommend, viewCount}) => {
+				//console.log(i,businessName, headContent);
+				
 				const $contents = `<div class="head">\${businessName}</div>
-				<div class="head-content">\${headContent}</div>
-				<div class="list-thumbnail">\${attachments}</div>
+				<div class="head-content">\${headContent}</div>				
+				<div class="list-thumbnail">\${attachments[0].renamedFilename}</div>
 				<div class="recommend-count">\${recommend}</div>
 				<div class="view-count">\${viewCount}</div>				
 				`;
@@ -82,6 +87,7 @@ const scrollPage = () => {
 				loading = true;
 			}
 			console.log("page : " + page);
+			console.log(pageCheck);
 		},
 		error: console.log
 	});

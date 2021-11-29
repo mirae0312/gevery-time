@@ -30,9 +30,29 @@ public class InfoDao {
 		}
 	}
 
-	public List<Info> selectPopList(Connection conn) {
+	public List<Info> selectPopList(String board, Connection conn) {
 		PreparedStatement pstmt = null;
-		String sql = prop.getProperty("selectPopList");
+		String sql = "";
+		switch(board) {
+		case "info": 
+			sql = prop.getProperty("selectPopList");
+			break;
+		case "hospital": 
+			sql = prop.getProperty("selectHospitalPopList");
+			break;
+		case "cafe": 
+			sql = prop.getProperty("selectCafePopList");
+			break;
+		case "restaurant": 
+			sql = prop.getProperty("selectRestaurantPopList");
+			break;
+		case "pension": 
+			sql = prop.getProperty("selectPensionPopList");
+			break;
+		case "salon": 
+			sql = prop.getProperty("selectSalonPopList");
+			break;
+		}
 		ResultSet rset = null;
 		List<Info> popList = new ArrayList<>();
 		
@@ -61,9 +81,33 @@ public class InfoDao {
 		return popList;
 	}
 
-	public List<Info> selectAllList(Connection conn, int start, int end) {
+	public List<Info> selectAllList(String board, Connection conn, int start, int end) {
 		PreparedStatement pstmt = null;
-		String sql = prop.getProperty("selectAllList");
+		String sql = "";
+		System.out.println("[Dao] board : " + board);
+		switch(board) {
+		case "info": 
+			sql = prop.getProperty("selectAllList");
+			break;
+		case "hospital":
+			sql = prop.getProperty("selectHospitalAllList");
+			break;
+		case "cafe": 
+			sql = prop.getProperty("selectCafeAllList");
+			break;
+		case "restaurant":
+			sql = prop.getProperty("selectRestaurantAllList");
+			break;
+		case "pension": 
+			sql = prop.getProperty("selectPensionAllList");
+			break;
+		case "salon": 
+			sql = prop.getProperty("selectSalonAllList");
+			break;
+		}
+		
+		System.out.println("[dao] query : " + sql);
+		
 		ResultSet rset = null;
 		List<Info> list = new ArrayList<>();
 		

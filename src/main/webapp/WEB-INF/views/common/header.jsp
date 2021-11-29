@@ -15,7 +15,7 @@
            <div class="wrapper">
                <div class="title"><a href="#">타이틀</a></div>
                <ul class="lists" >
-                   <li id="info"><a href="<%= request.getContextPath() %>/info/allList">정보</a></li>
+                   <li id="info"><a href="<%= request.getContextPath() %>/info/allList?board=<%= "info" %>">정보</a></li>
                    <li id="board"><a href="#">게시판</a></li>
                    <li id="market"><a href="#">마켓</a></li>
                </ul>
@@ -36,11 +36,11 @@
         <div class="navbox-container">
 	        <div class="info-navsbox">
 	            <ul class="info-pagenavs">
-	                <li class="info-pagenav" id="hospital"><a href="<%= request.getContextPath() %>/info/hospital">동물병원</a></li>
-	                <li class="info-pagenav" id="cafe"><a href="<%= request.getContextPath() %>/info/cafe">카페</a></li>
-	                <li class="info-pagenav" id="food"><a href="<%= request.getContextPath() %>/info/restaurant">음식점</a></li>
-	                <li class="info-pagenav" id="pension"><a href="<%= request.getContextPath() %>/info/pension">펜션</a></li>
-	                <li class="info-pagenav" id="salon"><a href="<%= request.getContextPath() %>/info/salon">미용실</a></li>
+	                <li class="info-pagenav" id="hospital"><a href="<%= request.getContextPath() %>/info/allList?board=<%= "hospital" %>">동물병원</a></li>
+	                <li class="info-pagenav" id="cafe"><a href="<%= request.getContextPath() %>/info/allList?board=<%= "cafe" %>">카페</a></li>
+	                <li class="info-pagenav" id="food"><a href="<%= request.getContextPath() %>/info/allList?board=<%= "restaurant" %>">음식점</a></li>
+	                <li class="info-pagenav" id="pension"><a href="<%= request.getContextPath() %>/info/allList?board=<%= "pension" %>">펜션</a></li>
+	                <li class="info-pagenav" id="salon"><a href="<%= request.getContextPath() %>/info/allList?board=<%= "salon" %>">미용실</a></li>
 	            </ul>
 	        </div> 
 	        <div class="board-navsbox">
