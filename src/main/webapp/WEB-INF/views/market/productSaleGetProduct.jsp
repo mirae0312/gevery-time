@@ -36,6 +36,7 @@
 					<input type="checkbox" value="<%= pdt.getPdtNo() %>"/>
 					<input type="hidden" id="pdtNo" value="<%= pdt.getPdtNo() %>" />
 					<input type="hidden" id="pdtName" value="<%= pdt.getPdtName() %>" />
+					<input type="hidden" id="pdtDiv" value="<%= pdt.getPdtDiv() %>" />
 					<input type="hidden" id="pdtPrice" value="<%= pdt.getPdtPrice() %>" />
 				</td>
 				<td><%= pdt.getPdtNo() %></td>
@@ -64,6 +65,7 @@
 			selectNo = $(e.target).val();
 			selectName = $(e.target).siblings("[id=pdtName]").val();
 			selectPrice = $(e.target).siblings("[id=pdtPrice]").val();
+			selectDiv = $(e.target).siblings("[id=pdtDiv]").val();
 			$("[type=checkbox]").prop("disabled", "true");
 		});
 		
@@ -79,6 +81,7 @@
 			$frm.find("[name=pdtNo]").val(selectNo);
 			$frm.find("[name=pdtName]").val(selectName);
 			$frm.find("[name=pdtPrice]").val(selectPrice);
+			$frm.find("[name=pdtDiv]").val(selectDiv);
 			close();			
 		};
 	</script>

@@ -46,9 +46,9 @@
 </head>
 <body>
 	<div id="pdtDivOption">
-		<input type="button" value="대분류1" id="pdtDiv1"/>
-		<input type="button" value="대분류2" id="pdtDiv2"/>
-		<input type="button" value="대분류3" id="pdtDiv3"/>
+		<input type="button" value="div1" class="pdtDiv"/>
+		<input type="button" value="div2" class="pdtDiv"/>
+		<input type="button" value="div3" class="pdtDiv"/>
 	</div>
 
 	<div id="pdtSearchOption">
@@ -67,6 +67,7 @@
 					<th>no</th>
 					<th>섬네일</th>
 					<th>상태</th>
+					<th>분류</th>
 					<th>제목</th>
 					<th>판매자</th>
 					<th>게시일</th>
@@ -81,6 +82,7 @@
 					<td><%= no %></td>
 					<td>섬네일 예정</td>
 					<td><%= pb.getProduct().getState() %></td>
+					<td><%= pb.getProduct().getPdtDiv() %></td>
 					<td><a href="<%= request.getContextPath() %>/product/boardView?no=<%= pb.getBoardNo() %>"><%= pb.getTitle() %></a></td>
 					<td><%= pb.getSellerId() %></td>
 					<td><%= pb.getRegDate() %></td>
@@ -104,6 +106,43 @@
 		$("#pdtBoardEnroll").click((e) => {
 			location.href="<%= request.getContextPath() %>/product/boardForm";
 		});
+		
+		// 리스트 비우기
+		$("#empty").click((e) => {
+			$("#pdtTable tbody").empty();			
+		});
+		
+		$(".pdtDiv").click((e) => {
+			$("#pdtTable tbody").empty();	
+			console.log($(e.target).val());
+			$.ajax({
+				url: "<%= request.getContextPath() %>/product/getSelectDivList",
+				data: {
+					div: $(e.target).val()
+				},
+				success(data){
+					$(data).each((index, {boardNo, title, redDate, sellerId, product}) => {
+						console.log(boardNo);
+						console.log(product.state);
+						const tr = `
+							<tr>
+								<td>\${boardNo}</th>
+								<td>섬네일 예정</td>
+								<td>\${product.state}</td>
+								<td>\${product.pdtDiv}</td>
+								<td>\${title}</td>
+								<td>\${sellerId}</td>
+								<td>\${redDate}</td>
+							</tr>
+						`;
+						$("#pdtTable tbody").append(tr);
+					})
+				},
+				error: console.log
+			});
+			
+		});
+		
 		
 	</script>
 </body>

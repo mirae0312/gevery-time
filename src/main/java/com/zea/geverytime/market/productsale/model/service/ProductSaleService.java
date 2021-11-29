@@ -131,6 +131,13 @@ public class ProductSaleService {
 		return result;
 	}
 
+	public List<ProductBoard> getSelectedDivBoardList(String div) {
+		Connection conn = getConnection();
+		List<ProductBoard> list = pdtDao.getSelectedDivBoardList(conn, div);
+		close(conn);
+		return list;
+	}
+
 
 
 	

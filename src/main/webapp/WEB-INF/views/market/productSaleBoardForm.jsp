@@ -27,17 +27,13 @@
 			<tr>
 				<th>상품분류</th>
 				<td>
-					<select name="pdtDiv" id="pdtDiv">
-						<option value="pdtDiv1">대분류1</option>
-						<option value="pdtDiv2">대분류2</option>
-						<option value="pdtDiv3">대분류3</option>
-					</select>
+					<input type="text" name="pdtDiv" id="pdtDiv" readonly>
 				</td>
 			</tr>
 			<tr>
 				<th>상품번호</th>
 				<td>
-					<input type="text" name="pdtNo" id="pdtName"/>
+					<input type="text" name="pdtNo" id="pdtName" readonly/>
 				</td>
 			</tr>
 			<tr>
@@ -49,7 +45,7 @@
 			<tr>
 				<th>상품가격</th>
 				<td>
-					<input type="text" name="pdtPrice" id="pdtPrice"/>
+					<input type="text" name="pdtPrice" id="pdtPrice" readonly/>
 				</td>
 			</tr>
 			<tr>

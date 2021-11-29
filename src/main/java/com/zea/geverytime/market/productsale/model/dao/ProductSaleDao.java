@@ -295,6 +295,43 @@ public class ProductSaleDao {
 		return result;
 	}
 
+	public List<ProductBoard> getSelectedDivBoardList(Connection conn, String div) {
+		PreparedStatement pstmt = null;
+		String sql = prop.getProperty("getSelectedDivBoardList");
+		ResultSet rset = null;
+		List<ProductBoard> list = new ArrayList<>();
+		
+		try {
+			pstmt = conn.prepareStatement(sql);
+			pstmt.setString(1, div);
+			
+			rset = pstmt.executeQuery();
+			
+			while(rset.next()) {
+				// productBoard객체에 담기
+				ProductBoard pb = new ProductBoard();
+				pb.setBoardNo(rset.getInt("no"));
+				pb.setTitle(rset.getString("title"));
+				pb.setRegDate(rset.getDate("reg_date"));
+				pb.setSellerId(rset.getString("pdtSellerId"));
+				// product 객체 생성
+				Product pdt = new Product();
+				pdt.setPdtNo(rset.getInt("pdtNo"));
+				pdt.setPdtName(rset.getString("name"));
+				pdt.setPdtPrice(rset.getInt("price"));
+				pdt.setPdtDiv(rset.getString("div"));
+				pdt.setSellerId(rset.getString("pdtSellerId"));
+				pdt.setState(rset.getString("state"));
+				// product를 productBoard객체에 담기
+				pb.setProduct(pdt);
+				list.add(pb);
+			}
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}
+		return list;
+	}
+
 
 
 
