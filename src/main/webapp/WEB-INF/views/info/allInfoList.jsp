@@ -4,12 +4,22 @@
     pageEncoding="UTF-8"%>
 <%
 	List<Info> list = (List<Info>) request.getAttribute("list");
+	List<Info> popList = (List<Info>) request.getAttribute("popList");
 %>
 <%@ include file="/WEB-INF/views/common/header.jsp" %>	
 <link rel="stylesheet" href="<%=request.getContextPath() %>/css/info.css" />
 <div class="info-wrapper">
-	<button id="info-write">게시글 작성</button>
-	<div class="pop-content">추천순</div>
+<%-- if(loginMember != null && "B".equals(loginMember.memberType())) --%>
+	<button id="info-write" onclick="infoEnroll()">게시글 작성</button>
+<%-- } --%>
+	<div class="pop-content">
+<% for(Info popInfo : popList){ %>
+			<div class="head"><%= popInfo.getBusinessName() %></div>
+			<div class="head-content"><%= popInfo.getHeadContent() %></div>
+			<div class="body"><%= popInfo.getBodyContents() %></div>
+			<div class="body"><%= popInfo.getRecommend() %></div>
+<% } %>
+	</div>
 	<div class="select-content">
 		<select name="location" id="location">
 			<option value="">지역</option>
@@ -28,7 +38,9 @@
 	</div>
 </div>
 <script>
-
+const infoEnroll = () => {
+	location.href="<%= request.getContextPath() %>/info/Enroll";
+};
 
 
 var loading = false;
@@ -43,11 +55,10 @@ const scrollPage = () => {
 			console.log(data);
 			const $div = $(".info-content");
 			
-			$(data).each((i, {businessName, headContent, bodyContents}) =>{
-				console.log(i,businessName, headContent, bodyContents);
+			$(data).each((i, {businessName, headContent}) =>{
+				console.log(i,businessName, headContent);
 				const $contents = `<div class="head">\${businessName}</div>
 				<div class="head-content">\${headContent}</div>
-				<div class="body">\${bodyContents}</div>
 				<hr />
 				`;
 				
@@ -63,7 +74,7 @@ const scrollPage = () => {
 }
 
 $(window).scroll(function(){
-	if($(window).scrollTop() + 200 >= $(document).height() - $(window).height()){
+	if($(window).scrollTop() + 10 >= $(document).height() - $(window).height()){
 		if(!loading){
 			loading = true;
 			scrollPage();

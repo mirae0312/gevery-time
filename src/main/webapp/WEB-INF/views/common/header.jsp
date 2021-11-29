@@ -36,11 +36,11 @@
         <div class="navbox-container">
 	        <div class="info-navsbox">
 	            <ul class="info-pagenavs">
-	                <li class="info-pagenav" id="hospital"><a href="#">동물병원</a></li>
-	                <li class="info-pagenav" id="cafe"><a href="#">카페</a></li>
-	                <li class="info-pagenav" id="food"><a href="#">음식점</a></li>
-	                <li class="info-pagenav" id="pension"><a href="#">펜션</a></li>
-	                <li class="info-pagenav" id="salon"><a href="#">미용실</a></li>
+	                <li class="info-pagenav" id="hospital"><a href="<%= request.getContextPath() %>/info/hospital">동물병원</a></li>
+	                <li class="info-pagenav" id="cafe"><a href="<%= request.getContextPath() %>/info/cafe">카페</a></li>
+	                <li class="info-pagenav" id="food"><a href="<%= request.getContextPath() %>/info/restaurant">음식점</a></li>
+	                <li class="info-pagenav" id="pension"><a href="<%= request.getContextPath() %>/info/pension">펜션</a></li>
+	                <li class="info-pagenav" id="salon"><a href="<%= request.getContextPath() %>/info/salon">미용실</a></li>
 	            </ul>
 	        </div> 
 	        <div class="board-navsbox">

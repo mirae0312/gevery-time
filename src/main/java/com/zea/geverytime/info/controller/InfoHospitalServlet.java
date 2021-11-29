@@ -9,48 +9,45 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
-import com.zea.geverytime.info.model.service.InfoService;
 import com.zea.geverytime.info.model.vo.Info;
 
 /**
- * Servlet implementation class InfoAllListServlet
+ * Servlet implementation class infoHospitalServlet
  */
-@WebServlet("/info/allList")
-public class InfoAllListServlet extends HttpServlet {
+@WebServlet("/info/hospital")
+public class InfoHospitalServlet extends HttpServlet {
 	private static final long serialVersionUID = 1L;
-	private InfoService infoService = new InfoService();
 
 	/**
 	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse response)
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		
+
 		try {
 			int start = 1;
 			int end = 5;
 			
-			// 상호명(사업자), 썸네일(첨부파일), head설명(info), 조회수(한주인기게시물경우)  
 			// 인기 게시물
-			List<Info> popList = infoService.selectPopList();
-			System.out.println("[InfoAllListServlet] + popList : " + popList);
+//			List<Info> popList = infoService.selectHospitalPopList();
+//			System.out.println("[InfoHospitalServlet] + popList : " + popList);
 			
 			// 전체 게시물
-			List<Info> list = infoService.selectAllList(start, end);
-			System.out.println("[InfoAllListServlet] + list : " + list);
+//			List<Info> list = infoService.selectAllHospitalList(start, end);
+//			System.out.println("[InfoHospitalServlet] + list : " + list);
 			
-			if(popList != null)
-				request.setAttribute("popList", popList);
-			if(list != null)
-				request.setAttribute("list", list);
+//			if(popList != null)
+//				request.setAttribute("popList", popList);
+//			if(list != null)
+//				request.setAttribute("list", list);
 			request
-				.getRequestDispatcher("/WEB-INF/views/info/allInfoList.jsp")
+				.getRequestDispatcher("/WEB-INF/views/info/hospital.jsp")
 				.forward(request, response);
 			
 		} catch(Exception e) {
 			e.printStackTrace();
 			throw e;
 		}
-			
+		
 	}
 
 }
