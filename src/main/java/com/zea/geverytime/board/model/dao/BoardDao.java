@@ -29,20 +29,15 @@ public class BoardDao {
 
 	public List<Board> selectAllContentList(Map<String, Object> map, Connection conn) {
 		List<Board> list = new ArrayList<>();
-		String key = "selectAllContentList"+(String)map.get("boardSelect");
+		String key = "selectAllContentList"+(String)map.get("boardSelect")+(String)map.get("sort");
 		String sql = prop.getProperty(key);
-		System.out.println(sql);
-		System.out.println((String)map.get("sort"));
-		System.out.println((int)map.get("startNum"));
-		System.out.println((int)map.get("endNum"));
 		PreparedStatement pstmt = null;
 		ResultSet rset = null;
 		
 		try {
 			pstmt = conn.prepareStatement(sql);
-			pstmt.setString(1,(String)map.get("sort"));
-			pstmt.setInt(2,(int)map.get("startNum"));
-			pstmt.setInt(3,(int)map.get("endNum"));
+			pstmt.setInt(1,(int)map.get("startNum"));
+			pstmt.setInt(2,(int)map.get("endNum"));
 			rset = pstmt.executeQuery();
 			while(rset.next()) {
 				int no = rset.getInt("no");
@@ -54,7 +49,7 @@ public class BoardDao {
 				int likeCount = rset.getInt("like_count");
 				Date regDate = rset.getDate("reg_date");
 				Board board = new Board(no,orCode,title,writer,content,readCount,likeCount,regDate);
-				list.add(0,board);
+				list.add(board);
 			}
 			
 		} catch (SQLException e) {
@@ -67,9 +62,10 @@ public class BoardDao {
 		return list;
 	}
 
-	public int getTotalContentCount(Connection conn) {
+	public int getTotalContentCount(Connection conn, Map<String, Object>map) {
 		int count = 0;
-		String sql = prop.getProperty("getTotalContentCount");
+		String sql = prop.getProperty("getTotalContentCount"+(String)map.get("boardSelect"));
+		System.out.println(sql);
 		PreparedStatement pstmt = null;
 		ResultSet rset = null;
 		

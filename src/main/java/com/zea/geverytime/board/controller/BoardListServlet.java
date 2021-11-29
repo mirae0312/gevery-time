@@ -30,25 +30,14 @@ public class BoardListServlet extends HttpServlet {
 		try {
 			// 1. 사용자 입력값 처리
 			int cPage = Integer.parseInt(request.getParameter("cPage"));
-			String sortValue = request.getParameter("sort");
 			String boardSelect = request.getParameter("boardSelect");
-			String sort = "";
+			String sort = request.getParameter("sort");
 			
-			if(sortValue!= null) {
-				switch(sortValue) {
-				case "latest" : sort = boardService.SORT_LATEST; break;
-				case "like" : sort = boardService.SORT_LIKE; break;
-				case "read" : sort = boardService.SORT_READ; break;
-				}
-			}
 			// 2. 업무처리
 			// 1) 컨텐츠 부분 - 현재페이지, 페이지당 게시물 수 -> startnum, endnum구하기
 			int numPerPage = 10;
 			int startNum = (cPage-1)*10+1;
 			int endNum = cPage*numPerPage;
-			
-			System.out.println(startNum);
-			System.out.println(endNum);
 			
 			Map<String,Object> map = new HashMap<>();
 			map.put("sort",sort);
@@ -59,7 +48,7 @@ public class BoardListServlet extends HttpServlet {
 			
 			// 2) 페이지 바 부분 - 총 게시물 개수, 현재 페이지, 페이지당 게시물 개수, 페이지바 크기, uri
 			final int pageBarSize = 10;
-			int totalContentCount = boardService.getTotalContentCount();
+			int totalContentCount = boardService.getTotalContentCount(map);
 			String url = request.getRequestURI();
 			
 			String pagebar = MvcUtils.getPagebar(cPage,numPerPage,pageBarSize,totalContentCount,url);

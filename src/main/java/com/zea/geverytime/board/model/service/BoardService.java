@@ -23,9 +23,9 @@ public class BoardService {
 		return list;
 	}
 
-	public int getTotalContentCount() {
+	public int getTotalContentCount(Map<String, Object> map) {
 		Connection conn = getConnection();
-		int count = boardDao.getTotalContentCount(conn);
+		int count = boardDao.getTotalContentCount(conn,map);
 		close(conn);
 		return count;
 	}

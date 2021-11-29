@@ -9,17 +9,17 @@ insert into member(member_id, password, member_name, phone, address, email, memb
 values('honggd',1234,'홍길','01011111111','대한민국','honggd@naver.com','U','N','1996/03/09');
 
 -- board생성 쿼리
---delete from board;
+-- delete from board;
 insert into board(no, or_code, title, writer, content, read_count,like_count,reg_date)values
-(seq_board_no.nextval,'bb1b-' || to_char(seq_board_no.currval),to_char(seq_board_no.currval)||'번 게시물','hyungzin0309','안녕하세요',default,default,default);
+(seq_board_no.nextval,'bb1b-' || to_char(seq_board_no.currval),to_char(seq_board_no.currval)||'번 게시물 - 강아지','hyungzin0309','안녕하세요',default,default,default);
 insert into board(no, or_code, title, writer, content, read_count,like_count,reg_date)values
-(seq_board_no.nextval,'bb1b-' || to_char(seq_board_no.currval),to_char(seq_board_no.currval)||'번 게시물','hyungzin0309','안녕하세요',default,default,default);
+(seq_board_no.nextval,'bb2b-' || to_char(seq_board_no.currval),to_char(seq_board_no.currval)||'번 게시물 - 고양이','hyungzin0309','안녕하세요',default,default,default);
 insert into board(no, or_code, title, writer, content, read_count,like_count,reg_date)values
-(seq_board_no.nextval,'bb1b-' || to_char(seq_board_no.currval),to_char(seq_board_no.currval)||'번 게시물','hyungzin0309','안녕하세요',default,default,default);
+(seq_board_no.nextval,'bb3b-' || to_char(seq_board_no.currval),to_char(seq_board_no.currval)||'번 게시물 - 가는거','hyungzin0309','안녕하세요',default,default,default);
 insert into board(no, or_code, title, writer, content, read_count,like_count,reg_date)values
-(seq_board_no.nextval,'bb1b-' || to_char(seq_board_no.currval),to_char(seq_board_no.currval)||'번 게시물','hyungzin0309','안녕하세요',default,default,default);
+(seq_board_no.nextval,'bb4b-' || to_char(seq_board_no.currval),to_char(seq_board_no.currval)||'번 게시물 - 먹는거','hyungzin0309','안녕하세요',default,default,default);
 insert into board(no, or_code, title, writer, content, read_count,like_count,reg_date)values
-(seq_board_no.nextval,'bb1b-' || to_char(seq_board_no.currval),to_char(seq_board_no.currval)||'번 게시물','hyungzin0309','안녕하세요',default,default,default);
+(seq_board_no.nextval,'bb5b-' || to_char(seq_board_no.currval),to_char(seq_board_no.currval)||'번 게시물 - 쓰는거','hyungzin0309','안녕하세요',default,default,default);
 
 -- board_comment생성 쿼리
 --delete from board_comment where no = 16;
@@ -70,3 +70,14 @@ create table board_comment(
 create sequence seq_board_comment_no;
 create sequence seq_board_comment_or_code;
 
+commit;
+
+select * from board;
+select * from board where or_code like 'bb1b%';
+update board set like_count=97 where no=204;
+select * from (select row_number() over(order by like_count desc) rnum, b.* from board b where or_code like 'bb4b%') where rnum between 11 and 20;
+
+select * from (select row_number() over(order by no desc) rnum, b.* from board b where REGEXP_LIKE(or_code, 'bb1b|bb2b'));
+
+select * from (select row_number() over(order by no desc) rnum, b.* from board b where REGEXP_LIKE(or_code,'bb1b|bb2b'));
+select * from (select row_number() over(order by like_count desc) rnum, b.* from board b where REGEXP_LIKE(or_code,'bb1b|bb2b')) where rnum between 11 and 20;

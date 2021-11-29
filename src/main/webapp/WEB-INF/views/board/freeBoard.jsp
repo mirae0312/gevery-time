@@ -17,9 +17,9 @@
 		<option value="Cat">고양이</option>
 	</select>
 	<select name="sort" id="sort">
-		<option value="latest">최신순</option>
-		<option value="like">추천순</option>
-		<option value="read">조회순</option>
+		<option value="No">최신순</option>
+		<option value="Like">추천순</option>
+		<option value="Read">조회순</option>
 	</select>
 	<table id="boardList">
 		<thead>
@@ -41,6 +41,14 @@
 <script>
 $(()=>{
 	selectContent(1);
+});
+$(animal).change((e)=>{
+	const cPage = $(".pageBar .cPage").html();
+	selectContent(cPage);
+});
+$(sort).change((e)=>{
+	const cPage = $(".pageBar .cPage").html();
+	selectContent(cPage);
 });
 $(".pageBar").click((e)=>{
 	selectContent($(e.target).data('page'));

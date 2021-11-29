@@ -9,7 +9,10 @@ public class MvcUtils {
 		int totalPage = (int)Math.ceil((double)totalContentCount/numPerPage);
 		int endPage = (int)Math.ceil((double)cPage/pageBarSize)*pageBarSize;
 		int startPage = endPage-pageBarSize+1;
-		
+		System.out.println(totalContentCount);
+		System.out.println(startPage);
+		System.out.println(endPage);
+		System.out.println(totalPage);
 		int pageNum = startPage;
 		
 		// 1. startPage가 1페이지가 아닌 경우 prev만들기
@@ -24,7 +27,7 @@ public class MvcUtils {
 					str.append("<a data-page='"+pageNum+"'>"+pageNum+"</a>");
 				}
 				else {
-					str.append("<span>"+cPage+"</span>");
+					str.append("<span class='cPage'>"+cPage+"</span>");
 				}
 				pageNum++;
 			}
@@ -38,7 +41,7 @@ public class MvcUtils {
 					str.append("<a data-page='"+pageNum+"'>"+pageNum+"</a>");
 				}
 				else {
-					str.append("<span>"+cPage+"</span>");
+					str.append("<span class='cPage'>"+cPage+"</span>");
 				}
 				pageNum++;
 			}
