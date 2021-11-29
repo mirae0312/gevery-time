@@ -71,4 +71,10 @@
     	$(".navbox-container").children().hide();
         $(`.\${id}-navsbox`).show();
 	});
+    
+    // 일반상점 이동
+    $("#store").click((e) => {
+    	location.href="<%= request.getContextPath() %>/product/main";
+    });
+
 	</script>
