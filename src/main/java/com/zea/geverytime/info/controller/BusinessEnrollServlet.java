@@ -1,7 +1,6 @@
 package com.zea.geverytime.info.controller;
 
 import java.io.IOException;
-import java.sql.Date;
 
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
@@ -10,58 +9,53 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
-import  com.zea.geverytime.info.model.service.MemberService;
-import  com.zea.geverytime.info.model.vo.Member;
+import com.zea.geverytime.info.model.service.BusinessService;
+import com.zea.geverytime.info.model.vo.Business;
 
 /**
- * Servlet implementation class MemberEnrollServlet
+ * Servlet implementation class BusinessEnrollServlet
  */
-@WebServlet("/member/memberEnroll")
-public class MemberEnrollServlet extends HttpServlet {
+@WebServlet("/member/businessEnroll")
+public class BusinessEnrollServlet extends HttpServlet {
 	private static final long serialVersionUID = 1L;
-	private MemberService memberService = new MemberService();
+       
+   
 
-	
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		request
-			.getRequestDispatcher("/WEB-INF/views/member/memberEnroll.jsp")
+			.getRequestDispatcher("/WEB-INF/views/member/businessEnroll.jsp")
 			.forward(request, response);
-		
-	}
+		}
 
-	/**
-	 * POST /mvc/member/memberEnroll
-	 * 
-	 * - DB에 레코드 기록
-	 * 
-	 */
+	
+	
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		try {
-			// 1.인코딩처리 utf-8
+		
 			request.setCharacterEncoding("utf-8");
 			
 			// 2.사용자입력값 처리 사용자입력값 -> Member VO객체 생성
-			String memberId = request.getParameter("memberId");
+			String businessId = request.getParameter("businessId");
 			String password = request.getParameter("password");
-			String memberName = request.getParameter("memberName");
-			String phone = request.getParameter("phone");
-			String address = request.getParameter("address");
+			String name = request.getParameter("name");
 			String email = request.getParameter("email");
-			String _birthday = request.getParameter("birthday"); 
+			String businessNo = request.getParameter("businessNo");
+			String bName = request.getParameter("businessName");
+			String baddress = request.getParameter("address");
+			String btel = request.getParameter("tel");
+			String location = request.getParameter("location");
+			
 						
 			System.out.println("email = " + email);
-			System.out.println("_birthday = " + _birthday);
 			
 			
-			// birthday : String -> java.sql.Date
-			Date birthday = "".equals(_birthday) ?  null : Date.valueOf(_birthday);
 			
 			
-			Member member = new Member(memberId, password, memberName, phone, address,email,MemberService.USER_ROLE,MemberService.USER_TYPE, birthday );
-			System.out.println("member@servlet = " + member);
+			Business business = new Business( );
+			System.out.println("member@servlet = " + business);
 			
 			// 3.업무로직 service객체의 insertMember호출 & 생성한 member객체 전달
-			int result = memberService.insertMember(member);
+			int result = BusinessService.insertMember();
 			String msg = result > 0 ? "회원가입성공!" : "회원가입실패!";
 			
 			// 4.redirect 및 msg처리
@@ -76,5 +70,5 @@ public class MemberEnrollServlet extends HttpServlet {
 		}
 	}
 
-}
 
+}

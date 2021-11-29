@@ -1,33 +1,37 @@
 package com.zea.geverytime.info.model.vo;
-
+import java.io.Serializable;
 import java.sql.Date;
 
-public class Member {
+public class Member implements Serializable {
+	private static final long serialVersionUID = 1L;
+	
 	private String memberId;
 	private String password;
 	private String memberName;
-	private Date  birthday;
-	private String  email;
 	private String phone;
 	private String address;
-	private String memberType;
+	private String  email;
 	private String memberRole;
+	private String memberType;
+	private Date  birthday;
+	
+	
 	public Member() {
 		super();
 		// TODO Auto-generated constructor stub
 	}
-	public Member(String memberId, String password, String memberName, Date birthday, String email, String phone,
-			String address, String memberType, String memberRole) {
+	public Member(String memberId, String password, String memberName, String phone, String address, String email,
+			String memberRole, String memberType, Date birthday) {
 		super();
 		this.memberId = memberId;
 		this.password = password;
 		this.memberName = memberName;
-		this.birthday = birthday;
-		this.email = email;
 		this.phone = phone;
 		this.address = address;
-		this.memberType = memberType;
+		this.email = email;
 		this.memberRole = memberRole;
+		this.memberType = memberType;
+		this.birthday = birthday;
 	}
 	public String getMemberId() {
 		return memberId;
@@ -47,18 +51,6 @@ public class Member {
 	public void setMemberName(String memberName) {
 		this.memberName = memberName;
 	}
-	public Date getBirthday() {
-		return birthday;
-	}
-	public void setBirthday(Date birthday) {
-		this.birthday = birthday;
-	}
-	public String getEmail() {
-		return email;
-	}
-	public void setEmail(String email) {
-		this.email = email;
-	}
 	public String getPhone() {
 		return phone;
 	}
@@ -71,11 +63,11 @@ public class Member {
 	public void setAddress(String address) {
 		this.address = address;
 	}
-	public String getMemberType() {
-		return memberType;
+	public String getEmail() {
+		return email;
 	}
-	public void setMemberType(String memberType) {
-		this.memberType = memberType;
+	public void setEmail(String email) {
+		this.email = email;
 	}
 	public String getMemberRole() {
 		return memberRole;
@@ -83,11 +75,24 @@ public class Member {
 	public void setMemberRole(String memberRole) {
 		this.memberRole = memberRole;
 	}
+	public String getMemberType() {
+		return memberType;
+	}
+	public void setMemberType(String memberType) {
+		this.memberType = memberType;
+	}
+	public Date getBirthday() {
+		return birthday;
+	}
+	public void setBirthday(Date birthday) {
+		this.birthday = birthday;
+	}
 	@Override
 	public String toString() {
-		return "Member [memberId=" + memberId + ", password=" + password + ", memberName=" + memberName + ", birthday="
-				+ birthday + ", email=" + email + ", phone=" + phone + ", address=" + address + ", memberType="
-				+ memberType + ", memberRole=" + memberRole + "]";
+		return "Member [memberId=" + memberId + ", password=" + password + ", memberName=" + memberName + ", phone="
+				+ phone + ", address=" + address + ", email=" + email + ", memberRole=" + memberRole + ", memberType="
+				+ memberType + ", birthday=" + birthday + "]";
 	}
-	
+
+
 }

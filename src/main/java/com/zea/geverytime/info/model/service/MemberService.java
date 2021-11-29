@@ -1,6 +1,8 @@
 package com.zea.geverytime.info.model.service;
 
 import static com.zea.geverytime.common.JdbcTemplate.close;
+import static com.zea.geverytime.common.JdbcTemplate.getConnection;
+import static com.zea.geverytime.common.JdbcTemplate.close;
 import static com.zea.geverytime.common.JdbcTemplate.commit;
 import static com.zea.geverytime.common.JdbcTemplate.getConnection;
 import static com.zea.geverytime.common.JdbcTemplate.rollback;
@@ -15,9 +17,23 @@ import com.zea.geverytime.info.model.vo.Member;
 public class MemberService {
 	public static final String USER_ROLE = "U";
 	public static final String ADMIN_ROLE = "A";
+	public static final String USER_TYPE = "N";
+	public static final String BUSINESS_TYPE = "B";
 	
 	private MemberDao memberDao = new MemberDao();
 
+	public Member selectOneMember(String memberId) {
+		// 1. Connection객체 생성
+		Connection conn = getConnection();
+		
+		// 2. Dao에 쿼리실행 요청
+		Member member = memberDao.selectOneMember(conn, memberId);
+		
+		// 3. Connection자원반납
+		close(conn);
+		
+		return member;
+	}
 
 	public int insertMember(Member member) {
 		Connection conn = null;
