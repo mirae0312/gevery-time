@@ -87,10 +87,6 @@ public class JdbcTemplate {
 		}		
 	}
 
-	/**
-	 * Statement는 PreparedStatement의 부모 인터페이스이다.
-	 * @param stmt
-	 */
 	public static void close(Statement stmt) {
 		try {
 			if(stmt != null && !stmt.isClosed())
