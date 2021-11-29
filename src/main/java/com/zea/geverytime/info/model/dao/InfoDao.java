@@ -30,9 +30,29 @@ public class InfoDao {
 		}
 	}
 
-	public List<Info> selectPopList(Connection conn) {
+	public List<Info> selectPopList(String board, Connection conn) {
 		PreparedStatement pstmt = null;
-		String sql = prop.getProperty("selectPopList");
+		String sql = "";
+		switch(board) {
+		case "info": 
+			sql = prop.getProperty("selectPopList");
+			break;
+		case "hospital": 
+			sql = prop.getProperty("selectHospitalPopList");
+			break;
+		case "cafe": 
+			sql = prop.getProperty("selectCafePopList");
+			break;
+		case "restaurant": 
+			sql = prop.getProperty("selectRestaurantPopList");
+			break;
+		case "pension": 
+			sql = prop.getProperty("selectPensionPopList");
+			break;
+		case "salon": 
+			sql = prop.getProperty("selectSalonPopList");
+			break;
+		}
 		ResultSet rset = null;
 		List<Info> popList = new ArrayList<>();
 		
@@ -42,24 +62,14 @@ public class InfoDao {
 			rset = pstmt.executeQuery();
 			while(rset.next()) {
 				Info info = new Info();
+				info.setCode(rset.getString("code"));
+				info.setMemberId(rset.getString("writer"));
+				info.setBusinessName(rset.getString("business_name"));
 				info.setHeadContent(rset.getString("head_content"));
-				info.setBodyContents(rset.getString("body_contents"));
-				info.setRecommend(rset.getInt("recommend_count"));
+				info.setViewCount(rset.getInt("view_count"));
+				info.setRecommend(rset.getInt("count"));
 				
-				
-				List<InfoAttachment> attachments = new ArrayList<>();
-				InfoAttachment attach = new InfoAttachment();
-				attach.setNo(rset.getInt("no"));
-				attach.setCode(rset.getString("code"));
-				attach.setOriginalFilename(rset.getString("original_filename"));
-				attach.setRenamedFilename(rset.getString("renamed_filename"));
-				attach.setRegDate(rset.getDate("reg_date"));
-				
-				attachments.add(attach);
-				info.setAttachments(attachments);
-				popList.add(info);
-
-				
+				popList.add(info);				
 			}
 		} catch (SQLException e) {
 			throw new InfoBoardException("게시글 불러오기 실패!", e);
@@ -71,9 +81,33 @@ public class InfoDao {
 		return popList;
 	}
 
-	public List<Info> selectAllList(Connection conn, int start, int end) {
+	public List<Info> selectAllList(String board, Connection conn, int start, int end) {
 		PreparedStatement pstmt = null;
-		String sql = prop.getProperty("selectAllList");
+		String sql = "";
+		System.out.println("[Dao] board : " + board);
+		switch(board) {
+		case "info": 
+			sql = prop.getProperty("selectAllList");
+			break;
+		case "hospital":
+			sql = prop.getProperty("selectHospitalAllList");
+			break;
+		case "cafe": 
+			sql = prop.getProperty("selectCafeAllList");
+			break;
+		case "restaurant":
+			sql = prop.getProperty("selectRestaurantAllList");
+			break;
+		case "pension": 
+			sql = prop.getProperty("selectPensionAllList");
+			break;
+		case "salon": 
+			sql = prop.getProperty("selectSalonAllList");
+			break;
+		}
+		
+		System.out.println("[dao] query : " + sql);
+		
 		ResultSet rset = null;
 		List<Info> list = new ArrayList<>();
 		
@@ -86,14 +120,83 @@ public class InfoDao {
 			rset = pstmt.executeQuery();
 			while(rset.next()) {
 				Info info = new Info();
+				info.setCode(rset.getString("code"));
+				info.setMemberId(rset.getString("writer"));
 				info.setBusinessName(rset.getString("business_name"));
 				info.setHeadContent(rset.getString("head_content"));
-				info.setBodyContents(rset.getString("body_contents"));
+				info.setViewCount(rset.getInt("view_count"));
+				info.setRecommend(rset.getInt("count"));
 				
 				list.add(info);
 			}
 		} catch (SQLException e) {
 			throw new InfoBoardException("게시글 불러오기 실패!", e);
+		} finally {
+			close(rset);
+			close(pstmt);
+		}
+		
+		return list;
+	}
+
+	public List<InfoAttachment> selectPopAttach(Connection conn, String code) {
+		PreparedStatement pstmt = null;
+		String sql = prop.getProperty("selectPopAttach");
+		ResultSet rset = null;
+		List<InfoAttachment> attach = new ArrayList<>();
+		
+		try {
+			pstmt = conn.prepareStatement(sql);
+			
+			pstmt.setString(1, code);
+			
+			rset = pstmt.executeQuery();
+			while(rset.next()) {
+				InfoAttachment info = new InfoAttachment();
+				info.setNo(rset.getInt("no"));
+				info.setOriginalFilename(rset.getString("original_filename"));
+				info.setRenamedFilename(rset.getString("renamed_filename"));
+				info.setRegDate(rset.getDate("reg_date"));
+				
+				attach.add(info);
+			}
+			
+		} catch (SQLException e) {
+			throw new InfoBoardException("게시물 첨부파일 불러오기 실패!", e);
+		} finally {
+			close(rset);
+			close(pstmt);
+		}
+		
+		return attach;
+	}
+
+	public List<InfoAttachment> selectAllAttach(Connection conn, String code, int start, int end) {
+		PreparedStatement pstmt = null;
+		String sql = prop.getProperty("selectAllAttach");
+		ResultSet rset = null;
+		List<InfoAttachment> list = new ArrayList<>();
+		
+		try {
+			pstmt = conn.prepareStatement(sql);
+			
+			pstmt.setString(1, code);
+			pstmt.setInt(2, start);
+			pstmt.setInt(3, end);
+			
+			rset = pstmt.executeQuery();
+			while(rset.next()) {
+				InfoAttachment info = new InfoAttachment();
+				info.setNo(rset.getInt("no"));
+				info.setOriginalFilename(rset.getString("original_filename"));
+				info.setRenamedFilename(rset.getString("renamed_filename"));
+				info.setRegDate(rset.getDate("reg_date"));
+				
+				list.add(info);
+			}
+			
+		} catch (SQLException e) {
+			throw new InfoBoardException("게시물 첨부파일 불러오기 실패!", e);
 		} finally {
 			close(rset);
 			close(pstmt);
