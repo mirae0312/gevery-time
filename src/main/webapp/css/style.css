@@ -171,3 +171,6 @@
         list-style: none;
         margin-left: auto;
        }
+     section#content{
+     margin:0 auto;
+     }

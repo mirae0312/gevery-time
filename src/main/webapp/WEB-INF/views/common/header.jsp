@@ -28,7 +28,7 @@
                <li class="nav" id="login"><a href="#">로그인/로그아웃</a></li>
                <li class="nav" id="mypage"><a href="#">마이페이지</a></li>
                <li class="nav" id="dm"><a href="#">DM</a></li>
-               <li class="nav"id="qna"><a href="#">고객센터</a></li>
+               <li class="nav"id="qna"><a href="<%= request.getContextPath() %>/customer/qnaBoardList">고객센터</a></li>
                </ul>
             </nav>
            </div>

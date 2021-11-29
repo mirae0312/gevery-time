@@ -15,7 +15,6 @@
   -Doracle.jdbc.policy.OPMN_CONFIG=$ORACLE_HOME/opmn/conf/*
   -Doracle.jdbc.policy.REMOTE_ONS_HOST1=db.myco.com
   -Doracle.jdbc.policy.REMOTE_ONS_PORT1=4200
-  -Doracle.jdbc.policy.CONFIG_FILE=$TNS_ADMIN/ojdbc.properties
 
   Of course you can also edit this file and replace the macros (stuff enclosed in ${foo} )
   with the actual values. You can add multiple SocketPermissions to support multiple hosts
@@ -35,9 +34,6 @@ grant codeBase "file:${oracle.jdbc.policy.JDBC_CODE_BASE}" {
   permission javax.management.MBeanServerPermission "createMBeanServer";
   permission javax.management.MBeanPermission "oracle.jdbc.driver.OracleDiagnosabilityMBean#[com.oracle.jdbc:type=diagnosability,*]", "registerMBean";
   permission javax.management.MBeanTrustPermission "register";
-  permission java.lang.RuntimePermission "getenv.TNS_ADMIN";
-  permission java.util.PropertyPermission "TNS_ADMIN", "read";
-  permission java.io.FilePermission "${oracle.jdbc.policy.CONFIG_FILE}", "read";
 
   /* Needed only if you use the Thin driver */
   permission java.net.SocketPermission "${oracle.jdbc.policy.CLIENT_HOST}", "connect,resolve";
@@ -96,18 +92,9 @@ grant codeBase "file:${oracle.jdbc.policy.JDBC_CODE_BASE}" {
   permission java.lang.RuntimePermission "loadLibrary.heteroxa12";
   permission java.lang.RuntimePermission "modifyThreadGroup";
 
-  /* Needed only by Oracle Fusion Applications.Do not grant otherwise. */
-  permission oracle.jdbc.proxy.ExtractDelegatePermission; 
+   /* Needed only by Oracle Fusion Applications.Do not grant otherwise. */
+   permission oracle.jdbc.proxy.ExtractDelegatePermission "extractDelegate"; 
 
-  /* Allow the JDBC driver to auto-resolve and instantiate the Oracle PKI
-   * Provider (For SSL with Oracle Wallets). Not needed if the Oracle PKI
-   * provider is registered with Java security.
-   */
-  permission java.util.PropertyPermission "oracle.pki.*", "read";
-  permission java.security.SecurityPermission "putProviderProperty.OraclePKI";
-
-  /* Allow the driver to obtain all key stores from Key Store Service */
-  permission oracle.security.jps.service.keystore.KeyStoreAccessPermission "stripeName=*,keystoreName=*,alias=*", "read";
 };
 
 /* Needed only if you use a DMS enabled jar */
@@ -215,8 +202,6 @@ grant codeBase "file:${oracle.jdbc.policy.USER_CODE_BASE}" {
    /* For OracleWebRowSet only*/
    permission java.net.SocketPermission "java.sun.com:80", "connect,resolve";
 
-  /* Needed only if you use Key Store Service. Replace the * to limit access. */
-  permission oracle.security.jps.service.keystore.KeyStoreAccessPermission "stripeName=*,keystoreName=*,alias=*", "read";
 };
 
 /* Needed only if your connection pool calls OracleConnection.abort() to terminate
