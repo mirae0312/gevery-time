@@ -121,7 +121,7 @@
 					div: $(e.target).val()
 				},
 				success(data){
-					$(data).each((index, {boardNo, title, redDate, sellerId, product}) => {
+					$(data).each((index, {boardNo, title, regDate, sellerId, product}) => {
 						console.log(boardNo);
 						console.log(product.state);
 						const tr = `
@@ -132,7 +132,7 @@
 								<td>\${product.pdtDiv}</td>
 								<td>\${title}</td>
 								<td>\${sellerId}</td>
-								<td>\${redDate}</td>
+								<td>\${regDate}</td>
 							</tr>
 						`;
 						$("#pdtTable tbody").append(tr);
