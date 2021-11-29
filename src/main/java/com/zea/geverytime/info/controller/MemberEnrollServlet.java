@@ -67,8 +67,8 @@ public class MemberEnrollServlet extends HttpServlet {
 			// 4.redirect 및 msg처리
 			HttpSession session = request.getSession();
 			session.setAttribute("msg", msg);
-			String location = request.getContextPath() + "/";
-			response.sendRedirect(location);
+			String locations = request.getContextPath() + "/";
+			response.sendRedirect(locations);
 			
 		} catch (Exception e) {
 			e.printStackTrace();

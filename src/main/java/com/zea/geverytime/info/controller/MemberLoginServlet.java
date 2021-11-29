@@ -10,6 +10,7 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
+import com.zea.geverytime.common.MvcUtils;
 import com.zea.geverytime.info.model.service.MemberService;
 import com.zea.geverytime.info.model.vo.Member;
 
@@ -34,7 +35,7 @@ public class MemberLoginServlet extends HttpServlet {
 
 		//2.사용자 입력값처리
 		String memberId = request.getParameter("memberId");
-		String password = request.getParameter("password");
+		String password = MvcUtils.getEncryptedPassword(request.getParameter("password"));
 		String saveId = request.getParameter("saveId");
 		System.out.println("memberId = " + memberId + ", password = " + password + ", saveId = " + saveId);
 

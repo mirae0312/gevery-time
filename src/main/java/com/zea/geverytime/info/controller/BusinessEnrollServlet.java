@@ -18,7 +18,7 @@ import com.zea.geverytime.info.model.vo.Business;
 @WebServlet("/member/businessEnroll")
 public class BusinessEnrollServlet extends HttpServlet {
 	private static final long serialVersionUID = 1L;
-       
+     BusinessService businessService = new BusinessService(); 
    
 
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
@@ -51,18 +51,18 @@ public class BusinessEnrollServlet extends HttpServlet {
 			
 			
 			
-			Business business = new Business( );
+			Business business = new Business(businessId,password,name,email,businessNo,bName,baddress,btel,location,BusinessService.BusinessType);
 			System.out.println("member@servlet = " + business);
 			
 			// 3.업무로직 service객체의 insertMember호출 & 생성한 member객체 전달
-			int result = BusinessService.insertMember();
+			int result = BusinessService.insertBusiness();
 			String msg = result > 0 ? "회원가입성공!" : "회원가입실패!";
 			
 			// 4.redirect 및 msg처리
 			HttpSession session = request.getSession();
 			session.setAttribute("msg", msg);
-			String location = request.getContextPath() + "/";
-			response.sendRedirect(location);
+			String start = request.getContextPath() + "/";
+			response.sendRedirect(start);
 			
 		} catch (Exception e) {
 			e.printStackTrace();
