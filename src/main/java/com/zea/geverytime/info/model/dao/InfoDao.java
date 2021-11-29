@@ -42,8 +42,11 @@ public class InfoDao {
 			rset = pstmt.executeQuery();
 			while(rset.next()) {
 				Info info = new Info();
+				info.setCode(rset.getString("code"));
+				info.setMemberId(rset.getString("writer"));
 				info.setBusinessName(rset.getString("business_name"));
 				info.setHeadContent(rset.getString("head_content"));
+				info.setViewCount(rset.getInt("view_count"));
 				info.setRecommend(rset.getInt("count"));
 				
 				popList.add(info);				
@@ -73,13 +76,83 @@ public class InfoDao {
 			rset = pstmt.executeQuery();
 			while(rset.next()) {
 				Info info = new Info();
+				info.setCode(rset.getString("code"));
+				info.setMemberId(rset.getString("writer"));
 				info.setBusinessName(rset.getString("business_name"));
 				info.setHeadContent(rset.getString("head_content"));
+				info.setViewCount(rset.getInt("view_count"));
+				info.setRecommend(rset.getInt("count"));
 				
 				list.add(info);
 			}
 		} catch (SQLException e) {
 			throw new InfoBoardException("게시글 불러오기 실패!", e);
+		} finally {
+			close(rset);
+			close(pstmt);
+		}
+		
+		return list;
+	}
+
+	public List<InfoAttachment> selectPopAttach(Connection conn, String code) {
+		PreparedStatement pstmt = null;
+		String sql = prop.getProperty("selectPopAttach");
+		ResultSet rset = null;
+		List<InfoAttachment> attach = new ArrayList<>();
+		
+		try {
+			pstmt = conn.prepareStatement(sql);
+			
+			pstmt.setString(1, code);
+			
+			rset = pstmt.executeQuery();
+			while(rset.next()) {
+				InfoAttachment info = new InfoAttachment();
+				info.setNo(rset.getInt("no"));
+				info.setOriginalFilename(rset.getString("original_filename"));
+				info.setRenamedFilename(rset.getString("renamed_filename"));
+				info.setRegDate(rset.getDate("reg_date"));
+				
+				attach.add(info);
+			}
+			
+		} catch (SQLException e) {
+			throw new InfoBoardException("게시물 첨부파일 불러오기 실패!", e);
+		} finally {
+			close(rset);
+			close(pstmt);
+		}
+		
+		return attach;
+	}
+
+	public List<InfoAttachment> selectAllAttach(Connection conn, String code, int start, int end) {
+		PreparedStatement pstmt = null;
+		String sql = prop.getProperty("selectAllAttach");
+		ResultSet rset = null;
+		List<InfoAttachment> list = new ArrayList<>();
+		
+		try {
+			pstmt = conn.prepareStatement(sql);
+			
+			pstmt.setString(1, code);
+			pstmt.setInt(2, start);
+			pstmt.setInt(3, end);
+			
+			rset = pstmt.executeQuery();
+			while(rset.next()) {
+				InfoAttachment info = new InfoAttachment();
+				info.setNo(rset.getInt("no"));
+				info.setOriginalFilename(rset.getString("original_filename"));
+				info.setRenamedFilename(rset.getString("renamed_filename"));
+				info.setRegDate(rset.getDate("reg_date"));
+				
+				list.add(info);
+			}
+			
+		} catch (SQLException e) {
+			throw new InfoBoardException("게시물 첨부파일 불러오기 실패!", e);
 		} finally {
 			close(rset);
 			close(pstmt);

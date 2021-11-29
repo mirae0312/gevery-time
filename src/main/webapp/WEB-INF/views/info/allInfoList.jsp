@@ -12,25 +12,30 @@
 <%-- if(loginMember != null && "B".equals(loginMember.memberType())) --%>
 	<button id="info-write" onclick="infoEnroll()">게시글 작성</button>
 <%-- } --%>
-	<div class="pop-content">
+	<div class="pop-contents">
 <% for(Info popInfo : popList){ %>
-			<div class="head"><%= popInfo.getBusinessName() %></div>
+			<div class="business-name"><%= popInfo.getBusinessName() %></div>
 			<div class="head-content"><%= popInfo.getHeadContent() %></div>
-			<div class="body"><%= popInfo.getBodyContents() %></div>
-			<div class="body"><%= popInfo.getRecommend() %></div>
+			<div class="list-thumbnail"><%= popInfo.getAttachments().get(0).getRenamedFilename() %></div>
+			<div class="recommend-count"><%= popInfo.getRecommend() %></div>
+			<div class="view-count"><%= popInfo.getViewCount() %></div>
 <% } %>
 	</div>
-	<div class="select-content">
+	<div class="select-contents">
 		<select name="location" id="location">
 			<option value="">지역</option>
 		</select>
 	</div>
-	<div class="all-content">
+	<div class="all-contents">
 		<div class="info-content">
 <% for(Info info : list){ %>
-			<div class="head"><%= info.getBusinessName() %></div>
+			<div class="business-name"><%= info.getBusinessName() %></div>
 			<div class="head-content"><%= info.getHeadContent() %></div>
-			<div class="body"><%= info.getBodyContents() %></div>
+	<%-- if(info.getAttachments() != null && !info.getAttachments().isEmpty()){ --%>
+			<div class="list-thumbnail"><%= info.getAttachments().get(0).getRenamedFilename() %></div>
+	<%-- } --%>
+			<div class="recommend-count"><%= info.getRecommend() %></div>
+			<div class="view-count"><%= info.getViewCount() %></div>
 <% } %>
 			<hr />
 		</div>
@@ -52,21 +57,30 @@ const scrollPage = () => {
 		data: {'page':page},
 		dataType: "json",
 		success(data){
+			const $data = $(data);
 			console.log(data);
+			
 			const $div = $(".info-content");
 			
-			$(data).each((i, {businessName, headContent}) =>{
+			$data.each((i, {businessName, headContent, attachments, recommend, viewCount}) =>{
 				console.log(i,businessName, headContent);
 				const $contents = `<div class="head">\${businessName}</div>
 				<div class="head-content">\${headContent}</div>
-				<hr />
+				<div class="list-thumbnail">\${attachments}</div>
+				<div class="recommend-count">\${recommend}</div>
+				<div class="view-count">\${viewCount}</div>				
 				`;
 				
 				$div.append($contents);
 			});
+			$div.append(`<hr />`);
 			
 			page++;
+			
 			loading = false;
+			if($data.length === 0){
+				loading = true;
+			}
 			console.log("page : " + page);
 		},
 		error: console.log

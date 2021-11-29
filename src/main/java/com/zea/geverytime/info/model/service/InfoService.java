@@ -1,11 +1,14 @@
 package com.zea.geverytime.info.model.service;
 
+import static com.zea.geverytime.common.JdbcTemplate.close;
+import static com.zea.geverytime.common.JdbcTemplate.getConnection;
+
 import java.sql.Connection;
 import java.util.List;
 
 import com.zea.geverytime.info.model.dao.InfoDao;
 import com.zea.geverytime.info.model.vo.Info;
-import static com.zea.geverytime.common.JdbcTemplate.*;
+import com.zea.geverytime.info.model.vo.InfoAttachment;
 
 public class InfoService {
 	
@@ -14,9 +17,17 @@ public class InfoService {
 	public List<Info> selectPopList() {
 		Connection conn = null;
 		List<Info> popList = null;
+		List<InfoAttachment> attach = null;
 		try {
 			conn = getConnection();
 			popList = infoDao.selectPopList(conn);
+			for(int i = 0; i < popList.size(); i++) {
+				String code = popList.get(i).getCode();
+				attach = infoDao.selectPopAttach(conn, code);
+				System.out.println("service attach : " + attach);
+				popList.get(i).setAttachments(attach);
+			}
+
 		}catch(Exception e) {
 			throw e;
 		}finally {
@@ -28,9 +39,21 @@ public class InfoService {
 	public List<Info> selectAllList(int start, int end) {
 		Connection conn = null;
 		List<Info> list = null;
+		List<InfoAttachment> attach = null;
 		try {
 			conn = getConnection();
 			list = infoDao.selectAllList(conn, start, end);
+			for(int i = 0; i < list.size(); i++) {
+				String code = list.get(i).getCode();
+				attach = infoDao.selectAllAttach(conn, code, start, end);
+				System.out.println("[Service] AllAttach : " + attach);
+				if(attach.isEmpty()) {
+					InfoAttachment infoAttach = new InfoAttachment();
+					infoAttach.setRenamedFilename("파일 없음");
+					attach.add(infoAttach);
+				}
+				list.get(i).setAttachments(attach);
+			}
 		}catch(Exception e) {
 			throw e;
 		}finally {
