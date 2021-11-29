@@ -7,6 +7,7 @@ import static com.zea.geverytime.common.JdbcTemplate.rollback;
 
 import java.sql.Connection;
 import java.util.List;
+import java.util.Map;
 
 import com.zea.geverytime.market.productsale.model.dao.ProductSaleDao;
 import com.zea.geverytime.market.productsale.model.vo.Product;
@@ -74,6 +75,64 @@ public class ProductSaleService {
 		}
 		return result;
 	}
+
+	public int productSaleBoardQuestionEnroll(Map<String, Object> map) {
+		Connection conn = getConnection();
+		int result = 0;
+		
+		try {
+			result = pdtDao.productSaleBoardQuestionEnroll(conn, map);
+			commit(conn);
+		} catch(Exception e) {
+			rollback(conn);
+			e.printStackTrace();
+		} finally {
+			close(conn);
+		}
+		return result;
+	}
+	
+	public int productSaleBoardAnswerEnroll(Map<String, Object> map) {
+		Connection conn = getConnection();
+		int result = 0;
+		
+		try {
+			result = pdtDao.productSaleBoardAnswerEnroll(conn, map);
+			commit(conn);
+		} catch(Exception e) {
+			rollback(conn);
+			e.printStackTrace(); 
+		} finally {
+			close(conn);
+		}
+		return result;
+	}
+
+	public List<Map<String, Object>> getProductSaleBoardQuestion(int no) {
+		Connection conn = getConnection();
+		List<Map<String, Object>> questions = pdtDao.getProductSaleBoardQuestion(conn, no);
+		close(conn);
+		return questions;
+	}
+
+	public int productSaleBoardQaDelete(int commentNo) {
+		Connection conn = getConnection();
+		int result = 0;
+		
+		try {
+			result = pdtDao.productSaleBoardQaDelete(conn, commentNo);
+			commit(conn);
+		} catch(Exception e) {
+			rollback(conn);
+			e.printStackTrace();
+		} finally {
+			close(conn);
+		}
+		return result;
+	}
+
+
+
 	
 	
 }

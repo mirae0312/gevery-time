@@ -9,7 +9,9 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 import java.util.Properties;
 
 import com.zea.geverytime.market.productsale.model.vo.Product;
@@ -199,6 +201,100 @@ public class ProductSaleDao {
 		
 		return result;
 	}
+
+	public int productSaleBoardQuestionEnroll(Connection conn, Map<String, Object> map) {
+		PreparedStatement pstmt = null;
+		String sql = prop.getProperty("productSaleBoardQuestionEnroll");
+		int result = 0;
+		
+		try {
+			pstmt = conn.prepareStatement(sql);
+			pstmt.setString(1, (String)map.get("title"));
+			pstmt.setString(2, (String)map.get("qcontent"));
+			pstmt.setInt(3, (int)map.get("boardNo"));
+			pstmt.setString(4, (String)map.get("writer"));
+			System.out.println("pdtDao@map : "+ map);
+			result = pstmt.executeUpdate();
+		} catch (SQLException e) {
+			e.printStackTrace();
+		} finally {
+			close(pstmt);
+		}
+		return result;
+	}
+
+	public int productSaleBoardAnswerEnroll(Connection conn, Map<String, Object> map) {
+		PreparedStatement pstmt = null;
+		String sql = prop.getProperty("productSaleBoardAnswerEnroll");
+		int result = 0;
+		
+		try {
+			pstmt = conn.prepareStatement(sql);
+			pstmt.setString(1, (String)map.get("acontent"));
+			pstmt.setInt(2, (int)map.get("commentNo"));
+			pstmt.setInt(3, (int)map.get("boardNo"));
+			pstmt.setString(4, (String)map.get("awriter"));
+			System.out.println("pdtDao@AnswerMap : "+ map);
+			result = pstmt.executeUpdate();
+		} catch (SQLException e) {
+			e.printStackTrace();
+		} finally {
+			close(pstmt);
+		}
+		return result;
+	}
+	
+	public List<Map<String, Object>> getProductSaleBoardQuestion(Connection conn, int no) {
+		PreparedStatement pstmt = null;
+		String sql = prop.getProperty("getProductSaleBoardQuestion");
+		ResultSet rset = null;
+		List<Map<String, Object>> questions = new ArrayList<>();
+		
+		try {
+			pstmt = conn.prepareStatement(sql);
+			pstmt.setInt(1, no);
+			rset = pstmt.executeQuery();
+			
+			while(rset.next()) {
+				Map<String, Object> question = new HashMap<>();
+				question.put("no", rset.getInt("no"));
+				question.put("title", rset.getString("title"));
+				question.put("content", rset.getString("content"));
+				question.put("writer", rset.getString("writer"));
+				question.put("qaLevel", rset.getInt("qa_level"));
+				question.put("refNo", rset.getInt("ref_no"));
+				questions.add(question);
+				System.out.println("dao@question : "+question);
+			}
+		} catch (SQLException e) {
+			e.printStackTrace();
+		} finally {
+			close(pstmt);
+			close(rset);
+		}
+		
+		return questions;
+	}
+
+	public int productSaleBoardQaDelete(Connection conn, int commentNo) {
+		PreparedStatement pstmt = null;
+		int result = 0;
+		String sql = prop.getProperty("productSaleBoardQaDelete");
+		
+		try {
+			pstmt = conn.prepareStatement(sql);
+			pstmt.setInt(1, commentNo);
+			
+			result = pstmt.executeUpdate();
+			
+		} catch (SQLException e) {
+			e.printStackTrace();
+		} finally {
+			close(pstmt);
+		}
+		return result;
+	}
+
 
 
 
