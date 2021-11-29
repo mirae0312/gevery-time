@@ -6,17 +6,19 @@
 <meta charset="UTF-8">
 <title>index</title>
 <link rel="stylesheet" href="<%=request.getContextPath() %>/css/style.css" />
+<link rel="stylesheet" href="<%=request.getContextPath() %>/css/summernote/summernote-lite.css">
 <script src="<%= request.getContextPath() %>/js/jquery-3.6.0.js"></script>
-
+<script src="<%= request.getContextPath() %>/js/summernote/summernote-lite.js"></script>
+<script src="<%= request.getContextPath() %>/js/summernote/lang/summernote-ko-KR.js"></script>
 </head>
 <body>
     <div id="container">
         <section id="header" >
            <div class="wrapper">
-               <div class="title"><a href="#">타이틀</a></div>
+               <div class="title"><a href="<%=request.getContextPath() %>/">타이틀</a></div>
                <ul class="lists" >
-                   <li id="info"><a href="<%= request.getContextPath() %>/info/allList">정보</a></li>
-                   <li id="board"><a href="#">게시판</a></li>
+                   <li id="info"><a href="<%= request.getContextPath() %>/info/allList?board=<%= "info" %>">정보</a></li>
+                   <li id="board"><a href="<%=request.getContextPath() %>/board/freeMain">게시판</a></li>
                    <li id="market"><a href="#">마켓</a></li>
                </ul>
                <ul>
@@ -28,7 +30,7 @@
                <li class="nav" id="login"><a href="<%=request.getContextPath()%>/member/login">로그인/로그아웃</a></li>
                <li class="nav" id="mypage"><a href="#">마이페이지</a></li>
                <li class="nav" id="dm"><a href="#">DM</a></li>
-               <li class="nav"id="qna"><a href="#">고객센터</a></li>
+               <li class="nav"id="qna"><a href="<%= request.getContextPath() %>/customer/qnaBoardList">고객센터</a></li>
                </ul>
             </nav>
            </div>
@@ -36,16 +38,16 @@
         <div class="navbox-container">
 	        <div class="info-navsbox">
 	            <ul class="info-pagenavs">
-	                <li class="info-pagenav" id="hospital"><a href="#">동물병원</a></li>
-	                <li class="info-pagenav" id="cafe"><a href="#">카페</a></li>
-	                <li class="info-pagenav" id="food"><a href="#">음식점</a></li>
-	                <li class="info-pagenav" id="pension"><a href="#">펜션</a></li>
-	                <li class="info-pagenav" id="salon"><a href="#">미용실</a></li>
+	                <li class="info-pagenav" id="hospital"><a href="<%= request.getContextPath() %>/info/allList?board=<%= "hospital" %>">동물병원</a></li>
+	                <li class="info-pagenav" id="cafe"><a href="<%= request.getContextPath() %>/info/allList?board=<%= "cafe" %>">카페</a></li>
+	                <li class="info-pagenav" id="food"><a href="<%= request.getContextPath() %>/info/allList?board=<%= "restaurant" %>">음식점</a></li>
+	                <li class="info-pagenav" id="pension"><a href="<%= request.getContextPath() %>/info/allList?board=<%= "pension" %>">펜션</a></li>
+	                <li class="info-pagenav" id="salon"><a href="<%= request.getContextPath() %>/info/allList?board=<%= "salon" %>">미용실</a></li>
 	            </ul>
 	        </div> 
 	        <div class="board-navsbox">
 	            <ul class="board-pagenavs">
-	                <li class="board-pagenav" id="board"><a href="#">자유게시판</a></li>
+	                <li class="board-pagenav" id="board"><a href="<%=request.getContextPath() %>/board/freeMain">자유게시판</a></li>
 	                <li class="board-pagenav" id="review"><a href="#">후기</a></li>
 	            </ul>
 	        </div> 
@@ -69,4 +71,10 @@
     	$(".navbox-container").children().hide();
         $(`.\${id}-navsbox`).show();
 	});
+    
+    // 일반상점 이동
+    $("#store").click((e) => {
+    	location.href="<%= request.getContextPath() %>/product/main";
+    });
+
 	</script>
