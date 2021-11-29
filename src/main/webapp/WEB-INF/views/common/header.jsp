@@ -17,13 +17,8 @@
            <div class="wrapper">
                <div class="title"><a href="<%=request.getContextPath() %>/">타이틀</a></div>
                <ul class="lists" >
-<<<<<<< HEAD
-                   <li id="info"><a href="#">정보</a></li>
-                   <li id="board"><a href="<%=request.getContextPath() %>/board/freeMain">게시판</a></li>
-=======
                    <li id="info"><a href="<%= request.getContextPath() %>/info/allList?board=<%= "info" %>">정보</a></li>
-                   <li id="board"><a href="#">게시판</a></li>
->>>>>>> refs/heads/dev
+                   <li id="board"><a href="<%=request.getContextPath() %>/board/freeMain">게시판</a></li>
                    <li id="market"><a href="#">마켓</a></li>
                </ul>
                <ul>
