@@ -4,7 +4,11 @@
     pageEncoding="UTF-8"%>
 <div class="enroll-wrapper">
 	<form name="infoEnrollFrm" action="">
-	
+		<table id="hospital-form">
+			<tr>
+				
+			</tr>
+		</table>
 	</form>
 </div>
 <%@ include file="/WEB-INF/views/common/footer.jsp" %> 
