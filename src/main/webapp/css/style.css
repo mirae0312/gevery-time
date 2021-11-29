@@ -80,6 +80,7 @@
     section#content		{
         width:1024px; 
         min-height : 690px; 
+        margin: 0 auto;
     }
     footer				{ 
         clear:both; 
