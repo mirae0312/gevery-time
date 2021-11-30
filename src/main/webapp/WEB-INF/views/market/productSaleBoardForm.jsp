@@ -8,7 +8,7 @@
 <title>매매글 작성</title>
 </head>
 <body>
-	<form action="<%= request.getContextPath() %>/product/boardEnroll" name="productEnrollFrm" method="POST">
+	<form action="<%= request.getContextPath() %>/product/boardEnroll" name="productEnrollFrm" enctype="multipart/form-data" method="POST">
 		<table>
 			<tr>
 				<th>제목</th>
@@ -46,6 +46,20 @@
 				<th>상품가격</th>
 				<td>
 					<input type="text" name="pdtPrice" id="pdtPrice" readonly/>
+				</td>
+			</tr>
+			<tr>
+				<th>섬네일 이미지 등록</th>
+				<td>
+					<input type="file" name="pdtThumbnail" id="pdtThumbnail" required/>
+				</td>
+			</tr>
+			<tr>
+				<th>사진 이미지 등록(최대 3장)</th>
+				<td>
+					<input type="file" name="pdtImage1"/><br />
+					<input type="file" name="pdtImage2"/><br />
+					<input type="file" name="pdtImage3"/>
 				</td>
 			</tr>
 			<tr>

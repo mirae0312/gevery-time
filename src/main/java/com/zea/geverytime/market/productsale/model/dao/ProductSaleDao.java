@@ -14,6 +14,7 @@ import java.util.List;
 import java.util.Map;
 import java.util.Properties;
 
+import com.zea.geverytime.common.model.vo.Attachment;
 import com.zea.geverytime.market.productsale.model.vo.Product;
 import com.zea.geverytime.market.productsale.model.vo.ProductBoard;
 
@@ -385,6 +386,79 @@ public class ProductSaleDao {
 			close(rset);
 		}
 		return count;
+	}
+
+	public int productSaleBoardAttachmentEnroll(Connection conn, Attachment attach, String orCode) {
+		PreparedStatement pstmt = null;
+		String sql = prop.getProperty("productSaleBoardAttachmentEnroll");
+		int result = 0;
+				
+		try {
+			pstmt = conn.prepareStatement(sql);
+			
+			String ofn = attach.getOriginalFilename();
+			String rfn = attach.getRenamedFilename();
+
+			pstmt.setString(1, orCode);
+			pstmt.setString(2, ofn);
+			pstmt.setString(3, rfn);
+			
+			result = pstmt.executeUpdate();
+			System.out.println("pdtDao@attachmentEnrollREsult : "+result);
+		} catch (SQLException e) {
+			e.printStackTrace();
+		} finally {
+			close(pstmt);
+		}
+		
+		return result;
+	}
+
+	public String getBoardOrCode(Connection conn, int boardNo) {
+		PreparedStatement pstmt = null;
+		String sql = prop.getProperty("getBoardOrcode");
+		ResultSet rset = null;
+		String orCode = "";
+		
+		try {
+			pstmt = conn.prepareStatement(sql);
+			pstmt.setInt(1, boardNo);
+			
+			rset = pstmt.executeQuery();
+			
+			if(rset.next()) {
+				orCode = rset.getString(1);
+			}
+			System.out.println("pdtDao@orCode : "+orCode);
+		} catch (SQLException e) {
+			e.printStackTrace();
+		} finally {
+			close(pstmt);
+		}
+		return orCode;
+	}
+
+	public List<Attachment> getProductSaleBoardAttachment(Connection conn, String orCode) {
+		PreparedStatement pstmt = null;
+		String sql = prop.getProperty("getBoardAttachment");
+		ResultSet rset = null;
+		List<Attachment> attachments = new ArrayList<>();
+		
+		try {
+			pstmt = conn.prepareStatement(sql);
+			pstmt.setString(1, orCode);
+			
+			rset = pstmt.executeQuery();
+			while(rset.next()) {
+				Attachment attach = new Attachment();
+				attach.setRenamedFilename(rset.getString("renamed_filename"));
+				attachments.add(attach);
+			}
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}
+		
+		return attachments;
 	}
 
 

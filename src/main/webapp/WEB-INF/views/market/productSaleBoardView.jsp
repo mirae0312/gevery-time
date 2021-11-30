@@ -1,3 +1,4 @@
+<%@page import="com.zea.geverytime.common.model.vo.Attachment"%>
 <%@page import="java.util.Map"%>
 <%@page import="java.util.List"%>
 <%@page import="com.zea.geverytime.market.productsale.model.vo.ProductBoard"%>
@@ -7,6 +8,30 @@
 <%
 	ProductBoard board = (ProductBoard) request.getAttribute("board");
 	List<Map<String, Object>> questions = (List<Map<String, Object>>) request.getAttribute("questions");
+	
+	List<Attachment> attachments = board.getAttachments();
+	
+	String thumbnailImg = "";
+	String firstImg = "";
+	String secondImg = "";
+	String thirdImg = "";
+	int imgArr = 1;
+	for(Attachment attach : attachments){
+		if(imgArr == 1){
+			thumbnailImg = (String) attach.getRenamedFilename();
+			imgArr++;
+		} else if(attach != null && imgArr == 2){
+			firstImg = (String) attach.getRenamedFilename();
+			imgArr++;
+		} else if(attach != null && imgArr == 3) {
+			secondImg = (String) attach.getRenamedFilename();
+			imgArr++;
+		} else if(attach != null && imgArr == 4){
+			thirdImg = (String) attach.getRenamedFilename();
+			imgArr++;
+		}
+		
+	}
 %>  
 <!DOCTYPE html>
 <html>
@@ -15,13 +40,51 @@
 <title>상세목록</title>
 </head>
 <body>
-	<table>
+<script>
+$(() => {
+	const fimg = `<tr>
+		<td>img1</td>
+		<td><img src="<%= request.getContextPath() %>/upload/market/productSale/<%= firstImg %>" style="width:300px;"></td>
+	</tr>`; 
+	const simg = `<tr>
+		<td>img2</td>
+		<td><img src="<%= request.getContextPath() %>/upload/market/productSale/<%= secondImg %>" style="width:300px;"></td>
+	</tr>`;			
+	const timg = `<tr>
+		<td>img3</td>
+		<td><img src="<%= request.getContextPath() %>/upload/market/productSale/<%= thirdImg %>" style="width:300px;"></td>
+	</tr>`;
+	
+	switch(<%= imgArr %>){
+	case 2 : 
+		$("#board tbody").append("이미지 없음");
+		break;
+	case 3 : 
+		$("#board tbody").append(fimg);
+		break;
+	case 4 :
+		$("#board tbody").append(fimg);
+		$("#board tbody").append(simg);
+		break;
+	case 5 :
+		$("#board tbody").append(fimg);
+		$("#board tbody").append(simg);
+		$("#board tbody").append(timg);
+		break;
+	};
+})
+</script>
+	<table id="board">
 		<thead>
 			<tr>
 				<th>판매게시글</th>
 			</tr>
 		</thead>
 		<tbody>
+			<tr>
+				<th>섬네일</th>
+				<td><img src="<%= request.getContextPath() %>/upload/market/productSale/<%= thumbnailImg %>" style="width:300px;"></td>
+			</tr>
 			<tr>
 				<th>제목</th>
 				<td><%= board.getTitle() %></td>
@@ -38,6 +101,9 @@
 			</tr>
 			<tr>
 				<td colspan=2><%= board.getContent() %></td>
+			</tr>
+			<tr>
+				<th colspan=2>이미지</th>
 			</tr>
 		</tbody>	
 	</table>
@@ -138,11 +204,11 @@
 	</table>
 	
 	<script>
+		// 답글달기
 		$(".reply").click((e) => {
 			$(e.target).parent().parent().next().toggle(300, function(){
 			});
-		});
-	
+		});	
 	</script>
 </body>
 </html>

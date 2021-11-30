@@ -10,6 +10,7 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
+import com.zea.geverytime.common.model.vo.Attachment;
 import com.zea.geverytime.market.productsale.model.service.ProductSaleService;
 import com.zea.geverytime.market.productsale.model.vo.ProductBoard;
 
@@ -25,13 +26,15 @@ public class ProductSaleBoardView extends HttpServlet {
 		int no = Integer.parseInt(request.getParameter("no"));
 		System.out.println("psbView@no : "+no);
 		
-		// 게시글 번호 통해서 board 정보 가져오기
+		// 게시글 번호 통해서 board 정보 가져오기(첨부파일 포함)
 		ProductBoard board = pdtService.getProductSaleBoard(no);
 		System.out.println("board : "+board);
 		
 		// 댓글 가져오기
 		List<Map<String, Object>> questions = pdtService.getProductSaleBoardQuestion(no);
 		System.out.println("boardView@questions : "+questions);
+		
+		System.out.println("boardView Attachment : "+board.getAttachments());
 		
 		// set
 		request.setAttribute("questions", questions);

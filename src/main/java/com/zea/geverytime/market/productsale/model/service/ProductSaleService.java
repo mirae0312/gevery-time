@@ -9,6 +9,7 @@ import java.sql.Connection;
 import java.util.List;
 import java.util.Map;
 
+import com.zea.geverytime.common.model.vo.Attachment;
 import com.zea.geverytime.market.productsale.model.dao.ProductSaleDao;
 import com.zea.geverytime.market.productsale.model.vo.Product;
 import com.zea.geverytime.market.productsale.model.vo.ProductBoard;
@@ -16,17 +17,28 @@ import com.zea.geverytime.market.productsale.model.vo.ProductBoard;
 public class ProductSaleService {
 	private ProductSaleDao pdtDao = new ProductSaleDao();
 
-	public int productSaleBoardEnroll(ProductBoard pdtBoard) {
+	public int productSaleBoardEnroll(ProductBoard pdtBoard, List<Attachment> attachments) {
 		Connection conn = null;
 		int result = 0;
 		
 		try {
 			conn = getConnection();
+			// 게시글 등록
 			result = pdtDao.productSaleBoardEnroll(conn, pdtBoard);
 			
-			// 게시글 등록 후 boardNo set
+			// boardNo 조회
 			int boardNo = pdtDao.getLastBoard(conn);
+			// boardNo set
 			pdtBoard.setBoardNo(boardNo);
+			
+			// er_code 조회
+			String orCode = pdtDao.getBoardOrCode(conn, boardNo);
+			System.out.println("service@orCode : "+orCode);
+			
+			// Attachment 등록
+			for(Attachment attach : attachments) {
+				result = pdtDao.productSaleBoardAttachmentEnroll(conn, attach, orCode);
+			}
 			
 			commit(conn);
 		} catch(Exception e) {
@@ -39,6 +51,31 @@ public class ProductSaleService {
 		return result;
 	}
 
+	public int attachmentEnroll(List<Attachment> attachments, int boardNo) {
+		Connection conn = null;
+		int result = 0;
+		
+		try {
+			conn = getConnection();
+			// er_code 조회
+			String orCode = pdtDao.getBoardOrCode(conn, boardNo);
+			System.out.println("service@orCode : "+orCode);
+			
+			// Attachment 등록
+			for(Attachment attach : attachments) {
+				pdtDao.productSaleBoardAttachmentEnroll(conn, attach, orCode);
+			}
+			
+		} catch(Exception e) {
+			rollback(conn);
+			e.printStackTrace();
+		} finally {
+			close(conn);
+		}
+		
+		return result;
+	}
+	
 	public List<Product> getSellerProduct(String sellerId, String state) {
 		Connection conn = getConnection();
 		List<Product> list = pdtDao.getSellerProduct(conn, sellerId, state);
@@ -64,6 +101,12 @@ public class ProductSaleService {
 	public ProductBoard getProductSaleBoard(int no) {
 		Connection conn = getConnection();
 		ProductBoard board = pdtDao.getProductSaleBoard(conn, no);
+		// orCode 조회해서 첨부파일 담아오기
+		String orCode = board.getOrCode();
+		List<Attachment> attachments = pdtDao.getProductSaleBoardAttachment(conn, orCode);
+		// 첨부파일 set
+		board.setAttachments(attachments);
+		
 		close(conn);
 		return board;
 	}
@@ -160,6 +203,7 @@ public class ProductSaleService {
 		}
 		return result;
 	}
+
 
 
 
