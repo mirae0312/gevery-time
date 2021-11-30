@@ -17,9 +17,10 @@
 		</div>
 		<div class="right-head">
 			<label for="tel">전화번호</label>
-			<input type="text" name="tel1" id="tel" />
+			<input type="text" name="tel" id="tel" />
+<%--			<input type="text" name="tel1" id="tel" />
 			<input type="text" name="tel2" id="tel" />
-			<input type="text" name="tel3" id="tel" />
+			<input type="text" name="tel3" id="tel" /> --%>
 			<label for="addr">주소</label>
 			<input type="text" name="addr" id="addr" />
 			영업시간

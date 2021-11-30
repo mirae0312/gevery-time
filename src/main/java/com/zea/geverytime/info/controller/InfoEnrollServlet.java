@@ -95,14 +95,16 @@ public class InfoEnrollServlet extends HttpServlet {
 			info.setBusinessName(businessName);
 			info.setHeadContent(headContent);
 			
-			// 전화번호 000-0000-0000
-			String bar = "-";
-			String tel1 = multipartRequest.getParameter("tel1");
-			String tel2 = multipartRequest.getParameter("tel2");
-			String tel3 = multipartRequest.getParameter("tel3");
-			StringBuilder tels = new StringBuilder();
-			tels.append(tel1 + bar + tel2 + bar + tel3);
-			String tel = tels.toString();
+//			// 전화번호 000-0000-0000
+//			String bar = "-";
+//			String tel1 = multipartRequest.getParameter("tel1");
+//			String tel2 = multipartRequest.getParameter("tel2");
+//			String tel3 = multipartRequest.getParameter("tel3");
+//			StringBuilder tels = new StringBuilder();
+//			tels.append(tel1 + bar + tel2 + bar + tel3);
+//			String tel = tels.toString();
+//			info.setBusinessTel(tel);
+			String tel = multipartRequest.getParameter("tel");
 			info.setBusinessTel(tel);
 			
 			// 주소
