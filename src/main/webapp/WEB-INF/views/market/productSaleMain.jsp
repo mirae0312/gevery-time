@@ -5,8 +5,6 @@
 <%@ include file="/WEB-INF/views/common/header.jsp" %>	
 <%
 	List<ProductBoard> list = (List<ProductBoard>) request.getAttribute("list");
-	String msg = (String) session.getAttribute("msg");
-	if(msg != null) session.removeAttribute("msg");
 
 %>
 <!DOCTYPE html>
@@ -32,17 +30,6 @@
 		border : 1px solid black;
 	}
 </style>
-<script>
-	$(()=>{
-<%
-	if(msg != null) {
-%>
-		alert("<%= msg %>");
-<%
-	}
-%>
-	});
-</script>
 </head>
 <body>
 	<div id="pdtDivOption">
@@ -96,6 +83,18 @@
 	</div>
 	
 	<script>
+<<<<<<< HEAD
+=======
+	const f = function(n){
+	    return n<10 ? `0\${n}`:n;
+	}
+		// 상품 등록하기
+		$("#pdtEnroll").click((e) => {
+			console.log("click");
+			location.href="<%= request.getContextPath() %>/product/productForm";
+		});
+		
+>>>>>>> branch 'master' of https://github.com/wkrud/semi_geverytime.git
 		// 상품 게시글 등록하기
 		$("#pdtBoardEnroll").click((e) => {
 			location.href="<%= request.getContextPath() %>/product/boardForm";
@@ -115,6 +114,7 @@
 					div: $(e.target).val()
 				},
 				success(data){
+<<<<<<< HEAD
                     $(data).each((index, {boardNo, title, regDate, sellerId, product}) => {                        
                         let day = new Date(regDate);
                         console.log(day);
@@ -134,6 +134,25 @@
                         $("#pdtTable tbody").append(tr);
                     })
                 },
+=======
+					$(data).each((index, {boardNo, title, regDate, sellerId, product}) => {
+						const d = new Date(regDate);
+						const date = `\${d.getFullYear()}-\${f(d.getMonth())}-\${f(d.getDate())}`
+						const tr = `
+							<tr>
+								<td>\${boardNo}</th>
+								<td>섬네일 예정</td>
+								<td>\${product.state}</td>
+								<td>\${product.pdtDiv}</td>
+								<td>\${title}</td>
+								<td>\${sellerId}</td>
+								<td>\${date}</td>
+							</tr>
+						`;
+						$("#pdtTable tbody").append(tr);
+					})
+				},
+>>>>>>> branch 'master' of https://github.com/wkrud/semi_geverytime.git
 				error: console.log
 			});
 			

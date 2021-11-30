@@ -1,41 +1,45 @@
-package com.zea.geverytime.board.model.vo;
+package com.zea.geverytime.board.controller;
 
 import java.io.Serializable;
 import java.sql.Date;
 
-public class BoardAttachment implements Serializable{
+public class Attachment implements Serializable{
 	/**
 	 * 
 	 */
 	private static final long serialVersionUID = 1L;
+	
 	private int no;
-	private String orCode;
+	private String code;
 	private String originalFilename;
 	private String renamedFilename;
 	private Date regDate;
-	public BoardAttachment() {
+
+	public Attachment() {
 		super();
 		// TODO Auto-generated constructor stub
 	}
-	public BoardAttachment(int no, String orCode, String originalFilename, String renamedFilename, Date regDate) {
+	
+	public Attachment(int no, String code, String originalFilename, String renamedFilename, Date regDate) {
 		super();
 		this.no = no;
-		this.orCode = orCode;
+		this.code = code;
 		this.originalFilename = originalFilename;
 		this.renamedFilename = renamedFilename;
 		this.regDate = regDate;
 	}
+
 	public int getNo() {
 		return no;
 	}
 	public void setNo(int no) {
 		this.no = no;
 	}
-	public String getOrCode() {
-		return orCode;
+	public String getCode() {
+		return code;
 	}
-	public void setOrCode(String orCode) {
-		this.orCode = orCode;
+	public void setCode(String code) {
+		this.code = code;
 	}
 	public String getOriginalFilename() {
 		return originalFilename;
@@ -55,9 +59,10 @@ public class BoardAttachment implements Serializable{
 	public void setRegDate(Date regDate) {
 		this.regDate = regDate;
 	}
+
 	@Override
 	public String toString() {
-		return "BoardAttachment [no=" + no + ", orCode=" + orCode + ", originalFilename=" + originalFilename
+		return "Attachment [no=" + no + ", code=" + code + ", originalFilename=" + originalFilename
 				+ ", renamedFilename=" + renamedFilename + ", regDate=" + regDate + "]";
 	}
 	
