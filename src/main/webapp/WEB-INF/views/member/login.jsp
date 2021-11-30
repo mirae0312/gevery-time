@@ -68,7 +68,7 @@ $(() => {
     <div class="inner_login">
         <div class="login_tistory">
     
-            <form method="post" id="authForm" action="<%= request.getContextPath() %>">
+            <form method="post" id="authForm" action="<%= request.getContextPath() %>/memeber/loign">
                 <input type="hidden" name="redirectUrl" value="">
                 <fieldset>
                 <legend class="screen_out">로그인 정보 입력폼</legend>
