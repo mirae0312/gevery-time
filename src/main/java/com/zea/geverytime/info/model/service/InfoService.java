@@ -106,7 +106,15 @@ public class InfoService {
 	public String checkInfoBoard(String memberId) {
 		Connection conn = null;
 		String check = "";
-		return null;
+		try {
+			conn = getConnection();
+			check = infoDao.checkInfoBoard(conn, memberId);
+		}catch(Exception e) {
+			throw e;
+		}finally {
+			close(conn);
+		}
+		return check;
 	}
 
 

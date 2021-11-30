@@ -35,9 +35,13 @@ public class InfoEnrollServlet extends HttpServlet {
 		try {
 //			String memberId = loginMember.getMemberId();
 			String memberId = "honggd";
+			boolean bool = true;
 			
 			String check = infoService.checkInfoBoard(memberId);
-			if(check == null) {
+			if(check.isEmpty())
+				bool = false;
+			
+			if(!bool) {
 				Info info = infoService.selectBeforeWrite(memberId);
 				
 				// 게시물 등록jsp로 이동

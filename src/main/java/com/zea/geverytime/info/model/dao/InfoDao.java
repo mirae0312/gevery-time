@@ -321,4 +321,29 @@ public class InfoDao {
 		return info;
 	}
 
+	public String checkInfoBoard(Connection conn, String memberId) {
+		PreparedStatement pstmt = null;
+		String sql = prop.getProperty("checkInfoBoard");
+		ResultSet rset = null;
+		String check = "";
+		
+		try {
+			pstmt = conn.prepareStatement(sql);
+			
+			pstmt.setString(1, memberId);
+			
+			rset = pstmt.executeQuery();
+			if(rset.next()) {
+				check = rset.getString(1);
+			}
+		} catch (SQLException e) {
+			e.printStackTrace();
+		} finally {
+			close(rset);
+			close(pstmt);
+		}
+		
+		return check;
+	}
+
 }
