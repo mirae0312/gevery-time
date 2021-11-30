@@ -8,7 +8,7 @@
 <%
 		QnaBoard qnaBoard = (QnaBoard) request.getAttribute("qnaBoard");
 %>
-  
+ 
 <section id="board-container">
 <div id="total">
        <div id="leftbox">

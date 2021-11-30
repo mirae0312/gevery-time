@@ -102,9 +102,20 @@ a {
 #total{
         margin-top: 60px;
     }  
-      
+ #btn-add{
+    background-color: rgba(211, 211, 211, 0.479);
+    border-style: none;
+    font-size: 15px;
+    padding: 10px 16px;
+    border-radius: 10px;
+    cursor: pointer;
+}
+#inputBox{
+   margin-top: 20px;
+   margin-left: 930px;
+}     
 /*페이지바*/
-div#pageBar{margin-top:10px; text-align:center; }
-div#pageBar span.cPage{color: #0066ff; margin-right: 5px;}
+div#pageBar{margin-top:14px; text-align:center; font-size:19px; }
+div#pageBar span.cPage{color: gray; margin-right: 5px;}
 div#pageBar a{margin-right: 5px;}
       

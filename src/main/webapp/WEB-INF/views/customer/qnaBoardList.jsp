@@ -80,8 +80,8 @@
             </table>
           
         </div>
-        <input type="button" value="글쓰기" id="btn-add" 
-        	onclick="location.href='<%= request.getContextPath() %>/customer/qnaBoardForm'"/>
+        <div id="inputBox"><input type="button" value="글쓰기" id="btn-add"
+        	onclick="location.href='<%= request.getContextPath() %>/customer/qnaBoardForm'"/></div>
 	<div id='pageBar'><%= request.getAttribute("pagebar") %></div>
  </div> 
 </section>
