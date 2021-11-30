@@ -15,7 +15,7 @@ import java.util.List;
 import java.util.Map;
 import java.util.Properties;
 
-import com.zea.geverytime.customer.model.exception.BoardException;
+import com.zea.geverytime.customer.model.exception.CustomerBoardException;
 import com.zea.geverytime.customer.model.vo.QnaBoard;
 
 public class QnaBoardDao {
@@ -189,7 +189,7 @@ public class QnaBoardDao {
 			
 			result = pstmt.executeUpdate();
 		} catch (SQLException e) {
-			throw new BoardException("게시물 등록 오류",e);
+			throw new CustomerBoardException("게시물 등록 오류",e);
 		} finally {
 			close(pstmt);
 		}
@@ -253,5 +253,34 @@ public class QnaBoardDao {
 		}
 		return result;
 	}
+
+	public int insertQnaBoardReply(Connection conn, QnaBoard qnaBoard) {
+		PreparedStatement pstmt = null;
+		String sql = prop.getProperty("insertQnaBoardReply");
+		int result = 0;
+		
+		//insertQnaBoardReply = insert into qna_board(no,title,writer,content,password,category_a,reply_level,reply_ref) values (seq_qna_board_no.nextval, ?,?,?,?,?,?,?)
+		try {
+			pstmt = conn.prepareStatement(sql);
+			pstmt.setString(1, qnaBoard.getTitle());
+			pstmt.setString(2, qnaBoard.getWriter());
+			pstmt.setString(3, qnaBoard.getContent());
+			pstmt.setString(4, qnaBoard.getPassword());
+			pstmt.setString(5, qnaBoard.getCategory());
+			pstmt.setInt(6, qnaBoard.getReplyLevel());
+			pstmt.setInt(7, qnaBoard.getReplyRef());
+			
+			result = pstmt.executeUpdate();
+		} catch (SQLException e) {
+			throw new CustomerBoardException("게시물 등록 오류",e);
+		} finally {
+			close(pstmt);
+		}
+		
+		return result;
+ 
+ 
+	}
+ 
 	 
 }

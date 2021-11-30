@@ -135,7 +135,7 @@ from
 start with 
     reply_level = 1 
 connect by
-    prior no = reply_ref--부모의 no컬럼이 자식행의 comment_ref
+    prior no = reply_ref--부모의 no컬럼이 자식행의 reply_ref
 order siblings by
     no ;
 

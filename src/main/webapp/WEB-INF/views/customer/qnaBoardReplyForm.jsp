@@ -1,6 +1,13 @@
+<%@page import="com.zea.geverytime.customer.model.vo.QnaBoard"%>
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
 <%@ include file="/WEB-INF/views/common/header.jsp" %>
+<%
+ QnaBoard qnaBoard = (QnaBoard) request.getAttribute("qnaBoard");
+%>
+<%
+ int no = (Integer) request.getAttribute("no");
+%>
  <script src="/js/summernote/summernote-lite.js"></script>
 <script src="/js/summernote/lang/summernote-ko-KR.js"></script>
 <link rel="stylesheet" href="/css/summernote/summernote-lite.css">
@@ -12,16 +19,19 @@
  </script>
 
 <section id="board-container">
-<h2>문의글 작성</h2>
+<h2>게시판 작성</h2>
 <form
-	name="boardEnrollFrm"
-	action="<%=request.getContextPath() %>/customer/qnaBoardEnroll" 
+	name="boardReplyEnrollFrm"
+	action="<%=request.getContextPath() %>/customer/qnaBoardReplyEnroll" 
 	method="post">
-	
+	<input type="hidden" name="no" value="<%= no %>" />
+    <input type="hidden" name="replyLevel" value="2" />
+     <input type="hidden" name="replyRef" value="<%= no %>" />  
 	<table id="tbl-board-view">
+	
 	<tr>
 		<th>제 목</th>
-		<td><input type="text" name="title" required></td>
+		<td>[답변]<input type="text" name="title" required></td>
 	</tr>
 	<tr>
 		<th>작성자</th>
@@ -34,11 +44,11 @@
         <td>
         <label for="category"></label> 
          <select name="category" id="category"  >
-          <option value="[아이디/비밀번호 관련]">아이디/비밀번호 관련</option>
-          <option value="[회원정보 관련]">회원정보 관련</option>
+          <option value="[답변]">답변</option>
+         <!-- <option value="[회원정보 관련]">회원정보 관련</option>
           <option value="[포인트 관련]">포인트 관련</option>
           <option value="[주문/결제관련]">주문/결제관련</option>
-          
+           --> 
         </select>
        </td>
     </tr>              
@@ -61,5 +71,3 @@
 
   
 <%@ include file="/WEB-INF/views/common/footer.jsp" %>
-
- 

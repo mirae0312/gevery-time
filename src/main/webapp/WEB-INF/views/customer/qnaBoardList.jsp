@@ -23,7 +23,7 @@
                         <th>No</th>
                          <th>분류</th>
                         <th></th>
-                        <th>제목</th>
+                        <th colspan="5">제목</th>
                         <th>작성자</th>
                         <th>날짜</th>
                     </tr>
@@ -37,9 +37,9 @@
  
                     <tr>
                         <td><%= qnaBoard.getNo() %></td>
-                        <td><%= qnaBoard.getCategory() %></td>
+                        <td style="font-size:13px";><%= qnaBoard.getCategory() %></td>
                          <td></td>
-                        <td class="tit">
+                        <td class="tit" colspan="5">
                           <a href="<%= request.getContextPath() %>/customer/qnaBoardView?no=<%= qnaBoard.getNo() %>"><%= qnaBoard.getTitle() %></a>
                         </td>
                         <td><%= qnaBoard.getWriter() %></td>
@@ -56,10 +56,12 @@
   <tr>
   
                         <td><%= qnaBoard.getNo() %></td>
-                        <td><%= qnaBoard.getCategory() %></td>
-                         <td></td>
-                        <td class="tit">
-                          <a href="<%= request.getContextPath() %>/customer/qnaBoardView?no=<%= qnaBoard.getNo() %>"><p></p>ㄴ>[답변] <%= qnaBoard.getTitle() %></a>
+                        <td style="font-size:13px";><%= qnaBoard.getCategory() %></td>
+                       <!-- <td><img alt="" src="<%= request.getContextPath() %>/css/customer/check2.jpg" width="30px"></td> -->  
+ 
+                       <td > </td>
+                        <td class="tit" colspan="5">
+                          <a href="<%= request.getContextPath() %>/customer/qnaBoardView?no=<%= qnaBoard.getNo() %>">ㄴ>RE: <%= qnaBoard.getTitle() %></a>
                           
                         </td>
                         <td><%= qnaBoard.getWriter() %></td>

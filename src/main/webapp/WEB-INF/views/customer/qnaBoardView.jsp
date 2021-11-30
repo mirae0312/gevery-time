@@ -48,10 +48,10 @@
             </table>
         </div>
         <div class="button">
-        <input type="button" value="목록" onclick="#"/>
+        <input type="button" value="목록" onclick="showQnaBoardList()"/>
         <input type="button" value="수정" onclick="updateQnaBoard()"/>
         <input type="button" value="삭제" onclick="deleteQnaBoard()"/>
-        <input type="button" value="답변" onclick="#"/>
+        <input type="button" value="답변" onclick="replyQnaBoard()"/>
         </div>
  </div>
  </section>
@@ -65,6 +65,14 @@
 
 
  <script>
+//목록으로 가기 
+	const showQnaBoardList = () =>{
+		location.href = "<%= request.getContextPath() %>/customer/qnaBoardList";
+	};
+	//답변글 작성
+	const replyQnaBoard = () =>{
+		location.href = "<%= request.getContextPath() %>/customer/qnaBoardReplyForm?no=<%= qnaBoard.getNo() %>";
+	};
  	//게시글 수정
  	const updateQnaBoard = () =>{
  		location.href = "<%= request.getContextPath() %>/customer/qnaBoardUpdate?no=<%= qnaBoard.getNo() %>";

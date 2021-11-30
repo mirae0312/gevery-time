@@ -106,5 +106,22 @@ public class QnaBoardService {
 		}
 		return result;
 	}
+
+	public  int insertQnaBoardReply(QnaBoard qnaBoard) {
+		Connection conn = null;
+		int result = 0;
+		try {
+		conn = getConnection();
+		result = qnaBoardDao.insertQnaBoardReply(conn, qnaBoard);
+		commit(conn);
+		}catch(Exception e) {
+			rollback(conn);
+			throw e;
+		}finally {
+			close(conn);
+		}
+		return result;
+	}
+	}
  
-}
+ 
