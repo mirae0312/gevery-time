@@ -34,7 +34,13 @@ public class BoardEnrollServlet extends HttpServlet {
 		String writer = multipartRequest.getParameter("writer");
 		String content = multipartRequest.getParameter("content");
 		
+		if(multipartRequest.getParameter("file1")  != null) {
+//			multipartRequest.get
+		}
+		
 		// 2. 업무처리
+		
+		
 		
 		// 3. 응답처리
 		response.sendRedirect(request.getContextPath()+"/board/freeBoard");
