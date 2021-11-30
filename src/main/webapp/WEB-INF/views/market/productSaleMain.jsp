@@ -124,6 +124,7 @@
 					$(data).each((index, {boardNo, title, regDate, sellerId, product}) => {
 						console.log(boardNo);
 						console.log(product.state);
+						
 						const tr = `
 							<tr>
 								<td>\${boardNo}</th>
