@@ -41,7 +41,8 @@
 
                <li class="nav" id="login"><a href="<%=request.getContextPath()%>/member/login">로그인</a></li>
                <% if(loginMember != null && MemberService.USER_ROLE.equals(loginMember.getMemberRole())){ %>
-               <li><%= loginMember.getMemberName() %>님</li>
+               <li class="nav"><%= loginMember.getMemberName() %>님</li>
+               
                <li class="nav" id="mypage"><a href="#">마이페이지</a></li>	              
                <%} %>
                <li class="nav" id="dm"><a href="#">DM</a></li>

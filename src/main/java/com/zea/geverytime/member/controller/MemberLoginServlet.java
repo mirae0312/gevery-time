@@ -51,6 +51,7 @@ public class MemberLoginServlet extends HttpServlet {
 
 					session.setAttribute("msg", "로그인 성공!");
 					
+					System.out.println(member.getMemberRole());
 					
 					// 아이디저장 체크박스 처리
 					Cookie cookie = new Cookie("saveId", memberId);
