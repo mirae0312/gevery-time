@@ -1,10 +1,6 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
-<%@ page import="java.sql.*" %>
+<!DOCTYPE html>
 <%@ include file="/WEB-INF/views/common/header.jsp" %>
-<<<<<<< HEAD
-
- 
-=======
->>>>>>> branch 'master' of https://github.com/wkrud/semi_geverytime.git
+<h2>관리자 페이지</h2>
 <%@ include file="/WEB-INF/views/common/footer.jsp" %>

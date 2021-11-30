@@ -1,5 +1,7 @@
 package com.zea.geverytime.info.model.dao;
 
+import static com.zea.geverytime.common.JdbcTemplate.close;
+
 import java.io.File;
 import java.io.FileReader;
 import java.io.IOException;
@@ -11,10 +13,9 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Properties;
 
+import com.zea.geverytime.common.model.vo.Attachment;
 import com.zea.geverytime.info.model.exception.InfoBoardException;
 import com.zea.geverytime.info.model.vo.Info;
-import com.zea.geverytime.info.model.vo.InfoAttachment;
-import static com.zea.geverytime.common.JdbcTemplate.close;
 
 public class InfoDao {
 	
@@ -139,11 +140,11 @@ public class InfoDao {
 		return list;
 	}
 
-	public List<InfoAttachment> selectPopAttach(Connection conn, String code) {
+	public List<Attachment> selectPopAttach(Connection conn, String code) {
 		PreparedStatement pstmt = null;
 		String sql = prop.getProperty("selectPopAttach");
 		ResultSet rset = null;
-		List<InfoAttachment> attach = new ArrayList<>();
+		List<Attachment> attach = new ArrayList<>();
 		
 		try {
 			pstmt = conn.prepareStatement(sql);
@@ -152,7 +153,7 @@ public class InfoDao {
 			
 			rset = pstmt.executeQuery();
 			while(rset.next()) {
-				InfoAttachment info = new InfoAttachment();
+				Attachment info = new Attachment();
 				info.setNo(rset.getInt("no"));
 				info.setOriginalFilename(rset.getString("original_filename"));
 				info.setRenamedFilename(rset.getString("renamed_filename"));
@@ -171,11 +172,11 @@ public class InfoDao {
 		return attach;
 	}
 
-	public List<InfoAttachment> selectAllAttach(Connection conn, String code, int start, int end) {
+	public List<Attachment> selectAllAttach(Connection conn, String code, int start, int end) {
 		PreparedStatement pstmt = null;
 		String sql = prop.getProperty("selectAllAttach");
 		ResultSet rset = null;
-		List<InfoAttachment> list = new ArrayList<>();
+		List<Attachment> list = new ArrayList<>();
 		
 		try {
 			pstmt = conn.prepareStatement(sql);
@@ -186,7 +187,7 @@ public class InfoDao {
 			
 			rset = pstmt.executeQuery();
 			while(rset.next()) {
-				InfoAttachment info = new InfoAttachment();
+				Attachment info = new Attachment();
 				info.setNo(rset.getInt("no"));
 				info.setOriginalFilename(rset.getString("original_filename"));
 				info.setRenamedFilename(rset.getString("renamed_filename"));
@@ -203,6 +204,146 @@ public class InfoDao {
 		}
 		
 		return list;
+	}
+
+	public int insertInfo(Connection conn, Info info) {
+		PreparedStatement pstmt = null;
+		String sql = prop.getProperty("insertInfo");
+		int result = 0;
+		
+		try {
+			pstmt = conn.prepareStatement(sql);
+			
+			pstmt.setString(1, info.getMemberId());
+			pstmt.setString(2, info.getBusinessNo());
+			pstmt.setString(3, info.getHeadContent());
+			pstmt.setString(4, info.getBodyContents());
+			pstmt.setString(5, info.getServiceContent());
+			pstmt.setString(6, info.getSite());
+			pstmt.setString(7, info.getMon());
+			pstmt.setString(8, info.getTue());
+			pstmt.setString(9, info.getWed());
+			pstmt.setString(10, info.getThu());
+			pstmt.setString(11, info.getFri());
+			pstmt.setString(12, info.getSat());
+			pstmt.setString(13, info.getSun());
+			pstmt.setString(14, info.getLaunch());
+			pstmt.setString(15, info.getDinner());
+			pstmt.setString(16, info.getHoliday());
+			
+			result = pstmt.executeUpdate();
+
+		} catch (SQLException e) {
+			throw new InfoBoardException("게시물 등록 실패!", e);
+		} finally {
+			close(pstmt);
+		}
+		
+		return result;
+	}
+
+	public String selectCode(Connection conn, Info info) {
+		PreparedStatement pstmt = null;
+		String sql = prop.getProperty("selectCode");
+		ResultSet rset = null;
+		String code = "";
+		
+		try {
+			pstmt = conn.prepareStatement(sql);
+			
+			pstmt.setString(1, info.getMemberId());
+			
+			rset = pstmt.executeQuery();
+			if(rset.next()) {
+				code = rset.getString(1);
+			}
+			
+		} catch (SQLException e) {
+			throw new InfoBoardException("코드 가져오기 실패!", e);
+		} finally {
+			close(rset);
+			close(pstmt);
+		}
+		
+		return code;
+	}
+
+	public int insertAttachment(Connection conn, Attachment attach) {
+		PreparedStatement pstmt = null;
+		String sql = prop.getProperty("insertAttachment");
+		int result = 0;
+		
+		try {
+			pstmt = conn.prepareStatement(sql);
+			
+			pstmt.setString(1, attach.getCode());
+			pstmt.setString(2, attach.getOriginalFilename());
+			pstmt.setString(3, attach.getRenamedFilename());
+			
+			result = pstmt.executeUpdate();
+		} catch (SQLException e) {
+			throw new InfoBoardException("첨부파일 저장 실패!", e);
+		} finally {
+			close(pstmt);
+		}
+		
+		return result;
+	}
+
+	public Info selectBeforeWrite(Connection conn, String memberId) {
+		PreparedStatement pstmt = null;
+		String sql = prop.getProperty("selectBeforeWrite");
+		ResultSet rset = null;
+		Info info = null;
+		
+		try {
+			pstmt = conn.prepareStatement(sql);
+			
+			pstmt.setString(1, memberId);
+			
+			rset = pstmt.executeQuery();
+			if(rset.next()) {
+				info = new Info();
+				info.setMemberId(rset.getString("business_id"));
+				info.setBusinessName(rset.getString("business_name"));
+				info.setBusinessAddress(rset.getString("business_address"));
+				info.setBusinessTel(rset.getString("business_tel"));
+				info.setLocation(rset.getString("location"));
+				
+			}
+		} catch (SQLException e) {
+			throw new InfoBoardException("사업자 정보 불러오기 실패!", e);
+		} finally {
+			close(rset);
+			close(pstmt);
+		}
+		
+		return info;
+	}
+
+	public String checkInfoBoard(Connection conn, String memberId) {
+		PreparedStatement pstmt = null;
+		String sql = prop.getProperty("checkInfoBoard");
+		ResultSet rset = null;
+		String check = "";
+		
+		try {
+			pstmt = conn.prepareStatement(sql);
+			
+			pstmt.setString(1, memberId);
+			
+			rset = pstmt.executeQuery();
+			if(rset.next()) {
+				check = rset.getString(1);
+			}
+		} catch (SQLException e) {
+			e.printStackTrace();
+		} finally {
+			close(rset);
+			close(pstmt);
+		}
+		
+		return check;
 	}
 
 }

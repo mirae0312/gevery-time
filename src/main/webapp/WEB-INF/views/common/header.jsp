@@ -25,13 +25,13 @@
                </ul>
                <ul>
                    <!--관리자페이지표시 안 보이게 할 때 아래 한 줄만 처리해야 흐트러지지 않음 -->
-                   <li id="admin"><a href="#" style="color: red">관리자페이지</a></li>
+                   <li id="admin"><a href="<%= request.getContextPath() %>/admin/adminList" style="color: red">관리자페이지</a></li>
                </ul>
             <nav>
                <ul class="navs">
                <li class="nav" id="login"><a href="#">로그인/로그아웃</a></li>
                <li class="nav" id="mypage"><a href="#">마이페이지</a></li>
-               <li class="nav" id="dm"><a href="#">DM</a></li>
+               <li class="nav" id="dm"><a href="<%= request.getContextPath() %>/chat/chatroom">DM</a></li>
                <li class="nav"id="qna"><a href="<%= request.getContextPath() %>/customer/qnaBoardList">고객센터</a></li>
                </ul>
             </nav>
