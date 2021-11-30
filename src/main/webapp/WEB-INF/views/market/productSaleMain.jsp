@@ -92,7 +92,6 @@
 		</table>
 	</div>
 	
-<<<<<<< HEAD
 	<script>
 	const f = function(n){
 	    return n<10 ? `0\${n}`:n;
@@ -150,8 +149,7 @@
 		
 		
 	</script>
-=======
-<script>
+	<script>
         // 상품 등록하기
         $("#pdtEnroll").click((e) => {
             console.log("click");
@@ -201,7 +199,6 @@
 
 
     </script>
->>>>>>> branch 'master' of https://github.com/wkrud/semi_geverytime.git
 </body>
 </html>
 <%@ include file="/WEB-INF/views/common/footer.jsp" %> 
