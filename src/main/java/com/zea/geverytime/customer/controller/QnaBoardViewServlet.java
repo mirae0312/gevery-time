@@ -30,10 +30,10 @@ public class QnaBoardViewServlet extends HttpServlet {
 		 QnaBoard qnaBoard = qnaBoardService.selectOneQnaBoard(no);
 		 System.out.println("[QnaBoardViewServlet] qnaboard = " + qnaBoard);
 		 
-		String content = qnaBoard.getContent().replaceAll("<", "&lt;").replaceAll("<", "&gt;");
-		content = content.replaceAll("\n","<br/>");
-		qnaBoard.setContent(content);
-	 
+//		String content = qnaBoard.getContent().replaceAll("<", "&lt;").replaceAll("<", "&gt;");
+//		content = content.replaceAll("\n","<br/>");
+//		qnaBoard.setContent(content);
+//	 
 		 
 		//3. jsp forwarding
 		request.setAttribute("qnaBoard", qnaBoard);

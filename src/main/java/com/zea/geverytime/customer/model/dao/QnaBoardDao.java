@@ -14,6 +14,7 @@ import java.util.List;
 import java.util.Map;
 import java.util.Properties;
 
+ 
 import com.zea.geverytime.customer.model.exception.CustomerBoardException;
 import com.zea.geverytime.customer.model.vo.FaqBoard;
 import com.zea.geverytime.customer.model.vo.QnaBoard;
@@ -308,7 +309,7 @@ public class QnaBoardDao {
 			list.add(faqBoard);
 	}
 		}catch(SQLException e) {
-			e.printStackTrace();
+			throw new CustomerBoardException("게시글 목록 조회 오류!",e);
 		}finally {
 			close(rset);
 			close(pstmt);
