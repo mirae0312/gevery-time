@@ -1,4 +1,5 @@
-package com.zea.geverytime.info.controller;
+package com.zea.geverytime.member.controller;
+
 
 import java.io.IOException;
 
@@ -9,8 +10,8 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
-import com.zea.geverytime.info.model.service.BusinessService;
-import com.zea.geverytime.info.model.vo.Business;
+import com.zea.geverytime.member.model.service.BusinessService;
+import com.zea.geverytime.member.model.vo.Business;
 
 /**
  * Servlet implementation class BusinessEnrollServlet
@@ -34,7 +35,6 @@ public class BusinessEnrollServlet extends HttpServlet {
 		
 			request.setCharacterEncoding("utf-8");
 			
-			// 2.사용자입력값 처리 사용자입력값 -> Member VO객체 생성
 			String businessId = request.getParameter("businessId");
 			String password = request.getParameter("password");
 			String name = request.getParameter("name");
@@ -51,7 +51,7 @@ public class BusinessEnrollServlet extends HttpServlet {
 			
 			
 			
-			Business business = new Business(businessId,password,name,email,businessNo,bName,baddress,btel,location,BusinessService.BusinessType);
+			Business business = new Business(businessId,password,name,email,businessNo,bName,baddress,btel,location,BusinessService.BUSINESSTYPE);
 			System.out.println("member@servlet = " + business);
 			
 			// 3.업무로직 service객체의 insertMember호출 & 생성한 member객체 전달

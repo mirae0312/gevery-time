@@ -1,5 +1,4 @@
-package com.zea.geverytime.info.model.dao;
-
+package com.zea.geverytime.member.model.dao;
 import static com.zea.geverytime.common.JdbcTemplate.close;
 
 import java.io.FileReader;
@@ -10,11 +9,12 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.Properties;
 
-import com.zea.geverytime.info.model.MemberException;
-import com.zea.geverytime.info.model.vo.Member;
+import com.zea.geverytime.member.model.exception.MemberException;
+import com.zea.geverytime.member.model.vo.Member;
 
 public class MemberDao {
-private Properties prop = new Properties();
+
+	private Properties prop = new Properties();
 	
 	public MemberDao(){
 		// /build/classes 하위에서 파일을 조회

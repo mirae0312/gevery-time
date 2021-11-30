@@ -1,4 +1,5 @@
-package com.zea.geverytime.info.controller;
+package com.zea.geverytime.member.controller;
+
 
 import java.io.IOException;
 import java.sql.Date;
@@ -10,8 +11,8 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
-import  com.zea.geverytime.info.model.service.MemberService;
-import  com.zea.geverytime.info.model.vo.Member;
+import com.zea.geverytime.member.model.service.MemberService;
+import com.zea.geverytime.member.model.vo.Member;
 
 /**
  * Servlet implementation class MemberEnrollServlet
@@ -29,12 +30,7 @@ public class MemberEnrollServlet extends HttpServlet {
 		
 	}
 
-	/**
-	 * POST /mvc/member/memberEnroll
-	 * 
-	 * - DB에 레코드 기록
-	 * 
-	 */
+	
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		try {
 			// 1.인코딩처리 utf-8
@@ -67,8 +63,8 @@ public class MemberEnrollServlet extends HttpServlet {
 			// 4.redirect 및 msg처리
 			HttpSession session = request.getSession();
 			session.setAttribute("msg", msg);
-			String locations = request.getContextPath() + "/";
-			response.sendRedirect(locations);
+			String location = request.getContextPath() + "/";
+			response.sendRedirect(location);
 			
 		} catch (Exception e) {
 			e.printStackTrace();

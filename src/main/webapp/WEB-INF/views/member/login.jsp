@@ -1,4 +1,4 @@
-<%@page import="com.zea.geverytime.info.model.vo.Member"%>
+<%@page import="com.zea.geverytime.member.model.vo.Member"%>
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
     <%
@@ -7,20 +7,7 @@
 	
 	Member loginMember = (Member) session.getAttribute("loginMember");
 	
-	//쿠키처리
-	Cookie[] cookies = request.getCookies();
-	String saveMemberId = null;
-	if(cookies != null){
-		for(Cookie cookie : cookies){
-			String name = cookie.getName();
-			String value = cookie.getValue();
-			System.out.println(name + " = " + value);
-			if("saveId".equals(name)){
-				saveMemberId = value;
-			}
-		}
-	}
-	System.out.println("saveMemberId@header.jsp = " + saveMemberId);
+
 %>
 <!DOCTYPE html>
 <html>
@@ -28,6 +15,7 @@
 <meta charset="UTF-8">
 <title>Insert title here</title>
 </head>
+<link rel="stylesheet" href="<%=request.getContextPath() %>/css/member/login.css" />
 <body>
 <script>
 $(() => {
@@ -81,9 +69,9 @@ $(() => {
                     <input type="password" id="loginPw" name="password" placeholder="Password" >
                     </div>
                 </div>
-                <button type="submit" class="btn_login"  disabled>로그인</button>
+                <button type="submit" class="btn_login"  >로그인</button>
                 <div class="login_append">
-                    <div class="inp_chk"> <!-- 체크시 checked 추가 -->
+                    <div class="inp_chk"> 
                    
             <span class="enroll_"> <a href="<%= request.getContextPath() %>/member/memberEnroll">회원가입</a></span>
            

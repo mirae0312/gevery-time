@@ -1,4 +1,5 @@
-package com.zea.geverytime.info.controller;
+package com.zea.geverytime.member.controller;
+
 
 import java.io.IOException;
 
@@ -8,8 +9,8 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
-import com.zea.geverytime.info.model.service.MemberService;
-import com.zea.geverytime.info.model.vo.Member;
+import com.zea.geverytime.member.model.service.MemberService;
+import com.zea.geverytime.member.model.vo.Member;
 
 /**
  * Servlet implementation class MemberIdcheckDuplicateServlet

@@ -1,4 +1,4 @@
-package com.zea.geverytime.info.model.vo;
+package com.zea.geverytime.member.model.vo;
 
 public class Business {
 	private String businessId;
