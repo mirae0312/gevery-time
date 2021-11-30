@@ -13,19 +13,17 @@ import com.zea.geverytime.market.productsale.model.service.ProductSaleService;
 import com.zea.geverytime.market.productsale.model.vo.Product;
 
 /**
- * Servlet implementation class ProductSaleBoardEnrollGetPdtInfoServlet
+ * Servlet implementation class ProductSaleOnsaleProductServlet
  */
-@WebServlet("/productSale/getProduct")
-public class ProductSaleGetProductServlet extends HttpServlet {
+@WebServlet("/product/onsaleProduct")
+public class ProductSaleOnsaleProductServlet extends HttpServlet {
 	private static final long serialVersionUID = 1L;
 	private ProductSaleService pdtService = new ProductSaleService();
 	
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		// 판매자 id 받아오기
-		String sellerId = request.getParameter("sellerId");
-		
-		// 판매상태 지정
-		String state = "%판매중%";
+		// 판매자 id 받아오기 >> 로그인 기능 구현되면 session에서 받아올 것
+		String sellerId = "tarr4h";
+		String state = "%%";
 		System.out.println(sellerId);
 	
 		// 판매자 상품목록 받아오기
@@ -34,7 +32,7 @@ public class ProductSaleGetProductServlet extends HttpServlet {
 		
 		// 저장 및 전달
 		request.setAttribute("list", list);
-		request.getRequestDispatcher("/WEB-INF/views/market/productSaleGetProduct.jsp").forward(request, response);
+		request.getRequestDispatcher("/WEB-INF/views/market/productSaleOnsaleProduct.jsp").forward(request, response);
 	}
 
 }

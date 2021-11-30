@@ -74,7 +74,7 @@ public class ProductSaleDao {
 		return boardNo;
 	}
 
-	public List<Product> getSellerProduct(Connection conn, String sellerId) {
+	public List<Product> getSellerProduct(Connection conn, String sellerId, String state) {
 		PreparedStatement pstmt = null;
 		String sql = prop.getProperty("getSellerProduct");
 		ResultSet rset = null;
@@ -83,6 +83,7 @@ public class ProductSaleDao {
 		try {
 			pstmt = conn.prepareStatement(sql);
 			pstmt.setString(1, sellerId);
+			pstmt.setString(2, state);
 			rset = pstmt.executeQuery();
 			
 			while(rset.next()) {
@@ -330,6 +331,35 @@ public class ProductSaleDao {
 			e.printStackTrace();
 		}
 		return list;
+	}
+
+	public int productOptionChange(Connection conn, String colname, String val, int pdtNo) {
+		PreparedStatement pstmt = null;
+		String sql = "";
+		switch(colname) {
+		case "div" :
+			sql = prop.getProperty("productDivOptionChange");
+			break;
+		case "state" : 
+			sql = prop.getProperty("productStateOptionChange"); 
+			break;
+		}
+		int result = 0;
+		
+		try {
+			pstmt = conn.prepareStatement(sql);
+			pstmt.setString(1, val);				
+			pstmt.setInt(2, pdtNo);
+			
+			result = pstmt.executeUpdate();
+			System.out.println("pdtDao@optionChange : "+result);
+		} catch (SQLException e) {
+			e.printStackTrace();
+		} finally {
+			close(pstmt);
+		}
+		
+		return result;
 	}
 
 

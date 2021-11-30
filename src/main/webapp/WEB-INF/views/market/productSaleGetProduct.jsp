@@ -4,7 +4,6 @@
     pageEncoding="UTF-8"%>
 <%
 	List<Product> list = (List<Product>) request.getAttribute("list");
-
 %>
 <!DOCTYPE html>
 <html>

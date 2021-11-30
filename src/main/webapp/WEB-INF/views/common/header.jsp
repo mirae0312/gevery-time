@@ -58,6 +58,7 @@
 	                <li class="market-pagenav" id="used"><a href="#">중고 매매</a></li>
 	                <li class="market-pagenav" id="list"><a href="#">찜 목록</a></li>
 	                <li class="market-pagenav" id="cart"><a href="#">장바구니</a></li>
+	                <li class="market-pagenav" id="product"><a href="<%= request.getContextPath() %>/product/onsaleProduct">상품관리</a></li>
 	            </ul>
 	        </div>
         </div>

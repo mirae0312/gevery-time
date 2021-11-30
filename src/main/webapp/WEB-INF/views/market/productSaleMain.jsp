@@ -58,7 +58,7 @@
 	</div>
 	
 	<button id="pdtBoardEnroll">등록하기</button>
-	<button id="pdtEnroll">상품 등록하기</button>
+
 	
 	<div id="pdtList">
 		<table id="pdtTable">
@@ -96,48 +96,44 @@
 	</div>
 	
 	<script>
-		// 상품 등록하기
-		$("#pdtEnroll").click((e) => {
-			console.log("click");
-			location.href="<%= request.getContextPath() %>/product/productForm";
-		});
-		
 		// 상품 게시글 등록하기
 		$("#pdtBoardEnroll").click((e) => {
 			location.href="<%= request.getContextPath() %>/product/boardForm";
 		});
 		
-		// 리스트 비우기
-		$("#empty").click((e) => {
-			$("#pdtTable tbody").empty();			
-		});
+		const f = n => n < 10 ? "0" + n : n;
+
 		
 		$(".pdtDiv").click((e) => {
 			$("#pdtTable tbody").empty();	
 			console.log($(e.target).val());
+			
+			
 			$.ajax({
 				url: "<%= request.getContextPath() %>/product/getSelectDivList",
 				data: {
 					div: $(e.target).val()
 				},
 				success(data){
-					$(data).each((index, {boardNo, title, regDate, sellerId, product}) => {
-						console.log(boardNo);
-						console.log(product.state);
-						const tr = `
-							<tr>
-								<td>\${boardNo}</th>
-								<td>섬네일 예정</td>
-								<td>\${product.state}</td>
-								<td>\${product.pdtDiv}</td>
-								<td>\${title}</td>
-								<td>\${sellerId}</td>
-								<td>\${regDate}</td>
-							</tr>
-						`;
-						$("#pdtTable tbody").append(tr);
-					})
-				},
+                    $(data).each((index, {boardNo, title, regDate, sellerId, product}) => {                        
+                        let day = new Date(regDate);
+                        console.log(day);
+                        let value = `\${day.getFullYear()}-\${f(day.getMonth() + 1)}-\${f(day.getDate())}`;
+                        
+                        const tr = `
+                            <tr>
+                                <td>\${boardNo}</th>
+                                <td>섬네일 예정</td>
+                                <td>\${product.state}</td>
+                                <td>\${product.pdtDiv}</td>
+                                <td>\${title}</td>
+                                <td>\${sellerId}</td>
+                                <td>\${value}</td>
+                            </tr>
+                        `;
+                        $("#pdtTable tbody").append(tr);
+                    })
+                },
 				error: console.log
 			});
 			

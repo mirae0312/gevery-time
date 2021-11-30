@@ -39,9 +39,9 @@ public class ProductSaleService {
 		return result;
 	}
 
-	public List<Product> getSellerProduct(String sellerId) {
+	public List<Product> getSellerProduct(String sellerId, String state) {
 		Connection conn = getConnection();
-		List<Product> list = pdtDao.getSellerProduct(conn, sellerId);
+		List<Product> list = pdtDao.getSellerProduct(conn, sellerId, state);
 		close(conn);
 		
 		return list;
@@ -136,6 +136,22 @@ public class ProductSaleService {
 		List<ProductBoard> list = pdtDao.getSelectedDivBoardList(conn, div);
 		close(conn);
 		return list;
+	}
+
+	public int productOptionChange(String colname, String val, int pdtNo) {
+		Connection conn = getConnection();
+		int result = 0;
+		
+		try {
+			result = pdtDao.productOptionChange(conn, colname, val, pdtNo);
+			commit(conn);
+		} catch(Exception e) {
+			rollback(conn);
+			e.printStackTrace();
+		} finally {
+			close(conn);
+		}
+		return result;
 	}
 
 
