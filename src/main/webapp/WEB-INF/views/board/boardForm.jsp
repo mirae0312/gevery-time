@@ -21,9 +21,9 @@
 	<tr>
 		<th>첨부파일</th>
 		<td>			
-			<input type="file" name="upFile1">
+			<input type="file" name="file1">
 			<br>
-			<input type="file" name="upFile2">
+			<input type="file" name="file2">
 		</td>
 	</tr>
 	<tr>
