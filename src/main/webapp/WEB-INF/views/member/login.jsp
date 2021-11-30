@@ -66,7 +66,7 @@ $(() => {
 	});
 </script>
     <div class="inner_login">
-        <div class="login_tistory">
+        <div class="login_member">
     
             <form method="post" id="authForm" action="<%= request.getContextPath() %>/memeber/loign">
                 <input type="hidden" name="redirectUrl" value="">
