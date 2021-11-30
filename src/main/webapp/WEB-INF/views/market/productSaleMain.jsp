@@ -123,14 +123,12 @@
 				},
 				success(data){
 					$(data).each((index, {boardNo, title, regDate, sellerId, product}) => {
-<<<<<<< HEAD
+						
 						console.log(boardNo);
 						console.log(product.state);
 						
-=======
 						const d = new Date(regDate);
 						const date = `\${d.getFullYear()}-\${f(d.getMonth())}-\${f(d.getDate())}`
->>>>>>> branch 'master' of https://github.com/wkrud/semi_geverytime.git
 						const tr = `
 							<tr>
 								<td>\${boardNo}</th>
