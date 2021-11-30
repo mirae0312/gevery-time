@@ -10,6 +10,7 @@
 	
 
 %>
+ 
 <!DOCTYPE html>
 <html>
 <head>
@@ -28,21 +29,23 @@
                <div class="title"><a href="<%=request.getContextPath() %>/">타이틀</a></div>
                <ul class="lists" >
                    <li id="info"><a href="<%= request.getContextPath() %>/info/allList?board=<%= "info" %>">정보</a></li>
-                   <li id="board"><a href="<%=request.getContextPath() %>/board/freeMain">게시판</a></li>
+                   <li id="board"><a href="<%=request.getContextPath() %>/board/freeBoard">게시판</a></li>
                    <li id="market"><a href="#">마켓</a></li>
                </ul>
                <ul>
                    <!--관리자페이지표시 안 보이게 할 때 아래 한 줄만 처리해야 흐트러지지 않음 -->
-                   <li id="admin"><a href="#" style="color: red">관리자페이지</a></li>
+                   <li id="admin"><a href="<%= request.getContextPath() %>/admin/adminList" style="color: red">관리자페이지</a></li>
                </ul>
             <nav>
                <ul class="navs">
+
                <li class="nav" id="login"><a href="<%=request.getContextPath()%>/member/login">로그인</a></li>
                <% if(loginMember != null && MemberService.USER_ROLE.equals(loginMember.getMemberRole())){ %>
                <li><%= loginMember.getMemberName() %>님</li>
                <li class="nav" id="mypage"><a href="#">마이페이지</a></li>	              
                <%} %>
                <li class="nav" id="dm"><a href="#">DM</a></li>
+
                <li class="nav"id="qna"><a href="<%= request.getContextPath() %>/customer/qnaBoardList">고객센터</a></li>
                </ul>
             </nav>
@@ -60,7 +63,7 @@
 	        </div> 
 	        <div class="board-navsbox">
 	            <ul class="board-pagenavs">
-	                <li class="board-pagenav" id="board"><a href="<%=request.getContextPath() %>/board/freeMain">자유게시판</a></li>
+	                <li class="board-pagenav" id="board"><a href="<%=request.getContextPath() %>/board/freeBoard">자유게시판</a></li>
 	                <li class="board-pagenav" id="review"><a href="#">후기</a></li>
 	            </ul>
 	        </div> 
@@ -78,6 +81,13 @@
     <section id="content">
     
     <script>
+    // alert msg
+    $(()=>{
+    	<% if(msg != null) {%>
+    	        alert("<%= msg %>");
+    	<% } %>
+    });
+
     //중복코드제거(+이벤트버블링활용)
     $(".lists").mouseover((e) =>{
     	const id = $(e.target).parent().attr('id');

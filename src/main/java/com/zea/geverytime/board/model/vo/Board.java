@@ -5,7 +5,9 @@ import java.sql.Date;
 import java.util.ArrayList;
 import java.util.List;
 
-public class Board implements Serializable{
+import com.zea.geverytime.common.model.vo.Attachment;
+
+public class Board extends Attachment implements Serializable{
 
 	/**
 	 * 
@@ -20,7 +22,7 @@ public class Board implements Serializable{
 	private int readCount;
 	private int likeCount;
 	private Date regDate;
-	private List<BoardAttachment> attachments = new ArrayList<>();
+	private List<Attachment> attachments = new ArrayList<>();
 	
 	public Board() {
 		super();
@@ -39,7 +41,7 @@ public class Board implements Serializable{
 		this.regDate = regDate;
 	}
 	public Board(int no, String orCode, String title, String writer, String content, int readCount, int likeCount,
-			Date regDate, List<BoardAttachment> attachments) {
+			Date regDate, List<Attachment> attachments) {
 		super();
 		this.no = no;
 		this.orCode = orCode;
@@ -101,11 +103,11 @@ public class Board implements Serializable{
 		this.regDate = regDate;
 	}
 	
-	public List<BoardAttachment> getAttachments() {
+	public List<Attachment> getAttachments() {
 		return attachments;
 	}
 
-	public void setAttachments(List<BoardAttachment> attachments) {
+	public void setAttachments(List<Attachment> attachments) {
 		this.attachments = attachments;
 	}
 

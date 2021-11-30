@@ -4,6 +4,8 @@ import java.io.Serializable;
 import java.sql.Date;
 import java.util.List;
 
+import com.zea.geverytime.common.model.vo.Attachment;
+
 public class Info extends InfoEntity implements Serializable {
 
 	/**
@@ -13,7 +15,7 @@ public class Info extends InfoEntity implements Serializable {
 	
 	private int recommend;
 	private int attachCount;
-	private List<InfoAttachment> attachments;
+	private List<Attachment> attachments;
 	private int commentCount;
 	
 	public Info() {
@@ -37,7 +39,7 @@ public class Info extends InfoEntity implements Serializable {
 			String businessName, String businessAddress, String businessTel, String location, String headContent,
 			String bodyContents, String serviceContent, String site, String mon, String tue, String wed, String thu,
 			String fri, String sat, String sun, String launch, String dinner, String holiday, int recommend,
-			int attachCount, List<InfoAttachment> attachments, int commentCount) {
+			int attachCount, List<Attachment> attachments, int commentCount) {
 		super(code, memberId, viewCount, regCheck, businessNo, regDate, businessName, businessAddress, businessTel,
 				location, headContent, bodyContents, serviceContent, site, mon, tue, wed, thu, fri, sat, sun, launch,
 				dinner, holiday);
@@ -73,13 +75,13 @@ public class Info extends InfoEntity implements Serializable {
 
 
 
-	public List<InfoAttachment> getAttachments() {
+	public List<Attachment> getAttachments() {
 		return attachments;
 	}
 
 
 
-	public void setAttachments(List<InfoAttachment> attachments) {
+	public void setAttachments(List<Attachment> attachments) {
 		this.attachments = attachments;
 	}
 

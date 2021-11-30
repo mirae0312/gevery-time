@@ -1,10 +1,9 @@
-package com.zea.geverytime.info.model.vo;
+package com.zea.geverytime.common.model.vo;
 
 import java.io.Serializable;
 import java.sql.Date;
 
-public class InfoAttachment implements Serializable {
-
+public class Attachment implements Serializable{
 	/**
 	 * 
 	 */
@@ -15,12 +14,13 @@ public class InfoAttachment implements Serializable {
 	private String originalFilename;
 	private String renamedFilename;
 	private Date regDate;
-	
-	public InfoAttachment() {
-		super();
-	}
 
-	public InfoAttachment(int no, String code, String originalFilename, String renamedFilename, Date regDate) {
+	public Attachment() {
+		super();
+		// TODO Auto-generated constructor stub
+	}
+	
+	public Attachment(int no, String code, String originalFilename, String renamedFilename, Date regDate) {
 		super();
 		this.no = no;
 		this.code = code;
@@ -32,49 +32,39 @@ public class InfoAttachment implements Serializable {
 	public int getNo() {
 		return no;
 	}
-
 	public void setNo(int no) {
 		this.no = no;
 	}
-
 	public String getCode() {
 		return code;
 	}
-
 	public void setCode(String code) {
 		this.code = code;
 	}
-
 	public String getOriginalFilename() {
 		return originalFilename;
 	}
-
 	public void setOriginalFilename(String originalFilename) {
 		this.originalFilename = originalFilename;
 	}
-
 	public String getRenamedFilename() {
 		return renamedFilename;
 	}
-
 	public void setRenamedFilename(String renamedFilename) {
 		this.renamedFilename = renamedFilename;
 	}
-
 	public Date getRegDate() {
 		return regDate;
 	}
-
 	public void setRegDate(Date regDate) {
 		this.regDate = regDate;
 	}
 
 	@Override
 	public String toString() {
-		return "InfoAttachment [no=" + no + ", code=" + code + ", originalFilename=" + originalFilename
+		return "Attachment [no=" + no + ", code=" + code + ", originalFilename=" + originalFilename
 				+ ", renamedFilename=" + renamedFilename + ", regDate=" + regDate + "]";
 	}
 	
 	
-
 }

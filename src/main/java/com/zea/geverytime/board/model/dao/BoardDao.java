@@ -12,6 +12,7 @@ import java.util.List;
 import java.util.Map;
 import java.util.Properties;
 
+import com.zea.geverytime.board.model.exception.BoardException;
 import com.zea.geverytime.board.model.vo.Board;
 import static com.zea.geverytime.common.JdbcTemplate.*;
 
@@ -53,7 +54,7 @@ public class BoardDao {
 			}
 			
 		} catch (SQLException e) {
-			e.printStackTrace();
+			throw new BoardException("게시물 불러오기 오류!");
 		}finally {
 			close(rset);
 			close(pstmt);
@@ -76,12 +77,53 @@ public class BoardDao {
 				count = rset.getInt(1);
 			}
 		} catch (SQLException e) {
-			e.printStackTrace();
+			throw new BoardException("게시물 총 개수 가져오기 오류");
 		}finally {
 			close(rset);
 			close(pstmt);
 		}
 		
 		return count;
+	}
+
+	public int enrollBoard(Connection conn, Board board) {
+		int result = 0;
+		String sql = prop.getProperty("enrollBoard");
+		PreparedStatement pstmt = null;
+		
+		try {
+			pstmt = conn.prepareStatement(sql);
+			pstmt.setString(1, board.getTitle());
+			pstmt.setString(2, board.getWriter());
+			pstmt.setString(3, board.getContent());
+			result = pstmt.executeUpdate();
+		} catch (SQLException e) {
+			throw new BoardException("게시물 등록 오류!");
+		}finally{
+			close(pstmt);
+		}
+		
+		return result;
+	}
+
+	public String selectLastBoardCode(Connection conn) {
+		String code = "";
+		String sql = prop.getProperty("selectLastBoardNo");
+		PreparedStatement pstmt = null;
+		ResultSet rset = null;
+		
+		try {
+			pstmt = conn.prepareStatement(sql);
+			rset = pstmt.executeQuery();
+			if(rset.next()) {
+				code = rset.getString(1);
+			}
+		} catch (SQLException e) {
+			throw new BoardException("마지막 게시물 번호 불러오기 오류");
+		}finally {
+			close(rset);
+			close(pstmt);
+		}
+		return code;
 	}
 }
