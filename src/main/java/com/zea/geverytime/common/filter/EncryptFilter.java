@@ -16,7 +16,7 @@ import com.zea.geverytime.common.wrapper.EncryptWrapper;
 /**
  * Servlet Filter implementation class EncryptFilter
  */
-@WebFilter({ "/member/login", "/member/memberEnroll" })
+@WebFilter({ "/member/login" })
 public class EncryptFilter implements Filter {
 
     /**

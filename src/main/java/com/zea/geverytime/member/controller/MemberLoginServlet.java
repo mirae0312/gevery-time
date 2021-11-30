@@ -25,23 +25,25 @@ public class MemberLoginServlet extends HttpServlet {
 	 *  @see HttpServlet#doPost(HttpServletRequest request, HttpServletResponse response)
 	 */
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		// 1.인코딩처리
+
 		request.setCharacterEncoding("utf-8");
 
-		//2.사용자 입력값처리
+		
 		String memberId = request.getParameter("memberId");
-		String password = MvcUtils.getEncryptedPassword(request.getParameter("password"));
-		System.out.println("memberId = " + memberId + ", password = " + password  );
+		String password = request.getParameter("password");
+		String saveId = request.getParameter("saveId");
+		System.out.println("memberId = " + memberId + ", password = " + password + ", saveId = " + saveId);
 
 	
 		Member member = memberService.selectOneMember(memberId);
 		System.out.println("member@MemberLoginServlet.doPost = " + member);
 		
+	
 		HttpSession session = request.getSession(true); 
 		System.out.println(session.getId());
 
 		
-		session.setMaxInactiveInterval(10*60);//초단위
+		session.setMaxInactiveInterval(10*60);
 	
 				if(member != null && password.equals(member.getPassword())) {
 					
@@ -49,18 +51,39 @@ public class MemberLoginServlet extends HttpServlet {
 
 					session.setAttribute("msg", "로그인 성공!");
 					
-				
-			
-				}else {
+					
+					// 아이디저장 체크박스 처리
+					Cookie cookie = new Cookie("saveId", memberId);
+					cookie.setPath(request.getContextPath());
+						
+					if(saveId != null) {
+						cookie.setMaxAge(7 * 24 * 60 * 60); // 7일
+					}
+					else {
+						cookie.setMaxAge(0); // 즉시 삭제
+					}
+					response.addCookie(cookie);
+					
+					
+					
+				}
+				else {
+					// 로그인 실패
 					session.setAttribute("msg", "로그인 실패!");
 					
 				}
 				
 				
-
+				// 4.응답처리 (jsp위임 | redirect)
+				// redirect 요청주소를 변경, 새로고침을 통한 오류를 방지
+				// location은 브라우져가 새로 요청할 주소
 				String location = request.getContextPath() + "/";
 				response.sendRedirect(location);
-	}
+				
+				
+			}
+
+	
 				
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		
@@ -72,4 +95,4 @@ public class MemberLoginServlet extends HttpServlet {
 		.forward(request, response);
 
 	}
-	}
+}

@@ -1,4 +1,4 @@
-package com.zea.geverytime.info.model;
+package com.zea.geverytime.member.model.exception;
 
 public class MemberException extends RuntimeException {
 	private static final long serialVersionUID = 1L;

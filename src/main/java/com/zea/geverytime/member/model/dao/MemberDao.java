@@ -1,5 +1,8 @@
 package com.zea.geverytime.member.model.dao;
 import static com.zea.geverytime.common.JdbcTemplate.close;
+import static com.zea.geverytime.common.JdbcTemplate.commit;
+import static com.zea.geverytime.common.JdbcTemplate.getConnection;
+import static com.zea.geverytime.common.JdbcTemplate.rollback;
 
 import java.io.FileReader;
 import java.io.IOException;

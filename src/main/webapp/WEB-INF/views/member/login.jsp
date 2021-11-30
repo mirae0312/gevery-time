@@ -7,6 +7,18 @@
 	
 	Member loginMember = (Member) session.getAttribute("loginMember");
 	
+	Cookie[] cookies = request.getCookies();
+	String saveMemberId = null;
+	if(cookies != null){
+		for(Cookie cookie : cookies){
+			String name = cookie.getName();
+			String value = cookie.getValue();
+			System.out.println(name + " = " + value);
+			if("saveId".equals(name)){
+				saveMemberId = value;
+			}
+		}
+	}
 
 %>
 <!DOCTYPE html>
@@ -15,6 +27,7 @@
 <meta charset="UTF-8">
 <title>Insert title here</title>
 </head>
+<script src="<%= request.getContextPath() %>/js/jquery-3.6.0.js"></script>
 <link rel="stylesheet" href="<%=request.getContextPath() %>/css/member/login.css" />
 <body>
 <script>
@@ -26,7 +39,7 @@ $(() => {
 		
 	<% } %>
 
-	<%-- 로그인하지 않은 경우만 출력 --%>
+
 	<% if(loginMember == null){ %>
 
 		/**
@@ -55,26 +68,29 @@ $(() => {
     <div class="inner_login">
         <div class="login_tistory">
     
-            <form method="post" id="authForm" action="">
+            <form method="post" id="authForm" action="<%= request.getContextPath() %>">
                 <input type="hidden" name="redirectUrl" value="">
                 <fieldset>
                 <legend class="screen_out">로그인 정보 입력폼</legend>
+       <% if(loginMember == null){ %>
                 <div class="box_login">
                     <div class="inp_text">
                     <label for="loginId" class="screen_out">아이디</label>
-                    <input type="text " id="loginId" name="loginId" placeholder="ID" >
+                    <input type="text " id="memberId" name="memberId" placeholder="ID" >
                     </div>
                     <div class="inp_text">
                     <label for="loginPw" class="screen_out">비밀번호</label>
-                    <input type="password" id="loginPw" name="password" placeholder="Password" >
+                    <input type="password" id="password" name="password" placeholder="Password" >
                     </div>
                 </div>
                 <button type="submit" class="btn_login"  >로그인</button>
                 <div class="login_append">
                     <div class="inp_chk"> 
                    
-            <span class="enroll_"> <a href="<%= request.getContextPath() %>/member/memberEnroll">회원가입</a></span>
-           
+            <span class="enroll_"> <a href= "<%=request.getContextPath()%>/member/memberEnroll">회원가입</a></span>
+           <%} %>
+           	<input type="checkbox" name="saveId" id="saveId" <%= saveMemberId != null ? "checked" : "" %>/>
+									<label for="saveId">아이디저장</label>&nbsp;&nbsp;
             </label>
                     </div>
                     <span class="txt_find">

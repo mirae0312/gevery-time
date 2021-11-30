@@ -1,5 +1,15 @@
+<%@page import="com.zea.geverytime.member.model.service.MemberService"%>
+<%@page import="com.zea.geverytime.member.model.vo.Member"%>
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8" %>
+<%
+	String msg = (String) session.getAttribute("msg");
+	if(msg != null) session.removeAttribute("msg");
+	
+	Member loginMember = (Member) session.getAttribute("loginMember");
+	
+
+%>
 <!DOCTYPE html>
 <html>
 <head>
@@ -27,8 +37,11 @@
                </ul>
             <nav>
                <ul class="navs">
-               <li class="nav" id="login"><a href="<%=request.getContextPath()%>/member/login">로그인/로그아웃</a></li>
-               <li class="nav" id="mypage"><a href="#">마이페이지</a></li>
+               <li class="nav" id="login"><a href="<%=request.getContextPath()%>/member/login">로그인</a></li>
+               <% if(loginMember != null && MemberService.USER_ROLE.equals(loginMember.getMemberRole())){ %>
+               <li><%= loginMember.getMemberName() %>님</li>
+               <li class="nav" id="mypage"><a href="#">마이페이지</a></li>	              
+               <%} %>
                <li class="nav" id="dm"><a href="#">DM</a></li>
                <li class="nav"id="qna"><a href="<%= request.getContextPath() %>/customer/qnaBoardList">고객센터</a></li>
                </ul>
