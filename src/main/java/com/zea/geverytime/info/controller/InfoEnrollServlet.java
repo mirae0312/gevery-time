@@ -112,9 +112,10 @@ public class InfoEnrollServlet extends HttpServlet {
 		StringBuilder service = new StringBuilder();
 		for(int i = 0; i < services.length; i++) {
 			if(services[i] != null || !services[i].isEmpty()) {
-				service.append(service1);
+				service.append(service[i] + ",");
 			}
 		}
+		info.setServiceContent(service.toString());
 		
 		// 설명부분 + 3
 		String bodyHead1 = request.getParameter("bodyHead1");
@@ -123,6 +124,16 @@ public class InfoEnrollServlet extends HttpServlet {
 		String bodyContent2 = request.getParameter("bodyContent2");
 		String bodyHead3 = request.getParameter("bodyHead3");
 		String bodyContent3 = request.getParameter("bodyContent3");
+		String[] head = {bodyHead1, bodyHead2, bodyHead3};
+		String[] body = {bodyContent1, bodyContent2, bodyContent3};
+		StringBuilder headContents = new StringBuilder();
+		StringBuilder bodyContents = new StringBuilder();
+		for(int i = 0; i < head.length; i++) {
+			if(head[i] != null || !head[i].isEmpty()) {
+				head[i]
+			}
+		}
+		
 		
 		// 길안내 + 2
 		String way1 = request.getParameter("way1");
