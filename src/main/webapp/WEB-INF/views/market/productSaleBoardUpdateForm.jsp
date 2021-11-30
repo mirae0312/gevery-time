@@ -1,6 +1,10 @@
+<%@page import="com.zea.geverytime.market.productsale.model.vo.ProductBoard"%>
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
 <%@ include file="/WEB-INF/views/common/header.jsp" %>	
+<%
+	ProductBoard board = (ProductBoard) request.getAttribute("board");
+%>
 <!DOCTYPE html>
 <html>
 <head>
@@ -23,15 +27,16 @@
  
  </script>
 <body>
+
 	<form action="<%= request.getContextPath() %>/product/boardEnroll" name="productEnrollFrm" enctype="multipart/form-data" method="POST">
 		<table>
 			<tr>
 				<th>제목</th>
-				<td><input type="text" name="title" id="title" /></td>
+				<td><input type="text" name="title" id="title" value="<%= board.getTitle() %>"/></td>
 			</tr>
 			<tr>
 				<th>작성자</th>
-				<td><input type="text" name="author" id="author" /></td>
+				<td><input type="text" name="author" id="author" value="<%= board.getSellerId() %>"/></td>
 			</tr>
 			<tr>
 				<th>상품 가져오기</th>
@@ -79,7 +84,7 @@
 			</tr>
 			<tr>
 				<th>내용</th>
-				<td><textarea name="summernote" id="summernote" class="summernote"></textarea></td>		
+				<td><textarea name="summernote" id="summernote" class="summernote"><%= board.getContent() %></textarea></td>		
 			</tr>
 			<tr>
 				<th colspan="2">
@@ -89,21 +94,6 @@
 		</table>
 	</form>
 	
-	<form action="<%= request.getContextPath() %>/productSale/getProduct" name="getProductFrm" method="GET">
-		<input type="hidden" name="sellerId" />
-	</form>
-
-	<script>
-		let getProduct = () => {
-			const name = "getProductPopup";
-			const spec = "width=400, height=400, left=400, top=400";
-			const popup = open("", name, spec);
-			
-			$("[name=sellerId]").val($("#author").val());
-			let $frm = $(document.getProductFrm);
-			$frm.attr("target", name).submit();
-		};
-	</script>
 </body>
 </html>
 <%@ include file="/WEB-INF/views/common/footer.jsp" %> 

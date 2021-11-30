@@ -82,6 +82,9 @@ $(() => {
 		</thead>
 		<tbody>
 			<tr>
+				<td><input type="button" value="수정하기" id="boardEdit" onclick="updateBoard();"/></td>
+			</tr>
+			<tr>
 				<th>섬네일</th>
 				<td><img src="<%= request.getContextPath() %>/upload/market/productSale/<%= thumbnailImg %>" style="width:300px;"></td>
 			</tr>
@@ -209,6 +212,13 @@ $(() => {
 			$(e.target).parent().parent().next().toggle(300, function(){
 			});
 		});	
+		
+		// 게시글 수정하기
+		const updateBoard = () => {
+			if(confirm("수정하시겠습니까?")){
+				location.href = "<%= request.getContextPath() %>/product/productBoardUpdate?no=<%= board.getBoardNo() %>";
+			}
+		}
 	</script>
 </body>
 </html>
