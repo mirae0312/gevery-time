@@ -32,11 +32,31 @@ public class InfoEnrollServlet extends HttpServlet {
 	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse response)
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-
-		// 게시물 등록jsp로 이동
-		request
-			.getRequestDispatcher("/WEB-INF/views/info/infoEnroll.jsp")
-			.forward(request, response);
+		try {
+//			String memberId = loginMember.getMemberId();
+			String memberId = "honggd";
+			
+			String check = infoService.checkInfoBoard(memberId);
+			if(check == null) {
+				Info info = infoService.selectBeforeWrite(memberId);
+				
+				// 게시물 등록jsp로 이동
+				request.setAttribute("info", info);
+				request
+					.getRequestDispatcher("/WEB-INF/views/info/infoEnroll.jsp")
+					.forward(request, response);
+			} else {
+				HttpSession session = request.getSession();
+				session.setAttribute("msg", "이미 등록하여 수정만 가능합니다.");
+				String location = request.getContextPath() + "/";
+				response.sendRedirect(location);
+			}
+			
+			
+		} catch(Exception e) {
+			e.printStackTrace();
+			throw e;
+		}
 			
 	}
 

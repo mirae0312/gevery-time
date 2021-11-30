@@ -1,6 +1,6 @@
 package com.zea.geverytime.info.model.service;
 
-import static com.zea.geverytime.common.JdbcTemplate.close;
+import static com.zea.geverytime.common.JdbcTemplate.*;
 import static com.zea.geverytime.common.JdbcTemplate.getConnection;
 
 import java.sql.Connection;
@@ -60,6 +60,53 @@ public class InfoService {
 			close(conn);
 		}
 		return list;
+	}
+
+	public int insertInfo(Info info) {
+		Connection conn = null;
+		int result = 0;
+		try {
+			conn = getConnection();
+			result = infoDao.insertInfo(conn, info);
+			String code = infoDao.selectCode(conn, info);
+			info.setCode(code);
+			
+			List<Attachment> attachments = info.getAttachments();
+			if(attachments != null && !attachments.isEmpty()) {
+				for(Attachment attach : attachments) {
+					attach.setCode(code);
+					result = infoDao.insertAttachment(conn, attach);
+				}
+			}
+			if(result > 0)
+				commit(conn);
+		} catch(Exception e) {
+			rollback(conn);
+			throw e;
+		} finally{
+			close(conn);
+		}
+		return result;
+	}
+
+	public Info selectBeforeWrite(String memberId) {
+		Connection conn = null;
+		Info info = null;
+		try {
+			conn = getConnection();
+			info = infoDao.selectBeforeWrite(conn, memberId);
+		} catch(Exception e) {
+			throw e;
+		} finally {
+			close(conn);
+		}
+		return info;
+	}
+
+	public String checkInfoBoard(String memberId) {
+		Connection conn = null;
+		String check = "";
+		return null;
 	}
 
 
