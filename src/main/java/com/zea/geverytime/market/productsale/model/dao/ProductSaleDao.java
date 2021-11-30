@@ -461,6 +461,28 @@ public class ProductSaleDao {
 		return attachments;
 	}
 
+	public int productSaleBoardUpdate(Connection conn, ProductBoard board) {
+		PreparedStatement pstmt = null;
+		String sql = prop.getProperty("productSaleBoardUpdate");
+		int result = 0;
+		
+		try {
+			pstmt = conn.prepareStatement(sql);
+			pstmt.setString(1, board.getTitle());
+			pstmt.setString(2, board.getContent());
+			pstmt.setString(3, board.getOrCode());
+			
+			result = pstmt.executeUpdate();
+			System.out.println("updateResult(DAO) : "+result);
+		} catch (SQLException e) {
+			e.printStackTrace();
+		} finally {
+			close(pstmt);
+		}
+		
+		return result;
+	}
+
 
 
 

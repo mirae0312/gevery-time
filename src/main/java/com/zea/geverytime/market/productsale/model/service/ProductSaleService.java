@@ -204,6 +204,30 @@ public class ProductSaleService {
 		return result;
 	}
 
+	public int productSaleBoardUpdate(ProductBoard board) {
+		Connection conn = getConnection();
+		int result = 0;
+		
+		try {
+			result = pdtDao.productSaleBoardUpdate(conn, board);
+			
+			String orCode = board.getOrCode();
+			
+			List<Attachment> attachments = board.getAttachments();
+			for(Attachment attachment : attachments) {
+				pdtDao.productSaleBoardAttachmentEnroll(conn, attachment, orCode);				
+			}
+			
+			commit(conn);
+		} catch(Exception e) {
+			rollback(conn);
+			e.printStackTrace();
+		} finally {
+			close(conn);
+		}
+		return result;
+	}
+
 
 
 

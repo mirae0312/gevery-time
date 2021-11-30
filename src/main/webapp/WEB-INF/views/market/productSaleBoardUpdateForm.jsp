@@ -1,3 +1,5 @@
+<%@page import="com.zea.geverytime.common.model.vo.Attachment"%>
+<%@page import="java.util.List"%>
 <%@page import="com.zea.geverytime.market.productsale.model.vo.ProductBoard"%>
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
@@ -28,8 +30,13 @@
  </script>
 <body>
 
-	<form action="<%= request.getContextPath() %>/product/boardEnroll" name="productEnrollFrm" enctype="multipart/form-data" method="POST">
+	<form action="<%= request.getContextPath() %>/product/boardUpdate" name="productEnrollFrm" enctype="multipart/form-data" method="POST">
 		<table>
+			<tr>
+				<td><input type="hidden" name="boardNo" value="<%= board.getBoardNo() %>"/></td>
+				<td><input type="hidden" name="orCode" value="<%= board.getOrCode() %>"/></td>
+				
+			</tr>
 			<tr>
 				<th>제목</th>
 				<td><input type="text" name="title" id="title" value="<%= board.getTitle() %>"/></td>
@@ -39,33 +46,27 @@
 				<td><input type="text" name="author" id="author" value="<%= board.getSellerId() %>"/></td>
 			</tr>
 			<tr>
-				<th>상품 가져오기</th>
-				<td>
-					<input type="button" value="가져오기" onclick="getProduct();"/>
-				</td>
-			</tr>
-			<tr>
 				<th>상품분류</th>
 				<td>
-					<input type="text" name="pdtDiv" id="pdtDiv" readonly>
+					<input type="text" name="pdtDiv" id="pdtDiv" value="<%= board.getProduct().getPdtDiv() %>" readonly>
 				</td>
 			</tr>
 			<tr>
 				<th>상품번호</th>
 				<td>
-					<input type="text" name="pdtNo" id="pdtName" readonly/>
+					<input type="text" name="pdtNo" id="pdtNo" value="<%= board.getProduct().getPdtNo() %>" readonly/>
 				</td>
 			</tr>
 			<tr>
 				<th>상품이름</th>
 				<td>
-					<input type="text" name="pdtName" id="pdtName" readonly/>
+					<input type="text" name="pdtName" id="pdtName" value="<%= board.getProduct().getPdtName() %>" readonly/>
 				</td>
 			</tr>
 			<tr>
 				<th>상품가격</th>
 				<td>
-					<input type="text" name="pdtPrice" id="pdtPrice" readonly/>
+					<input type="text" name="pdtPrice" id="pdtPrice" value="<%= board.getProduct().getPdtPrice() %>" readonly/>
 				</td>
 			</tr>
 			<tr>

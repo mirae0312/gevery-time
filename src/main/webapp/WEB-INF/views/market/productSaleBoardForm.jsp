@@ -48,7 +48,7 @@
 			<tr>
 				<th>상품번호</th>
 				<td>
-					<input type="text" name="pdtNo" id="pdtName" readonly/>
+					<input type="text" name="pdtNo" id="pdtNo" readonly/>
 				</td>
 			</tr>
 			<tr>

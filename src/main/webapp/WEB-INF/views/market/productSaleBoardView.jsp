@@ -216,7 +216,7 @@ $(() => {
 		// 게시글 수정하기
 		const updateBoard = () => {
 			if(confirm("수정하시겠습니까?")){
-				location.href = "<%= request.getContextPath() %>/product/productBoardUpdate?no=<%= board.getBoardNo() %>";
+				location.href = "<%= request.getContextPath() %>/product/productBoardUpdateForm?no=<%= board.getBoardNo() %>";
 			}
 		}
 	</script>

@@ -75,10 +75,6 @@ public class ProductSaleBoardEnrollServlet extends HttpServlet {
 		int boardNo = pdtBoard.getBoardNo();
 		System.out.println("bdEnrollServ@boardNo :" + boardNo);
 		
-		// attachment DB 등록 프로세스 진행
-//		int attachResult = pdtService.attachmentEnroll(attachments, boardNo);
-//		System.out.println("serv@attachResult : "+attachResult);
-		
 		response.sendRedirect(request.getContextPath()+"/product/boardView?no="+boardNo);
 	}
 

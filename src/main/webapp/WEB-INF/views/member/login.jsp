@@ -68,11 +68,11 @@ $(() => {
     <div class="inner_login">
         <div class="login_tistory">
     
-            <form method="post" id="authForm" action="<%= request.getContextPath() %>/memeber/loign">
+            <form method="post" id="authForm" action="<%= request.getContextPath() %>/member/login">
                 <input type="hidden" name="redirectUrl" value="">
                 <fieldset>
                 <legend class="screen_out">로그인 정보 입력폼</legend>
-       <% if(loginMember == null){ %>
+			<% if(loginMember == null){ %>
                 <div class="box_login">
                     <div class="inp_text">
                     <label for="loginId" class="screen_out">아이디</label>

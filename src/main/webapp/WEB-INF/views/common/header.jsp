@@ -41,7 +41,8 @@
 
                <li class="nav" id="login"><a href="<%=request.getContextPath()%>/member/login">로그인</a></li>
                <% if(loginMember != null && MemberService.USER_ROLE.equals(loginMember.getMemberRole())){ %>
-               <li><%= loginMember.getMemberName() %>님</li>
+               <li class="nav"><%= loginMember.getMemberName() %>님</li>
+               
                <li class="nav" id="mypage"><a href="#">마이페이지</a></li>	              
                <%} %>
                <li class="nav" id="dm"><a href="#">DM</a></li>
@@ -74,7 +75,6 @@
 	                <li class="market-pagenav" id="used"><a href="#">중고 매매</a></li>
 	                <li class="market-pagenav" id="list"><a href="#">찜 목록</a></li>
 	                <li class="market-pagenav" id="cart"><a href="#">장바구니</a></li>
-	                <li class="market-pagenav" id="product"><a href="<%= request.getContextPath() %>/product/onsaleProduct">상품관리</a></li>
 	            </ul>
 	        </div>
         </div>
