@@ -2,6 +2,8 @@ package com.zea.geverytime.info.controller;
 
 import java.io.File;
 import java.io.IOException;
+import java.util.ArrayList;
+import java.util.List;
 
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
@@ -13,6 +15,8 @@ import javax.servlet.http.HttpSession;
 import com.oreilly.servlet.MultipartRequest;
 import com.oreilly.servlet.multipart.FileRenamePolicy;
 import com.zea.geverytime.common.MvcFileRenamePolicy;
+import com.zea.geverytime.common.MvcUtils;
+import com.zea.geverytime.common.model.vo.Attachment;
 import com.zea.geverytime.info.model.service.InfoService;
 import com.zea.geverytime.info.model.vo.Info;
 
@@ -180,10 +184,18 @@ public class InfoEnrollServlet extends HttpServlet {
 			
 			System.out.println("[InfoEnrollServlet] info : " + info);
 			
-			File haed = multipartRequest.getFile("headFile");
+			File headFile = multipartRequest.getFile("headFile");
 			File file1 = multipartRequest.getFile("file1");
 			File file2 = multipartRequest.getFile("file2");
 			File file3 = multipartRequest.getFile("file3");
+			
+			if(headFile != null || file1 != null || file2 != null || file3 != null) {
+				List<Attachment> attachments = new ArrayList<>();
+				
+				if(headFile != null) {
+					Attachment attach1 = MvcUtils.makeAttachment(multipartRequest, "headFile");
+				}
+			}
 			
 			
 			// 업무로직
