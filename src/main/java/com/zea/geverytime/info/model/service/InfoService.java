@@ -6,6 +6,7 @@ import static com.zea.geverytime.common.JdbcTemplate.getConnection;
 import java.sql.Connection;
 import java.util.List;
 
+import com.zea.geverytime.common.model.vo.Attachment;
 import com.zea.geverytime.info.model.dao.InfoDao;
 import com.zea.geverytime.info.model.vo.Info;
 import com.zea.geverytime.info.model.vo.InfoAttachment;
@@ -17,7 +18,7 @@ public class InfoService {
 	public List<Info> selectPopList(String board) {
 		Connection conn = null;
 		List<Info> popList = null;
-		List<InfoAttachment> attach = null;
+		List<Attachment> attach = null;
 		try {
 			conn = getConnection();
 			popList = infoDao.selectPopList(board, conn);	
@@ -39,7 +40,7 @@ public class InfoService {
 	public List<Info> selectAllList(String board, int start, int end) {
 		Connection conn = null;
 		List<Info> list = null;
-		List<InfoAttachment> attach = null;
+		List<Attachment> attach = null;
 		try {
 			conn = getConnection();
 			list = infoDao.selectAllList(board, conn, start, end);
@@ -48,7 +49,7 @@ public class InfoService {
 				attach = infoDao.selectAllAttach(conn, code, start, end);
 				System.out.println("[Service] AllAttach : " + attach);
 				if(attach.isEmpty()) {
-					InfoAttachment infoAttach = new InfoAttachment();
+					Attachment infoAttach = new Attachment();
 					infoAttach.setRenamedFilename("파일 없음");
 					attach.add(infoAttach);
 				}

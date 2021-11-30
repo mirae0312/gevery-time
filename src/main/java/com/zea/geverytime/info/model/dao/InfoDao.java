@@ -1,5 +1,7 @@
 package com.zea.geverytime.info.model.dao;
 
+import static com.zea.geverytime.common.JdbcTemplate.close;
+
 import java.io.File;
 import java.io.FileReader;
 import java.io.IOException;
@@ -11,10 +13,10 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Properties;
 
+import com.zea.geverytime.common.model.vo.Attachment;
 import com.zea.geverytime.info.model.exception.InfoBoardException;
 import com.zea.geverytime.info.model.vo.Info;
 import com.zea.geverytime.info.model.vo.InfoAttachment;
-import static com.zea.geverytime.common.JdbcTemplate.close;
 
 public class InfoDao {
 	
@@ -139,11 +141,11 @@ public class InfoDao {
 		return list;
 	}
 
-	public List<InfoAttachment> selectPopAttach(Connection conn, String code) {
+	public List<Attachment> selectPopAttach(Connection conn, String code) {
 		PreparedStatement pstmt = null;
 		String sql = prop.getProperty("selectPopAttach");
 		ResultSet rset = null;
-		List<InfoAttachment> attach = new ArrayList<>();
+		List<Attachment> attach = new ArrayList<>();
 		
 		try {
 			pstmt = conn.prepareStatement(sql);
@@ -152,7 +154,7 @@ public class InfoDao {
 			
 			rset = pstmt.executeQuery();
 			while(rset.next()) {
-				InfoAttachment info = new InfoAttachment();
+				Attachment info = new Attachment();
 				info.setNo(rset.getInt("no"));
 				info.setOriginalFilename(rset.getString("original_filename"));
 				info.setRenamedFilename(rset.getString("renamed_filename"));
@@ -171,11 +173,11 @@ public class InfoDao {
 		return attach;
 	}
 
-	public List<InfoAttachment> selectAllAttach(Connection conn, String code, int start, int end) {
+	public List<Attachment> selectAllAttach(Connection conn, String code, int start, int end) {
 		PreparedStatement pstmt = null;
 		String sql = prop.getProperty("selectAllAttach");
 		ResultSet rset = null;
-		List<InfoAttachment> list = new ArrayList<>();
+		List<Attachment> list = new ArrayList<>();
 		
 		try {
 			pstmt = conn.prepareStatement(sql);
@@ -186,7 +188,7 @@ public class InfoDao {
 			
 			rset = pstmt.executeQuery();
 			while(rset.next()) {
-				InfoAttachment info = new InfoAttachment();
+				Attachment info = new Attachment();
 				info.setNo(rset.getInt("no"));
 				info.setOriginalFilename(rset.getString("original_filename"));
 				info.setRenamedFilename(rset.getString("renamed_filename"));

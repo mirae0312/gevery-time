@@ -6,7 +6,8 @@
 	<form name="infoEnrollFrm" action="<%= request.getContextPath() %>/info/Enroll" method="post">
 		<div class="left-head">
 			<input type="text" name="businessName" id="business-name" />
-			<img src="#" alt="" />
+			<img src="" alt="" />
+			<input type="file" name="headFile" id="head-file" />
 			<input type="text" name="headContent" id="head-content" />		
 		</div>
 		<div class="right-head">
@@ -41,7 +42,7 @@
 			<input type="text" name="service1" id="service" />
 		</div>
 		<div class="body-description">
-			<img src="" alt="" />
+			<input type="file" name="file2" id="file" />
 			<input type="text" name="bodyHead1" id="body-head" placeholder="" />
 			<input type="text" name="bodyContent1" id="body-content" placeholder="" />
 			
@@ -72,6 +73,20 @@
 	    position: new kakao.maps.LatLng(37.8306083308, 127.5132047429), // 마커의 좌표
 	    map: map // 마커를 표시할 지도 객체
 	});
-
+	
+	<%--
+	const readImage = (input) => {
+		if(input.files && input.files[0]){
+			const reader = new FileReader();
+			
+			reader.onload = (e) => {
+				const previewImage = document.getElementById("head-file");
+				previewImage.src = e.target.result;
+			}
+			reader.readAsDataURL(input.files[0]);
+		}
+	};
+	const inputImage = document.getElementById("in")
+	--%>
 </script>
 <%@ include file="/WEB-INF/views/common/footer.jsp" %> 
