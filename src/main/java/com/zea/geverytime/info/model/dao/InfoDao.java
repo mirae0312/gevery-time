@@ -16,7 +16,6 @@ import java.util.Properties;
 import com.zea.geverytime.common.model.vo.Attachment;
 import com.zea.geverytime.info.model.exception.InfoBoardException;
 import com.zea.geverytime.info.model.vo.Info;
-import com.zea.geverytime.info.model.vo.InfoAttachment;
 
 public class InfoDao {
 	

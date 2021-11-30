@@ -9,7 +9,6 @@ import java.util.List;
 import com.zea.geverytime.common.model.vo.Attachment;
 import com.zea.geverytime.info.model.dao.InfoDao;
 import com.zea.geverytime.info.model.vo.Info;
-import com.zea.geverytime.info.model.vo.InfoAttachment;
 
 public class InfoService {
 	
