@@ -7,19 +7,8 @@
 	
 	Member loginMember = (Member) session.getAttribute("loginMember");
 	
-	Cookie[] cookies = request.getCookies();
-	String saveMemberId = null;
-	if(cookies != null){
-		for(Cookie cookie : cookies){
-			String name = cookie.getName();
-			String value = cookie.getValue();
-			System.out.println(name + " = " + value);
-			if("saveId".equals(name)){
-				saveMemberId = value;
-			}
-		}
-	}
-
+				
+		
 %>
 <!DOCTYPE html>
 <html>
@@ -68,11 +57,11 @@ $(() => {
     <div class="inner_login">
         <div class="login_tistory">
     
-            <form method="post" id="authForm" action="<%= request.getContextPath() %>/memeber/loign">
+            <form method="post" id="authForm" action="<%= request.getContextPath() %>/member/login">
                 <input type="hidden" name="redirectUrl" value="">
                 <fieldset>
                 <legend class="screen_out">로그인 정보 입력폼</legend>
-       <% if(loginMember == null){ %>
+    
                 <div class="box_login">
                     <div class="inp_text">
                     <label for="loginId" class="screen_out">아이디</label>
@@ -88,9 +77,8 @@ $(() => {
                     <div class="inp_chk"> 
                    
             <span class="enroll_"> <a href= "<%=request.getContextPath()%>/member/memberEnroll">회원가입</a></span>
-           <%} %>
-           	<input type="checkbox" name="saveId" id="saveId" <%= saveMemberId != null ? "checked" : "" %>/>
-									<label for="saveId">아이디저장</label>&nbsp;&nbsp;
+          
+          
             </label>
                     </div>
                     <span class="txt_find">

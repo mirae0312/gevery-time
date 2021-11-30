@@ -8,7 +8,7 @@
 	
 	Member loginMember = (Member) session.getAttribute("loginMember");
 	
-
+	
 %>
  
 <!DOCTYPE html>
@@ -21,6 +21,7 @@
 <script src="<%= request.getContextPath() %>/js/jquery-3.6.0.js"></script>
 <script src="<%= request.getContextPath() %>/js/summernote/summernote-lite.js"></script>
 <script src="<%= request.getContextPath() %>/js/summernote/lang/summernote-ko-KR.js"></script>
+
 </head>
 <body>
     <div id="container">
@@ -34,15 +35,19 @@
                </ul>
                <ul>
                    <!--관리자페이지표시 안 보이게 할 때 아래 한 줄만 처리해야 흐트러지지 않음 -->
+                 <%  if(loginMember != null &&MemberService.ADMIN_ROLE.equals(loginMember.getMemberRole())){ %>
                    <li id="admin"><a href="<%= request.getContextPath() %>/admin/adminList" style="color: red">관리자페이지</a></li>
+               	<% } %>
                </ul>
+               
             <nav>
                <ul class="navs">
-
-               <li class="nav" id="login"><a href="<%=request.getContextPath()%>/member/login">로그인</a></li>
-               <% if(loginMember != null && MemberService.USER_ROLE.equals(loginMember.getMemberRole())){ %>
+				<%if(loginMember == null){ %>
+               <li class="nav" id="login" name="login"><a href="<%=request.getContextPath()%>/member/login">로그인</a></li>
+              	<% } %>
+               <% if(loginMember != null){ %>
                <li class="nav"><%= loginMember.getMemberName() %>님</li>
-               
+               <li class="nav" id="logout"><a href="<%= request.getContextPath() %>/member/logout">로그아웃</a></li>
                <li class="nav" id="mypage"><a href="#">마이페이지</a></li>	              
                <%} %>
                <li class="nav" id="dm"><a href="#">DM</a></li>
