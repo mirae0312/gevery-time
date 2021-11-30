@@ -5,9 +5,6 @@
 <%@ include file="/WEB-INF/views/common/header.jsp" %>	
 <%
 	List<ProductBoard> list = (List<ProductBoard>) request.getAttribute("list");
-	String msg = (String) session.getAttribute("msg");
-	if(msg != null) session.removeAttribute("msg");
-
 %>
 <!DOCTYPE html>
 <html>
@@ -96,6 +93,9 @@
 	</div>
 	
 	<script>
+	const f = function(n){
+	    return n<10 ? `0\${n}`:n;
+	}
 		// 상품 등록하기
 		$("#pdtEnroll").click((e) => {
 			console.log("click");
@@ -122,9 +122,14 @@
 				},
 				success(data){
 					$(data).each((index, {boardNo, title, regDate, sellerId, product}) => {
+<<<<<<< HEAD
 						console.log(boardNo);
 						console.log(product.state);
 						
+=======
+						const d = new Date(regDate);
+						const date = `\${d.getFullYear()}-\${f(d.getMonth())}-\${f(d.getDate())}`
+>>>>>>> branch 'master' of https://github.com/wkrud/semi_geverytime.git
 						const tr = `
 							<tr>
 								<td>\${boardNo}</th>
@@ -133,7 +138,7 @@
 								<td>\${product.pdtDiv}</td>
 								<td>\${title}</td>
 								<td>\${sellerId}</td>
-								<td>\${regDate}</td>
+								<td>\${date}</td>
 							</tr>
 						`;
 						$("#pdtTable tbody").append(tr);

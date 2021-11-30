@@ -18,7 +18,7 @@ import com.zea.geverytime.common.MvcUtils;
 /**
  * Servlet implementation class FreeboardMainlistServlet
  */
-@WebServlet("/board/freeMain")
+@WebServlet("/board/freeBoard")
 public class FreeboardMainlistServlet extends HttpServlet {
 	private static final long serialVersionUID = 1L;
     private BoardService boardService = new BoardService();

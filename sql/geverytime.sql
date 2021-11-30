@@ -31,6 +31,7 @@ insert into board(no, or_code, title, writer, content, read_count,like_count,reg
 -- 테이블 생성 쿼리들
 select * from tab;
 select * from member;
+commit;
 
 create table board(
     no number,
@@ -74,10 +75,15 @@ commit;
 
 select * from board;
 select * from board where or_code like 'bb1b%';
-update board set like_count=97 where no=204;
-select * from (select row_number() over(order by like_count desc) rnum, b.* from board b where or_code like 'bb4b%') where rnum between 11 and 20;
+select * from board where or_code like 'bb1b%' or or_code like'bb1b%';
+
+update board set read_count=100 where no=470;
+select * from (select row_number() over(order by 'like_count' desc) rnum, b.* from board b where or_code like 'bb4b%') where rnum between 1 and 1000;
 
 select * from (select row_number() over(order by no desc) rnum, b.* from board b where REGEXP_LIKE(or_code, 'bb1b|bb2b'));
 
 select * from (select row_number() over(order by no desc) rnum, b.* from board b where REGEXP_LIKE(or_code,'bb1b|bb2b'));
-select * from (select row_number() over(order by like_count desc) rnum, b.* from board b where REGEXP_LIKE(or_code,'bb1b|bb2b')) where rnum between 11 and 20;
+select * from (select row_number() over(order by read_count desc) rnum, b.* from board b where REGEXP_LIKE(or_code,'bb1b|bb2b')) where rnum between 1 and 30;
+select * from (select row_number() over(order by 'no' desc) rnum, b.* from board b where REGEXP_LIKE(or_code,'bb1b|bb2b'));
+select * from (select row_number() over(order by 'no' desc) rnum, b.* from board b where REGEXP_LIKE(or_code,'bb1b|bb2b'));
+select * from (select row_number() over(order by no desc) rnum, b.* from board b where REGEXP_LIKE(or_code,'bb1b|bb2b'));

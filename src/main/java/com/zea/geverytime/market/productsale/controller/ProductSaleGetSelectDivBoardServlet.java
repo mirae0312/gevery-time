@@ -35,5 +35,4 @@ public class ProductSaleGetSelectDivBoardServlet extends HttpServlet {
 		response.setContentType("application/json; charset=utf-8");
 		response.getWriter().append(jsonStr);
 	}
-
 }
