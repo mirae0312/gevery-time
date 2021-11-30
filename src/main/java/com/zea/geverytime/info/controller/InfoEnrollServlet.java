@@ -182,7 +182,7 @@ public class InfoEnrollServlet extends HttpServlet {
 			}
 			info.setBusinessAddress(way.toString());
 			
-			System.out.println("[InfoEnrollServlet] info : " + info);
+			
 			
 			File headFile = multipartRequest.getFile("headFile");
 			File file1 = multipartRequest.getFile("file1");
@@ -194,12 +194,27 @@ public class InfoEnrollServlet extends HttpServlet {
 				
 				if(headFile != null) {
 					Attachment attach1 = MvcUtils.makeAttachment(multipartRequest, "headFile");
+					attachments.add(attach1);
 				}
+				if(file1 != null) {
+					Attachment attach2 = MvcUtils.makeAttachment(multipartRequest, "file1");
+					attachments.add(attach2);
+				}
+				if(file2 != null) {
+					Attachment attach3 = MvcUtils.makeAttachment(multipartRequest, "file2");
+					attachments.add(attach3);
+				}
+				if(file3 != null) {
+					Attachment attach4 = MvcUtils.makeAttachment(multipartRequest, "file3");
+					attachments.add(attach4);
+				}
+				info.setAttachments(attachments);
 			}
 			
-			
+			System.out.println("[InfoEnrollServlet] info : " + info);
+						
 			// 업무로직
-	//		int result = infoService.insertInfo(info);
+			int result = infoService.insertInfo(info);
 			
 			// redirect
 			HttpSession session = request.getSession();
