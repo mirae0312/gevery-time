@@ -1,4 +1,4 @@
-package com.zea.geverytime.board.controller;
+package com.zea.geverytime.common.model.vo;
 
 import java.io.Serializable;
 import java.sql.Date;

@@ -5,7 +5,7 @@ import java.sql.Date;
 import java.util.ArrayList;
 import java.util.List;
 
-import com.zea.geverytime.board.controller.Attachment;
+import com.zea.geverytime.common.model.vo.Attachment;
 
 public class Board extends Attachment implements Serializable{
 
