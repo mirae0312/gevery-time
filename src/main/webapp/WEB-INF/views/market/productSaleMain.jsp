@@ -80,7 +80,11 @@
 		});
 		
 		const f = n => n < 10 ? "0" + n : n;
-
+		
+		// 리스트 비우기
+		$("#empty").click((e) => {
+			$("#pdtTable tbody").empty();			
+		});		
 		
 		$(".pdtDiv").click((e) => {
 			$("#pdtTable tbody").empty();	

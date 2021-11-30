@@ -25,7 +25,7 @@
                </ul>
                <ul>
                    <!--관리자페이지표시 안 보이게 할 때 아래 한 줄만 처리해야 흐트러지지 않음 -->
-                   <li id="admin"><a href="<%= request.getContextPath() %>/admin/adimList" style="color: red">관리자페이지</a></li>
+                   <li id="admin"><a href="<%= request.getContextPath() %>/admin/adminList" style="color: red">관리자페이지</a></li>
                </ul>
             <nav>
                <ul class="navs">

@@ -43,7 +43,8 @@ public class ProductSaleBoardEnrollServlet extends HttpServlet {
 		// 게시글정보
 		String title = multipartRequest.getParameter("title");
 		String author = multipartRequest.getParameter("author");
-		String content = multipartRequest.getParameter("content");
+		String content = multipartRequest.getParameter("summernote");
+		System.out.println("enrollServ@content : "+content);
 		
 		// 물품정보
 		int pdtNo = Integer.parseInt(multipartRequest.getParameter("pdtNo"));
