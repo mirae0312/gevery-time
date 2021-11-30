@@ -52,5 +52,13 @@ public class MvcUtils {
 		return str.toString();
 	}
 
+	public static Attachment makeAttachment(MultipartRequest multipartRequest, String fileName) {
+		Attachment attachment = new Attachment();
+		String orName = multipartRequest.getOriginalFileName(fileName);
+		String reName = multipartRequest.getFilesystemName(fileName);
+		attachment.setOriginalFilename(orName);
+		attachment.setRenamedFilename(reName);
+		return attachment;
+	}
 	
 }
