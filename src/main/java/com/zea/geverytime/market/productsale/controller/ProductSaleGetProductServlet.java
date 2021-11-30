@@ -25,7 +25,7 @@ public class ProductSaleGetProductServlet extends HttpServlet {
 		String sellerId = request.getParameter("sellerId");
 		
 		// 판매상태 지정
-		String state = "%판매중%";
+		String state = "%판매중";
 		System.out.println(sellerId);
 	
 		// 판매자 상품목록 받아오기

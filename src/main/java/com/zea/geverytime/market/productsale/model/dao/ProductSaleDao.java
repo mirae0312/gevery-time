@@ -106,7 +106,7 @@ public class ProductSaleDao {
 		return list;
 	}
 
-	public List<ProductBoard> getProductSaleBoardAll(Connection conn) {
+	public List<ProductBoard> getProductSaleBoardAll(Connection conn, int startNum, int endNum) {
 		PreparedStatement pstmt = null;
 		ResultSet rset = null;
 		String sql = prop.getProperty("getProductSaleBoardAll");
@@ -114,6 +114,8 @@ public class ProductSaleDao {
 		
 		try {
 			pstmt = conn.prepareStatement(sql);
+			pstmt.setInt(1, startNum);
+			pstmt.setInt(2, endNum);
 			rset = pstmt.executeQuery();
 			
 			while(rset.next()) {
@@ -122,14 +124,14 @@ public class ProductSaleDao {
 				pb.setBoardNo(rset.getInt("no"));
 				pb.setTitle(rset.getString("title"));
 				pb.setRegDate(rset.getDate("reg_date"));
-				pb.setSellerId(rset.getString("pdtSellerId"));
+				pb.setSellerId(rset.getString("seller_id"));
 				// product 객체 생성
 				Product pdt = new Product();
 				pdt.setPdtNo(rset.getInt("product_no"));
 				pdt.setPdtName(rset.getString("name"));
 				pdt.setPdtPrice(rset.getInt("price"));
 				pdt.setPdtDiv(rset.getString("div"));
-				pdt.setSellerId(rset.getString("pdtSellerId"));
+				pdt.setSellerId(rset.getString("seller_id"));
 				pdt.setState(rset.getString("state"));
 				// product를 productBoard객체에 담기
 				pb.setProduct(pdt);
@@ -360,6 +362,29 @@ public class ProductSaleDao {
 		}
 		
 		return result;
+	}
+
+	public int getProductSaleBoardCount(Connection conn) {
+		PreparedStatement pstmt = null;
+		ResultSet rset = null;
+		String sql = prop.getProperty("getProductSaleBoardCount");
+		int count = 0;
+		
+		try {
+			pstmt = conn.prepareStatement(sql);
+			rset = pstmt.executeQuery();
+			
+			if(rset.next()) {
+				count = rset.getInt(1);
+				System.out.println("pdtDao@count: "+ count);
+			}
+		} catch (SQLException e) {
+			e.printStackTrace();
+		} finally {
+			close(pstmt);
+			close(rset);
+		}
+		return count;
 	}
 
 

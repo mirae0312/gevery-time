@@ -61,40 +61,20 @@
 				</tr>
 			</thead>
 			<tbody>
-			<%
-			int no = 1;
-			for(ProductBoard pb : list) {
-			%>
-				<tr>
-					<td><%= no %></td>
-					<td>섬네일 예정</td>
-					<td><%= pb.getProduct().getState() %></td>
-					<td><%= pb.getProduct().getPdtDiv() %></td>
-					<td><a href="<%= request.getContextPath() %>/product/boardView?no=<%= pb.getBoardNo() %>"><%= pb.getTitle() %></a></td>
-					<td><%= pb.getSellerId() %></td>
-					<td><%= pb.getRegDate() %></td>
-				</tr>
-			<%
-				no++;
-			}
-			%>
 			</tbody>
 		</table>
 	</div>
 	
+	<!-- 페이지바 -->
+	<div class="pageBar"></div>
+	
 	<script>
-<<<<<<< HEAD
-=======
-	const f = function(n){
-	    return n<10 ? `0\${n}`:n;
-	}
 		// 상품 등록하기
 		$("#pdtEnroll").click((e) => {
 			console.log("click");
 			location.href="<%= request.getContextPath() %>/product/productForm";
 		});
 		
->>>>>>> branch 'master' of https://github.com/wkrud/semi_geverytime.git
 		// 상품 게시글 등록하기
 		$("#pdtBoardEnroll").click((e) => {
 			location.href="<%= request.getContextPath() %>/product/boardForm";
@@ -106,15 +86,12 @@
 		$(".pdtDiv").click((e) => {
 			$("#pdtTable tbody").empty();	
 			console.log($(e.target).val());
-			
-			
 			$.ajax({
 				url: "<%= request.getContextPath() %>/product/getSelectDivList",
 				data: {
 					div: $(e.target).val()
 				},
 				success(data){
-<<<<<<< HEAD
                     $(data).each((index, {boardNo, title, regDate, sellerId, product}) => {                        
                         let day = new Date(regDate);
                         console.log(day);
@@ -131,34 +108,59 @@
                                 <td>\${value}</td>
                             </tr>
                         `;
+                        
                         $("#pdtTable tbody").append(tr);
                     })
                 },
-=======
-					$(data).each((index, {boardNo, title, regDate, sellerId, product}) => {
-						const d = new Date(regDate);
-						const date = `\${d.getFullYear()}-\${f(d.getMonth())}-\${f(d.getDate())}`
-						const tr = `
-							<tr>
-								<td>\${boardNo}</th>
-								<td>섬네일 예정</td>
-								<td>\${product.state}</td>
-								<td>\${product.pdtDiv}</td>
-								<td>\${title}</td>
-								<td>\${sellerId}</td>
-								<td>\${date}</td>
-							</tr>
-						`;
-						$("#pdtTable tbody").append(tr);
-					})
-				},
->>>>>>> branch 'master' of https://github.com/wkrud/semi_geverytime.git
 				error: console.log
 			});
 			
 		});
 		
 		
+		// pageBar 기능
+		$(()=>{
+			selectContent(1);
+		});
+
+		$(".pageBar").click((e)=>{
+			selectContent($(e.target).data('page'));
+		})
+		
+		const selectContent = (cPage) => {
+			$.ajax({
+				url:"<%=request.getContextPath()%>/product/productList",
+				dataType:"json",
+				data:{
+					cPage,
+				},
+				success(data){
+					console.log(data);
+					$("#pdtTable tbody").empty();
+					//List부분
+					$(data.list).each((i, e)=>{
+						console.log(e.product.pdtNo);
+						const tr = `			<tr>
+		 					<td>\${e.boardNo}</td>
+		 					<td>섬네일 예정</td>
+							<td>\${e.product.state}</td>
+							<td>\${e.product.pdtDiv}</td>
+							<td>\${e.title}</td>
+							<td>\${e.sellerId}</td>
+							<td>\${e.regDate}</td>
+						</tr>`
+						$("#pdtTable tbody").append(tr);
+						
+					});
+					
+					//pagebar부분
+					console.log(data.pagebar);
+					$(".pageBar").empty();
+					$(".pageBar").append(data.pagebar);
+				},
+				error:console.log
+			});	
+		};	
 	</script>
 </body>
 </html>

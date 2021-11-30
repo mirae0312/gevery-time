@@ -75,6 +75,8 @@
 			$frm.attr("target", name).submit();
 		};
 	</script>
+	<div id="pageBar">
+	</div>
 </body>
 </html>
 <%@ include file="/WEB-INF/views/common/footer.jsp" %> 

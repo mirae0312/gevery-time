@@ -47,11 +47,18 @@ public class ProductSaleService {
 		return list;
 	}
 
-	public List<ProductBoard> getProductSaleBoardAll() {
+	public List<ProductBoard> getProductSaleBoardAll(int startNum, int endNum) {
 		Connection conn = getConnection();
-		List<ProductBoard> list = pdtDao.getProductSaleBoardAll(conn);
+		List<ProductBoard> list = pdtDao.getProductSaleBoardAll(conn, startNum, endNum);
 		close(conn);
 		return list;
+	}
+	
+	public int getProductSaleBoardCount() {
+		Connection conn = getConnection();
+		int count = pdtDao.getProductSaleBoardCount(conn);
+		close(conn);
+		return count;
 	}
 
 	public ProductBoard getProductSaleBoard(int no) {
@@ -153,6 +160,8 @@ public class ProductSaleService {
 		}
 		return result;
 	}
+
+
 
 
 
