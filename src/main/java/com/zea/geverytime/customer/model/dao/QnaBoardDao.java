@@ -1,7 +1,6 @@
 package com.zea.geverytime.customer.model.dao;
 
 import static com.zea.geverytime.common.JdbcTemplate.close;
-import static com.zea.geverytime.common.JdbcTemplate.*;
 
 import java.io.File;
 import java.io.FileReader;
@@ -16,6 +15,7 @@ import java.util.Map;
 import java.util.Properties;
 
 import com.zea.geverytime.customer.model.exception.CustomerBoardException;
+import com.zea.geverytime.customer.model.vo.FaqBoard;
 import com.zea.geverytime.customer.model.vo.QnaBoard;
 
 public class QnaBoardDao {
@@ -281,6 +281,65 @@ public class QnaBoardDao {
  
  
 	}
- 
+
+	//faq전체 조회
+	public List<FaqBoard> selectAllFaqBoard(Connection conn, Map<String, Integer> param) {
+		PreparedStatement pstmt = null;
+		String sql = prop.getProperty("selectAllFaqBoard");
+		ResultSet rset = null;
+		List<FaqBoard> list = new ArrayList<>();
+		
+	try {
+		pstmt = conn.prepareStatement(sql);
+		pstmt.setInt(1, param.get("start"));
+		pstmt.setInt(2, param.get("end"));
+		 
+		rset = pstmt.executeQuery();
+		
+		while(rset.next()) {
+			FaqBoard faqBoard = new FaqBoard();
+			
+			faqBoard.setNo(rset.getInt("no"));
+			faqBoard.setTitle(rset.getString("title"));
+			faqBoard.setWriter(rset.getString("writer"));
+			faqBoard.setContent(rset.getString("content"));
+			faqBoard.setCategory(rset.getString("category_a"));
+			faqBoard.setRegDate(rset.getDate("reg_date"));
+			list.add(faqBoard);
+	}
+		}catch(SQLException e) {
+			e.printStackTrace();
+		}finally {
+			close(rset);
+			close(pstmt);
+		}
+		
+		 
+		
+		return list;
+	}
+
+
+	//faq 페이징하기 위해 총 게시물수 구하기
+	public int selectTotalFaqBoardCount(Connection conn) {
+		PreparedStatement pstmt = null;
+		String sql = prop.getProperty("selectTotalFaqBoardCount");
+		ResultSet rset = null;
+		int totalCount = 0;
+		
+		try {
+			pstmt = conn.prepareStatement(sql);
+			rset = pstmt.executeQuery();
+			if(rset.next()) {
+				totalCount = rset.getInt(1);
+			}
+		} catch (SQLException e) {
+			e.printStackTrace();
+		} finally {
+			close(rset);
+			close(pstmt);
+		}
+		return totalCount;
+	}
 	 
 }

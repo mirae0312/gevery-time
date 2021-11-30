@@ -11,7 +11,7 @@
  <div id="leftbox">
             <span>Q&A</span>
             <br>
-            <span>FAQ</span>
+            <span><a href="<%= request.getContextPath() %>/customer/faqBoardList">FAQ</a></span>
             <br>
             <span>신고내역</span>
         </div>
