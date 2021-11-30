@@ -1,5 +1,8 @@
 package com.zea.geverytime.common;
 
+import com.oreilly.servlet.MultipartRequest;
+import com.zea.geverytime.common.model.vo.Attachment;
+
 public class MvcUtils {
 
 	public static String getPagebar(int cPage, int numPerPage, int pageBarSize, int totalContentCount,
@@ -48,4 +51,14 @@ public class MvcUtils {
 		}
 		return str.toString();
 	}
+
+	public static Attachment makeAttachment(MultipartRequest multipartRequest, String fileName) {
+		Attachment attachment = new Attachment();
+		String orName = multipartRequest.getOriginalFileName(fileName);
+		String reName = multipartRequest.getFilesystemName(fileName);
+		attachment.setOriginalFilename(orName);
+		attachment.setRenamedFilename(reName);
+		return attachment;
+	}
+	
 }

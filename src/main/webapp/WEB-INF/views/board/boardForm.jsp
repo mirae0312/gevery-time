@@ -9,6 +9,18 @@
 	enctype = "multipart/form-data">
 	<table id="tbl-board-view">
 	<tr>
+		<th>게시판 선택</th>
+		<td>
+			<select name="boardSelect" id="boardCode">
+				<option value="bb1b-">자유게시판 - 강아지</option>
+				<option value="bb2b-">자유게시판 - 고양이</option>
+				<option value="bb3b-">후기게시판 - 가는거</option>
+				<option value="bb4b-">후기게시판 - 먹는거</option>
+				<option value="bb5b-">후기게시판 - 쓰는거</option>
+			</select>
+		</td>
+	</tr>
+	<tr>
 		<th>제 목</th>
 		<td><input type="text" name="title" required></td>
 	</tr>
