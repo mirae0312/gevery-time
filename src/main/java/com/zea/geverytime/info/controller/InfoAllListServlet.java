@@ -26,7 +26,7 @@ public class InfoAllListServlet extends HttpServlet {
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		try {
             String board = (String) request.getParameter("board");
-            System.out.println("[Servlet] board : " + board);
+//            System.out.println("[infoAllListServlet] board : " + board);
             int start = 1;
             int end = 5;
 

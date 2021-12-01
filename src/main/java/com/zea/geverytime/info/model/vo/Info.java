@@ -23,33 +23,20 @@ public class Info extends InfoEntity implements Serializable {
 	}
 	
 	
-	
 	public Info(String code, String memberId, int viewCount, String regCheck, String businessNo, Date regDate,
 			String businessName, String businessAddress, String businessTel, String location, String headContent,
-			String bodyContents, String serviceContent, String site, String mon, String tue, String wed, String thu,
-			String fri, String sat, String sun, String launch, String dinner, String holiday) {
-		super(code, memberId, viewCount, regCheck, businessNo, regDate, businessName, businessAddress, businessTel, location,
-				headContent, bodyContents, serviceContent, site, mon, tue, wed, thu, fri, sat, sun, launch, dinner, holiday);
-		// TODO Auto-generated constructor stub
-	}
-
-
-
-	public Info(String code, String memberId, int viewCount, String regCheck, String businessNo, Date regDate,
-			String businessName, String businessAddress, String businessTel, String location, String headContent,
-			String bodyContents, String serviceContent, String site, String mon, String tue, String wed, String thu,
-			String fri, String sat, String sun, String launch, String dinner, String holiday, int recommend,
-			int attachCount, List<Attachment> attachments, int commentCount) {
+			String bodyContents, String serviceContent, String site, String startHour, String endHour,
+			String startLaunch, String endLaunch, String startDinner, String endDinner, String holiday,
+			String roadGuide, int recommend, int attachCount, List<Attachment> attachments, int commentCount) {
 		super(code, memberId, viewCount, regCheck, businessNo, regDate, businessName, businessAddress, businessTel,
-				location, headContent, bodyContents, serviceContent, site, mon, tue, wed, thu, fri, sat, sun, launch,
-				dinner, holiday);
+				location, headContent, bodyContents, serviceContent, site, startHour, endHour, startLaunch, endLaunch,
+				startDinner, endDinner, holiday, roadGuide);
 		this.recommend = recommend;
 		this.attachCount = attachCount;
 		this.attachments = attachments;
 		this.commentCount = commentCount;
 	}
 
-	
 
 	public int getRecommend() {
 		return recommend;
