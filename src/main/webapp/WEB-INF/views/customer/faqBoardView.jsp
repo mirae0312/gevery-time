@@ -41,7 +41,7 @@
         </div>
         <div class="button">
         <input type="button" value="목록" onclick="showFaqBoardList()"/>
-        <input type="button" value="수정" onclick="updateFaqBoard()"/>
+       <!-- <input type="button" value="수정" onclick="updateFaqBoard()"/> --> 
         <input type="button" value="삭제" onclick="deleteFaqBoard()"/>
         
         </div>

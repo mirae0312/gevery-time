@@ -379,13 +379,13 @@ public class QnaBoardDao {
 	}
 
 	//search faq  //   
-	public List<FaqBoard> searchFaq(Connection conn, Map<String, Object> param) {
+	public List<FaqBoard> searchFaq(Connection conn, Map<String, Object> paramS) {
 		 PreparedStatement pstmt = null;
 		 String sql = prop.getProperty("searchFaq");  
 		 ResultSet rset = null;
-		 List<FaqBoard> list = new ArrayList<>();
+		 List<FaqBoard> listS = new ArrayList<>();
  
-		 String searchKeyword = (String) param.get("searchKeyword");
+		 String searchKeyword = (String) paramS.get("searchKeyword");
 		 
 		 try {
 			pstmt = conn.prepareStatement(sql);
@@ -401,7 +401,7 @@ public class QnaBoardDao {
 				faqBoard.setRegDate(rset.getDate("reg_date"));
 				 
 				
-				list.add(faqBoard);
+				listS.add(faqBoard);
 			}
 			
 			 
@@ -413,9 +413,34 @@ public class QnaBoardDao {
 			close(pstmt);
 		}
 		 
-		 return list;
+		 return listS;
 	  
 	}
+
+	//faq 삭제
+	public int deleteFaqBoard(Connection conn, int no) {
+		int result = 0;
+		PreparedStatement pstmt = null;
+		String query = prop.getProperty("deleteFaqBoard"); 
+		
+		try {
+			//미완성쿼리문을 가지고 객체생성.
+			pstmt = conn.prepareStatement(query);
+			//쿼리문미완성
+			pstmt.setInt(1, no);
+			
+			//쿼리문실행 : 완성된 쿼리를 가지고 있는 pstmt실행(파라미터 없음)
+			//DML은 executeUpdate()
+			result = pstmt.executeUpdate();
+			
+		} catch (SQLException e) {
+			e.printStackTrace();
+		} finally {
+			close(pstmt);
+		}
+		return result;
+	}
+	 
 
 	 
 	 

@@ -149,14 +149,31 @@ public class QnaBoardService {
 	}
 
 	//serch faq
-	public List<FaqBoard> searchFaq(Map<String, Object> param) {
+	public List<FaqBoard> searchFaq(Map<String, Object> paramS) {
 			 Connection conn = getConnection();
-			 List<FaqBoard> list = qnaBoardDao.searchFaq(conn, param);
+			 List<FaqBoard> listS = qnaBoardDao.searchFaq(conn, paramS);
 			 close(conn);
-			 return list;
+			 return listS;
 			
 		 
 		}
+
+	//faq 삭제 
+	public int deleteFaqBoard(int no) {
+		Connection conn = null;
+		int result = 0;
+		try {
+			conn = getConnection();
+			result = qnaBoardDao.deleteFaqBoard(conn, no);
+			commit(conn);
+		} catch (Exception e) {
+			rollback(conn);
+			throw e;
+		} finally {
+			close(conn);
+		}
+		return result;
+	}
  
 
 	}
