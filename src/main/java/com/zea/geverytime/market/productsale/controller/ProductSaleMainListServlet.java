@@ -27,6 +27,18 @@ public class ProductSaleMainListServlet extends HttpServlet {
 
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		
+		// 요청 parameter 가져오기(div, onSale)
+		String div = request.getParameter("selectedDiv");
+		String state = request.getParameter("selectedOnSale");
+		if(state.equals("true")) {
+			state = "판매중";
+		} else {
+			state = "%%";
+		}
+		
+		System.out.println("listServ@div, onsale : "+div+", "+state);
+		
+		
 		// 페이지바 처리
 		int cPage = Integer.parseInt(request.getParameter("cPage"));
 		
@@ -39,7 +51,7 @@ public class ProductSaleMainListServlet extends HttpServlet {
 		map.put("endNum", endNum);
 		
 		// 페이지바에 맞는 게시물 가져오기
-		List<ProductBoard> list = pdtService.getProductSaleBoardAll(startNum, endNum);
+		List<ProductBoard> list = pdtService.getProductSaleBoardAll(startNum, endNum, div, state);
 		
 		// 게시물에 이미지 첨부
 		for(ProductBoard board : list) {
@@ -51,7 +63,7 @@ public class ProductSaleMainListServlet extends HttpServlet {
 		final int pageBarSize = 10;
 		
 		// 총 게시물 수 가져오기
-		int totalContentCount = pdtService.getProductSaleBoardCount();
+		int totalContentCount = pdtService.getProductSaleBoardCount(div, state);
 		
 		String url = request.getRequestURI();
 		
@@ -60,6 +72,7 @@ public class ProductSaleMainListServlet extends HttpServlet {
 		Map<String, Object> jsonMap = new HashMap<>();
 		jsonMap.put("pagebar", pagebar);
 		jsonMap.put("list", list);
+		jsonMap.put("totalContent", totalContentCount);
 		
 		System.out.println("jsonMap: " +jsonMap);
 		

@@ -215,7 +215,7 @@ $(() => {
 			<tr>
 				<th>입력하기</th>
 				<td colspan=2>
-					<form action="<%= request.getContextPath() %>/product/questionEnroll" method="POST">
+					<form action="<%= request.getContextPath() %>/product/questionEnroll" method="POST" name="commentEnrollFrm">
 						<input type="hidden" name="writer" value="<%= loginMember != null ? loginMember.getMemberId() : "" %>" readonly/><br />
 						<label for="qtitle">제목</label><input type="text" name="qtitle"/>
 						<label for="qcontent">내용</label><input type="text" name="qcontent"/>
@@ -241,6 +241,20 @@ $(() => {
 			}
 		}
 		
+		// submit null 방지 : 미로그인 회원, 미입력 시
+		$(document.commentEnrollFrm).submit((e) => {
+			<% if(loginMember == null) {%>
+				alert("로그인 후 이용 가능합니다.");
+				return false;
+			<% } %>
+			if(!/^(.|\n)+$/.test($("[name=qtitle]").val())){
+				alert("제목을 입력하세요");
+				e.preventDefault();
+			}else if (!/^(.|\n)+$/.test($("[name=qcontent]").val())){
+				alert("내용을 입력하세요");
+				e.preventDefault();
+			};
+		})
 	</script>
 </body>
 </html>

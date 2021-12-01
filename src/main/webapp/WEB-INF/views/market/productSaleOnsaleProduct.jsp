@@ -16,6 +16,11 @@
 <body>
 	<h1><%= MemberId %>님의 판매중인 상품 목록</h1>
 	<button id="pdtEnroll">상품 등록하기</button>
+	<select name="searchDiv" id="searchDiv">
+		<option value="div1">대분류1</option>
+		<option value="div2">대분류2</option>
+		<option value="div3">대분류3</option>
+	</select>
 	
 	<table>
 		<thead>
@@ -58,6 +63,11 @@
 	</table>
 	
 	<script>
+		$("#searchDiv").change((e) => {
+			
+		});
+	
+		// 상품 option 변경 > DB 저장 반영
 		$(".optionChange").change((e) => {
 			if(!confirm("변경하시겠습니까?")){
 				return;

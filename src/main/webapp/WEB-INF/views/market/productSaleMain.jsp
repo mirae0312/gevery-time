@@ -32,15 +32,18 @@
 </style>
 </head>
 <body>
-	<div id="pdtDivOption">
-		<span>(추후개발)선택 분류만 보기</span>
-		<input type="button" value="div1" class="pdtDiv"/>
-		<input type="button" value="div2" class="pdtDiv"/>
-		<input type="button" value="div3" class="pdtDiv"/>
-	</div>
-
 	<div id="pdtSearchOption">
-		<label for="select1">(추후개발)판매중인 상품만 보기</label><input type="checkbox" name="" id="select1" />
+		<span>선택 분류만 보기</span>
+		<select name="" id="divSelect">
+			<option value="%%" selected>선택하기</option>
+			<option value="div1">대분류1</option>
+			<option value="div2">대분류2</option>
+			<option value="div3">대분류3</option>
+		</select>
+		<br />
+		<label for="selectOnSale">판매중인 상품만 보기</label><input type="checkbox" name="" id="selectOnSale" />
+		<br />
+		<button onclick="selectContent(1);">조회하기</button>
 	</div>
 	
 	<% if(loginMember != null && loginMember.getMemberType().equals("B")) { %>
@@ -51,11 +54,15 @@
 		<table id="pdtTable">
 			<thead>
 				<tr>
-					<th>no</th>
+					<th colspan=8><span id="sumContent"></span></th>
+				</tr>
+				<tr>
+					<th>상품번호</th>
 					<th>섬네일</th>
 					<th>상태</th>
 					<th>분류</th>
 					<th>제목</th>
+					<th>가격</th>
 					<th>판매자</th>
 					<th>게시일</th>
 				</tr>
@@ -80,50 +87,11 @@
 			location.href="<%= request.getContextPath() %>/product/boardForm";
 		});
 		
+		// 날짜 format 함수
 		const f = n => n < 10 ? "0" + n : n;
-		
-		// 리스트 비우기
-		$("#empty").click((e) => {
-			$("#pdtTable tbody").empty();			
-		});		
-		
-		$(".pdtDiv").click((e) => {
-			$("#pdtTable tbody").empty();	
-			console.log($(e.target).val());
-			$.ajax({
-				url: "<%= request.getContextPath() %>/product/getSelectDivList",
-				data: {
-					div: $(e.target).val()
-				},
-				success(data){
-                    $(data).each((index, {boardNo, title, regDate, sellerId, product}) => {                        
-                        let day = new Date(regDate);
-                        console.log(day);
-                        let value = `\${day.getFullYear()}-\${f(day.getMonth() + 1)}-\${f(day.getDate())}`;
-                        
-                        const tr = `
-                            <tr>
-                                <td>\${boardNo}</th>
-                                <td>섬네일 예정</td>
-                                <td>\${product.state}</td>
-                                <td>\${product.pdtDiv}</td>
-                                <td>\${title}</td>
-                                <td>\${sellerId}</td>
-                                <td>\${value}</td>
-                            </tr>
-                        `;
-                        
-                        $("#pdtTable tbody").append(tr);
-                    })
-                },
-				error: console.log
-			});
-			
-		});
-		
-		
+	
 		// pageBar 기능
-		$(()=>{
+		$(() => {
 			selectContent(1);
 		});
 
@@ -132,14 +100,24 @@
 		})
 		
 		const selectContent = (cPage) => {
+			console.log($("#divSelect").val());
+			console.log($("#selectOnSale").prop("checked"));
+			
+			const selectedDiv = $("#divSelect").val();
+			const selectedOnSale = $("#selectOnSale").prop("checked");
+			
 			$.ajax({
 				url:"<%=request.getContextPath()%>/product/productList",
 				dataType:"json",
 				data:{
 					cPage,
+					selectedDiv,
+					selectedOnSale
 				},
 				success(data){
 					$("#pdtTable tbody").empty();
+					console.log(data.totalContent);
+					$("#sumContent").html('조회된 게시물 수 : '+ data.totalContent);
 					
 					//List부분
 					$(data.list).each((i, e)=>{						
@@ -147,15 +125,14 @@
 	                    let value = `\${day.getFullYear()}-\${f(day.getMonth() + 1)}-\${f(day.getDate())}`;
 	                    
 	                    let imgSrc = e.attachments[0].renamedFilename;
-	                    console.log('이미지소스', imgSrc);
 						
-						console.log(e.product.pdtNo);
 						const tr = `			<tr>
 		 					<td>\${e.boardNo}</td>
 		 					<td><img src="<%= request.getContextPath() %>/upload/market/productSale/\${imgSrc}" style="width:150px"/></td>
 							<td>\${e.product.state}</td>
 							<td>\${e.product.pdtDiv}</td>
 							<td><a href="<%= request.getContextPath() %>/product/boardView?no=\${e.boardNo}">\${e.title}</a></td>
+							<td>\${e.product.pdtPrice}원</td>
 							<td>\${e.sellerId}</td>
 							<td>\${value}</td>
 						</tr>`
@@ -164,7 +141,6 @@
 					});
 					
 					//pagebar부분
-					console.log(data.pagebar);
 					$(".pageBar").empty();
 					$(".pageBar").append(data.pagebar);
 				},
