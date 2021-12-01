@@ -34,7 +34,7 @@ public static final String BUSINESSTYPE = "B";
 			conn = getConnection();
 			
 			// 2.Dao요청
-			result = BusinessDao.insertMember(conn, business);
+			result = BusinessDao.insertbusiness(conn, business);
 			
 			// 3.트랜잭션처리
 			commit(conn);
