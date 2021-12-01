@@ -18,7 +18,7 @@
 	<% for(Info popInfo : popList){ %>
 			<div class="business-name"><%= popInfo.getBusinessName() %></div>
 			<div class="head-content"><%= popInfo.getHeadContent() %></div>
-			<div class="list-thumbnail"><%= popInfo.getAttachments().get(0).getRenamedFilename() %></div>
+			<img src="<%= request.getContextPath() %>/upload/info/<%= popInfo.getAttachments().get(0).getRenamedFilename() %>" alt="" />
 			<div class="recommend-count"><%= popInfo.getRecommend() %></div>
 			<div class="view-count"><%= popInfo.getViewCount() %></div>
 	<% } %>
@@ -35,7 +35,7 @@
 	<% for(Info info : list){ %>
 			<div class="business-name"><%= info.getBusinessName() %></div>
 			<div class="head-content"><%= info.getHeadContent() %></div>
-			<div class="list-thumbnail"><%= info.getAttachments().get(0).getRenamedFilename() %></div>
+			<img src="<%= request.getContextPath() %>/upload/info/<%= info.getAttachments().get(0).getRenamedFilename() %>" alt="" />
 			<div class="recommend-count"><%= info.getRecommend() %></div>
 			<div class="view-count"><%= info.getViewCount() %></div>
 	<% } %>

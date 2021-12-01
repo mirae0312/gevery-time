@@ -181,44 +181,36 @@ public class InfoEnrollServlet extends HttpServlet {
 			info.setServiceContent(service.toString());
 	
 			// 설명부분 + 3
-			String bodyHead1 = multipartRequest.getParameter("bodyHead1");
-			String bodyContent1 = multipartRequest.getParameter("bodyContent1");
-			String bodyHead2 = multipartRequest.getParameter("bodyHead2");
-			String bodyContent2 = multipartRequest.getParameter("bodyContent2");
-			String bodyHead3 = multipartRequest.getParameter("bodyHead3");
-			String bodyContent3 = multipartRequest.getParameter("bodyContent3");
+			String bodyContent = multipartRequest.getParameter("bodyContent");
 			
-			String[] head = {bodyHead1, bodyHead2, bodyHead3};
-			String[] body = {bodyContent1, bodyContent2, bodyContent3};
-			StringBuilder headContents = new StringBuilder();
-			StringBuilder bodyContents = new StringBuilder();
+			info.setBodyContents(bodyContent);
 			
-			for(int i = 0; i < head.length; i++) {
-				if(head[i] != null && !head[i].isEmpty()) {
-					headContents.append(head[i] + "@");
-				}
-			}
-			for(int i = 0; i < body.length; i++) {
-				if(body[i] != null && !body[i].isEmpty()) {
-					bodyContents.append(body[i] + "@");
-				}
-			}
-			info.setHeadContent(headContents.toString());
-			info.setBodyContents(bodyContents.toString());
+//			String bodyHead2 = multipartRequest.getParameter("bodyHead2");
+//			String bodyContent2 = multipartRequest.getParameter("bodyContent2");
+//			String bodyHead3 = multipartRequest.getParameter("bodyHead3");
+//			String bodyContent3 = multipartRequest.getParameter("bodyContent3");
+//			
+//			String[] head = {bodyHead1, bodyHead2, bodyHead3};
+//			String[] body = {bodyContent1, bodyContent2, bodyContent3};
+//			StringBuilder headContents = new StringBuilder();
+//			StringBuilder bodyContents = new StringBuilder();
+//			
+//			for(int i = 0; i < head.length; i++) {
+//				if(head[i] != null && !head[i].isEmpty()) {
+//					headContents.append(head[i] + "@");
+//				}
+//			}
+//			for(int i = 0; i < body.length; i++) {
+//				if(body[i] != null && !body[i].isEmpty()) {
+//					bodyContents.append(body[i] + "@");
+//				}
+//			}
+//			info.setHeadContent(headContents.toString());
+//			info.setBodyContents(bodyContents.toString());
 			
-			// 길안내 + 2
-			String way1 = multipartRequest.getParameter("way1");
-			String way2 = multipartRequest.getParameter("way2");
-			
-			String[] ways = {way1, way2};
-			StringBuilder way = new StringBuilder();
-			
-			for(int i = 0; i < ways.length; i++) {
-				if(ways[i] != null && !ways[i].isEmpty()) {
-					way.append(ways[i] + "@");
-				}
-			}
-			info.setBusinessAddress(way.toString());
+			// 길안내
+			String way = multipartRequest.getParameter("way");
+			info.setBusinessAddress(way);
 			
 			
 			
