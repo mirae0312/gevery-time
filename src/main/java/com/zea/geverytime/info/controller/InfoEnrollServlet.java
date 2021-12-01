@@ -2,6 +2,7 @@ package com.zea.geverytime.info.controller;
 
 import java.io.File;
 import java.io.IOException;
+import java.sql.Date;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -37,6 +38,7 @@ public class InfoEnrollServlet extends HttpServlet {
 			String memberId = "honggd";
 			boolean bool = true;
 			
+			// 글을 작성한적 있는지 확인 (개인 사업자는 사업체 한개인 것을 이용)
 			String check = infoService.checkInfoBoard(memberId);
 			if(check.isEmpty())
 				bool = false;
@@ -112,36 +114,37 @@ public class InfoEnrollServlet extends HttpServlet {
 			info.setBusinessAddress(addr);
 			
 			// 영업시간 09:00~19:00
-			String mon = multipartRequest.getParameter("mon");
-			String tue = multipartRequest.getParameter("tue");
-			String wed = multipartRequest.getParameter("wed");
-			String thu = multipartRequest.getParameter("thu");
-			String fri = multipartRequest.getParameter("fir");
-			String sat = multipartRequest.getParameter("sat");
-			String sun = multipartRequest.getParameter("sun");
-			String launch = multipartRequest.getParameter("launch");
-			String dinner = multipartRequest.getParameter("dinner");
-			info.setMon(mon);
-			info.setTue(tue);
-			info.setWed(wed);
-			info.setThu(thu);
-			info.setFri(fri);
-			info.setSat(sat);
-			info.setSun(sun);
-			info.setLaunch(launch);
-			info.setDinner(dinner);
+			String startHour = multipartRequest.getParameter("startHour");
+			String endHour = multipartRequest.getParameter("endHour");
+			String startLaunch = multipartRequest.getParameter("startLaunch");
+			String endLaunch = multipartRequest.getParameter("endLaunch");
+			String startDinner = multipartRequest.getParameter("startDinner");
+			String endDinner = multipartRequest.getParameter("endDinner");
+			String[] holidays = multipartRequest.getParameterValues("holiday");
+			String holiday = holidays != null ? String.join(",", holidays) : "";
 			
-			// select
-			String holiday = multipartRequest.getParameter("holiday");
+			Date sh = "".equals(startHour) ? null : Date.valueOf(startHour);
+			Date eh = "".equals(endHour) ? null : Date.valueOf(endHour);
+			Date sl = "".equals(startLaunch) ? null : Date.valueOf(startLaunch);
+			Date el = "".equals(endLaunch) ? null : Date.valueOf(endLaunch);
+			Date sd = "".equals(startDinner) ? null : Date.valueOf(startDinner);
+			Date ed = "".equals(endDinner) ? null : Date.valueOf(endDinner);
+			
 			info.setHoliday(holiday);
+			info.setStartHour(sh);
+			info.setEndHour(eh);
+			info.setStartLaunch(sl);
+			info.setEndLaunch(el);
+			info.setStartDinner(sd);
+			info.setEndDinner(ed);
 			
 			// www.naver.com + 2
 			String site1 = multipartRequest.getParameter("site1");
 			String site2 = multipartRequest.getParameter("site2");
 			StringBuilder sites = new StringBuilder();		
-			if(site1 != null || !site1.isEmpty()) {
+			if(site1 != null && !site1.isEmpty()) {
 				sites.append(site1);
-				if(site2 != null || !site2.isEmpty()) {
+				if(site2 != null && !site2.isEmpty()) {
 					sites.append("," + site2);
 				}
 			}
@@ -150,20 +153,29 @@ public class InfoEnrollServlet extends HttpServlet {
 			
 			// 병원: 진료과목, 다른곳: 가격표 + 7
 			String service1 = multipartRequest.getParameter("service1");
+			String price1 = multipartRequest.getParameter("price1");
 			String service2 = multipartRequest.getParameter("service2");
+			String price2 = multipartRequest.getParameter("price2");
 			String service3 = multipartRequest.getParameter("service3");
+			String price3 = multipartRequest.getParameter("price3");
 			String service4 = multipartRequest.getParameter("service4");
+			String price4 = multipartRequest.getParameter("price4");
 			String service5 = multipartRequest.getParameter("service5");
+			String price5 = multipartRequest.getParameter("price5");
 			String service6 = multipartRequest.getParameter("service6");
+			String price6 = multipartRequest.getParameter("price6");
 			String service7 = multipartRequest.getParameter("service7");
+			String price7 = multipartRequest.getParameter("price7");
 			
 			String[] services = {service1, service2, service3, service4,
 								service5, service6, service7};
+			String[] prices = {price1, price2, price3, price4, price5,
+								price6, price7};
 			StringBuilder service = new StringBuilder();
 			
 			for(int i = 0; i < services.length; i++) {
-				if(services[i] != null || !services[i].isEmpty()) {
-					service.append(services[i] + ",");
+				if(services[i] != null && !services[i].isEmpty()) {
+					service.append(services[i] + ":" + prices[i]);
 				}
 			}
 			info.setServiceContent(service.toString());
@@ -182,13 +194,13 @@ public class InfoEnrollServlet extends HttpServlet {
 			StringBuilder bodyContents = new StringBuilder();
 			
 			for(int i = 0; i < head.length; i++) {
-				if(head[i] != null || !head[i].isEmpty()) {
-					headContents.append(head[i] + ",");
+				if(head[i] != null && !head[i].isEmpty()) {
+					headContents.append(head[i] + "@");
 				}
 			}
 			for(int i = 0; i < body.length; i++) {
-				if(body[i] != null || !body[i].isEmpty()) {
-					bodyContents.append(body[i] + ",");
+				if(body[i] != null && !body[i].isEmpty()) {
+					bodyContents.append(body[i] + "@");
 				}
 			}
 			info.setHeadContent(headContents.toString());
@@ -202,8 +214,8 @@ public class InfoEnrollServlet extends HttpServlet {
 			StringBuilder way = new StringBuilder();
 			
 			for(int i = 0; i < ways.length; i++) {
-				if(ways[i] != null || !ways[i].isEmpty()) {
-					way.append(ways[i] + ",");
+				if(ways[i] != null && !ways[i].isEmpty()) {
+					way.append(ways[i] + "@");
 				}
 			}
 			info.setBusinessAddress(way.toString());

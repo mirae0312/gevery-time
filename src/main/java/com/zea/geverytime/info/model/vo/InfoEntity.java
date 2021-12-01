@@ -24,15 +24,12 @@ public class InfoEntity implements Serializable {
 	private String bodyContents;
 	private String serviceContent;
 	private String site;
-	private String mon;
-	private String tue;
-	private String wed;
-	private String thu;
-	private String fri;
-	private String sat;
-	private String sun;
-	private String launch;
-	private String dinner;
+	private Date startHour;
+	private Date endHour;
+	private Date startLaunch;
+	private Date endLaunch;
+	private Date startDinner;
+	private Date endDinner;
 	private String holiday;
 	
 	public InfoEntity() {
@@ -41,8 +38,8 @@ public class InfoEntity implements Serializable {
 
 	public InfoEntity(String code, String memberId, int viewCount, String regCheck, String businessNo, Date regDate,
 			String businessName, String businessAddress, String businessTel, String location, String headContent,
-			String bodyContents, String serviceContent, String site, String mon, String tue, String wed, String thu,
-			String fri, String sat, String sun, String launch, String dinner, String holiday) {
+			String bodyContents, String serviceContent, String site, Date startHour, Date endHour, Date startLaunch,
+			Date endLaunch, Date startDinner, Date endDinner, String holiday) {
 		super();
 		this.code = code;
 		this.memberId = memberId;
@@ -58,15 +55,12 @@ public class InfoEntity implements Serializable {
 		this.bodyContents = bodyContents;
 		this.serviceContent = serviceContent;
 		this.site = site;
-		this.mon = mon;
-		this.tue = tue;
-		this.wed = wed;
-		this.thu = thu;
-		this.fri = fri;
-		this.sat = sat;
-		this.sun = sun;
-		this.launch = launch;
-		this.dinner = dinner;
+		this.startHour = startHour;
+		this.endHour = endHour;
+		this.startLaunch = startLaunch;
+		this.endLaunch = endLaunch;
+		this.startDinner = startDinner;
+		this.endDinner = endDinner;
 		this.holiday = holiday;
 	}
 
@@ -182,76 +176,52 @@ public class InfoEntity implements Serializable {
 		this.site = site;
 	}
 
-	public String getMon() {
-		return mon;
+	public Date getStartHour() {
+		return startHour;
 	}
 
-	public void setMon(String mon) {
-		this.mon = mon;
+	public void setStartHour(Date startHour) {
+		this.startHour = startHour;
 	}
 
-	public String getTue() {
-		return tue;
+	public Date getEndHour() {
+		return endHour;
 	}
 
-	public void setTue(String tue) {
-		this.tue = tue;
+	public void setEndHour(Date endHour) {
+		this.endHour = endHour;
 	}
 
-	public String getWed() {
-		return wed;
+	public Date getStartLaunch() {
+		return startLaunch;
 	}
 
-	public void setWed(String wed) {
-		this.wed = wed;
+	public void setStartLaunch(Date startLaunch) {
+		this.startLaunch = startLaunch;
 	}
 
-	public String getThu() {
-		return thu;
+	public Date getEndLaunch() {
+		return endLaunch;
 	}
 
-	public void setThu(String thu) {
-		this.thu = thu;
+	public void setEndLaunch(Date endLaunch) {
+		this.endLaunch = endLaunch;
 	}
 
-	public String getFri() {
-		return fri;
+	public Date getStartDinner() {
+		return startDinner;
 	}
 
-	public void setFri(String fri) {
-		this.fri = fri;
+	public void setStartDinner(Date startDinner) {
+		this.startDinner = startDinner;
 	}
 
-	public String getSat() {
-		return sat;
+	public Date getEndDinner() {
+		return endDinner;
 	}
 
-	public void setSat(String sat) {
-		this.sat = sat;
-	}
-
-	public String getSun() {
-		return sun;
-	}
-
-	public void setSun(String sun) {
-		this.sun = sun;
-	}
-
-	public String getLaunch() {
-		return launch;
-	}
-
-	public void setLaunch(String launch) {
-		this.launch = launch;
-	}
-
-	public String getDinner() {
-		return dinner;
-	}
-
-	public void setDinner(String dinner) {
-		this.dinner = dinner;
+	public void setEndDinner(Date endDinner) {
+		this.endDinner = endDinner;
 	}
 
 	public String getHoliday() {
@@ -268,13 +238,11 @@ public class InfoEntity implements Serializable {
 				+ regCheck + ", businessNo=" + businessNo + ", regDate=" + regDate + ", businessName=" + businessName
 				+ ", businessAddress=" + businessAddress + ", businessTel=" + businessTel + ", location=" + location
 				+ ", headContent=" + headContent + ", bodyContents=" + bodyContents + ", serviceContent="
-				+ serviceContent + ", site=" + site + ", mon=" + mon + ", tue=" + tue + ", wed=" + wed + ", thu=" + thu
-				+ ", fri=" + fri + ", sat=" + sat + ", sun=" + sun + ", launch=" + launch + ", dinner=" + dinner
-				+ ", holiday=" + holiday + "]";
+				+ serviceContent + ", site=" + site + ", startHour=" + startHour + ", endHour=" + endHour
+				+ ", startLaunch=" + startLaunch + ", endLaunch=" + endLaunch + ", startDinner=" + startDinner
+				+ ", endDinner=" + endDinner + ", holiday=" + holiday + "]";
 	}
-	
-	
-	
-	
 
+	
+	
 }

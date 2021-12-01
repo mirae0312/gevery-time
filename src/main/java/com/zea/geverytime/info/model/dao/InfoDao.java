@@ -220,16 +220,13 @@ public class InfoDao {
 			pstmt.setString(4, info.getBodyContents());
 			pstmt.setString(5, info.getServiceContent());
 			pstmt.setString(6, info.getSite());
-			pstmt.setString(7, info.getMon());
-			pstmt.setString(8, info.getTue());
-			pstmt.setString(9, info.getWed());
-			pstmt.setString(10, info.getThu());
-			pstmt.setString(11, info.getFri());
-			pstmt.setString(12, info.getSat());
-			pstmt.setString(13, info.getSun());
-			pstmt.setString(14, info.getLaunch());
-			pstmt.setString(15, info.getDinner());
-			pstmt.setString(16, info.getHoliday());
+			pstmt.setDate(7, info.getStartHour());
+			pstmt.setDate(8, info.getEndHour());
+			pstmt.setDate(9, info.getStartLaunch());
+			pstmt.setDate(10, info.getEndLaunch());
+			pstmt.setDate(11, info.getStartDinner());
+			pstmt.setDate(12, info.getEndDinner());
+			pstmt.setString(13, info.getHoliday());
 			
 			result = pstmt.executeUpdate();
 

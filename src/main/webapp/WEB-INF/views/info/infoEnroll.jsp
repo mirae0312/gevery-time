@@ -7,60 +7,133 @@
 	Info info = (Info) request.getAttribute("info");
 %>
 <div class="enroll-wrapper">
-	<form name="infoEnrollFrm" action="<%= request.getContextPath() %>/info/Enroll" method="post">
+	<form name="infoEnrollFrm" action="<%= request.getContextPath() %>/info/Enroll" 
+		method="post" enctype="multipart/form-data">
 		
 		<div class="left-head">
-			<input type="text" name="businessName" id="business-name" />
-			<img src="" alt="" />
-			<input type="file" name="headFile" id="head-file" />
+			상호명
+			<input type="text" name="businessName" id="business-name" required/>
+			썸네일
+			<div class="thumb"><img src="#" alt="" id="thumbnail" style="width:200px;height:180px;"/></div>
+			<input type="file" name="headFile" accept="image/*" onchange="setThumbnail();" id="head-file" />
+			인사말
 			<input type="text" name="headContent" id="head-content" />		
-		</div>
+		</div><br />
 		<div class="right-head">
 			<label for="tel">전화번호</label>
-			<input type="text" name="tel" id="tel" />
-<%--			<input type="text" name="tel1" id="tel" />
-			<input type="text" name="tel2" id="tel" />
-			<input type="text" name="tel3" id="tel" /> --%>
+			<input type="text" name="tel" id="tel" required/><br />
 			<label for="addr">주소</label>
-			<input type="text" name="addr" id="addr" />
+			<input type="text" name="addr" id="addr" /><br />
 			영업시간
-			<input type="text" name="sat" id="business-hours" />
-			<input type="text" name="sun" id="business-hours" />
-			<input type="text" name="mon" id="business-hours" />
-			<input type="text" name="tue" id="business-hours" />
-			<input type="text" name="wed" id="business-hours" />
-			<input type="text" name="thu" id="business-hours" />
-			<input type="text" name="fri" id="business-hours" />
-			<input type="text" name="launch" id="business-hours" />
-			<input type="text" name="dinner" id="business-hours" />
-			<select name="holiday">
-				<option value="mon" id="holiday">월</option>
-				<option value="tue" id="holiday">화</option>
-				<option value="wed" id="holiday">수</option>
-				<option value="thu" id="holiday">목</option>
-				<option value="fri" id="holiday">금</option>
-				<option value="sat" id="holiday">토</option>
-				<option value="sun" id="holiday">일</option>
-			</select>
-			<label for="site">사이트</label>
-			<input type="text" name="site1" id="site" />
-			<label for="service">가격표</label>
-			<input type="text" name="service1" id="service" />
+			<input type="time" name="startHour" class="business-hours" required/>~<input type="time" name="endHour" class="business-hours" required/><br />
+			점심시간
+			<input type="time" name="startLaunch" class="launch" />~<input type="time" name="endLaunch" class="launch" /><br />
+			저녁시간
+			<input type="time" name="startDinner" class="dinner" />~<input type="time" name="endDinner" class="dinner" /><br />
+			휴일
+			<input type="checkbox" name="holiday" value="월" id="mon" /><label for="mon">월</label>
+			<input type="checkbox" name="holiday" value="화" id="tue" /><label for="tue">화</label>
+			<input type="checkbox" name="holiday" value="수" id="wed" /><label for="wed">수</label>
+			<input type="checkbox" name="holiday" value="목" id="thu" /><label for="thu">목</label>
+			<input type="checkbox" name="holiday" value="금" id="fri" /><label for="fri">금</label>
+			<input type="checkbox" name="holiday" value="토" id="sat" /><label for="sat">토</label>
+			<input type="checkbox" name="holiday" value="일" id="sun" /><label for="sun">일</label>
+			<br />
+			<div id="site-wrap">
+				<label for="site">홈페이지</label>
+				<input type="text" name="site1" class="site" />
+				<button type="button" class="add-btn add-site" onclick="addSite();">추가</button>			
+			</div><br />
+			<div id="service-wrap">
+				<label for="service">가격표</label>
+				<input type="text" name="service1" class="service" />:			
+				<input type="text" name="price1" class="service" />원	<br />		
+			</div><br />
+			<button type="button" class="add-btn add-service" onclick="addService();">추가</button>
 		</div>
-		<div class="body-description">
-			<input type="file" name="file2" id="file" />
-			<input type="text" name="bodyHead1" id="body-head" placeholder="" />
-			<input type="text" name="bodyContent1" id="body-content" placeholder="" />
-			
-		</div>
+		<div id="body-description">
+			<div class="description-wrapper">
+				<div class="thumb"><img src="#" alt="" class="thumb1" style="width:500px;height:250px;"/></div>
+				<input type="file" name="file1" class="file" accept="image/*" onchange="contentImg();" />
+				head<input type="text" name="bodyHead1" class="body-head" placeholder="" />
+				body<input type="text" name="bodyContent1" class="body-content" placeholder="" /><br />					
+			</div>
+			<button type="button" class="add-btn add-description" onclick="addDescription();">추가</button>
+		</div><br />
 		<div class="the-way">
-			<div id="map" style="width:500px;height:400px;"></div>
+			<div id="map" style="width:500px;height:400px;"></div><br />
 			오시는길
-			<textarea name="way1" id="way" cols="30" rows="10"></textarea>
+			<div class="way-guide">
+				<textarea name="way1" class="way" cols="30" rows="10" required></textarea><br />			
+			</div>
+			<button type="button" class="add-btn add-way" onclick="addWay();">추가</button>
 		</div>
 		<input type="submit" />
 	</form>
 </div>
+<script>
+	function setThumbnail(){
+		var reader = new FileReader();
+		
+		reader.onload = function(event){
+			$("#thumbnail").attr("src", event.target.result);
+		}
+		reader.readAsDataURL(event.target.files[0]);
+		
+	}
+	function contentImg(){
+		var reader = new FileReader();
+		
+		reader.onload = function(event){
+			$("#body-description .description-wrapper .thumb\${k}").attr("src", event.target.result);
+		}
+		reader.readAsDataURL(event.target.files[0]);
+		
+	}
+
+	const addSite = (e) => {
+		const site2 = `
+			<input type="text" name="site2" class="site" />
+		`;
+		$("#site-wrap").append(site2);
+		$("#site-wrap .add-site").attr("disabled", "disabled");
+		
+	};
+	var i = 2;
+	const addService = () => {
+		var addSer = `
+		,<input type="text" name="service\${i}" class="service" />:
+		<input type="text" name="price\${i}" class="service" />원	<br />
+		`;
+		$("#service-wrap").append(addSer);
+		if(i === 7){
+			$(".right-head .add-service").attr("disabled", "disabled");			
+		}
+		i++;
+	};
+	var a = 2;
+	const addDescription = () => {
+		var addDes = `
+		<div class="thumb"><img src="#" alt="" class="thumb\${a}" style="width:500px;height:250px;"/></div>
+		<input type="file" name="file\${a}" class="file" accept="image/*" onchange="contentImg();" />
+		head<input type="text" name="bodyHead\${a}" class="body-head" placeholder="" />
+		body<input type="text" name="bodyContent\${a}" class="body-content" placeholder="" /><br />	
+		`;
+		$("#body-description").append(addDes);
+		if(a === 3){
+			$("#body-description .add-description").attr("disabled", "disabled");
+		}
+		console.log(a);
+		a++;
+	};
+	const addWay = () => {
+		const way = `
+		<textarea name="way1" class="way" cols="30" rows="10" required></textarea><br />
+		`;
+		$(".the-way .way-guide").append(way);
+		$(".the-way .add-way").attr("disabled", "disabled");
+	}
+</script>
 <script type="text/javascript" src="//dapi.kakao.com/v2/maps/sdk.js?appkey=a98891f9d7d85bc941b2188e046c3bfb"></script>
 <script type="text/javascript" src="//dapi.kakao.com/v2/maps/sdk.js?appkey=APIKEY&libraries=services,clusterer,drawing"></script>
 <script>
