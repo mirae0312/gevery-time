@@ -83,6 +83,13 @@ $(() => {
 		<tbody>
 			<tr>
 				<td><input type="button" value="수정하기" id="boardEdit" onclick="updateBoard();"/></td>
+				<td>
+					<form action="<%= request.getContextPath() %>/product/productBoardDelete" method="POST">
+						<input type="hidden" name="boardNo" value="<%= board.getBoardNo() %>" />
+						<input type="submit" value="삭제하기"/>
+					</form>
+					
+				</td>
 			</tr>
 			<tr>
 				<th>섬네일</th>
@@ -98,6 +105,10 @@ $(() => {
 			<tr>
 				<th>판매상태</th>
 				<td><%= board.getProduct().getState() %></td>
+			</tr>
+			<tr>
+				<th>가격</th>
+				<td><%= board.getProduct().getPdtPrice() %>원</td>
 			</tr>
 			<tr>
 				<th colspan=2>내용</th>
@@ -219,6 +230,7 @@ $(() => {
 				location.href = "<%= request.getContextPath() %>/product/productBoardUpdateForm?no=<%= board.getBoardNo() %>";
 			}
 		}
+		
 	</script>
 </body>
 </html>

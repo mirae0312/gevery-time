@@ -13,6 +13,7 @@ import javax.servlet.http.HttpServletResponse;
 
 import com.google.gson.Gson;
 import com.zea.geverytime.common.MvcUtils;
+import com.zea.geverytime.common.model.vo.Attachment;
 import com.zea.geverytime.market.productsale.model.service.ProductSaleService;
 import com.zea.geverytime.market.productsale.model.vo.ProductBoard;
 
@@ -39,7 +40,13 @@ public class ProductSaleMainListServlet extends HttpServlet {
 		
 		// 페이지바에 맞는 게시물 가져오기
 		List<ProductBoard> list = pdtService.getProductSaleBoardAll(startNum, endNum);
-		System.out.println("pdtSaleMain@list : "+list);
+		
+		// 게시물에 이미지 첨부
+		for(ProductBoard board : list) {
+			String orCode = board.getOrCode();
+			List<Attachment> attachments = pdtService.getproductSaleBoardAttachment(orCode);
+			board.setAttachments(attachments);
+		}
 		
 		final int pageBarSize = 10;
 		
@@ -53,6 +60,8 @@ public class ProductSaleMainListServlet extends HttpServlet {
 		Map<String, Object> jsonMap = new HashMap<>();
 		jsonMap.put("pagebar", pagebar);
 		jsonMap.put("list", list);
+		
+		System.out.println("jsonMap: " +jsonMap);
 		
 		response.setContentType("application/json; charset=utf-8");
 		new Gson().toJson(jsonMap, response.getWriter());

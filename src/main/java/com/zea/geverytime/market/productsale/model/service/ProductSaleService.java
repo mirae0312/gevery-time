@@ -97,6 +97,13 @@ public class ProductSaleService {
 		close(conn);
 		return count;
 	}
+	
+	public List<Attachment> getproductSaleBoardAttachment(String orCode) {
+		Connection conn = getConnection();
+		List<Attachment> attachments = pdtDao.getProductSaleBoardAttachment(conn, orCode);
+		close(conn);
+		return attachments;
+	}
 
 	public ProductBoard getProductSaleBoard(int no) {
 		Connection conn = getConnection();
@@ -227,6 +234,38 @@ public class ProductSaleService {
 		}
 		return result;
 	}
+
+	public int productBoardDeleteAttachment(String orCode) {
+		Connection conn = getConnection();
+		int result = 0;
+		try {
+			 result = pdtDao.productBoardDeleteAttachment(conn, orCode);
+			 commit(conn);
+		} catch(Exception e) {
+			rollback(conn);
+			e.printStackTrace();
+		} finally {
+			close(conn);			
+		}
+		
+		return result;
+	}
+
+	public int productBoardDelete(int boardNo) {
+		Connection conn = getConnection();
+		int result = 0;
+		try {
+			result = pdtDao.productBoardDelete(conn, boardNo);
+			commit(conn);
+		} catch(Exception e) {
+			rollback(conn);
+			e.printStackTrace();
+		} finally {
+			close(conn);			
+		}
+		return result;
+	}
+
 
 
 

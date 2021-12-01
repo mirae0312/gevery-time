@@ -126,6 +126,7 @@ public class ProductSaleDao {
 				pb.setTitle(rset.getString("title"));
 				pb.setRegDate(rset.getDate("reg_date"));
 				pb.setSellerId(rset.getString("seller_id"));
+				pb.setOrCode(rset.getString("or_code"));
 				// product 객체 생성
 				Product pdt = new Product();
 				pdt.setPdtNo(rset.getInt("product_no"));
@@ -265,7 +266,7 @@ public class ProductSaleDao {
 				question.put("title", rset.getString("title"));
 				question.put("content", rset.getString("content"));
 				question.put("writer", rset.getString("writer"));
-				question.put("qaLevel", rset.getInt("qa_level"));
+				question.put("qaLevel", rset.getInt("qlevel"));
 				question.put("refNo", rset.getInt("ref_no"));
 				questions.add(question);
 				System.out.println("dao@question : "+question);
@@ -480,6 +481,44 @@ public class ProductSaleDao {
 			close(pstmt);
 		}
 		
+		return result;
+	}
+
+	public int productBoardDeleteAttachment(Connection conn, String orCode) {
+		PreparedStatement pstmt = null;
+		String sql = prop.getProperty("productBoardDeleteAttachment");
+		int result = 0;
+		
+		try {
+			pstmt = conn.prepareStatement(sql);
+			pstmt.setString(1, orCode);
+			
+			result = pstmt.executeUpdate();
+			System.out.println("deleteAttachment : "+result);
+		} catch (SQLException e) {
+			e.printStackTrace();
+		} finally {
+			close(pstmt);
+		}
+		return result;
+	}
+
+	public int productBoardDelete(Connection conn, int boardNo) {
+		PreparedStatement pstmt = null;
+		String sql = prop.getProperty("productBoardDelete");
+		int result = 0;
+		
+		try {
+			pstmt = conn.prepareStatement(sql);
+			pstmt.setInt(1, boardNo);
+			
+			result = pstmt.executeUpdate();
+			System.out.println("deleteBoard : "+result);
+		} catch (SQLException e) {
+			e.printStackTrace();
+		} finally {
+			close(pstmt);
+		}
 		return result;
 	}
 

@@ -15,36 +15,42 @@ import com.zea.geverytime.market.productsale.model.service.ProductSaleService;
 import com.zea.geverytime.market.productsale.model.vo.ProductBoard;
 
 /**
- * Servlet implementation class ProductSaleBoardUpdateServlet
+ * Servlet implementation class ProductSaleBoardDeleteServlet
  */
-@WebServlet("/product/productBoardUpdateForm")
-public class ProductSaleBoardUpdateFormServlet extends HttpServlet {
+@WebServlet("/product/productBoardDelete")
+public class ProductSaleBoardDeleteServlet extends HttpServlet {
 	private static final long serialVersionUID = 1L;
 	private ProductSaleService pdtService = new ProductSaleService();
 	
-	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		int boardNo = Integer.parseInt(request.getParameter("no"));
+	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+		int boardNo = Integer.parseInt(request.getParameter("boardNo"));
 		
 		ProductBoard board = pdtService.getProductSaleBoard(boardNo);
-		
-		// 기존 첨부파일 삭제
-		// 1. server 삭제
 		List<Attachment> attachments = board.getAttachments();
+		// 1. server attachment 삭제
 		for(Attachment attachment : attachments) {
 			String rfn = attachment.getRenamedFilename();
 			File delFile = new File(getServletContext().getRealPath("/upload/market/productSale"), rfn);
-			boolean removed = delFile.delete();
-			System.out.println("delFileRemove: "+removed);
+			delFile.delete();
 		}
 		// 2. db attachment 삭제
 		String orCode = board.getOrCode();
-		int result = pdtService.productBoardDeleteAttachment(orCode);
+		int attachResult = pdtService.productBoardDeleteAttachment(orCode);
+		System.out.println("AttachREsult : + "+attachResult);
 		
+		// productBoard 삭제
+		int result = pdtService.productBoardDelete(boardNo);
+		System.out.println("BoardDeleteResult : "+result);
 		
-		request.setAttribute("board", board);
+		String msg = "";
+		if(result > 0) {
+			msg = "삭제되었습니다.";
+		} else {
+			msg = "삭제되지 않았습니다.";
+		}
 		
-		request.getRequestDispatcher("/WEB-INF/views/market/productSaleBoardUpdateForm.jsp").forward(request, response);
-		
+		request.getSession().setAttribute("msg", msg);
+		response.sendRedirect(request.getContextPath()+"/product/main");
 	}
 
 }

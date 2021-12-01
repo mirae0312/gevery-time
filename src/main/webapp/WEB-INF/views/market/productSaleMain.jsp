@@ -142,14 +142,17 @@
 					
 					//List부분
 					$(data.list).each((i, e)=>{
+						console.log(e.attachments[0]);
 						
 						let day = new Date(e.regDate);
 	                    let value = `\${day.getFullYear()}-\${f(day.getMonth() + 1)}-\${f(day.getDate())}`;
+	                    
+	                    let imgSrc = e.attachments[0];
 						
 						console.log(e.product.pdtNo);
 						const tr = `			<tr>
 		 					<td>\${e.boardNo}</td>
-		 					<td>섬네일 예정</td>
+		 					<td><img src="<%= request.getContextPath() %>/upload/market/productSale/\${imgSrc}"/></td>
 							<td>\${e.product.state}</td>
 							<td>\${e.product.pdtDiv}</td>
 							<td><a href="<%= request.getContextPath() %>/product/boardView?no=\${e.boardNo}">\${e.title}</a></td>
