@@ -1,6 +1,7 @@
 package com.zea.geverytime.board.model.service;
 
 import java.sql.Connection;
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
 
@@ -40,12 +41,18 @@ public class BoardService {
 			//게시물 등록
 			boardDao.enrollBoard(conn,board);
 			//게시물 번호 가져오기
-			String code = boardDao.selectLastBoardCode(conn);
+			String code = board.getOrCode() + "-" +boardDao.selectLastBoardCode(conn); // 식별번호-seq번호
+			System.out.println(code);
 			//attachment 등록
-			for(Attachment a : board.getAttachments()) {
-				a.setCode(code);
+			List<Attachment> list = board.getAttachments();
+			if(list!=null && !list.isEmpty()) {
+				for(Attachment a : board.getAttachments()) {
+					a.setCode(code);
+					boardDao.enrollBoardAttachment(conn, a);
+				}
 			}
 			commit(conn);
+			result = 1;
 		}catch(Exception e) {
 			rollback(conn);
 			throw e;
@@ -54,5 +61,23 @@ public class BoardService {
 		}
 		
 		return result;
+	}
+
+	public Board selectOneBoard(int no) {
+		Connection conn = getConnection();
+		Board board = boardDao.selectOneBoard(conn, no);
+		if(board.getAttachCount()>0) {
+			List<Attachment> list = boardDao.selectBoardAttachments(conn, board.getOrCode());
+			board.setAttachments(list);
+		}
+		close(conn);
+		return board;
+	}
+
+	public Attachment selectOneAttahment(int no) {
+		Connection conn = getConnection();
+		Attachment attach = boardDao.selectOneAttahment(conn, no);
+		close(conn);
+		return attach;
 	}
 }

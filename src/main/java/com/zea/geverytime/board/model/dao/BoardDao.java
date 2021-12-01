@@ -14,6 +14,8 @@ import java.util.Properties;
 
 import com.zea.geverytime.board.model.exception.BoardException;
 import com.zea.geverytime.board.model.vo.Board;
+import com.zea.geverytime.common.model.vo.Attachment;
+
 import static com.zea.geverytime.common.JdbcTemplate.*;
 
 public class BoardDao {
@@ -50,10 +52,13 @@ public class BoardDao {
 				int likeCount = rset.getInt("like_count");
 				Date regDate = rset.getDate("reg_date");
 				Board board = new Board(no,orCode,title,writer,content,readCount,likeCount,regDate);
+				board.setAttachCount(rset.getInt("attach_count"));
+				board.setCommentCount(rset.getInt("comment_count"));
 				list.add(board);
 			}
 			
 		} catch (SQLException e) {
+			e.printStackTrace();
 			throw new BoardException("게시물 불러오기 오류!");
 		}finally {
 			close(rset);
@@ -92,12 +97,15 @@ public class BoardDao {
 		PreparedStatement pstmt = null;
 		
 		try {
+			System.out.println(board.getOrCode());
 			pstmt = conn.prepareStatement(sql);
-			pstmt.setString(1, board.getTitle());
-			pstmt.setString(2, board.getWriter());
-			pstmt.setString(3, board.getContent());
+			pstmt.setString(1, board.getOrCode());
+			pstmt.setString(2, board.getTitle());
+			pstmt.setString(3, board.getWriter());
+			pstmt.setString(4, board.getContent());
 			result = pstmt.executeUpdate();
 		} catch (SQLException e) {
+			e.printStackTrace();
 			throw new BoardException("게시물 등록 오류!");
 		}finally{
 			close(pstmt);
@@ -108,7 +116,7 @@ public class BoardDao {
 
 	public String selectLastBoardCode(Connection conn) {
 		String code = "";
-		String sql = prop.getProperty("selectLastBoardNo");
+		String sql = prop.getProperty("selectLastBoardCode");
 		PreparedStatement pstmt = null;
 		ResultSet rset = null;
 		
@@ -119,11 +127,122 @@ public class BoardDao {
 				code = rset.getString(1);
 			}
 		} catch (SQLException e) {
+			e.printStackTrace();
 			throw new BoardException("마지막 게시물 번호 불러오기 오류");
 		}finally {
 			close(rset);
 			close(pstmt);
 		}
 		return code;
+	}
+
+	public int enrollBoardAttachment(Connection conn, Attachment a) {
+		int result = 0;
+		String sql = prop.getProperty("enrollBoardAttachment");
+		PreparedStatement pstmt = null;
+		
+		try {
+			pstmt = conn.prepareStatement(sql);
+			pstmt.setString(1, a.getCode());
+			pstmt.setString(2, a.getOriginalFilename());
+			pstmt.setString(3, a.getRenamedFilename());
+			result = pstmt.executeUpdate();
+		} catch (SQLException e) {
+			e.printStackTrace();
+			throw new BoardException("첨부파일 등록 오류");
+		}finally {
+			close(pstmt);
+		}
+		
+		return result;
+	}
+
+	public Board selectOneBoard(Connection conn, int no) {
+		Board board = new Board();
+		String sql = prop.getProperty("selectOneBoard");
+		PreparedStatement pstmt = null;
+		ResultSet rset = null;
+		
+		try {
+			pstmt = conn.prepareStatement(sql);
+			pstmt.setInt(1, no);
+			pstmt.setInt(2, no);
+			rset = pstmt.executeQuery();
+			if(rset.next()) {
+				board.setNo(rset.getInt("no"));
+				board.setOrCode(rset.getString("or_code"));
+				board.setTitle(rset.getString("title"));
+				board.setWriter(rset.getString("writer"));
+				board.setContent(rset.getString("content"));
+				board.setReadCount(rset.getInt("read_count"));
+				board.setLikeCount(rset.getInt("like_count"));
+				board.setRegDate(rset.getDate("reg_date"));
+				board.setAttachCount(rset.getInt("attach_count"));
+			}
+		} catch (SQLException e) {
+			e.printStackTrace();
+			throw new BoardException("게시물 불러오기 오류");
+		}finally {
+			close(rset);
+			close(pstmt);
+		}
+		return board;
+	}
+
+	public List<Attachment> selectBoardAttachments(Connection conn, String orCode) {
+		List<Attachment> list = new ArrayList<>();
+		String sql = prop.getProperty("selectBoardAttachments");
+		PreparedStatement pstmt = null;
+		ResultSet rset = null;
+		
+		try {
+			pstmt = conn.prepareStatement(sql);
+			pstmt.setString(1, orCode);
+			rset = pstmt.executeQuery();
+			while(rset.next()) {
+				Attachment a = new Attachment();
+				a.setNo(rset.getInt("no"));
+				a.setCode(orCode);
+				a.setOriginalFilename(rset.getString("original_filename"));
+				a.setRenamedFilename(rset.getString("renamed_filename"));
+				a.setRegDate(rset.getDate("reg_date"));
+				list.add(a);
+			}
+		} catch (SQLException e) {
+			e.printStackTrace();
+			throw new BoardException("첨부파일 불러오기 오류");
+		}finally {
+			close(rset);
+			close(pstmt);
+		}
+		
+		return list;
+	}
+
+	public Attachment selectOneAttahment(Connection conn, int no) {
+		String sql = prop.getProperty("selectOneAttahment");
+		Attachment attach = new Attachment();
+		PreparedStatement pstmt = null;
+		ResultSet rset = null;
+		
+		try {
+			pstmt = conn.prepareStatement(sql);
+			pstmt.setInt(1, no);
+			rset = pstmt.executeQuery();
+			if(rset.next()) {
+				attach.setNo(rset.getInt("no"));
+				attach.setCode(rset.getString("or_no"));
+				attach.setOriginalFilename(rset.getString("original_filename"));
+				attach.setRenamedFilename(rset.getString("renamed_filename"));
+				attach.setRegDate(rset.getDate("reg_date"));
+			}
+		} catch (SQLException e) {
+			e.printStackTrace();
+			throw new BoardException("첨부파일 불러오기 오류");
+		}finally {
+			close(rset);
+			close(pstmt);
+		}
+		return attach;
 	}
 }
