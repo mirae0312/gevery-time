@@ -35,7 +35,7 @@ public class InfoEnrollServlet extends HttpServlet {
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		try {
 //			String memberId = loginMember.getMemberId();
-			String memberId = "honggd";
+			String memberId = "businessWoman";
 			boolean bool = true;
 			
 			// 글을 작성한적 있는지 확인 (개인 사업자는 사업체 한개인 것을 이용)
@@ -45,7 +45,7 @@ public class InfoEnrollServlet extends HttpServlet {
 			
 			if(!bool) {
 				Info info = infoService.selectBeforeWrite(memberId);
-				
+				System.out.println("[infoEnollServlet] info : " + info);
 				// 게시물 등록jsp로 이동
 				request.setAttribute("info", info);
 				request
@@ -98,14 +98,6 @@ public class InfoEnrollServlet extends HttpServlet {
 			info.setHeadContent(headContent);
 			
 //			// 전화번호 000-0000-0000
-//			String bar = "-";
-//			String tel1 = multipartRequest.getParameter("tel1");
-//			String tel2 = multipartRequest.getParameter("tel2");
-//			String tel3 = multipartRequest.getParameter("tel3");
-//			StringBuilder tels = new StringBuilder();
-//			tels.append(tel1 + bar + tel2 + bar + tel3);
-//			String tel = tels.toString();
-//			info.setBusinessTel(tel);
 			String tel = multipartRequest.getParameter("tel");
 			info.setBusinessTel(tel);
 			
@@ -123,20 +115,13 @@ public class InfoEnrollServlet extends HttpServlet {
 			String[] holidays = multipartRequest.getParameterValues("holiday");
 			String holiday = holidays != null ? String.join(",", holidays) : "";
 			
-			Date sh = "".equals(startHour) ? null : Date.valueOf(startHour);
-			Date eh = "".equals(endHour) ? null : Date.valueOf(endHour);
-			Date sl = "".equals(startLaunch) ? null : Date.valueOf(startLaunch);
-			Date el = "".equals(endLaunch) ? null : Date.valueOf(endLaunch);
-			Date sd = "".equals(startDinner) ? null : Date.valueOf(startDinner);
-			Date ed = "".equals(endDinner) ? null : Date.valueOf(endDinner);
-			
 			info.setHoliday(holiday);
-			info.setStartHour(sh);
-			info.setEndHour(eh);
-			info.setStartLaunch(sl);
-			info.setEndLaunch(el);
-			info.setStartDinner(sd);
-			info.setEndDinner(ed);
+			info.setStartHour(startHour);
+			info.setEndHour(endHour);
+			info.setStartLaunch(startLaunch);
+			info.setEndLaunch(endLaunch);
+			info.setStartDinner(startDinner);
+			info.setEndDinner(endDinner);
 			
 			// www.naver.com + 2
 			String site1 = multipartRequest.getParameter("site1");
@@ -185,41 +170,15 @@ public class InfoEnrollServlet extends HttpServlet {
 			
 			info.setBodyContents(bodyContent);
 			
-//			String bodyHead2 = multipartRequest.getParameter("bodyHead2");
-//			String bodyContent2 = multipartRequest.getParameter("bodyContent2");
-//			String bodyHead3 = multipartRequest.getParameter("bodyHead3");
-//			String bodyContent3 = multipartRequest.getParameter("bodyContent3");
-//			
-//			String[] head = {bodyHead1, bodyHead2, bodyHead3};
-//			String[] body = {bodyContent1, bodyContent2, bodyContent3};
-//			StringBuilder headContents = new StringBuilder();
-//			StringBuilder bodyContents = new StringBuilder();
-//			
-//			for(int i = 0; i < head.length; i++) {
-//				if(head[i] != null && !head[i].isEmpty()) {
-//					headContents.append(head[i] + "@");
-//				}
-//			}
-//			for(int i = 0; i < body.length; i++) {
-//				if(body[i] != null && !body[i].isEmpty()) {
-//					bodyContents.append(body[i] + "@");
-//				}
-//			}
-//			info.setHeadContent(headContents.toString());
-//			info.setBodyContents(bodyContents.toString());
-			
 			// 길안내
 			String way = multipartRequest.getParameter("way");
 			info.setBusinessAddress(way);
-			
-			
-			
+					
+			// 썸네일 관리
 			File headFile = multipartRequest.getFile("headFile");
 			File file1 = multipartRequest.getFile("file1");
-			File file2 = multipartRequest.getFile("file2");
-			File file3 = multipartRequest.getFile("file3");
 			
-			if(headFile != null || file1 != null || file2 != null || file3 != null) {
+			if(headFile != null || file1 != null) {
 				List<Attachment> attachments = new ArrayList<>();
 				
 				if(headFile != null) {
@@ -229,14 +188,6 @@ public class InfoEnrollServlet extends HttpServlet {
 				if(file1 != null) {
 					Attachment attach2 = MvcUtils.makeAttachment(multipartRequest, "file1");
 					attachments.add(attach2);
-				}
-				if(file2 != null) {
-					Attachment attach3 = MvcUtils.makeAttachment(multipartRequest, "file2");
-					attachments.add(attach3);
-				}
-				if(file3 != null) {
-					Attachment attach4 = MvcUtils.makeAttachment(multipartRequest, "file3");
-					attachments.add(attach4);
 				}
 				info.setAttachments(attachments);
 			}

@@ -24,12 +24,12 @@ public class InfoEntity implements Serializable {
 	private String bodyContents;
 	private String serviceContent;
 	private String site;
-	private Date startHour;
-	private Date endHour;
-	private Date startLaunch;
-	private Date endLaunch;
-	private Date startDinner;
-	private Date endDinner;
+	private String startHour;
+	private String endHour;
+	private String startLaunch;
+	private String endLaunch;
+	private String startDinner;
+	private String endDinner;
 	private String holiday;
 	
 	public InfoEntity() {
@@ -38,8 +38,8 @@ public class InfoEntity implements Serializable {
 
 	public InfoEntity(String code, String memberId, int viewCount, String regCheck, String businessNo, Date regDate,
 			String businessName, String businessAddress, String businessTel, String location, String headContent,
-			String bodyContents, String serviceContent, String site, Date startHour, Date endHour, Date startLaunch,
-			Date endLaunch, Date startDinner, Date endDinner, String holiday) {
+			String bodyContents, String serviceContent, String site, String startHour, String endHour,
+			String startLaunch, String endLaunch, String startDinner, String endDinner, String holiday) {
 		super();
 		this.code = code;
 		this.memberId = memberId;
@@ -176,51 +176,51 @@ public class InfoEntity implements Serializable {
 		this.site = site;
 	}
 
-	public Date getStartHour() {
+	public String getStartHour() {
 		return startHour;
 	}
 
-	public void setStartHour(Date startHour) {
+	public void setStartHour(String startHour) {
 		this.startHour = startHour;
 	}
 
-	public Date getEndHour() {
+	public String getEndHour() {
 		return endHour;
 	}
 
-	public void setEndHour(Date endHour) {
+	public void setEndHour(String endHour) {
 		this.endHour = endHour;
 	}
 
-	public Date getStartLaunch() {
+	public String getStartLaunch() {
 		return startLaunch;
 	}
 
-	public void setStartLaunch(Date startLaunch) {
+	public void setStartLaunch(String startLaunch) {
 		this.startLaunch = startLaunch;
 	}
 
-	public Date getEndLaunch() {
+	public String getEndLaunch() {
 		return endLaunch;
 	}
 
-	public void setEndLaunch(Date endLaunch) {
+	public void setEndLaunch(String endLaunch) {
 		this.endLaunch = endLaunch;
 	}
 
-	public Date getStartDinner() {
+	public String getStartDinner() {
 		return startDinner;
 	}
 
-	public void setStartDinner(Date startDinner) {
+	public void setStartDinner(String startDinner) {
 		this.startDinner = startDinner;
 	}
 
-	public Date getEndDinner() {
+	public String getEndDinner() {
 		return endDinner;
 	}
 
-	public void setEndDinner(Date endDinner) {
+	public void setEndDinner(String endDinner) {
 		this.endDinner = endDinner;
 	}
 
@@ -242,7 +242,7 @@ public class InfoEntity implements Serializable {
 				+ ", startLaunch=" + startLaunch + ", endLaunch=" + endLaunch + ", startDinner=" + startDinner
 				+ ", endDinner=" + endDinner + ", holiday=" + holiday + "]";
 	}
-
+	
 	
 	
 }

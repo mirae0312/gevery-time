@@ -6,13 +6,15 @@
 <%
 	Info info = (Info) request.getAttribute("info");
 %>
+<script type="text/javascript" src="//dapi.kakao.com/v2/maps/sdk.js?appkey=4247f28f0dc06c5cc8486ac837d411ff"></script>
+<script type="text/javascript" src="//dapi.kakao.com/v2/maps/sdk.js?appkey=APIKEY&libraries=services,clusterer,drawing"></script>
 <div class="enroll-wrapper">
 	<form name="infoEnrollFrm" action="<%= request.getContextPath() %>/info/Enroll" 
 		method="post" enctype="multipart/form-data">
 		
 		<div class="left-head">
 			상호명
-			<input type="text" name="businessName" id="business-name" required/>
+			<input type="text" name="businessName" id="business-name" value="<%= info.getBusinessName() %>" required/>
 			썸네일
 			<div class="thumb"><img src="#" alt="" id="thumbnail" style="width:200px;height:180px;"/></div>
 			<input type="file" name="headFile" accept="image/*" onchange="setThumbnail();" id="head-file" />
@@ -21,9 +23,9 @@
 		</div><br />
 		<div class="right-head">
 			<label for="tel">전화번호</label>
-			<input type="text" name="tel" id="tel" required/><br />
+			<input type="text" name="tel" id="tel" value="<%= info.getBusinessTel() %>" required/><br />
 			<label for="addr">주소</label>
-			<input type="text" name="addr" id="addr" /><br />
+			<input type="text" name="addr" id="addr" value="<%= info.getBusinessAddress() %>" /><br />
 			영업시간
 			<input type="time" name="startHour" class="business-hours" required/>~<input type="time" name="endHour" class="business-hours" required/><br />
 			점심시간
@@ -169,61 +171,42 @@
 		});
 	});
 </script>
-<script type="text/javascript" src="//dapi.kakao.com/v2/maps/sdk.js?appkey=a98891f9d7d85bc941b2188e046c3bfb"></script>
-<script type="text/javascript" src="//dapi.kakao.com/v2/maps/sdk.js?appkey=APIKEY&libraries=services,clusterer,drawing"></script>
 <script>
-<%--
 	var mapContainer = document.getElementById('map'), // 지도를 표시할 div 
-	    mapOption = {
-	        center: new kakao.maps.LatLng(33.450701, 126.570667), // 지도의 중심좌표
-	        level: 3, // 지도의 확대 레벨
-	        mapTypeId : kakao.maps.MapTypeId.ROADMAP // 지도종류
-	    }; 
+		mapOption = {
+		    center: new kakao.maps.LatLng(33.450701, 126.570667), // 지도의 중심좌표
+		    level: 3 // 지도의 확대 레벨
+	};  
 	
-	// 지도를 생성합니다    
+	//지도를 생성합니다    
 	var map = new kakao.maps.Map(mapContainer, mapOption); 
-
-	// 주소-좌표 변환 객체를 생성합니다
+	
+	//주소-좌표 변환 객체를 생성합니다
 	var geocoder = new kakao.maps.services.Geocoder();
-
-	// 주소로 좌표를 검색합니다
-	geocoder.addressSearch(<%= info.getBusinessAddress() %>, function(result, status) {
-
-	    // 정상적으로 검색이 완료됐으면 
-	     if (status === kakao.maps.services.Status.OK) {
-
-	        var coords = new kakao.maps.LatLng(result[0].y, result[0].x);
-
-	        // 결과값으로 받은 위치를 마커로 표시합니다
-	        var marker = new kakao.maps.Marker({
-	            map: map,
-	            position: coords
-	        });
-
-	        // 인포윈도우로 장소에 대한 설명을 표시합니다
-	        var infowindow = new kakao.maps.InfoWindow({
-	            content: '<div style="width:150px;text-align:center;padding:6px 0;">우리회사</div>'
-	        });
-	        infowindow.open(map, marker);
-
-	        // 지도의 중심을 결과값으로 받은 위치로 이동시킵니다
-	        map.setCenter(coords);
-	    } 
-	});
---%>	
-	<%--
-	const readImage = (input) => {
-		if(input.files && input.files[0]){
-			const reader = new FileReader();
+	
+	//주소로 좌표를 검색합니다
+	geocoder.addressSearch('서울 영등포구 양평로 5 성원빌딩', function(result, status) {
+	
+	// 정상적으로 검색이 완료됐으면 
+		if (status === kakao.maps.services.Status.OK) {
+		
+			var coords = new kakao.maps.LatLng(result[0].y, result[0].x);
 			
-			reader.onload = (e) => {
-				const previewImage = document.getElementById("head-file");
-				previewImage.src = e.target.result;
-			}
-			reader.readAsDataURL(input.files[0]);
-		}
-	};
-	const inputImage = document.getElementById("in")
-	--%>
+			// 결과값으로 받은 위치를 마커로 표시합니다
+			var marker = new kakao.maps.Marker({
+			    map: map,
+			    position: coords
+			});
+			
+			// 인포윈도우로 장소에 대한 설명을 표시합니다
+			var infowindow = new kakao.maps.InfoWindow({
+			    content: '<div style="width:150px;text-align:center;padding:6px 0;">우리회사</div>'
+			});
+			infowindow.open(map, marker);
+			
+			// 지도의 중심을 결과값으로 받은 위치로 이동시킵니다
+			map.setCenter(coords);
+		} 
+	});    
 </script>
 <%@ include file="/WEB-INF/views/common/footer.jsp" %> 

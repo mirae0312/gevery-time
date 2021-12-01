@@ -85,7 +85,7 @@ public class InfoDao {
 	public List<Info> selectAllList(String board, Connection conn, int start, int end) {
 		PreparedStatement pstmt = null;
 		String sql = "";
-		System.out.println("[Dao] board : " + board);
+//		System.out.println("[InfoDao] board : " + board);
 		switch(board) {
 		case "info": 
 			sql = prop.getProperty("selectAllList");
@@ -220,12 +220,12 @@ public class InfoDao {
 			pstmt.setString(4, info.getBodyContents());
 			pstmt.setString(5, info.getServiceContent());
 			pstmt.setString(6, info.getSite());
-			pstmt.setDate(7, info.getStartHour());
-			pstmt.setDate(8, info.getEndHour());
-			pstmt.setDate(9, info.getStartLaunch());
-			pstmt.setDate(10, info.getEndLaunch());
-			pstmt.setDate(11, info.getStartDinner());
-			pstmt.setDate(12, info.getEndDinner());
+			pstmt.setString(7, info.getStartHour());
+			pstmt.setString(8, info.getEndHour());
+			pstmt.setString(9, info.getStartLaunch());
+			pstmt.setString(10, info.getEndLaunch());
+			pstmt.setString(11, info.getStartDinner());
+			pstmt.setString(12, info.getEndDinner());
 			pstmt.setString(13, info.getHoliday());
 			
 			result = pstmt.executeUpdate();
