@@ -31,6 +31,7 @@ public class InfoEntity implements Serializable {
 	private String startDinner;
 	private String endDinner;
 	private String holiday;
+	private String roadGuide;
 	
 	public InfoEntity() {
 		super();
@@ -39,7 +40,8 @@ public class InfoEntity implements Serializable {
 	public InfoEntity(String code, String memberId, int viewCount, String regCheck, String businessNo, Date regDate,
 			String businessName, String businessAddress, String businessTel, String location, String headContent,
 			String bodyContents, String serviceContent, String site, String startHour, String endHour,
-			String startLaunch, String endLaunch, String startDinner, String endDinner, String holiday) {
+			String startLaunch, String endLaunch, String startDinner, String endDinner, String holiday,
+			String roadGuide) {
 		super();
 		this.code = code;
 		this.memberId = memberId;
@@ -62,6 +64,7 @@ public class InfoEntity implements Serializable {
 		this.startDinner = startDinner;
 		this.endDinner = endDinner;
 		this.holiday = holiday;
+		this.roadGuide = roadGuide;
 	}
 
 	public String getCode() {
@@ -232,6 +235,14 @@ public class InfoEntity implements Serializable {
 		this.holiday = holiday;
 	}
 
+	public String getRoadGuide() {
+		return roadGuide;
+	}
+
+	public void setRoadGuide(String roadGuide) {
+		this.roadGuide = roadGuide;
+	}
+
 	@Override
 	public String toString() {
 		return "InfoEntity [code=" + code + ", memberId=" + memberId + ", viewCount=" + viewCount + ", regCheck="
@@ -240,8 +251,9 @@ public class InfoEntity implements Serializable {
 				+ ", headContent=" + headContent + ", bodyContents=" + bodyContents + ", serviceContent="
 				+ serviceContent + ", site=" + site + ", startHour=" + startHour + ", endHour=" + endHour
 				+ ", startLaunch=" + startLaunch + ", endLaunch=" + endLaunch + ", startDinner=" + startDinner
-				+ ", endDinner=" + endDinner + ", holiday=" + holiday + "]";
+				+ ", endDinner=" + endDinner + ", holiday=" + holiday + ", roadGuide=" + roadGuide + "]";
 	}
+
 	
 	
 	

@@ -11,7 +11,8 @@
 <div class="enroll-wrapper">
 	<form name="infoEnrollFrm" action="<%= request.getContextPath() %>/info/Enroll" 
 		method="post" enctype="multipart/form-data">
-		
+		<input type="hidden" name="writer" value="<%= info.getMemberId() %>" />
+		<input type="hidden" name="businessNo" value="<%= info.getBusinessNo() %>" />
 		<div class="left-head">
 			상호명
 			<input type="text" name="businessName" id="business-name" value="<%= info.getBusinessName() %>" required/>

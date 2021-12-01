@@ -227,6 +227,7 @@ public class InfoDao {
 			pstmt.setString(11, info.getStartDinner());
 			pstmt.setString(12, info.getEndDinner());
 			pstmt.setString(13, info.getHoliday());
+			pstmt.setString(14, info.getRoadGuide());
 			
 			result = pstmt.executeUpdate();
 

@@ -73,7 +73,6 @@ public class InfoEnrollServlet extends HttpServlet {
 		
 		try {
 			Info info = new Info();
-			
 			// server컴에 저장 경로
 			String saveDirectory = getServletContext().getRealPath("/upload/info");
 			
@@ -88,8 +87,12 @@ public class InfoEnrollServlet extends HttpServlet {
 			
 			
 			// 아이디
-	//		String memberId = loginMember.getMemberId();
+//			String memberId = loginMember.getMemberId();
 	//		info.setMemberId(memberId);
+			String memberId = multipartRequest.getParameter("writer");
+			String businessNo = multipartRequest.getParameter("businessNo");
+			info.setMemberId(memberId);
+			info.setBusinessNo(businessNo);
 			
 			// 상호명, headcontent
 			String businessName = multipartRequest.getParameter("businessName");
@@ -114,12 +117,10 @@ public class InfoEnrollServlet extends HttpServlet {
 			String endDinner = multipartRequest.getParameter("endDinner");
 			String[] holidays = multipartRequest.getParameterValues("holiday");
 			String holiday = holidays != null ? String.join(",", holidays) : "";
-			
-			info.setHoliday(holiday);
-			info.setStartHour(startHour);
-			info.setEndHour(endHour);
 			info.setStartLaunch(startLaunch);
 			info.setEndLaunch(endLaunch);
+			info.setStartHour(startHour);
+			info.setEndHour(endHour);
 			info.setStartDinner(startDinner);
 			info.setEndDinner(endDinner);
 			
@@ -163,17 +164,17 @@ public class InfoEnrollServlet extends HttpServlet {
 					service.append(services[i] + ":" + prices[i]);
 				}
 			}
-			info.setServiceContent(service.toString());
+			String serv = service.toString();
+			info.setServiceContent(serv);
 	
 			// 설명부분 + 3
 			String bodyContent = multipartRequest.getParameter("bodyContent");
-			
 			info.setBodyContents(bodyContent);
 			
 			// 길안내
 			String way = multipartRequest.getParameter("way");
-			info.setBusinessAddress(way);
-					
+			info.setRoadGuide(way);
+
 			// 썸네일 관리
 			File headFile = multipartRequest.getFile("headFile");
 			File file1 = multipartRequest.getFile("file1");
