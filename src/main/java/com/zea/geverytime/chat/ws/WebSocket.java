@@ -54,6 +54,7 @@ public class WebSocket {
 	@OnMessage
 	public void onMessage(String msg, Session session) {
 		System.out.print("[message] ");
+		System.out.println(msg);
 		
 		// 메세지전송
 		synchronized(clients) {
