@@ -41,6 +41,10 @@ public class QnaBoardReplyEnrollServlet extends HttpServlet {
 				String msg = result > 0 ? " 등록 성공!" : " 등록 실패!";
 				request.getSession().setAttribute("msg", msg);
 				
+				//
+				
+				
+				
 				// 3.redirect: 게시글상세페이지  
 				String location = request.getContextPath() + "/customer/qnaBoardList";
 				response.sendRedirect(location);
