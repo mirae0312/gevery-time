@@ -1,6 +1,5 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
-<%@ page import="java.sql.*" %>
 <%@ include file="/WEB-INF/views/common/header.jsp" %>
 <script>
 // 접속한 주소
@@ -18,12 +17,16 @@ ws.onmessage = (e) => {
 	
 	let html = "";
 	switch(type){
-	case "welcom":
+	case "welcome":
 	case "bye": html = `<li class="center"><span class="badge">\${sender}</span>\${msg}</li>`; break;
 	case "msg": html = `<li><span class="badge">\${sender}</span>\${msg}</li>`; break;
 	}
 	$("#msg-container ul").append(html);
-
+	
+	// 스크롤처리
+	const $msgContainer = $("#msg-container")
+	const scrollHeight = $msgContainer.prop("scrollHeight");
+	$msgContainer.scrollTop(scrollHeight);
 };
 ws.onerror = (e) => {
 	console.log("error", e);
@@ -37,7 +40,7 @@ $(() => {
 	$(send).click((e) => {
 		const o = {
 			type: "msg",
-			sender: "user"<%-- "<%= loginMember.getMemberId() %>" --%>,
+			sender: "<%= loginMember.getMemberId() %>",
 			msg: $(msg).val(),
 			time: Date.now()
 		};
@@ -49,6 +52,14 @@ $(() => {
 		$(msg).val('').focus();
 		
 	});
+	
+	// enter send
+	$(msg).keyup((e) => {
+		if(e.key === 'Enter')
+			$(send).trigger("click");
+	});
+	
+});
 </script>
 <%-- <link rel="stylesheet" href="<%= request.getContextPath() %>/css/chat.css" /> --%>
 	<section id="chat-container">	
