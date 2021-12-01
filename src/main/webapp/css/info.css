@@ -18,3 +18,10 @@
 	right: 80px;
 	bottom: 100px;
 }
+
+.info-wrap{
+	width: 600px;
+	height: 150px;
+	border: 1px solid black;
+	cursor: pointer;
+}

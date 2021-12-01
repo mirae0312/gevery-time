@@ -117,5 +117,36 @@ public class InfoService {
 		return check;
 	}
 
+	public Info selectOneView(String code) {
+		Connection conn = null;
+		Info info = null;
+		try {
+			conn = getConnection();
+			info = infoDao.selectOneView(conn, code);
+		}catch(Exception e) {
+			throw e;
+		}finally {
+			close(conn);
+		}
+		return info;
+	}
+
+	public int updateReadCount(String code) {
+		Connection conn = null;
+		int result = 0;
+		try {
+			conn = getConnection();
+			result = infoDao.updateReadCount(conn, code);
+			if(result > 0)
+				commit(conn);
+		}catch(Exception e) {
+			rollback(conn);
+			throw e;
+		}finally {
+			close(conn);
+		}
+		return result;
+	}
+
 
 }

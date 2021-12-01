@@ -11,7 +11,9 @@ import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
 import com.zea.geverytime.member.model.service.BusinessService;
+import com.zea.geverytime.member.model.service.MemberService;
 import com.zea.geverytime.member.model.vo.Business;
+import com.zea.geverytime.member.model.vo.Member;
 
 /**
  * Servlet implementation class BusinessEnrollServlet
@@ -55,7 +57,7 @@ public class BusinessEnrollServlet extends HttpServlet {
 			System.out.println("member@servlet = " + business);
 			
 			// 3.업무로직 service객체의 insertMember호출 & 생성한 member객체 전달
-			int result = BusinessService.insertBusiness();
+			int result = businessService.insertBusiness(business);
 			String msg = result > 0 ? "회원가입성공!" : "회원가입실패!";
 			
 			// 4.redirect 및 msg처리
@@ -69,6 +71,47 @@ public class BusinessEnrollServlet extends HttpServlet {
 			throw e; // tomcat이 error.jsp로 위임하도록 처리
 		}
 	}
-
-
+	
+	protected void doPostB(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+		try {
+			
+			request.setCharacterEncoding("utf-8");
+			
+			String businessId = request.getParameter("businessId");
+			String password = request.getParameter("password");
+			String name = request.getParameter("name");
+			String email = request.getParameter("email");
+			
+			
+						
+			System.out.println("email = " + email);
+			
+			
+			
+			
+		 Member member = new Member(businessId,password,name,null,null,email,MemberService.USER_ROLE,MemberService.USER_TYPE,null);
+			
+			// 3.업무로직 service객체의 insertMember호출 & 생성한 member객체 전달
+			int result = businessService.insertBmember();
+			String msg = result > 0 ? "회원가입성공!" : "회원가입실패!";
+			
+			// 4.redirect 및 msg처리
+			HttpSession session = request.getSession();
+			session.setAttribute("msg", msg);
+			String start = request.getContextPath() + "/";
+			response.sendRedirect(start);
+			
+		} catch (Exception e) {
+			e.printStackTrace();
+			throw e; // tomcat이 error.jsp로 위임하도록 처리
+		}
+	}
+	
+	
+	
+	
+	
+	
+	
+	
 }

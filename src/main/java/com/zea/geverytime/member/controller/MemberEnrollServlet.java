@@ -33,8 +33,7 @@ public class MemberEnrollServlet extends HttpServlet {
 	
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		try {
-			// 1.인코딩처리 utf-8
-			request.setCharacterEncoding("utf-8");
+			
 			
 			// 2.사용자입력값 처리 사용자입력값 -> Member VO객체 생성
 			String memberId = request.getParameter("memberId");
@@ -68,8 +67,12 @@ public class MemberEnrollServlet extends HttpServlet {
 			
 		} catch (Exception e) {
 			e.printStackTrace();
-			throw e; // tomcat이 error.jsp로 위임하도록 처리
+			throw e; 
 		}
+	
+	
+	
+	
 	}
 
 }
