@@ -42,6 +42,7 @@ public class MemberLoginServlet extends HttpServlet {
 		HttpSession session = request.getSession(true); 
 		System.out.println(session.getId());
 
+
 		
 		session.setMaxInactiveInterval(10*60);
 	

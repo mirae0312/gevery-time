@@ -2,6 +2,9 @@ package com.zea.geverytime.market.productsale.model.vo;
 
 import java.io.Serializable;
 import java.sql.Date;
+import java.util.List;
+
+import com.zea.geverytime.common.model.vo.Attachment;
 
 public class ProductBoard implements Serializable {
 
@@ -16,11 +19,28 @@ public class ProductBoard implements Serializable {
 	private String sellerId;
 	private int productNo;
 	private Product product;	
+	private List<Attachment> attachments;
 	
 	
 	public ProductBoard() {
 		super();
 		// TODO Auto-generated constructor stub
+	}
+
+	
+	
+	public ProductBoard(int boardNo, String orCode, String title, String content, Date regDate, String sellerId,
+			int productNo, Product product, List<Attachment> attachments) {
+		super();
+		this.boardNo = boardNo;
+		this.orCode = orCode;
+		this.title = title;
+		this.content = content;
+		this.regDate = regDate;
+		this.sellerId = sellerId;
+		this.productNo = productNo;
+		this.product = product;
+		this.attachments = attachments;
 	}
 
 	public ProductBoard(int boardNo, String orCode, String title, String content, Date regDate, String sellerId,
@@ -48,6 +68,18 @@ public class ProductBoard implements Serializable {
 		this.product = product;
 	}
 
+
+
+
+	public List<Attachment> getAttachments() {
+		return attachments;
+	}
+
+
+
+	public void setAttachments(List<Attachment> attachments) {
+		this.attachments = attachments;
+	}
 
 
 
@@ -110,11 +142,16 @@ public class ProductBoard implements Serializable {
 		this.productNo = productNo;
 	}
 
+
+
 	@Override
 	public String toString() {
 		return "ProductBoard [boardNo=" + boardNo + ", orCode=" + orCode + ", title=" + title + ", content=" + content
-				+ ", regDate=" + regDate + ", sellerId=" + sellerId + ", product=" + product + "]";
+				+ ", regDate=" + regDate + ", sellerId=" + sellerId + ", productNo=" + productNo + ", product="
+				+ product + ", attachments=" + attachments + "]";
 	}
+
+	
 
 	
 
