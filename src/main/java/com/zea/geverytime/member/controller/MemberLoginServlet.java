@@ -52,21 +52,6 @@ public class MemberLoginServlet extends HttpServlet {
 
 					session.setAttribute("msg", "로그인 성공!");
 					
-					
-					// 아이디저장 체크박스 처리
-					Cookie cookie = new Cookie("saveId", memberId);
-					cookie.setPath(request.getContextPath());
-						
-					if(saveId != null) {
-						cookie.setMaxAge(7 * 24 * 60 * 60); // 7일
-					}
-					else {
-						cookie.setMaxAge(0); // 즉시 삭제
-					}
-					response.addCookie(cookie);
-					
-					
-					
 				}
 				else {
 					// 로그인 실패
@@ -75,9 +60,7 @@ public class MemberLoginServlet extends HttpServlet {
 				}
 				
 				
-				// 4.응답처리 (jsp위임 | redirect)
-				// redirect 요청주소를 변경, 새로고침을 통한 오류를 방지
-				// location은 브라우져가 새로 요청할 주소
+				
 				String location = request.getContextPath() + "/";
 				response.sendRedirect(location);
 				

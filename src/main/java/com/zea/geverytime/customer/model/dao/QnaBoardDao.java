@@ -1,7 +1,6 @@
 package com.zea.geverytime.customer.model.dao;
 
 import static com.zea.geverytime.common.JdbcTemplate.close;
-import static com.zea.geverytime.common.JdbcTemplate.*;
 
 import java.io.File;
 import java.io.FileReader;
@@ -15,7 +14,8 @@ import java.util.List;
 import java.util.Map;
 import java.util.Properties;
 
-import com.zea.geverytime.customer.model.exception.BoardException;
+import com.zea.geverytime.customer.model.exception.CustomerBoardException;
+import com.zea.geverytime.customer.model.vo.FaqBoard;
 import com.zea.geverytime.customer.model.vo.QnaBoard;
 
 public class QnaBoardDao {
@@ -189,7 +189,7 @@ public class QnaBoardDao {
 			
 			result = pstmt.executeUpdate();
 		} catch (SQLException e) {
-			throw new BoardException("게시물 등록 오류",e);
+			throw new CustomerBoardException("게시물 등록 오류",e);
 		} finally {
 			close(pstmt);
 		}
@@ -253,5 +253,170 @@ public class QnaBoardDao {
 		}
 		return result;
 	}
+
+	public int insertQnaBoardReply(Connection conn, QnaBoard qnaBoard) {
+		PreparedStatement pstmt = null;
+		String sql = prop.getProperty("insertQnaBoardReply");
+		int result = 0;
+		
+		//insertQnaBoardReply = insert into qna_board(no,title,writer,content,password,category_a,reply_level,reply_ref) values (seq_qna_board_no.nextval, ?,?,?,?,?,?,?)
+		try {
+			pstmt = conn.prepareStatement(sql);
+			pstmt.setString(1, qnaBoard.getTitle());
+			pstmt.setString(2, qnaBoard.getWriter());
+			pstmt.setString(3, qnaBoard.getContent());
+			pstmt.setString(4, qnaBoard.getPassword());
+			pstmt.setString(5, qnaBoard.getCategory());
+			pstmt.setInt(6, qnaBoard.getReplyLevel());
+			pstmt.setInt(7, qnaBoard.getReplyRef());
+			
+			result = pstmt.executeUpdate();
+		} catch (SQLException e) {
+			throw new CustomerBoardException("게시물 등록 오류",e);
+		} finally {
+			close(pstmt);
+		}
+		
+		return result;
+ 
+ 
+	}
+
+	//faq전체 조회
+	public List<FaqBoard> selectAllFaqBoard(Connection conn, Map<String, Integer> param) {
+		PreparedStatement pstmt = null;
+		String sql = prop.getProperty("selectAllFaqBoard");
+		ResultSet rset = null;
+		List<FaqBoard> list = new ArrayList<>();
+		
+	try {
+		pstmt = conn.prepareStatement(sql);
+		pstmt.setInt(1, param.get("start"));
+		pstmt.setInt(2, param.get("end"));
+		 
+		rset = pstmt.executeQuery();
+		
+		while(rset.next()) {
+			FaqBoard faqBoard = new FaqBoard();
+			
+			faqBoard.setNo(rset.getInt("no"));
+			faqBoard.setTitle(rset.getString("title"));
+			faqBoard.setWriter(rset.getString("writer"));
+			faqBoard.setContent(rset.getString("content"));
+			faqBoard.setCategory(rset.getString("category_a"));
+			faqBoard.setRegDate(rset.getDate("reg_date"));
+			list.add(faqBoard);
+	}
+		}catch(SQLException e) {
+			throw new CustomerBoardException("게시글 목록 조회 오류!",e);
+		}finally {
+			close(rset);
+			close(pstmt);
+		}
+		
+		 
+		
+		return list;
+	}
+
+
+	//faq 페이징하기 위해 총 게시물수 구하기
+	public int selectTotalFaqBoardCount(Connection conn) {
+		PreparedStatement pstmt = null;
+		String sql = prop.getProperty("selectTotalFaqBoardCount");
+		ResultSet rset = null;
+		int totalCount = 0;
+		
+		try {
+			pstmt = conn.prepareStatement(sql);
+			rset = pstmt.executeQuery();
+			if(rset.next()) {
+				totalCount = rset.getInt(1);
+			}
+		} catch (SQLException e) {
+			e.printStackTrace();
+		} finally {
+			close(rset);
+			close(pstmt);
+		}
+		return totalCount;
+	}
+
+	//faq 상세보기
+	public FaqBoard selectOneFaqBoard(Connection conn, int no) {
+		FaqBoard faqBoard = null;
+		PreparedStatement pstmt = null;
+		ResultSet rset = null;
+		
+		String sql = prop.getProperty("selectOneFaqBoard");
+		//selectOneFaqBoard = select * from faq_board where no =?
+	try {
+		pstmt = conn.prepareStatement(sql);
+		pstmt.setInt(1, no);
+		rset = pstmt.executeQuery();
+		
+		if(rset.next()){
+			faqBoard = new FaqBoard();
+			faqBoard.setNo(rset.getInt("no"));
+			faqBoard.setTitle(rset.getString("title"));
+			faqBoard.setWriter(rset.getString("writer"));
+			faqBoard.setContent(rset.getString("content"));
+			faqBoard.setCategory(rset.getString("category_a"));
+			faqBoard.setRegDate(rset.getDate("reg_date"));
+			 
+		 
+			
+		}
+	}catch(Exception e){
+		e.printStackTrace();
+	}finally{
+		close(rset);
+		close(pstmt);
+	}
+	return faqBoard;
+ 
+	 
+	}
+
+	//search faq  //   
+	public List<FaqBoard> searchFaq(Connection conn, Map<String, Object> param) {
+		 PreparedStatement pstmt = null;
+		 String sql = prop.getProperty("searchFaq");  
+		 ResultSet rset = null;
+		 List<FaqBoard> list = new ArrayList<>();
+ 
+		 String searchKeyword = (String) param.get("searchKeyword");
+		 
+		 try {
+			pstmt = conn.prepareStatement(sql);
+			 pstmt.setString(1, searchKeyword);
+			rset = pstmt.executeQuery();
+			while(rset.next()) {
+				FaqBoard faqBoard = new FaqBoard();
+				faqBoard.setNo(rset.getInt("no"));
+				faqBoard.setTitle(rset.getString("title"));
+				faqBoard.setWriter(rset.getString("writer"));
+				faqBoard.setContent(rset.getString("content"));
+				faqBoard.setCategory(rset.getString("category_a"));
+				faqBoard.setRegDate(rset.getDate("reg_date"));
+				 
+				
+				list.add(faqBoard);
+			}
+			
+			 
+			 System.out.println("sql@dao = " + sql);
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}finally {
+			close(rset);
+			close(pstmt);
+		}
+		 
+		 return list;
+	  
+	}
+
+	 
 	 
 }

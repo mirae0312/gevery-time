@@ -7,19 +7,8 @@
 	
 	Member loginMember = (Member) session.getAttribute("loginMember");
 	
-	Cookie[] cookies = request.getCookies();
-	String saveMemberId = null;
-	if(cookies != null){
-		for(Cookie cookie : cookies){
-			String name = cookie.getName();
-			String value = cookie.getValue();
-			System.out.println(name + " = " + value);
-			if("saveId".equals(name)){
-				saveMemberId = value;
-			}
-		}
-	}
-
+				
+		
 %>
 <!DOCTYPE html>
 <html>
@@ -88,9 +77,8 @@ $(() => {
                     <div class="inp_chk"> 
                    
             <span class="enroll_"> <a href= "<%=request.getContextPath()%>/member/memberEnroll">회원가입</a></span>
-           <%} %>
-           	<input type="checkbox" name="saveId" id="saveId" <%= saveMemberId != null ? "checked" : "" %>/>
-									<label for="saveId">아이디저장</label>&nbsp;&nbsp;
+          
+          
             </label>
                     </div>
                     <span class="txt_find">

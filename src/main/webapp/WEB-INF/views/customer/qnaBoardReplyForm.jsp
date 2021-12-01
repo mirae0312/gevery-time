@@ -1,8 +1,16 @@
+<%@page import="com.zea.geverytime.customer.model.vo.QnaBoard"%>
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
 <%@ include file="/WEB-INF/views/common/header.jsp" %>
  <link rel="stylesheet" href="<%=request.getContextPath()%>/css/customer/qnaForm.css" /> 
+<%
+ QnaBoard qnaBoard = (QnaBoard) request.getAttribute("qnaBoard");
+%>
+<%
+ int no = (Integer) request.getAttribute("no");
+%>
  
+
  
   <script>
   $(document).ready(function() {
@@ -16,21 +24,23 @@
 			  disableResizeEditor: true
 		});
 	});
- 
   </script>
 
 <section id="board-container">
-<br><br> 
-<h3>문의글 작성</h3>
+<br><br><br>
+<h3>답변글 작성</h3>
 <form
-	name="boardEnrollFrm"
-	action="<%=request.getContextPath() %>/customer/qnaBoardEnroll" 
+	name="boardReplyEnrollFrm"
+	action="<%=request.getContextPath() %>/customer/qnaBoardReplyEnroll" 
 	method="post">
-	
+	<input type="hidden" name="no" value="<%= no %>" />
+    <input type="hidden" name="replyLevel" value="2" />
+     <input type="hidden" name="replyRef" value="<%= no %>" />  
 	<table id="tbl-board-view">
+	
 	<tr>
 		<th>제 목</th>
-		<td><input class="inputBox" type="text" name="title" ></td>
+		<td><input class="inputBox" type="text" name="title" required></td>
 	</tr>
 	<tr>
 		<th>작성자</th>
@@ -43,11 +53,11 @@
         <td>
         <label for="category"></label> 
          <select class="inputBox" name="category" id="category"  >
-          <option value="[아이디/비밀번호 관련]">아이디/비밀번호 관련</option>
-          <option value="[회원정보 관련]">회원정보 관련</option>
+          <option value="[답변]">답변</option>
+         <!-- <option value="[회원정보 관련]">회원정보 관련</option>
           <option value="[포인트 관련]">포인트 관련</option>
           <option value="[주문/결제관련]">주문/결제관련</option>
-          
+           --> 
         </select>
        </td>
     </tr>              
@@ -57,7 +67,7 @@
 	</tr>
 	<th>비밀번호</th>
 		<td>
-			<input class="inputBox" type="password" name="password"   />
+			<input class="inputBox" type="password" name="password" value="" />
 		</td>
 	<tr>
 		<th colspan="2">
@@ -70,5 +80,3 @@
 
   
 <%@ include file="/WEB-INF/views/common/footer.jsp" %>
-
- 
