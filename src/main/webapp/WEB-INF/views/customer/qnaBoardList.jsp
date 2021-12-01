@@ -9,12 +9,12 @@
  <div id="total">
         <h3>Q&A</h3>
  <div id="leftbox">
-            <span><a href="<%= request.getContextPath() %>/customer/qnaBoardList">Q&A</a></span>
-            <br><br>
+            <span>Q&A</span>
+            <br>
             <span><a href="<%= request.getContextPath() %>/customer/faqBoardList">FAQ</a></span>
-            <br><br>
+            <br>
             <span>신고내역</span>
-</div>
+        </div>
         <div class="board_list_wrap">
             <table class="board_list">
                 <caption>게시판 목록</caption>

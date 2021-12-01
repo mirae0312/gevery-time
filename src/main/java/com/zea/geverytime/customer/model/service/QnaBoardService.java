@@ -121,7 +121,6 @@ public class QnaBoardService {
 		}
 		return result;
 	}
-
 	//faq게시판 전체 조회
 	public List<FaqBoard> selectAllFaqBoard(Map<String, Integer> param) {
 		Connection conn = getConnection();
@@ -191,7 +190,23 @@ public class QnaBoardService {
 		}
 		return result;
 	}
- 
+
+	//원글 상태 변경
+//	public int changeParent(int parentNo) {
+//		Connection conn = null;
+//		int result = 0;
+//		try {
+//		conn = getConnection();
+//		result = qnaBoardDao.changeParent(conn, parentNo);
+//		commit(conn);
+//		}catch(Exception e) {
+//			rollback(conn);
+//			throw e;
+//		}finally {
+//			close(conn);
+//		}
+//		return result;
+//	}
 
 	}
  

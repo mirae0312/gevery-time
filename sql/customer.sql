@@ -183,11 +183,41 @@ values(
 --select * from (select row_number() over(order by no desc) rnum, b.* from faq_board b) where rnum between ? and ?
  
  delete from faq_board;
-    
+select * from faq_board;
     
 select * from faq_board where category_a  = '[회원가입관련]';
     
-    
-    
-    
+insert into faq_board values( seq_faq_board_no.nextval, '회원정보 변경하고 싶어요.', 'honggd', '회원정보변경버튼은 화면 상단에 위치~~~~~~~',  '[회원정보문의]', default );
+insert into faq_board values( seq_faq_board_no.nextval, '결제금액이 이상해요.', 'honggd', '결제금액이 이상한 경우~~~~~~~~~~~',  '[결제문의]', default );
+insert into faq_board values( seq_faq_board_no.nextval, '회원정보 수정을 하고 싶어요.', 'honggd', '신고~~~~~~~~~~~',  '[회원정보문의]', default );
+insert into faq_board values( seq_faq_board_no.nextval, '회원 탈퇴를 하고 싶어요.', 'honggd', '신고~~~~~~~~~~~',  '[회원정보문의]', default );
+insert into faq_board values( seq_faq_board_no.nextval, '포인트 조회를 하고 싶어요.', 'honggd', '신고~~~~~~~~~~~',  '[포인트문의]', default );
+ 
+
+
+select * from member;
+select * from qna_board;
+select count(*) from qna_board where reply_ref=181;
+select * from qna_board where no=reply_ref;
+
+select count(*)
+from(
+select * from qna_board where no =181
+union 
+select * from qna_board where reply_ref = 181)
+where reply_ref = 181;
+
+select count(*)
+from(
+select * from qna_board where no =122
+union 
+select * from qna_board where reply_ref = 122)
+where reply_ref = 122;
+
+select * from qna_board;
+
+update qna_board set category_b='OK' where no = 188;
+
+
+
 commit;

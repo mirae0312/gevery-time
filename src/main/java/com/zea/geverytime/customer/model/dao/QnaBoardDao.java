@@ -466,6 +466,27 @@ public class QnaBoardDao {
  
 	}
 
-	 
+	//원글 상태 변경
+//	public int changeParent(Connection conn, int parentNo) {
+//		PreparedStatement pstmt = null;
+//		String sql = prop.getProperty("changeParent");
+//		int result = 0;
+//		
+//		//update qna_board set category_b='ok' where no = ? )
+//		try {
+//			pstmt = conn.prepareStatement(sql);
+//			pstmt.setInt(1, parentNo);
+//			result = pstmt.executeUpdate();
+//		} catch (SQLException e) {
+//			throw new CustomerBoardException("게시물 등록 오류",e);
+//		} finally {
+//			close(pstmt);
+//		}
+//		
+//		return result;
+// 
+// 
+//	}
+//	 
 	 
 }
