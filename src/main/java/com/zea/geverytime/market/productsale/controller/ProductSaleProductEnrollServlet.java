@@ -46,7 +46,7 @@ public class ProductSaleProductEnrollServlet extends HttpServlet {
 			request.getSession().setAttribute("msg", msg);
 		}
 		
-		response.sendRedirect(request.getContextPath()+"/product/onsaleProduct");
+		response.sendRedirect(request.getContextPath()+"/product/onsaleProduct?sellerId="+sellerId);
 	}
 
 }

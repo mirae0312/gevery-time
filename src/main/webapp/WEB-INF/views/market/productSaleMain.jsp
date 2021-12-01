@@ -33,14 +33,14 @@
 </head>
 <body>
 	<div id="pdtDivOption">
-		<span>선택 분류만 보기</span>
+		<span>(추후개발)선택 분류만 보기</span>
 		<input type="button" value="div1" class="pdtDiv"/>
 		<input type="button" value="div2" class="pdtDiv"/>
 		<input type="button" value="div3" class="pdtDiv"/>
 	</div>
 
 	<div id="pdtSearchOption">
-		<label for="select1">판매중인 상품만 보기</label><input type="checkbox" name="" id="select1" />
+		<label for="select1">(추후개발)판매중인 상품만 보기</label><input type="checkbox" name="" id="select1" />
 	</div>
 	
 	<% if(loginMember != null && loginMember.getMemberType().equals("B")) { %>
