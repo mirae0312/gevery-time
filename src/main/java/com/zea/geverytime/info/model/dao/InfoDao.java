@@ -354,7 +354,7 @@ public class InfoDao {
 		try {
 			pstmt = conn.prepareStatement(sql);
 			
-			pstmt.setString(1, rset.getString("code"));			
+			pstmt.setString(1, code);			
 			
 			rset = pstmt.executeQuery();
 			if(rset.next()) {
