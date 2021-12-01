@@ -1,22 +1,30 @@
 @charset "UTF-8";
-      table.table2{
-                        border-collapse: separate;
-                        border-spacing: 1px;
-                        text-align: left;
-                        line-height: 1.5;
-                        border-top: 1px solid #ccc;
-                        margin : 20px 10px;
-                }
-                table.table2 tr {
-                         width: 50px;
-                         padding: 10px;
-                        font-weight: bold;
-                        vertical-align: top;
-                        border-bottom: 1px solid #ccc;
-                }
-                table.table2 td {
-                         width: 100px;
-                         padding: 10px;
-                         vertical-align: top;
-                         border-bottom: 1px solid #ccc;
-                }
+ h3{
+ 	font-family: 'Franklin Gothic Medium', 'Arial Narrow', Arial, sans-serif;
+ 	 color: gray;
+ 	 margin-left:10px;
+ }
+ th {
+     font-family: 'Franklin Gothic Medium', 'Arial Narrow', Arial, sans-serif;
+     color: gray;
+    }
+.inputBox{
+    border-radius: 5px;
+    width: 300px;
+    height:25px;
+    margin-bottom: 10px;
+    margin-top:5px;
+}
+.submit{
+    background-color: rgba(211, 211, 211, 0.479);
+    border-style: none;
+    font-size: 15px;
+    padding: 10px 16px;
+    border-radius: 10px;
+    cursor: pointer;
+    
+}
+#box{
+   margin-top: 20px;
+   margin-bottom :150px;
+} 

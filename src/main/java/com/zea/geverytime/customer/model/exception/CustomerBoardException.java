@@ -1,28 +1,28 @@
 package com.zea.geverytime.customer.model.exception;
 
-public class BoardException extends RuntimeException {
+public class CustomerBoardException extends RuntimeException {
 
-	public BoardException() {
+	public CustomerBoardException() {
 		super();
 		// TODO Auto-generated constructor stub
 	}
 
-	public BoardException(String message, Throwable cause, boolean enableSuppression, boolean writableStackTrace) {
+	public CustomerBoardException(String message, Throwable cause, boolean enableSuppression, boolean writableStackTrace) {
 		super(message, cause, enableSuppression, writableStackTrace);
 		// TODO Auto-generated constructor stub
 	}
 
-	public BoardException(String message, Throwable cause) {
+	public CustomerBoardException(String message, Throwable cause) {
 		super(message, cause);
 		// TODO Auto-generated constructor stub
 	}
 
-	public BoardException(String message) {
+	public CustomerBoardException(String message) {
 		super(message);
 		// TODO Auto-generated constructor stub
 	}
 
-	public BoardException(Throwable cause) {
+	public CustomerBoardException(Throwable cause) {
 		super(cause);
 		// TODO Auto-generated constructor stub
 	}
