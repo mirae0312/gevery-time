@@ -1,17 +1,16 @@
 package com.zea.geverytime.customer.model.service;
 
 import static com.zea.geverytime.common.JdbcTemplate.close;
-import static com.zea.geverytime.common.JdbcTemplate.getConnection;
-import static com.zea.geverytime.common.JdbcTemplate.close;
 import static com.zea.geverytime.common.JdbcTemplate.commit;
 import static com.zea.geverytime.common.JdbcTemplate.getConnection;
 import static com.zea.geverytime.common.JdbcTemplate.rollback;
-import static com.zea.geverytime.common.JdbcTemplate.*;
+
 import java.sql.Connection;
 import java.util.List;
 import java.util.Map;
 
 import com.zea.geverytime.customer.model.dao.QnaBoardDao;
+import com.zea.geverytime.customer.model.vo.FaqBoard;
 import com.zea.geverytime.customer.model.vo.QnaBoard;
 
  
@@ -106,5 +105,60 @@ public class QnaBoardService {
 		}
 		return result;
 	}
+
+	public  int insertQnaBoardReply(QnaBoard qnaBoard) {
+		Connection conn = null;
+		int result = 0;
+		try {
+		conn = getConnection();
+		result = qnaBoardDao.insertQnaBoardReply(conn, qnaBoard);
+		commit(conn);
+		}catch(Exception e) {
+			rollback(conn);
+			throw e;
+		}finally {
+			close(conn);
+		}
+		return result;
+	}
+
+	//faq게시판 전체 조회
+	public List<FaqBoard> selectAllFaqBoard(Map<String, Integer> param) {
+		Connection conn = getConnection();
+		List<FaqBoard> list = qnaBoardDao.selectAllFaqBoard(conn, param);
+		close(conn);
+		return list;
+	}
+
+	
+	//faq페이징하기 위해 총 게시물 수 
+	public int selectTotalFaqBoardCount() {
+		Connection conn = getConnection();
+		int totalCount = qnaBoardDao.selectTotalFaqBoardCount(conn);
+		close(conn);
+		return totalCount;
+	}
+
+	//faq 상세보기
+	public FaqBoard selectOneFaqBoard(int no) {
+		 Connection conn = getConnection();
+		 FaqBoard faqBoard = qnaBoardDao.selectOneFaqBoard(conn, no);
+		 close(conn);
+		 return faqBoard;
+		 
+	}
+
+	//serch faq
+	public List<FaqBoard> searchFaq(Map<String, Object> param) {
+			 Connection conn = getConnection();
+			 List<FaqBoard> list = qnaBoardDao.searchFaq(conn, param);
+			 close(conn);
+			 return list;
+			
+		 
+		}
  
-}
+
+	}
+ 
+ 
