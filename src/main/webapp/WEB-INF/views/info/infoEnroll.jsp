@@ -5,6 +5,8 @@
 <%@ include file="/WEB-INF/views/common/header.jsp" %>
 <%
 	Info info = (Info) request.getAttribute("info");
+	String bno = info.getBusinessNo();
+	String no = bno.substring(bno.length() - 1);
 %>
 <script type="text/javascript" src="//dapi.kakao.com/v2/maps/sdk.js?appkey=4247f28f0dc06c5cc8486ac837d411ff"></script>
 <script type="text/javascript" src="//dapi.kakao.com/v2/maps/sdk.js?appkey=APIKEY&libraries=services,clusterer,drawing"></script>
@@ -47,13 +49,161 @@
 				<input type="text" name="site1" class="site" />
 				<button type="button" class="add-btn add-site" onclick="addSite();">추가</button>			
 			</div><br />
-			
-			<div id="service-wrap">
+<% if("1".equals(no)){ // 병원1 %>
+			<div class="service-wrap hservice">
+				진료과목
+				<input type="text" name="hservice1" class="hservice" />
+			</div><br />
+			<button type="button" class="add-btn add-hservice" onclick="addhservice();">추가</button>
+<% } %>
+<% if("2".equals(no) || "3".equals(no)){ // 카페2, 음식점3 %>
+			<div class="service-wrap">
 				<label for="service">가격표</label>
 				<input type="text" name="service1" class="service" />:			
 				<input type="text" name="price1" class="service" />원	<br />		
 			</div><br />
 			<button type="button" class="add-btn add-service" onclick="addService();">추가</button>
+<% } %>
+<% if("4".equals(no)){ // 펜션4 %>
+			<div class="service-wrap">
+				<table>
+					<thead>
+						<tr>
+							<th rowspan="2">객실</th>
+							<th colspan="2">비수기</th>
+							<th colspan="2">성수기</th>
+							<th colspan="2">평수기</th>
+						</tr>
+						<tr>
+							<th>평일</th>
+							<th>주말</th>
+							<th>평일</th>
+							<th>주말</th>
+							<th>평일</th>
+							<th>주말</th>
+						</tr>
+					</thead>
+					<tbody>
+						<tr>
+							<td><input type="text" name="room1" /></td>
+							<td><input type="text" name="price11" /></td>
+							<td><input type="text" name="price12" /></td>
+							<td><input type="text" name="price13" /></td>
+							<td><input type="text" name="price14" /></td>
+							<td><input type="text" name="price15" /></td>
+							<td><input type="text" name="price16" /></td>
+						</tr>					
+						<tr>
+							<td><input type="text" name="room2" /></td>
+							<td><input type="text" name="price21" /></td>
+							<td><input type="text" name="price22" /></td>
+							<td><input type="text" name="price23" /></td>
+							<td><input type="text" name="price24" /></td>
+							<td><input type="text" name="price25" /></td>
+							<td><input type="text" name="price26" /></td>
+						</tr>					
+						<tr>
+							<td><input type="text" name="room3" /></td>
+							<td><input type="text" name="price31" /></td>
+							<td><input type="text" name="price32" /></td>
+							<td><input type="text" name="price33" /></td>
+							<td><input type="text" name="price34" /></td>
+							<td><input type="text" name="price35" /></td>
+							<td><input type="text" name="price36" /></td>
+						</tr>					
+					</tbody>
+				</table>
+			</div>
+<% } %>
+<% if("5".equals(no)){ // 미용실5 %>
+			<div class="service-wrap">
+				<table>
+					<thead>
+						<tr>
+							<th rowspan="2">무게</th>
+							<th colspan="3">목욕</th>
+							<th colspan="3">목욕+부분</th>
+							<th colspan="3">기계컷</th>
+							<th colspan="3">스포팅</th>
+							<th colspan="3">가위컷</th>
+						</tr>
+						<tr>
+							<th>소형견</th>
+							<th>중형견</th>
+							<th>특수견</th>
+							<th>소형견</th>
+							<th>중형견</th>
+							<th>특수견</th>
+							<th>소형견</th>
+							<th>중형견</th>
+							<th>특수견</th>
+							<th>소형견</th>
+							<th>중형견</th>
+							<th>특수견</th>
+							<th>소형견</th>
+							<th>중형견</th>
+							<th>특수견</th>
+						</tr>
+					</thead>
+					<tbody>
+						<tr>
+							<td>5kg미만</td>
+							<td><input type="text" name="smallBath1" /></td>
+							<td><input type="text" name="middleBath1" /></td>
+							<td><input type="text" name="specialBath1" /></td>
+							<td><input type="text" name="smallBathAnd1" /></td>
+							<td><input type="text" name="middleBathAnd1" /></td>
+							<td><input type="text" name="specialBathAnd1" /></td>
+							<td><input type="text" name="smallMachine1" /></td>
+							<td><input type="text" name="middleMachine1" /></td>
+							<td><input type="text" name="specialMachione1" /></td>
+							<td><input type="text" name="smallSpotting1" /></td>
+							<td><input type="text" name="middleSpotting1" /></td>
+							<td><input type="text" name="specialSpotting1" /></td>
+							<td><input type="text" name="smallScissors1" /></td>
+							<td><input type="text" name="middleScissors1" /></td>
+							<td><input type="text" name="specialScissors1" /></td>
+						</tr>
+						<tr>
+							<td>7kg미만</td>
+							<td><input type="text" name="smallBath2" /></td>
+							<td><input type="text" name="middleBath2" /></td>
+							<td><input type="text" name="specialBath2" /></td>
+							<td><input type="text" name="smallBathAnd2" /></td>
+							<td><input type="text" name="middleBathAnd2" /></td>
+							<td><input type="text" name="specialBathAnd2" /></td>
+							<td><input type="text" name="smallMachine2" /></td>
+							<td><input type="text" name="middleMachine2" /></td>
+							<td><input type="text" name="specialMachione2" /></td>
+							<td><input type="text" name="smallSpotting2" /></td>
+							<td><input type="text" name="middleSpotting2" /></td>
+							<td><input type="text" name="specialSpotting2" /></td>
+							<td><input type="text" name="smallScissors2" /></td>
+							<td><input type="text" name="middleScissors2" /></td>
+							<td><input type="text" name="specialScissors2" /></td>
+						</tr>
+						<tr>
+							<td>9kg미만</td>
+							<td><input type="text" name="smallBath3" /></td>
+							<td><input type="text" name="middleBath3" /></td>
+							<td><input type="text" name="specialBath3" /></td>
+							<td><input type="text" name="smallBathAnd3" /></td>
+							<td><input type="text" name="middleBathAnd3" /></td>
+							<td><input type="text" name="specialBathAnd3" /></td>
+							<td><input type="text" name="smallMachine3" /></td>
+							<td><input type="text" name="middleMachine3" /></td>
+							<td><input type="text" name="specialMachione3" /></td>
+							<td><input type="text" name="smallSpotting3" /></td>
+							<td><input type="text" name="middleSpotting3" /></td>
+							<td><input type="text" name="specialSpotting3" /></td>
+							<td><input type="text" name="smallScissors3" /></td>
+							<td><input type="text" name="middleScissors3" /></td>
+							<td><input type="text" name="specialScissors3" /></td>
+						</tr>
+					</tbody>
+				</table>
+			</div>
+<% } %>
 		</div>
 		<div id="body-description">
 			<div class="description-wrapper">
@@ -99,8 +249,19 @@
 			<input type="text" name="site2" class="site" />
 		`;
 		$("#site-wrap").append(site2);
-		$("#site-wrap .add-site").attr("disabled", "disabled");
+		$(".site-wrap .add-site").attr("disabled", "disabled");
 		
+	};
+	var i = 2;
+	const addhservice = () => {
+		var addSer = `
+		,<input type="text" name="hservice\${i}" class="hservice" /><br />
+		`;
+		$(".hservice").append(addSer);
+		if(i === 7){
+			$(".right-head .add-hservice").attr("disabled", "disabled");			
+		}
+		i++;
 	};
 	var i = 2;
 	const addService = () => {
@@ -108,7 +269,7 @@
 		,<input type="text" name="service\${i}" class="service" />:
 		<input type="text" name="price\${i}" class="service" />원	<br />
 		`;
-		$("#service-wrap").append(addSer);
+		$(".service-wrap").append(addSer);
 		if(i === 7){
 			$(".right-head .add-service").attr("disabled", "disabled");			
 		}

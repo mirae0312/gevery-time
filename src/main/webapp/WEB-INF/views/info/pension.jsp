@@ -16,11 +16,13 @@
 	<div class="pop-contents">
 <% if(popList != null && !popList.isEmpty()){ %>
 	<% for(Info popInfo : popList){ %>
+		<div class="info-wrap">
 			<div class="business-name"><%= popInfo.getBusinessName() %></div>
 			<div class="head-content"><%= popInfo.getHeadContent() %></div>
 			<img src="<%= request.getContextPath() %>/upload/info/<%= popInfo.getAttachments().get(0).getRenamedFilename() %>" alt="" />
 			<div class="recommend-count"><%= popInfo.getRecommend() %></div>
-			<div class="view-count"><%= popInfo.getViewCount() %></div>
+			<div class="view-count"><%= popInfo.getViewCount() %></div>		
+		</div>
 	<% } %>
 <% } %>
 	</div>
@@ -33,11 +35,13 @@
 		<div class="info-content">
 <% if(list != null && !list.isEmpty()){ %>
 	<% for(Info info : list){ %>
-			<div class="business-name"><%= info.getBusinessName() %></div>
-			<div class="head-content"><%= info.getHeadContent() %></div>
-			<img src="<%= request.getContextPath() %>/upload/info/<%= info.getAttachments().get(0).getRenamedFilename() %>" alt="" />
-			<div class="recommend-count"><%= info.getRecommend() %></div>
-			<div class="view-count"><%= info.getViewCount() %></div>
+			<div class="info-wrap">
+				<div class="business-name"><%= info.getBusinessName() %></div>
+				<div class="head-content"><%= info.getHeadContent() %></div>
+				<img src="<%= request.getContextPath() %>/upload/info/<%= info.getAttachments().get(0).getRenamedFilename() %>" alt="" />
+				<div class="recommend-count"><%= info.getRecommend() %></div>
+				<div class="view-count"><%= info.getViewCount() %></div>
+			</div>
 	<% } %>
 <% } %>
 			<hr />
@@ -69,11 +73,13 @@ const scrollPage = () => {
 			$data.each((i, {businessName, headContent, attachments, recommend, viewCount}) => {
 				//console.log(i,businessName, headContent);
 				
-				const $contents = `<div class="head">\${businessName}</div>
+				const $contents = `<div class="info-wrap">
+				<div class="head">\${businessName}</div>
 				<div class="head-content">\${headContent}</div>				
 				<div class="list-thumbnail">\${attachments[0].renamedFilename}</div>
 				<div class="recommend-count">\${recommend}</div>
-				<div class="view-count">\${viewCount}</div>				
+				<div class="view-count">\${viewCount}</div>	
+				</div>
 				`;
 				
 				$div.append($contents);

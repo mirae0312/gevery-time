@@ -35,7 +35,7 @@ public class InfoEnrollServlet extends HttpServlet {
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		try {
 //			String memberId = loginMember.getMemberId();
-			String memberId = "businessWoman";
+			String memberId = "businessGirl";
 			boolean bool = true;
 			
 			// 글을 작성한적 있는지 확인 (개인 사업자는 사업체 한개인 것을 이용)
@@ -46,6 +46,7 @@ public class InfoEnrollServlet extends HttpServlet {
 			if(!bool) {
 				Info info = infoService.selectBeforeWrite(memberId);
 				System.out.println("[infoEnollServlet] info : " + info);
+				
 				// 게시물 등록jsp로 이동
 				request.setAttribute("info", info);
 				request
@@ -94,6 +95,8 @@ public class InfoEnrollServlet extends HttpServlet {
 			info.setMemberId(memberId);
 			info.setBusinessNo(businessNo);
 			
+			String no = businessNo.substring(businessNo.length() - 1);
+			
 			// 상호명, headcontent
 			String businessName = multipartRequest.getParameter("businessName");
 			String headContent = multipartRequest.getParameter("headContent");
@@ -137,35 +140,163 @@ public class InfoEnrollServlet extends HttpServlet {
 			String site = sites.toString();
 			info.setSite(site);
 			
-			// 병원: 진료과목, 다른곳: 가격표 + 7
-			String service1 = multipartRequest.getParameter("service1");
-			String price1 = multipartRequest.getParameter("price1");
-			String service2 = multipartRequest.getParameter("service2");
-			String price2 = multipartRequest.getParameter("price2");
-			String service3 = multipartRequest.getParameter("service3");
-			String price3 = multipartRequest.getParameter("price3");
-			String service4 = multipartRequest.getParameter("service4");
-			String price4 = multipartRequest.getParameter("price4");
-			String service5 = multipartRequest.getParameter("service5");
-			String price5 = multipartRequest.getParameter("price5");
-			String service6 = multipartRequest.getParameter("service6");
-			String price6 = multipartRequest.getParameter("price6");
-			String service7 = multipartRequest.getParameter("service7");
-			String price7 = multipartRequest.getParameter("price7");
-			
-			String[] services = {service1, service2, service3, service4,
-								service5, service6, service7};
-			String[] prices = {price1, price2, price3, price4, price5,
-								price6, price7};
-			StringBuilder service = new StringBuilder();
-			
-			for(int i = 0; i < services.length; i++) {
-				if(services[i] != null && !services[i].isEmpty()) {
-					service.append(services[i] + ":" + prices[i]);
+			// 병원1: 진료과목 ,
+			if("1".equals(no)) {
+				String service1 = multipartRequest.getParameter("hservice1");
+				String service2 = multipartRequest.getParameter("hservice2");
+				String service3 = multipartRequest.getParameter("hservice3");
+				String service4 = multipartRequest.getParameter("hservice4");
+				String service5 = multipartRequest.getParameter("hservice5");
+				String service6 = multipartRequest.getParameter("hservice6");
+				String service7 = multipartRequest.getParameter("hservice7");
+				
+				String[] services = {service1, ",", service2, ",", service3, ",", service4, ",",
+						service5, ",", service6, ",", service7};
+				StringBuilder service = new StringBuilder();
+				for(int i = 0; i < services.length; i++) {
+					if(services[i] != null && !services[i].isEmpty()) {
+						service.append(services[i]);
+					}
 				}
+				String serv = service.toString();
+				info.setServiceContent(serv);
 			}
-			String serv = service.toString();
-			info.setServiceContent(serv);
+			// 카페2 음식점3 / :
+			if("2".equals(no) || "3".equals(no)) {
+				String service1 = multipartRequest.getParameter("service1");
+				String price1 = multipartRequest.getParameter("price1");
+				String service2 = multipartRequest.getParameter("service2");
+				String price2 = multipartRequest.getParameter("price2");
+				String service3 = multipartRequest.getParameter("service3");
+				String price3 = multipartRequest.getParameter("price3");
+				String service4 = multipartRequest.getParameter("service4");
+				String price4 = multipartRequest.getParameter("price4");
+				String service5 = multipartRequest.getParameter("service5");
+				String price5 = multipartRequest.getParameter("price5");
+				String service6 = multipartRequest.getParameter("service6");
+				String price6 = multipartRequest.getParameter("price6");
+				String service7 = multipartRequest.getParameter("service7");
+				String price7 = multipartRequest.getParameter("price7");
+				
+				String[] services = {service1, service2, service3, service4,
+									service5, service6, service7};
+				String[] prices = {price1, price2, price3, price4, price5,
+									price6, price7};
+				StringBuilder service = new StringBuilder();
+				
+				for(int i = 0; i < services.length; i++) {
+					if(services[i] != null && !services[i].isEmpty()) {
+						service.append(services[i] + ":" + prices[i] + "/");
+					}
+				}
+				String serv = service.toString();
+				info.setServiceContent(serv);
+			}
+			
+			// 펜션 4 - : ,
+			if("4".equals(no)) {
+				String room1 = multipartRequest.getParameter("room1");
+				String price11 = multipartRequest.getParameter("price11");
+				String price12 = multipartRequest.getParameter("price12");
+				String price13 = multipartRequest.getParameter("price13");
+				String price14 = multipartRequest.getParameter("price14");
+				String price15 = multipartRequest.getParameter("price15");
+				String price16 = multipartRequest.getParameter("price16");
+				String room2 = multipartRequest.getParameter("room2");
+				String price21 = multipartRequest.getParameter("price21");
+				String price22 = multipartRequest.getParameter("price22");
+				String price23 = multipartRequest.getParameter("price23");
+				String price24 = multipartRequest.getParameter("price24");
+				String price25 = multipartRequest.getParameter("price25");
+				String price26 = multipartRequest.getParameter("price26");
+				String room3 = multipartRequest.getParameter("room3");
+				String price31 = multipartRequest.getParameter("price31");
+				String price32 = multipartRequest.getParameter("price32");
+				String price33 = multipartRequest.getParameter("price33");
+				String price34 = multipartRequest.getParameter("price34");
+				String price35 = multipartRequest.getParameter("price35");
+				String price36 = multipartRequest.getParameter("price36");
+				String[] services = {room1, ":", price11, ",", price12, ",", price13, ",", price14, ",", price15, ",", price16,
+									"-", room2, ":", price21, ",", price22, ",", price23, ",", price24, ",", price25, ",", price26,
+									"-", room3, ":", price31, ",", price32, ",", price33, ",", price34, ",", price35, ",", price36};
+				StringBuilder service = new StringBuilder();
+				for(int i = 0; i < services.length; i++) {
+					if(services[i] != null && !services[i].isEmpty()) {
+						service.append(services[i]);
+					}
+				}
+				String serv = service.toString();
+				info.setServiceContent(serv);
+			}
+			
+			// 미용실 5 - ,
+			if("5".equals(no)) {
+				String smallBath1 = multipartRequest.getParameter("smallBath1");
+				String middleBath1 = multipartRequest.getParameter("middleBath1");
+				String specialBath1 = multipartRequest.getParameter("specialBath1");
+				String smallBathAnd1 = multipartRequest.getParameter("smallBathAnd1");
+				String middleBathAnd1 = multipartRequest.getParameter("middleBathAnd1");
+				String specialBathAnd1 = multipartRequest.getParameter("specialBathAnd1");
+				String smallMachine1 = multipartRequest.getParameter("smallMachine1");
+				String middleMachine1 = multipartRequest.getParameter("middleMachine1");
+				String specialMachine1 = multipartRequest.getParameter("specialMachine1");
+				String smallSpotting1 = multipartRequest.getParameter("smallSpotting1");
+				String middleSpotting1 = multipartRequest.getParameter("middleSpotting1");
+				String specialSpotting1 = multipartRequest.getParameter("specialSpotting1");
+				String smallScissors1 = multipartRequest.getParameter("smallScissors1");
+				String middleScissors1 = multipartRequest.getParameter("middleScissors1");
+				String specialScissors1 = multipartRequest.getParameter("specialScissors1");
+				String smallBath2 = multipartRequest.getParameter("smallBath2");
+				String middleBath2 = multipartRequest.getParameter("middleBath2");
+				String specialBath2 = multipartRequest.getParameter("specialBath2");
+				String smallBathAnd2 = multipartRequest.getParameter("smallBathAnd2");
+				String middleBathAnd2 = multipartRequest.getParameter("middleBathAnd2");
+				String specialBathAnd2 = multipartRequest.getParameter("specialBathAnd2");
+				String smallMachine2 = multipartRequest.getParameter("smallMachine2");
+				String middleMachine2 = multipartRequest.getParameter("middleMachine2");
+				String specialMachine2 = multipartRequest.getParameter("specialMachine2");
+				String smallSpotting2 = multipartRequest.getParameter("smallSpotting2");
+				String middleSpotting2 = multipartRequest.getParameter("middleSpotting2");
+				String specialSpotting2 = multipartRequest.getParameter("specialSpotting2");
+				String smallScissors2 = multipartRequest.getParameter("smallScissors2");
+				String middleScissors2 = multipartRequest.getParameter("middleScissors2");
+				String specialScissors2 = multipartRequest.getParameter("specialScissors2");
+				String smallBath3 = multipartRequest.getParameter("smallBath3");
+				String middleBath3 = multipartRequest.getParameter("middleBath3");
+				String specialBath3 = multipartRequest.getParameter("specialBath3");
+				String smallBathAnd3 = multipartRequest.getParameter("smallBathAnd3");
+				String middleBathAnd3 = multipartRequest.getParameter("middleBathAnd3");
+				String specialBathAnd3 = multipartRequest.getParameter("specialBathAnd3");
+				String smallMachine3 = multipartRequest.getParameter("smallMachine3");
+				String middleMachine3 = multipartRequest.getParameter("middleMachine3");
+				String specialMachine3 = multipartRequest.getParameter("specialMachine3");
+				String smallSpotting3 = multipartRequest.getParameter("smallSpotting3");
+				String middleSpotting3 = multipartRequest.getParameter("middleSpotting3");
+				String specialSpotting3 = multipartRequest.getParameter("specialSpotting3");
+				String smallScissors3 = multipartRequest.getParameter("smallScissors3");
+				String middleScissors3 = multipartRequest.getParameter("middleScissors3");
+				String specialScissors3 = multipartRequest.getParameter("specialScissors3");
+				
+				String[] services = {smallBath1, ",", middleBath1, ",", specialBath1, ",", smallBathAnd1, ",", middleBathAnd1, ",", specialBathAnd1, 
+						smallMachine1, ",", middleMachine1, ",", specialMachine1, ",",  smallSpotting1, ",", middleSpotting1, ",", specialSpotting1, ",",
+						smallScissors1, ",", middleScissors1, ",", specialScissors1, "-",
+						smallBath2, ",", middleBath2, ",", specialBath2, ",", smallBathAnd2, ",", middleBathAnd2, ",", specialBathAnd2, 
+						smallMachine2, ",", middleMachine2, ",", specialMachine2, ",",  smallSpotting2, ",", middleSpotting2, ",", specialSpotting2, ",",
+						smallScissors2, ",", middleScissors2, ",", specialScissors2, "-",
+						smallBath3, ",", middleBath3, ",", specialBath3, ",", smallBathAnd3, ",", middleBathAnd3, ",", specialBathAnd3,
+						smallMachine3, ",", middleMachine3, ",", specialMachine3, ",",  smallSpotting3, ",", middleSpotting3, ",", specialSpotting3, ",",
+						smallScissors3, ",", middleScissors3, ",", specialScissors3};
+				
+				StringBuilder service = new StringBuilder();
+				for(int i = 0; i < services.length; i++) {
+					if(services[i] != null && !services[i].isEmpty()) {
+						service.append(services[i]);
+					}
+				}
+				String serv = service.toString();
+				info.setServiceContent(serv);
+			}
+			
 	
 			// 설명부분 + 3
 			String bodyContent = multipartRequest.getParameter("bodyContent");

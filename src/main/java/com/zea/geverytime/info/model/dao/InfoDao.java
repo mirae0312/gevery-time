@@ -303,6 +303,7 @@ public class InfoDao {
 			if(rset.next()) {
 				info = new Info();
 				info.setMemberId(rset.getString("business_id"));
+				info.setBusinessNo(rset.getString("business_no"));
 				info.setBusinessName(rset.getString("business_name"));
 				info.setBusinessAddress(rset.getString("business_address"));
 				info.setBusinessTel(rset.getString("business_tel"));
