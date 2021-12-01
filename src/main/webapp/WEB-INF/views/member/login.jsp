@@ -61,7 +61,6 @@ $(() => {
                 <input type="hidden" name="redirectUrl" value="">
                 <fieldset>
                 <legend class="screen_out">로그인 정보 입력폼</legend>
-			<% if(loginMember == null){ %>
                 <div class="box_login">
                     <div class="inp_text">
                     <label for="loginId" class="screen_out">아이디</label>
@@ -76,7 +75,7 @@ $(() => {
                 <div class="login_append">
                     <div class="inp_chk"> 
                    
-            <span class="enroll_"> <a href= "<%=request.getContextPath()%>/member/memberEnroll">회원가입</a></span>
+            <span class="enroll_"><a href= "<%= request.getContextPath() %>/member/memberEnroll">회원가입</a></span>
           
           
             </label>
