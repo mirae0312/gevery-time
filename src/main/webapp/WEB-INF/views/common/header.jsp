@@ -42,7 +42,7 @@
              <nav>
                <ul class="navs">
 				<%if(loginMember == null){ %>
-               <li class="nav" id="login" name="login"><a href="<%=request.getContextPath()%>/member/login">로그인</a></li>
+               <li class="nav" id="login" ><a href="<%=request.getContextPath()%>/member/login">로그인</a></li>
               	<% } %>
                <% if(loginMember != null){ %>
                <li class="nav"><%= loginMember.getMemberName() %>님</li>

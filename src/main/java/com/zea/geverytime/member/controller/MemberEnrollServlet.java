@@ -67,8 +67,12 @@ public class MemberEnrollServlet extends HttpServlet {
 			
 		} catch (Exception e) {
 			e.printStackTrace();
-			throw e; // tomcat이 error.jsp로 위임하도록 처리
+			throw e; 
 		}
+	
+	
+	
+	
 	}
 
 }
