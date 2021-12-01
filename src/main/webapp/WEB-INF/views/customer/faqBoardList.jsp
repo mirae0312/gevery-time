@@ -11,18 +11,18 @@
         <h3>자주 묻는 질문</h3>
  <div id="leftbox">
             <span><a href="<%= request.getContextPath() %>/customer/qnaBoardList">Q&A</a></span>
-            <br>
+            <br><br>
             <span><a href="<%= request.getContextPath() %>/customer/faqBoardList">FAQ</a></span>
-            <br>
+            <br><br>
             <span>신고내역</span>
  </div>
  <%String searchKeyword = request.getParameter("searchKeyword"); %><!-- 이번 요청의 searchKeyword -->
  <div id="search" class="search">
             <form action="<%=request.getContextPath()%>/customer/categoryFinder">
-                <input type="radio" name="searchKeyword" value="[회원정보문의]" <%= "[회원정보문의]".equals(searchKeyword) ? "checked" : "" %>> 회원정보문의
                 <input type="radio" name="searchKeyword" value="[결제문의]" <%= "[결제문의]".equals(searchKeyword) ? "checked" : "" %>> 결제문의
-                <input type="radio" name="searchKeyword" value="[포인트문의]" <%= "[포인트문의]".equals(searchKeyword) ? "checked" : "" %>> 포인트문의
                 <input type="radio" name="searchKeyword" value="[신고문의]" <%= "[신고문의]".equals(searchKeyword) ? "checked" : "" %>> 신고문의
+                <input type="radio" name="searchKeyword" value="[회원정보문의]" <%= "[회원정보문의]".equals(searchKeyword) ? "checked" : "" %>> 회원정보문의
+                <input type="radio" name="searchKeyword" value="[포인트문의]" <%= "[포인트문의]".equals(searchKeyword) ? "checked" : "" %>> 포인트문의
                 <input type="radio" name="searchKeyword" value="[기타문의]" <%= "[기타문의]".equals(searchKeyword) ? "checked" : "" %>> 기타문의
                 <button type="submit" id="radioSubmit">검색</button>
             </form>
