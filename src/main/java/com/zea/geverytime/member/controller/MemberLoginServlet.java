@@ -62,4 +62,5 @@ public class MemberLoginServlet extends HttpServlet {
         request.getRequestDispatcher("/WEB-INF/views/member/login.jsp")
         .forward(request, response);
     }
+
 }

@@ -14,6 +14,7 @@ import java.util.List;
 import java.util.Map;
 import java.util.Properties;
 
+import com.zea.geverytime.common.model.vo.Attachment;
 import com.zea.geverytime.market.productsale.model.vo.Product;
 import com.zea.geverytime.market.productsale.model.vo.ProductBoard;
 
@@ -74,7 +75,7 @@ public class ProductSaleDao {
 		return boardNo;
 	}
 
-	public List<Product> getSellerProduct(Connection conn, String sellerId) {
+	public List<Product> getSellerProduct(Connection conn, String sellerId, String state) {
 		PreparedStatement pstmt = null;
 		String sql = prop.getProperty("getSellerProduct");
 		ResultSet rset = null;
@@ -83,6 +84,7 @@ public class ProductSaleDao {
 		try {
 			pstmt = conn.prepareStatement(sql);
 			pstmt.setString(1, sellerId);
+			pstmt.setString(2, state);
 			rset = pstmt.executeQuery();
 			
 			while(rset.next()) {
@@ -105,7 +107,7 @@ public class ProductSaleDao {
 		return list;
 	}
 
-	public List<ProductBoard> getProductSaleBoardAll(Connection conn) {
+	public List<ProductBoard> getProductSaleBoardAll(Connection conn, int startNum, int endNum) {
 		PreparedStatement pstmt = null;
 		ResultSet rset = null;
 		String sql = prop.getProperty("getProductSaleBoardAll");
@@ -113,6 +115,8 @@ public class ProductSaleDao {
 		
 		try {
 			pstmt = conn.prepareStatement(sql);
+			pstmt.setInt(1, startNum);
+			pstmt.setInt(2, endNum);
 			rset = pstmt.executeQuery();
 			
 			while(rset.next()) {
@@ -121,14 +125,15 @@ public class ProductSaleDao {
 				pb.setBoardNo(rset.getInt("no"));
 				pb.setTitle(rset.getString("title"));
 				pb.setRegDate(rset.getDate("reg_date"));
-				pb.setSellerId(rset.getString("pdtSellerId"));
+				pb.setSellerId(rset.getString("seller_id"));
+				pb.setOrCode(rset.getString("or_code"));
 				// product 객체 생성
 				Product pdt = new Product();
 				pdt.setPdtNo(rset.getInt("product_no"));
 				pdt.setPdtName(rset.getString("name"));
 				pdt.setPdtPrice(rset.getInt("price"));
 				pdt.setPdtDiv(rset.getString("div"));
-				pdt.setSellerId(rset.getString("pdtSellerId"));
+				pdt.setSellerId(rset.getString("seller_id"));
 				pdt.setState(rset.getString("state"));
 				// product를 productBoard객체에 담기
 				pb.setProduct(pdt);
@@ -261,7 +266,7 @@ public class ProductSaleDao {
 				question.put("title", rset.getString("title"));
 				question.put("content", rset.getString("content"));
 				question.put("writer", rset.getString("writer"));
-				question.put("qaLevel", rset.getInt("qa_level"));
+				question.put("qaLevel", rset.getInt("qlevel"));
 				question.put("refNo", rset.getInt("ref_no"));
 				questions.add(question);
 				System.out.println("dao@question : "+question);
@@ -330,6 +335,191 @@ public class ProductSaleDao {
 			e.printStackTrace();
 		}
 		return list;
+	}
+
+	public int productOptionChange(Connection conn, String colname, String val, int pdtNo) {
+		PreparedStatement pstmt = null;
+		String sql = "";
+		switch(colname) {
+		case "div" :
+			sql = prop.getProperty("productDivOptionChange");
+			break;
+		case "state" : 
+			sql = prop.getProperty("productStateOptionChange"); 
+			break;
+		}
+		int result = 0;
+		
+		try {
+			pstmt = conn.prepareStatement(sql);
+			pstmt.setString(1, val);				
+			pstmt.setInt(2, pdtNo);
+			
+			result = pstmt.executeUpdate();
+			System.out.println("pdtDao@optionChange : "+result);
+		} catch (SQLException e) {
+			e.printStackTrace();
+		} finally {
+			close(pstmt);
+		}
+		
+		return result;
+	}
+
+	public int getProductSaleBoardCount(Connection conn) {
+		PreparedStatement pstmt = null;
+		ResultSet rset = null;
+		String sql = prop.getProperty("getProductSaleBoardCount");
+		int count = 0;
+		
+		try {
+			pstmt = conn.prepareStatement(sql);
+			rset = pstmt.executeQuery();
+			
+			if(rset.next()) {
+				count = rset.getInt(1);
+				System.out.println("pdtDao@count: "+ count);
+			}
+		} catch (SQLException e) {
+			e.printStackTrace();
+		} finally {
+			close(pstmt);
+			close(rset);
+		}
+		return count;
+	}
+
+	public int productSaleBoardAttachmentEnroll(Connection conn, Attachment attach, String orCode) {
+		PreparedStatement pstmt = null;
+		String sql = prop.getProperty("productSaleBoardAttachmentEnroll");
+		int result = 0;
+				
+		try {
+			pstmt = conn.prepareStatement(sql);
+			
+			String ofn = attach.getOriginalFilename();
+			String rfn = attach.getRenamedFilename();
+
+			pstmt.setString(1, orCode);
+			pstmt.setString(2, ofn);
+			pstmt.setString(3, rfn);
+			
+			result = pstmt.executeUpdate();
+			System.out.println("pdtDao@attachmentEnrollREsult : "+result);
+		} catch (SQLException e) {
+			e.printStackTrace();
+		} finally {
+			close(pstmt);
+		}
+		
+		return result;
+	}
+
+	public String getBoardOrCode(Connection conn, int boardNo) {
+		PreparedStatement pstmt = null;
+		String sql = prop.getProperty("getBoardOrcode");
+		ResultSet rset = null;
+		String orCode = "";
+		
+		try {
+			pstmt = conn.prepareStatement(sql);
+			pstmt.setInt(1, boardNo);
+			
+			rset = pstmt.executeQuery();
+			
+			if(rset.next()) {
+				orCode = rset.getString(1);
+			}
+			System.out.println("pdtDao@orCode : "+orCode);
+		} catch (SQLException e) {
+			e.printStackTrace();
+		} finally {
+			close(pstmt);
+		}
+		return orCode;
+	}
+
+	public List<Attachment> getProductSaleBoardAttachment(Connection conn, String orCode) {
+		PreparedStatement pstmt = null;
+		String sql = prop.getProperty("getBoardAttachment");
+		ResultSet rset = null;
+		List<Attachment> attachments = new ArrayList<>();
+		
+		try {
+			pstmt = conn.prepareStatement(sql);
+			pstmt.setString(1, orCode);
+			
+			rset = pstmt.executeQuery();
+			while(rset.next()) {
+				Attachment attach = new Attachment();
+				attach.setRenamedFilename(rset.getString("renamed_filename"));
+				attachments.add(attach);
+			}
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}
+		
+		return attachments;
+	}
+
+	public int productSaleBoardUpdate(Connection conn, ProductBoard board) {
+		PreparedStatement pstmt = null;
+		String sql = prop.getProperty("productSaleBoardUpdate");
+		int result = 0;
+		
+		try {
+			pstmt = conn.prepareStatement(sql);
+			pstmt.setString(1, board.getTitle());
+			pstmt.setString(2, board.getContent());
+			pstmt.setString(3, board.getOrCode());
+			
+			result = pstmt.executeUpdate();
+			System.out.println("updateResult(DAO) : "+result);
+		} catch (SQLException e) {
+			e.printStackTrace();
+		} finally {
+			close(pstmt);
+		}
+		
+		return result;
+	}
+
+	public int productBoardDeleteAttachment(Connection conn, String orCode) {
+		PreparedStatement pstmt = null;
+		String sql = prop.getProperty("productBoardDeleteAttachment");
+		int result = 0;
+		
+		try {
+			pstmt = conn.prepareStatement(sql);
+			pstmt.setString(1, orCode);
+			
+			result = pstmt.executeUpdate();
+			System.out.println("deleteAttachment : "+result);
+		} catch (SQLException e) {
+			e.printStackTrace();
+		} finally {
+			close(pstmt);
+		}
+		return result;
+	}
+
+	public int productBoardDelete(Connection conn, int boardNo) {
+		PreparedStatement pstmt = null;
+		String sql = prop.getProperty("productBoardDelete");
+		int result = 0;
+		
+		try {
+			pstmt = conn.prepareStatement(sql);
+			pstmt.setInt(1, boardNo);
+			
+			result = pstmt.executeUpdate();
+			System.out.println("deleteBoard : "+result);
+		} catch (SQLException e) {
+			e.printStackTrace();
+		} finally {
+			close(pstmt);
+		}
+		return result;
 	}
 
 

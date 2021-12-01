@@ -8,6 +8,8 @@ import javax.websocket.server.HandshakeRequest;
 import javax.websocket.server.ServerEndpointConfig;
 import javax.websocket.server.ServerEndpointConfig.Configurator;
 
+import com.zea.geverytime.member.model.vo.Member;
+
 // httpsession에 저장된 사용자 정보
 public class WebSocketConfig extends Configurator{
 
@@ -15,10 +17,10 @@ public class WebSocketConfig extends Configurator{
 	@Override
 	public void modifyHandshake(ServerEndpointConfig sec, HandshakeRequest request, HandshakeResponse response) {
 		HttpSession httpSession = (HttpSession)request.getHttpSession();
-//		Member loginMember = (Member) httpSession.getAttribute("loginMember");
+		Member loginMember = (Member) httpSession.getAttribute("loginMember");
 		
 		Map<String, Object> userProp = sec.getUserProperties();
-//		userProp.put("memberId", loginMemeber.getMemeberId);
+		userProp.put("memberId", loginMember.getMemberId());
 	}
 	
 	

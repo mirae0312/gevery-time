@@ -23,13 +23,12 @@ public class ProductSaleProductEnrollServlet extends HttpServlet {
 		String pdtName = request.getParameter("pdtName");
 		int pdtPrice = Integer.parseInt(request.getParameter("pdtPrice"));
 		String pdtDiv = request.getParameter("pdtDiv");
+		String sellerId = request.getParameter("sellerId");
 		
 		
 		// 상품 요청 정보 입력
 		Product pdt = new Product();
-		// 나중에 session에 멤버 받아서 product Seller_id에 set 해야 합니다.
-		// 우선 임의로 하드코딩해서 진행함.
-		pdt.setSellerId("tarr4h");
+		pdt.setSellerId(sellerId);
 		pdt.setPdtName(pdtName);
 		pdt.setPdtPrice(pdtPrice);
 		pdt.setPdtDiv(pdtDiv);
@@ -47,7 +46,7 @@ public class ProductSaleProductEnrollServlet extends HttpServlet {
 			request.getSession().setAttribute("msg", msg);
 		}
 		
-		response.sendRedirect(request.getContextPath()+"/product/main");
+		response.sendRedirect(request.getContextPath()+"/product/onsaleProduct?sellerId="+sellerId);
 	}
 
 }
