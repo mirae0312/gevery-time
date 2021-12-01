@@ -1,6 +1,6 @@
 @charset "UTF-8";
 h3{
-   padding-left: 170px;
+   padding-left: 210px;
    }
  body{
     width: 1024px;
@@ -62,10 +62,12 @@ a {
     padding: 6px;
     font-size: 17px;
 }
-
-.board_list td {
-    text-align: center;
+.board_list th{
+	text-align:left;
 }
+/*.board_list td {
+    text-align: center;
+}*/
 
 /* .board_list .tit {
     text-align: left;

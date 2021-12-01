@@ -139,6 +139,17 @@ public class QnaBoardService {
 		return totalCount;
 	}
 
+	//faq 상세보기
+	public FaqBoard selectOneFaqBoard(int no) {
+		 Connection conn = getConnection();
+		 FaqBoard faqBoard = qnaBoardDao.selectOneFaqBoard(conn, no);
+		 close(conn);
+		 return faqBoard;
+		 
+	}
+
+ 
+
 	}
  
  

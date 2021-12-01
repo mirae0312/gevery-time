@@ -21,22 +21,21 @@
                 <thead>
                     <tr>
                         <th>No</th>
-                        <th>분류</th>
+                        <!--  <th>분류</th>-->
                         <th colspan="5">제목</th>
                     </tr>
                 </thead>
                 <tbody>
  <%
 	List<FaqBoard> list = (List<FaqBoard>) request.getAttribute("list");
-	for(FaqBoard 	faqBoard : list){
+	for(FaqBoard faqBoard : list){
 	 
 %>
  		 
                     <tr>
                         <td><%= faqBoard.getNo() %></td>
-                        <td><%= faqBoard.getCategory() %></td>
                         <td class="tit" colspan="10">
-                          <a href="<%= request.getContextPath() %>/customer/faqBoardView?no=<%= faqBoard.getNo() %>"><%= faqBoard.getTitle() %></a>
+                          <a href="<%= request.getContextPath() %>/customer/faqBoardView?no=<%= faqBoard.getNo() %>"><%= faqBoard.getCategory() %>&nbsp;<%= faqBoard.getTitle() %></a>
                         </td>
                     </tr>
                      
@@ -51,7 +50,7 @@
           
         </div>
         <div id="inputBox"><input type="button" value="글쓰기" id="btn-add"
-        	onclick="location.href='<%= request.getContextPath() %>/customer/qnaBoardForm'"/></div>
+        	onclick="location.href='<%= request.getContextPath() %>/customer/faqBoardForm'"/></div>
 	<div id='pageBar'><%= request.getAttribute("pagebar") %></div>
  </div> 
 </section>

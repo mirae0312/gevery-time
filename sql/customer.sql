@@ -143,7 +143,51 @@ order siblings by
 select * from qna_board;
 
 
+create table FAQ_BOARD(
+    no number,
+    title varchar2(300) not null,
+    writer varchar2(100),
+    content varchar2(4000) not null,
+    category_a varchar2(200),
+    reg_date date default sysdate,
+    constraint pk_faq_board_no primary key(no),
+    constraint fk_faq_board_writer foreign key(writer) references member(member_id) on delete set null
+);
+create sequence seq_faq_board_no;
+select * from faq_board;
 
+select count(*) from faq_board;
+insert into
+    faq_board
+values(
+    seq_faq_board_no.nextval,
+    '회원가입이 안됩니다.',
+    'honggd',
+    '회원가입버튼은 화면 상단에 위치~~~~~~~',
+    '[회원가입관련]',
+    default
+    );
 
-
-
+insert into
+    faq_board
+values(
+    seq_faq_board_no.nextval,
+    '회원정보 변경하고 싶어요.',
+    'honggd',
+    '회원정보변경버튼은 화면 상단에 위치~~~~~~~',
+    '[회원가입관련]',
+    default
+    );
+ 
+    
+--select * from (select row_number() over(order by no desc) rnum, b.* from faq_board b) where rnum between ? and ?
+ 
+ delete from faq_board;
+    
+    
+    
+    
+    
+    
+    
+commit;

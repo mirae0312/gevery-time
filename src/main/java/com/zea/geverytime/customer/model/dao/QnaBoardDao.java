@@ -14,7 +14,6 @@ import java.util.List;
 import java.util.Map;
 import java.util.Properties;
 
- 
 import com.zea.geverytime.customer.model.exception.CustomerBoardException;
 import com.zea.geverytime.customer.model.vo.FaqBoard;
 import com.zea.geverytime.customer.model.vo.QnaBoard;
@@ -341,6 +340,42 @@ public class QnaBoardDao {
 			close(pstmt);
 		}
 		return totalCount;
+	}
+
+	//faq 상세보기
+	public FaqBoard selectOneFaqBoard(Connection conn, int no) {
+		FaqBoard faqBoard = null;
+		PreparedStatement pstmt = null;
+		ResultSet rset = null;
+		
+		String sql = prop.getProperty("selectOneFaqBoard");
+		//selectOneFaqBoard = select * from faq_board where no =?
+	try {
+		pstmt = conn.prepareStatement(sql);
+		pstmt.setInt(1, no);
+		rset = pstmt.executeQuery();
+		
+		if(rset.next()){
+			faqBoard = new FaqBoard();
+			faqBoard.setNo(rset.getInt("no"));
+			faqBoard.setTitle(rset.getString("title"));
+			faqBoard.setWriter(rset.getString("writer"));
+			faqBoard.setContent(rset.getString("content"));
+			faqBoard.setCategory(rset.getString("category_a"));
+			faqBoard.setRegDate(rset.getDate("reg_date"));
+			 
+		 
+			
+		}
+	}catch(Exception e){
+		e.printStackTrace();
+	}finally{
+		close(rset);
+		close(pstmt);
+	}
+	return faqBoard;
+ 
+	 
 	}
 	 
 }
