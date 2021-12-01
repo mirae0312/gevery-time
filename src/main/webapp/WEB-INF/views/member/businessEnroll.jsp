@@ -13,7 +13,6 @@
 
 </head>
 
-<!-- join_form.html -->
 
 <body>
 
