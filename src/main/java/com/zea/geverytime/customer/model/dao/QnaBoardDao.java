@@ -440,7 +440,31 @@ public class QnaBoardDao {
 		}
 		return result;
 	}
-	 
+
+	//faq등록
+	public int insertFaqBoard(Connection conn, FaqBoard faqBoard) {
+		PreparedStatement pstmt = null;
+		String sql = prop.getProperty("insertFaqBoard");
+		int result = 0;
+		
+		//insertFaqBoard = insert into faq_board(no,title,content,category_a) values (seq_qna_board_no.nextval, ?,?,? )
+		try {
+			pstmt = conn.prepareStatement(sql);
+			pstmt.setString(1, faqBoard.getTitle());
+			pstmt.setString(2, faqBoard.getContent());
+			pstmt.setString(3, faqBoard.getCategory());
+			
+			result = pstmt.executeUpdate();
+		} catch (SQLException e) {
+			throw new CustomerBoardException("게시물 등록 오류",e);
+		} finally {
+			close(pstmt);
+		}
+		
+		return result;
+ 
+ 
+	}
 
 	 
 	 
