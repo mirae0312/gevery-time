@@ -336,13 +336,93 @@ public class InfoDao {
 				check = rset.getString(1);
 			}
 		} catch (SQLException e) {
-			e.printStackTrace();
+			throw new InfoBoardException("게시글 등록자 확인 실패!", e);
 		} finally {
 			close(rset);
 			close(pstmt);
 		}
 		
 		return check;
+	}
+
+	public Info selectOneView(Connection conn, String code) {
+		PreparedStatement pstmt = null;
+		String sql = prop.getProperty("selectOneView");
+		ResultSet rset = null;
+		Info info = null;
+		
+		try {
+			pstmt = conn.prepareStatement(sql);
+			
+			pstmt.setString(1, rset.getString("code"));			
+			
+			rset = pstmt.executeQuery();
+			if(rset.next()) {
+				info = new Info();
+				info.setCode(rset.getString("code"));
+				info.setMemberId(rset.getString("writer"));
+				info.setBusinessNo(rset.getString("business_no"));
+				info.setViewCount(rset.getInt("view_count"));
+				info.setHeadContent(rset.getString("head_content"));
+				info.setBodyContents(rset.getString("body_contents"));
+				info.setServiceContent(rset.getString("service_content"));
+				info.setSite(rset.getString("site"));
+				info.setStartHour(rset.getString("start_hour"));
+				info.setEndHour(rset.getString("end_hour"));
+				info.setStartLaunch(rset.getString("start_launch"));
+				info.setEndLaunch(rset.getString("end_launch"));
+				info.setStartDinner(rset.getString("start_dinner"));
+				info.setEndDinner(rset.getString("end_dinner"));
+				info.setHoliday(rset.getString("holiday"));
+				info.setRoadGuide(rset.getString("road_guide"));
+				info.setRegDate(rset.getDate("reg_date"));
+				info.setBusinessName(rset.getString("business_name"));
+				info.setBusinessAddress(rset.getString("business_address"));
+				info.setBusinessTel(rset.getString("business_tel"));
+				info.setLocation(rset.getString("location"));
+				
+				String attachCode = info.getCode();
+				if(attachCode != null && !attachCode.isEmpty()) {
+					List<Attachment> attachments = new ArrayList<>();
+					do {
+						Attachment attach = new Attachment();
+						attach.setNo(rset.getInt("no"));
+						attach.setCode(rset.getString("or_no"));
+						attach.setOriginalFilename(rset.getString("original_filename"));
+						attach.setRenamedFilename(rset.getString("renamed_filename"));
+						attach.setRegDate(rset.getDate("reg_date"));
+						attachments.add(attach);
+					}while(rset.next());
+					info.setAttachments(attachments);
+				}
+				
+			}
+		} catch (SQLException e) {
+			throw new InfoBoardException("게시글 가져오기 실패!", e);
+		} finally {
+			close(rset);
+			close(pstmt);
+		}
+		
+		return info;
+	}
+
+	public int updateReadCount(Connection conn, String code) {
+		PreparedStatement pstmt = null;
+		String sql = prop.getProperty("updateReadCount");
+		int result = 0;
+		
+		try {
+			pstmt = conn.prepareStatement(sql);
+			
+			pstmt.setString(1, code);
+		} catch (SQLException e) {
+			throw new InfoBoardException("조회수 카운트 실패!", e);
+		} finally {
+			close(pstmt);
+		}
+		
+		return result;
 	}
 
 }

@@ -50,6 +50,12 @@
 	</div>
 </div>
 <script>
+$(".info-wrap").click((e) => {
+	const $code = $(e.currentTarget).find('input').val();
+	console.log($code);
+	location.href=`<%= request.getContextPath() %>/info/view?code=\${$code}`;
+});
+
 const infoEnroll = () => {
 	location.href="<%= request.getContextPath() %>/info/Enroll";
 };

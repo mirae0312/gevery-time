@@ -41,6 +41,7 @@
 				<img src="<%= request.getContextPath() %>/upload/info/<%= info.getAttachments().get(0).getRenamedFilename() %>" alt="" />
 				<div class="recommend-count"><%= info.getRecommend() %></div>
 				<div class="view-count"><%= info.getViewCount() %></div>
+				<input type="hidden" name="code" value="<%= info.getCode() %>" />
 			</div>
 	<% } %>
 <% } %>
@@ -50,6 +51,12 @@
 	</div>
 </div>
 <script>
+$(".info-wrap").click((e) => {
+	const $code = $(e.currentTarget).find('input').val();
+	console.log($code);
+	location.href=`<%= request.getContextPath() %>/info/view?code=\${$code}`;
+});
+
 const infoEnroll = () => {
 	location.href="<%= request.getContextPath() %>/info/Enroll";
 };
