@@ -71,13 +71,13 @@ public class MemberDao {
 		pstmt = conn.prepareStatement(sql);
 		pstmt.setString(1,member.getMemberId());
 		pstmt.setString(2,member.getPassword());
-		pstmt.setString(4,member.getMemberName());
-		pstmt.setString(5,member.getEmail());
-		pstmt.setString(6,member.getPhone());
-		pstmt.setString(7,member.getAddress());
-		pstmt.setString(8,member.getMemberRole());
-		pstmt.setString(9,member.getMemberType());
-		pstmt.setDate(10,member.getBirthday());
+		pstmt.setString(3,member.getMemberName());
+		pstmt.setString(4,member.getEmail());
+		pstmt.setString(5,member.getPhone());
+		pstmt.setString(6,member.getAddress());
+		pstmt.setString(7,member.getMemberRole());
+		pstmt.setString(8,member.getMemberType());
+		pstmt.setDate(9,member.getBirthday());
 
 
 		//2. 실행 - executeUpdate

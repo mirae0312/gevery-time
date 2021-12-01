@@ -41,13 +41,13 @@ public Business selectOneMember(Connection conn, String memberId) {
 			business.setbusinessId(rset.getString("business_id"));
 			business.setPassword(rset.getString("password"));
 			business.setName(rset.getString("name"));
-			m.setEmail(rset.getString("email"));
-			member.setPhone(rset.getString("business_no"));
-			member.setAddress(rset.getString("business_name"));
-			member.setMemberRole(rset.getString("business_address"));
-			member.setMemberRole(rset.getString("business_tel"));
-			member.setMemberType(rset.getString("location"));
-			member.setBirthday(rset.getDate("business_type"));
+			business.setEmail(rset.getString("email"));
+			business.setPhone(rset.getString("business_no"));
+			business.setAddress(rset.getString("business_name"));
+			business.setMemberRole(rset.getString("business_address"));
+			business.setMemberRole(rset.getString("business_tel"));
+			business.setMemberType(rset.getString("location"));
+			business.setbusinesstype(rset.getDate("business_type"));
 		}
 		
 	} catch (SQLException e) {

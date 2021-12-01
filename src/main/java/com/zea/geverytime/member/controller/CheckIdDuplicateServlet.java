@@ -12,9 +12,6 @@ import javax.servlet.http.HttpServletResponse;
 import com.zea.geverytime.member.model.service.MemberService;
 import com.zea.geverytime.member.model.vo.Member;
 
-/**
- * Servlet implementation class MemberIdcheckDuplicateServlet
- */
 @WebServlet("/member/checkDuplicate")
 public class CheckIdDuplicateServlet extends HttpServlet {
 	private static final long serialVersionUID = 1L;
