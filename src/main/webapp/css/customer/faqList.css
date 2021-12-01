@@ -1,6 +1,7 @@
 @charset "UTF-8";
 h3{
    padding-left: 210px;
+
    }
  body{
     width: 1024px;
@@ -117,7 +118,25 @@ a {
 #inputBox{
    margin-top: 50px;
    margin-left: 850px;
-}     
+}   
+#search{
+        text-align: center;
+        margin-bottom: 10px;
+        font-family: 'Franklin Gothic Medium', 'Arial Narrow', Arial, sans-serif;
+        font-size: 16px;
+        margin-right:130px;
+        margin-top:30px;
+       
+        
+    }
+#radioSubmit{
+        margin-left: 30px;
+        border-style: none;
+        border-radius: 5px;
+        padding: 10px 9px;
+        font-size: 16px;
+        cursor:pointer;
+    }
 /*페이지바*/
 div#pageBar{margin-top:14px; text-align:center; font-size:19px; }
 div#pageBar span.cPage{color: gray; margin-right: 5px;}
