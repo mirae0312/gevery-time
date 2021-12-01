@@ -26,7 +26,6 @@ public class QnaBoardEnrollServlet extends HttpServlet {
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 	 try {
 		//사용자입력값
-		 request.setCharacterEncoding("utf-8");
 		String title = request.getParameter("title");
 		String writer = request.getParameter("writer");
 		String content = request.getParameter("content");

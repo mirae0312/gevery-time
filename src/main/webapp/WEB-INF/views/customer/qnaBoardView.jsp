@@ -13,9 +13,9 @@
 <div id="total">
        <div id="leftbox">
             <span>Q&A</span>
-            <br>
-            <span>FAQ</span>
-            <br>
+            <br><br>
+            <span><a href="<%= request.getContextPath() %>/customer/faqBoardList">FAQ</a></span>
+            <br><br>
             <span>신고내역</span>
         </div>
         <div class="board_list_wrap">
@@ -23,25 +23,25 @@
                 <caption>게시판 상세보기</caption>
                 <thead>
                     <tr>
-                        <th>제목</th>
+                        <th class="header">제목</th>
                         <th><%=qnaBoard.getTitle() %></th>
                     </tr>
                 </thead>
                 <tbody>
                     <tr>
-                        <th>작성자</th>
+                        <th class="header">작성자</th>
                         <th><%=qnaBoard.getWriter() %></th>
                     </tr>
                     <tr>
-                        <th>날짜</th>
+                        <th class="header">날짜</th>
                         <th><%= qnaBoard.getRegDate() %></th>
                     </tr>
                      <tr>
-                        <th>카테고리</th>
+                        <th class="header">분류</th>
                         <th><%= qnaBoard.getCategory() %></th>
                     </tr>
                     <tr id="content">
-                        <th>내용</th>
+                        <th class="header">내용</th>
                         <th><%=qnaBoard.getContent() %></th>
                     </tr>
                 </tbody>
