@@ -377,5 +377,46 @@ public class QnaBoardDao {
  
 	 
 	}
+
+	//search faq  //   
+	public List<FaqBoard> searchFaq(Connection conn, Map<String, Object> param) {
+		 PreparedStatement pstmt = null;
+		 String sql = prop.getProperty("searchFaq");  
+		 ResultSet rset = null;
+		 List<FaqBoard> list = new ArrayList<>();
+ 
+		 String searchKeyword = (String) param.get("searchKeyword");
+		 
+		 try {
+			pstmt = conn.prepareStatement(sql);
+			 pstmt.setString(1, searchKeyword);
+			rset = pstmt.executeQuery();
+			while(rset.next()) {
+				FaqBoard faqBoard = new FaqBoard();
+				faqBoard.setNo(rset.getInt("no"));
+				faqBoard.setTitle(rset.getString("title"));
+				faqBoard.setWriter(rset.getString("writer"));
+				faqBoard.setContent(rset.getString("content"));
+				faqBoard.setCategory(rset.getString("category_a"));
+				faqBoard.setRegDate(rset.getDate("reg_date"));
+				 
+				
+				list.add(faqBoard);
+			}
+			
+			 
+			 System.out.println("sql@dao = " + sql);
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}finally {
+			close(rset);
+			close(pstmt);
+		}
+		 
+		 return list;
+	  
+	}
+
+	 
 	 
 }

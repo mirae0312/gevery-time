@@ -5,6 +5,7 @@
     pageEncoding="UTF-8"%>
  <%@ include file="/WEB-INF/views/common/header.jsp" %>
   <link rel="stylesheet" href="<%=request.getContextPath()%>/css/customer/faqList.css" /> 
+ <%	List<FaqBoard> list = (List<FaqBoard>) request.getAttribute("list"); %>
  <section id="faqBoard-container">
  <div id="total">
         <h3>FAQ</h3>
@@ -14,7 +15,17 @@
             <span><a href="<%= request.getContextPath() %>/customer/faqBoardList">FAQ</a></span>
             <br>
             <span>신고내역</span>
-        </div>
+ </div>
+ <%String searchKeyword = request.getParameter("searchKeyword"); %><!-- 이번 요청의 searchKeyword -->
+ <div id="search" class="search">
+            <form action="<%=request.getContextPath()%>/customer/categoryFinder">
+                <input type="radio" name="searchKeyword" value="[회원가입관련]" <%= "[회원가입관련]".equals(searchKeyword) ? "checked" : "" %>> 회원가입관련
+                <input type="radio" name="searchKeyword" value="결제" <%= "결제".equals(searchKeyword) ? "checked" : "" %>> 결제
+                <input type="radio" name="searchKeyword" value="포인트" <%= "포인트".equals(searchKeyword) ? "checked" : "" %>> 포인트
+                <button type="submit">검색</button>
+            </form>
+    </div>
+ 
         <div class="board_list_wrap">
             <table class="board_list">
                 <caption>게시판 목록</caption>
@@ -27,7 +38,8 @@
                 </thead>
                 <tbody>
  <%
-	List<FaqBoard> list = (List<FaqBoard>) request.getAttribute("list");
+
+ 	
 	for(FaqBoard faqBoard : list){
 	 
 %>

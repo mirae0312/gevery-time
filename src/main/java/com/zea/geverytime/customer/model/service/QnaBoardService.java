@@ -148,6 +148,15 @@ public class QnaBoardService {
 		 
 	}
 
+	//serch faq
+	public List<FaqBoard> searchFaq(Map<String, Object> param) {
+			 Connection conn = getConnection();
+			 List<FaqBoard> list = qnaBoardDao.searchFaq(conn, param);
+			 close(conn);
+			 return list;
+			
+		 
+		}
  
 
 	}

@@ -185,7 +185,7 @@ values(
  delete from faq_board;
     
     
-    
+select * from faq_board where category_a  = '[회원가입관련]';
     
     
     
