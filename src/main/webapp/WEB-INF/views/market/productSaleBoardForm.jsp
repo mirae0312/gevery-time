@@ -7,8 +7,23 @@
 <meta charset="UTF-8">
 <title>매매글 작성</title>
 </head>
+ 
+  <script>
+  $(document).ready(function() {
+        $('#summernote').summernote({
+              height: 300,                 // 에디터 높이
+              minHeight: null,             // 최소 높이
+              maxHeight: null,             // 최대 높이
+              focus: true,                  // 에디터 로딩후 포커스를 맞출지 여부
+              lang: "ko-KR",                    // 한글 설정
+              placeholder: '예쁜말만 써요',    //placeholder 설정
+              disableResizeEditor: true
+        });
+    });
+ 
+ </script>
 <body>
-	<form action="<%= request.getContextPath() %>/product/boardEnroll" name="productEnrollFrm" method="POST">
+	<form action="<%= request.getContextPath() %>/product/boardEnroll" name="productEnrollFrm" enctype="multipart/form-data" method="POST">
 		<table>
 			<tr>
 				<th>제목</th>
@@ -16,7 +31,7 @@
 			</tr>
 			<tr>
 				<th>작성자</th>
-				<td><input type="text" name="author" id="author" /></td>
+				<td><input type="text" name="author" id="author" value="<%= loginMember.getMemberId() %>" readonly /></td>
 			</tr>
 			<tr>
 				<th>상품 가져오기</th>
@@ -33,7 +48,7 @@
 			<tr>
 				<th>상품번호</th>
 				<td>
-					<input type="text" name="pdtNo" id="pdtName" readonly/>
+					<input type="text" name="pdtNo" id="pdtNo" readonly/>
 				</td>
 			</tr>
 			<tr>
@@ -49,8 +64,22 @@
 				</td>
 			</tr>
 			<tr>
+				<th>섬네일 이미지 등록</th>
+				<td>
+					<input type="file" name="pdtThumbnail" id="pdtThumbnail" required/>
+				</td>
+			</tr>
+			<tr>
+				<th>사진 이미지 등록(최대 3장)</th>
+				<td>
+					<input type="file" name="pdtImage1"/><br />
+					<input type="file" name="pdtImage2"/><br />
+					<input type="file" name="pdtImage3"/>
+				</td>
+			</tr>
+			<tr>
 				<th>내용</th>
-				<td><textarea name="content" id="content" cols="30" rows="10"></textarea></td>		
+				<td><textarea name="summernote" id="summernote" class="summernote"></textarea></td>		
 			</tr>
 			<tr>
 				<th colspan="2">

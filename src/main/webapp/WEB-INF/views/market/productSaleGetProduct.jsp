@@ -4,7 +4,7 @@
     pageEncoding="UTF-8"%>
 <%
 	List<Product> list = (List<Product>) request.getAttribute("list");
-
+	String sellerId = (String) request.getAttribute("sellerId");
 %>
 <!DOCTYPE html>
 <html>
@@ -14,7 +14,7 @@
 <script src="<%= request.getContextPath() %>/js/jquery-3.6.0.js"></script>
 </head>
 <body>
-	<h1>[ ]님이 판매중인 상품 목록입니다.</h1> <!-- 추후 loginMember에서 ID 받아옵니다. -->
+	<h1>[<%= sellerId %> ]님이 판매중인 상품 목록입니다.</h1>
 	<br/>
 	<table>
 		<thead>

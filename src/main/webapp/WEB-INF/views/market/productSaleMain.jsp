@@ -5,7 +5,6 @@
 <%@ include file="/WEB-INF/views/common/header.jsp" %>	
 <%
 	List<ProductBoard> list = (List<ProductBoard>) request.getAttribute("list");
-
 %>
 <!DOCTYPE html>
 <html>
@@ -33,18 +32,19 @@
 </head>
 <body>
 	<div id="pdtDivOption">
-		<span>선택 분류만 보기</span>
+		<span>(추후개발)선택 분류만 보기</span>
 		<input type="button" value="div1" class="pdtDiv"/>
 		<input type="button" value="div2" class="pdtDiv"/>
 		<input type="button" value="div3" class="pdtDiv"/>
 	</div>
 
 	<div id="pdtSearchOption">
-		<label for="select1">판매중인 상품만 보기</label><input type="checkbox" name="" id="select1" />
+		<label for="select1">(추후개발)판매중인 상품만 보기</label><input type="checkbox" name="" id="select1" />
 	</div>
 	
+	<% if(loginMember != null && loginMember.getMemberType().equals("B")) { %>
 	<button id="pdtBoardEnroll">등록하기</button>
-
+	<% } %>
 	
 	<div id="pdtList">
 		<table id="pdtTable">
@@ -125,7 +125,6 @@
 		$(()=>{
 			selectContent(1);
 		});
-
 		$(".pageBar").click((e)=>{
 			selectContent($(e.target).data('page'));
 		})
@@ -141,15 +140,17 @@
 					$("#pdtTable tbody").empty();
 					
 					//List부분
-					$(data.list).each((i, e)=>{
-						
+					$(data.list).each((i, e)=>{						
 						let day = new Date(e.regDate);
 	                    let value = `\${day.getFullYear()}-\${f(day.getMonth() + 1)}-\${f(day.getDate())}`;
+	                    
+	                    let imgSrc = e.attachments[0].renamedFilename;
+	                    console.log('이미지소스', imgSrc);
 						
 						console.log(e.product.pdtNo);
 						const tr = `			<tr>
 		 					<td>\${e.boardNo}</td>
-		 					<td>섬네일 예정</td>
+		 					<td><img src="<%= request.getContextPath() %>/upload/market/productSale/\${imgSrc}" style="width:150px"/></td>
 							<td>\${e.product.state}</td>
 							<td>\${e.product.pdtDiv}</td>
 							<td><a href="<%= request.getContextPath() %>/product/boardView?no=\${e.boardNo}">\${e.title}</a></td>
