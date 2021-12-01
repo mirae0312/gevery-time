@@ -9,7 +9,7 @@
  <div id="total">
         <h3>Q&A</h3>
  <div id="leftbox">
-            <span>Q&A</span>
+            <span><a href="<%= request.getContextPath() %>/customer/qnaBoardList">Q&A</a></span>
             <br><br>
             <span><a href="<%= request.getContextPath() %>/customer/faqBoardList">FAQ</a></span>
             <br><br>
