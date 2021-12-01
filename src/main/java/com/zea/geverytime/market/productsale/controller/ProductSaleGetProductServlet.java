@@ -34,6 +34,7 @@ public class ProductSaleGetProductServlet extends HttpServlet {
 		
 		// 저장 및 전달
 		request.setAttribute("list", list);
+		request.setAttribute("sellerId", sellerId);
 		request.getRequestDispatcher("/WEB-INF/views/market/productSaleGetProduct.jsp").forward(request, response);
 	}
 

@@ -24,17 +24,12 @@ public class ProductSaleBoardView extends HttpServlet {
 	
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		int no = Integer.parseInt(request.getParameter("no"));
-		System.out.println("psbView@no : "+no);
 		
 		// 게시글 번호 통해서 board 정보 가져오기(첨부파일 포함)
 		ProductBoard board = pdtService.getProductSaleBoard(no);
-		System.out.println("board : "+board);
 		
 		// 댓글 가져오기
 		List<Map<String, Object>> questions = pdtService.getProductSaleBoardQuestion(no);
-		System.out.println("boardView@questions : "+questions);
-		
-		System.out.println("boardView Attachment : "+board.getAttachments());
 		
 		// set
 		request.setAttribute("questions", questions);

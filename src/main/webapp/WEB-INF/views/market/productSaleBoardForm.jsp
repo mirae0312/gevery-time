@@ -31,7 +31,7 @@
 			</tr>
 			<tr>
 				<th>작성자</th>
-				<td><input type="text" name="author" id="author" /></td>
+				<td><input type="text" name="author" id="author" value="<%= loginMember.getMemberId() %>" readonly /></td>
 			</tr>
 			<tr>
 				<th>상품 가져오기</th>

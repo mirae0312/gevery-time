@@ -43,8 +43,9 @@
 		<label for="select1">판매중인 상품만 보기</label><input type="checkbox" name="" id="select1" />
 	</div>
 	
+	<% if(loginMember != null && loginMember.getMemberType().equals("B")) { %>
 	<button id="pdtBoardEnroll">등록하기</button>
-
+	<% } %>
 	
 	<div id="pdtList">
 		<table id="pdtTable">
@@ -141,18 +142,17 @@
 					$("#pdtTable tbody").empty();
 					
 					//List부분
-					$(data.list).each((i, e)=>{
-						console.log(e.attachments[0]);
-						
+					$(data.list).each((i, e)=>{						
 						let day = new Date(e.regDate);
 	                    let value = `\${day.getFullYear()}-\${f(day.getMonth() + 1)}-\${f(day.getDate())}`;
 	                    
-	                    let imgSrc = e.attachments[0];
+	                    let imgSrc = e.attachments[0].renamedFilename;
+	                    console.log('이미지소스', imgSrc);
 						
 						console.log(e.product.pdtNo);
 						const tr = `			<tr>
 		 					<td>\${e.boardNo}</td>
-		 					<td><img src="<%= request.getContextPath() %>/upload/market/productSale/\${imgSrc}"/></td>
+		 					<td><img src="<%= request.getContextPath() %>/upload/market/productSale/\${imgSrc}" style="width:150px"/></td>
 							<td>\${e.product.state}</td>
 							<td>\${e.product.pdtDiv}</td>
 							<td><a href="<%= request.getContextPath() %>/product/boardView?no=\${e.boardNo}">\${e.title}</a></td>

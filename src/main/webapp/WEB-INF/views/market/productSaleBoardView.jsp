@@ -134,7 +134,9 @@ $(() => {
 				<th>제목</th>
 				<th>내용</th>
 				<th>작성자</th>
+				<% if(loginMember != null && loginMember.getMemberId().equals(board.getSellerId())) { %>
 				<th>답변하기</th>
+				<% } %>
 			</tr>
 		<%
 			int listNum = 1;
@@ -150,8 +152,11 @@ $(() => {
 				<td>
 					<form action="<%= request.getContextPath() %>/product/qaDelete" method="POST">
 						<input type="hidden" name="delCommentNo" value="<%= question.get("no") %>" />	
-						<input type="hidden" name="delCommentBoardNo" value="<%= board.getBoardNo() %>" />				
+						<input type="hidden" name="delCommentBoardNo" value="<%= board.getBoardNo() %>" />	
+						<!-- 작성자만 삭제버튼 노출되도록 함 -->
+						<% if(loginMember != null && loginMember.getMemberId().equals(question.get("writer"))) { %>			
 						<input type="submit" value="삭제하기" />
+						<% } %>
 					</form>
 				</td>
 					
@@ -183,20 +188,25 @@ $(() => {
 					listNum++;
 					if(checkNum == 0){
 		%>
+		
+		<!-- 로그인 유저가 작성자인 경우에만 답글 작성 가능하도록 함 -->
+		<% if(loginMember != null && loginMember.getMemberId().equals(board.getSellerId())) { %>
 				<td><input type="button" value="답글달기" class="reply"/></td>
 			</tr>
 			<tr class="replyTr" style="display:none;">
 				<th>답글달기</th>
 				<td colspan=2>
 					<form action="<%= request.getContextPath() %>/product/answerEnroll" method="POST">
-						<label for="awriter">작성자</label><input type="text" name="awriter"/><br />
-						<label for="acontent">내용</label><input type="text" name="acontent"/><br />
+						<input type="hidden" name="awriter" value="<%= loginMember.getMemberId() %>" readonly /><br />
+						<label for="acontent">내용</label><input type="text" name="acontent"/>
 						<input type="hidden" name="boardNo" value="<%= board.getBoardNo() %>" />
 						<input type="hidden" name="commentNo" value="<%= (int)question.get("no") %>"/>
 						<input type="submit" value="등록" />
 					</form>
 				</td>
 			</tr>
+		<% } %>
+					
 		<%	
 					}
 				}
@@ -206,9 +216,9 @@ $(() => {
 				<th>입력하기</th>
 				<td colspan=2>
 					<form action="<%= request.getContextPath() %>/product/questionEnroll" method="POST">
-						<label for="writer">작성자</label><input type="text" name="writer"/><br />
+						<input type="hidden" name="writer" value="<%= loginMember != null ? loginMember.getMemberId() : "" %>" readonly/><br />
 						<label for="qtitle">제목</label><input type="text" name="qtitle"/>
-						<label for="qcontent">내용</label><input type="text" name="qcontent"/><br />
+						<label for="qcontent">내용</label><input type="text" name="qcontent"/>
 						<input type="hidden" name="boardNo" value="<%= board.getBoardNo() %>" />
 						<input type="submit" value="등록" />
 					</form>

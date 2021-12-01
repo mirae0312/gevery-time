@@ -35,6 +35,10 @@
 						</select>
 					</td>
 				</tr>
+				<!-- 멤버ID를 hidden처리해서 같이 전송 -->
+				<tr>
+					<td><input type="hidden" name="sellerId" value="<%= loginMember.getMemberId() %>" /></td>
+				</tr>
 			</tbody>
 		</table>
 		<br />

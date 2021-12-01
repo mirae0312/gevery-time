@@ -21,8 +21,8 @@ public class ProductSaleOnsaleProductServlet extends HttpServlet {
 	private ProductSaleService pdtService = new ProductSaleService();
 	
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		// 판매자 id 받아오기 >> 로그인 기능 구현되면 session에서 받아올 것
-		String sellerId = "tarr4h";
+		
+		String sellerId = request.getParameter("sellerId");
 		String state = "%%";
 		System.out.println(sellerId);
 	

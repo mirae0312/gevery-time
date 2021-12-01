@@ -5,6 +5,7 @@
 <%@ include file="/WEB-INF/views/common/header.jsp" %>	
 <%
 	List<Product> list = (List<Product>) request.getAttribute("list");
+	String MemberId = (String) loginMember.getMemberId();
 %>
 <!DOCTYPE html>
 <html>
@@ -13,7 +14,7 @@
 <title>Insert title here</title>
 </head>
 <body>
-	<h1>판매중인 상품 목록</h1>
+	<h1><%= MemberId %>님의 판매중인 상품 목록</h1>
 	<button id="pdtEnroll">상품 등록하기</button>
 	
 	<table>
