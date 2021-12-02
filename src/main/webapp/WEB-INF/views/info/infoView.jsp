@@ -162,6 +162,7 @@
 	<div class="info-review-wrapper">
 <% if(ir != null && !ir.isEmpty()){ %>
 	<% for(InfoReview re : ir){ %>
+		<% if(re.getHeadContent() != null){ %>
 		<div class="info-review">
 			<form action="" class="review" method="POST">
 				<input type="hidden" value="<%= re.getrCode() %>" />
@@ -172,6 +173,7 @@
 				<input type="button" class="reivew-report" />
 			</form>
 		</div>
+		<% } %>
 	<% } %>
 <% } %>
 		<form action="<%= request.getContextPath() %>/info/insertReview"
