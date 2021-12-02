@@ -83,4 +83,10 @@ select * from attachment;
 select * from attachment where or_no = 'bb1b-649';
 
 select b.*, (select count(*) from attachment where or_no = b.or_code) attach_count from board b;
-select * from (select row_number() over(order by no desc)  rnum, b.*,(select count(*) from attachment where or_no = b.or_code) attach_count,(select count(*) from board_comment where board_no = b.no) comment_count from board b where REGEXP_LIKE(or_code,'bb1b|bb2b')) where rnum between 1 and 10;
+select * from (select row_number() over(order by no desc)  rnum, b.*,(select count(*) from attachment where or_no = b.or_code) attach_count,(select count(*) from board_comment where board_no = b.no) comment_count from board b where REGEXP_LIKE(or_code,'bb1b|bb2b')) where rnum between ? and ?;
+update board   set title = 'asdf', content = 'asdf' where no = 200;
+
+delete from board where no = 201;
+commit;
+
+select * from board where no = (select seq_board_no.currval from dual);

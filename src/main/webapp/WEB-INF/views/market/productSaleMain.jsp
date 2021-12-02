@@ -22,16 +22,29 @@
 		margin : 10px
 	}
 	#pdtTable{
-		width : 500px;
+		width : 1000px;
 		border : 1px solid black;
 		border-collapse : collapse;
 	}
-	#pdtTable tr, td, th{
+	#pdtTable tr{
 		border : 1px solid black;
+		height : 50px;
+	}
+	#pdtTable th{
+		border : 1px solid black;
+		height : 50px;
+	}
+	#pdtTable td{
+		border : 1px solid black;
+		height : 50px;
+	}
+	.thumbnailImg{
+		width:100px;
 	}
 </style>
 </head>
 <body>
+<<<<<<< HEAD
 	<div id="pdtDivOption">
 		<span>선택 분류만 보기</span>
 		<input type="button" value="div1" class="pdtDiv"/>
@@ -39,22 +52,47 @@
 		<input type="button" value="div3" class="pdtDiv"/>
 	</div>
 
+=======
+>>>>>>> branch 'master' of https://github.com/wkrud/semi_geverytime.git
 	<div id="pdtSearchOption">
+<<<<<<< HEAD
 		<label for="select1">판매중인 상품만 보기</label><input type="checkbox" name="" id="select1" />
+=======
+		<span>선택 분류만 보기</span>
+		<select name="" id="divSelect">
+			<option value="%%" selected>선택하기</option>
+			<option value="div1">대분류1</option>
+			<option value="div2">대분류2</option>
+			<option value="div3">대분류3</option>
+		</select>
+		<br />
+		<label for="selectOnSale">판매중인 상품만 보기</label><input type="checkbox" name="" id="selectOnSale" />
+		<br />
+		<button onclick="selectContent(1);">조회하기</button>
+>>>>>>> branch 'master' of https://github.com/wkrud/semi_geverytime.git
 	</div>
 	
+	<% if(loginMember != null && loginMember.getMemberType().equals("B")) { %>
 	<button id="pdtBoardEnroll">등록하기</button>
+<<<<<<< HEAD
 
+=======
+	<% } %>
+>>>>>>> branch 'master' of https://github.com/wkrud/semi_geverytime.git
 	
 	<div id="pdtList">
 		<table id="pdtTable">
 			<thead>
 				<tr>
-					<th>no</th>
+					<th colspan=8><span id="sumContent"></span></th>
+				</tr>
+				<tr>
+					<th>상품번호</th>
 					<th>섬네일</th>
 					<th>상태</th>
 					<th>분류</th>
 					<th>제목</th>
+					<th>가격</th>
 					<th>판매자</th>
 					<th>게시일</th>
 				</tr>
@@ -64,6 +102,7 @@
 		</table>
 	</div>
 	
+<<<<<<< HEAD
 <<<<<<< HEAD
 	<!-- 페이지바 -->
 	<div class="pageBar"></div>
@@ -98,10 +137,12 @@
 				success(data){
                     $(data).each((index, {boardNo, title, regDate, sellerId, product}) => {                        
 =======
+=======
+	<!-- 페이지바 -->
+	<div class="pageBar"></div>
+	
+>>>>>>> branch 'master' of https://github.com/wkrud/semi_geverytime.git
 	<script>
-	const f = function(n){
-	    return n<10 ? `0\${n}`:n;
-	}
 		// 상품 등록하기
 		$("#pdtEnroll").click((e) => {
 			console.log("click");
@@ -113,48 +154,67 @@
 			location.href="<%= request.getContextPath() %>/product/boardForm";
 		});
 		
-		// 리스트 비우기
-		$("#empty").click((e) => {
-			$("#pdtTable tbody").empty();			
+		// 날짜 format 함수
+		const f = n => n < 10 ? "0" + n : n;
+	
+		// pageBar 기능
+		$(() => {
+			selectContent(1);
 		});
+		$(".pageBar").click((e)=>{
+			selectContent($(e.target).data('page'));
+		})
 		
-		$(".pdtDiv").click((e) => {
-			$("#pdtTable tbody").empty();	
-			console.log($(e.target).val());
+		const selectContent = (cPage) => {
+			console.log($("#divSelect").val());
+			console.log($("#selectOnSale").prop("checked"));
+			
+			const selectedDiv = $("#divSelect").val();
+			const selectedOnSale = $("#selectOnSale").prop("checked");
+			
 			$.ajax({
-				url: "<%= request.getContextPath() %>/product/getSelectDivList",
-				data: {
-					div: $(e.target).val()
+				url:"<%=request.getContextPath()%>/product/productList",
+				dataType:"json",
+				data:{
+					cPage,
+					selectedDiv,
+					selectedOnSale
 				},
 				success(data){
-					$(data).each((index, {boardNo, title, regDate, sellerId, product}) => {
+					$("#pdtTable tbody").empty();
+					console.log(data.totalContent);
+					$("#sumContent").html('조회된 게시물 수 : '+ data.totalContent);
+					
+					//List부분
+					$(data.list).each((i, e)=>{						
+						let day = new Date(e.regDate);
+	                    let value = `\${day.getFullYear()}-\${f(day.getMonth() + 1)}-\${f(day.getDate())}`;
+	                    
+	                    let imgSrc = e.attachments[0].renamedFilename;
 						
-						console.log(boardNo);
-						console.log(product.state);
-						
-						const d = new Date(regDate);
-						const date = `\${d.getFullYear()}-\${f(d.getMonth())}-\${f(d.getDate())}`
-						const tr = `
-							<tr>
-								<td>\${boardNo}</th>
-								<td>섬네일 예정</td>
-								<td>\${product.state}</td>
-								<td>\${product.pdtDiv}</td>
-								<td>\${title}</td>
-								<td>\${sellerId}</td>
-								<td>\${date}</td>
-							</tr>
-						`;
+						const tr = `			<tr>
+		 					<td>\${e.boardNo}</td>
+		 					<td class="thumbnailImg"><img src="<%= request.getContextPath() %>/upload/market/productSale/\${imgSrc}" style="width:100px; height:50px;"/></td>
+							<td>\${e.product.state}</td>
+							<td>\${e.product.pdtDiv}</td>
+							<td><a href="<%= request.getContextPath() %>/product/boardView?no=\${e.boardNo}">\${e.title}</a></td>
+							<td>\${e.product.pdtPrice}원</td>
+							<td>\${e.sellerId}</td>
+							<td>\${value}</td>
+						</tr>`
 						$("#pdtTable tbody").append(tr);
-					})
+						
+					});
+					
+					//pagebar부분
+					$(".pageBar").empty();
+					$(".pageBar").append(data.pagebar);
 				},
-				error: console.log
-			});
-			
-		});
-		
-		
+				error:console.log
+			});	
+		};	
 	</script>
+<<<<<<< HEAD
 	<script>
         // 상품 등록하기
         $("#pdtEnroll").click((e) => {
@@ -254,6 +314,8 @@
 			});	
 		};	
 	</script>
+=======
+>>>>>>> branch 'master' of https://github.com/wkrud/semi_geverytime.git
 </body>
 </html>
 <%@ include file="/WEB-INF/views/common/footer.jsp" %> 

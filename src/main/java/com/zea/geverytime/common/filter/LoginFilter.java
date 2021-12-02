@@ -18,7 +18,7 @@ import com.zea.geverytime.member.model.vo.Member;
 /**
  * Servlet Filter implementation class LoginFilter
  */
-@WebFilter(urlPatterns = {"/member/memberlogin", "/board/boardForm","/board/boardCommentEnroll"})
+@WebFilter(urlPatterns = {"/member/memberlogin", "/board/boardForm","/board/boardCommentEnroll","/board/boardCommentEnroll"})
 public class LoginFilter implements Filter {
 
     /**

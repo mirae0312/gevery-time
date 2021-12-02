@@ -54,7 +54,8 @@ public class QnaBoardUpdateServlet extends HttpServlet {
 		
 		//리다이렉트
 		request.getSession().setAttribute("msg", msg);
-		String location = request.getContextPath() + "/customer/qnaBoardList";
+		//String location = request.getContextPath() + "/customer/qnaBoardList";
+		String location = request.getContextPath() + "/customer/qnaBoardView?no=" + qnaBoard.getNo();
 		response.sendRedirect(location);
 		
 		

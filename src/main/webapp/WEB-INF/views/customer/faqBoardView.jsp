@@ -29,7 +29,7 @@
                 </thead>
                 <tbody>
                      <tr>
-                        <th>카테고리</th>
+                        <th>분류</th>
                         <th><%= faqBoard.getCategory() %></th>
                     </tr>
                     <tr id="content">
@@ -40,9 +40,9 @@
             </table>
         </div>
         <div class="button">
-        <input type="button" value="목록" onclick="showFaqBoardList()"/>
-        <input type="button" value="수정" onclick="updateFaqBoard()"/>
-        <input type="button" value="삭제" onclick="deleteFaqBoard()"/>
+        <input type="button" class="button" value="목록" onclick="showFaqBoardList()"/>
+       <!-- <input type="button" value="수정" onclick="updateFaqBoard()"/> --> 
+        <input type="button" class="button" value="삭제" onclick="deleteFaqBoard()"/>
         
         </div>
  </div>

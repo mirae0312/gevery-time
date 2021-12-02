@@ -8,7 +8,6 @@
 	
 	Member loginMember = (Member) session.getAttribute("loginMember");
 	
-	
 %>
  
 <!DOCTYPE html>
@@ -40,17 +39,17 @@
                	<% } %>
                </ul>
                
-            <nav>
+             <nav>
                <ul class="navs">
 				<%if(loginMember == null){ %>
-               <li class="nav" id="login" name="login"><a href="<%=request.getContextPath()%>/member/login">로그인</a></li>
+               <li class="nav" id="login" ><a href="<%=request.getContextPath()%>/member/login">로그인</a></li>
               	<% } %>
                <% if(loginMember != null){ %>
                <li class="nav"><%= loginMember.getMemberName() %>님</li>
                <li class="nav" id="logout"><a href="<%= request.getContextPath() %>/member/logout">로그아웃</a></li>
-               <li class="nav" id="mypage"><a href="#">마이페이지</a></li>	              
+               <li class="nav" id="mypage"><a href="<%= request.getContextPath() %>/myPage/myPageMain">마이페이지</a></li>	              
                <%} %>
-               <li class="nav" id="dm"><a href="#">DM</a></li>
+               <li class="nav" id="dm"><a href="<%= request.getContextPath() %>/chat/chatroom">DM</a></li>
 
                <li class="nav"id="qna"><a href="<%= request.getContextPath() %>/customer/qnaBoardList">고객센터</a></li>
                </ul>
@@ -80,6 +79,9 @@
 	                <li class="market-pagenav" id="used"><a href="#">중고 매매</a></li>
 	                <li class="market-pagenav" id="list"><a href="#">찜 목록</a></li>
 	                <li class="market-pagenav" id="cart"><a href="#">장바구니</a></li>
+	                <% if(loginMember != null && loginMember.getMemberType().equals("B")) { %>
+	                <li class="market-pagenav" id="product"><a href="<%= request.getContextPath() %>/product/onsaleProduct?sellerId=<%= loginMember.getMemberId() %>">상품 관리</a></li>
+	                <% } %>
 	            </ul>
 	        </div>
         </div>

@@ -85,7 +85,7 @@ public class InfoDao {
 	public List<Info> selectAllList(String board, Connection conn, int start, int end) {
 		PreparedStatement pstmt = null;
 		String sql = "";
-		System.out.println("[Dao] board : " + board);
+//		System.out.println("[InfoDao] board : " + board);
 		switch(board) {
 		case "info": 
 			sql = prop.getProperty("selectAllList");
@@ -220,16 +220,14 @@ public class InfoDao {
 			pstmt.setString(4, info.getBodyContents());
 			pstmt.setString(5, info.getServiceContent());
 			pstmt.setString(6, info.getSite());
-			pstmt.setString(7, info.getMon());
-			pstmt.setString(8, info.getTue());
-			pstmt.setString(9, info.getWed());
-			pstmt.setString(10, info.getThu());
-			pstmt.setString(11, info.getFri());
-			pstmt.setString(12, info.getSat());
-			pstmt.setString(13, info.getSun());
-			pstmt.setString(14, info.getLaunch());
-			pstmt.setString(15, info.getDinner());
-			pstmt.setString(16, info.getHoliday());
+			pstmt.setString(7, info.getStartHour());
+			pstmt.setString(8, info.getEndHour());
+			pstmt.setString(9, info.getStartLaunch());
+			pstmt.setString(10, info.getEndLaunch());
+			pstmt.setString(11, info.getStartDinner());
+			pstmt.setString(12, info.getEndDinner());
+			pstmt.setString(13, info.getHoliday());
+			pstmt.setString(14, info.getRoadGuide());
 			
 			result = pstmt.executeUpdate();
 
@@ -305,6 +303,7 @@ public class InfoDao {
 			if(rset.next()) {
 				info = new Info();
 				info.setMemberId(rset.getString("business_id"));
+				info.setBusinessNo(rset.getString("business_no"));
 				info.setBusinessName(rset.getString("business_name"));
 				info.setBusinessAddress(rset.getString("business_address"));
 				info.setBusinessTel(rset.getString("business_tel"));
@@ -337,13 +336,93 @@ public class InfoDao {
 				check = rset.getString(1);
 			}
 		} catch (SQLException e) {
-			e.printStackTrace();
+			throw new InfoBoardException("게시글 등록자 확인 실패!", e);
 		} finally {
 			close(rset);
 			close(pstmt);
 		}
 		
 		return check;
+	}
+
+	public Info selectOneView(Connection conn, String code) {
+		PreparedStatement pstmt = null;
+		String sql = prop.getProperty("selectOneView");
+		ResultSet rset = null;
+		Info info = null;
+		
+		try {
+			pstmt = conn.prepareStatement(sql);
+			
+			pstmt.setString(1, code);			
+			
+			rset = pstmt.executeQuery();
+			if(rset.next()) {
+				info = new Info();
+				info.setCode(rset.getString("code"));
+				info.setMemberId(rset.getString("writer"));
+				info.setBusinessNo(rset.getString("business_no"));
+				info.setViewCount(rset.getInt("view_count"));
+				info.setHeadContent(rset.getString("head_content"));
+				info.setBodyContents(rset.getString("body_contents"));
+				info.setServiceContent(rset.getString("service_content"));
+				info.setSite(rset.getString("site"));
+				info.setStartHour(rset.getString("start_hour"));
+				info.setEndHour(rset.getString("end_hour"));
+				info.setStartLaunch(rset.getString("start_launch"));
+				info.setEndLaunch(rset.getString("end_launch"));
+				info.setStartDinner(rset.getString("start_dinner"));
+				info.setEndDinner(rset.getString("end_dinner"));
+				info.setHoliday(rset.getString("holiday"));
+				info.setRoadGuide(rset.getString("road_guide"));
+				info.setRegDate(rset.getDate("reg_date"));
+				info.setBusinessName(rset.getString("business_name"));
+				info.setBusinessAddress(rset.getString("business_address"));
+				info.setBusinessTel(rset.getString("business_tel"));
+				info.setLocation(rset.getString("location"));
+				
+				String attachCode = info.getCode();
+				if(attachCode != null && !attachCode.isEmpty()) {
+					List<Attachment> attachments = new ArrayList<>();
+					do {
+						Attachment attach = new Attachment();
+						attach.setNo(rset.getInt("no"));
+						attach.setCode(rset.getString("or_no"));
+						attach.setOriginalFilename(rset.getString("original_filename"));
+						attach.setRenamedFilename(rset.getString("renamed_filename"));
+						attach.setRegDate(rset.getDate("reg_date"));
+						attachments.add(attach);
+					}while(rset.next());
+					info.setAttachments(attachments);
+				}
+				
+			}
+		} catch (SQLException e) {
+			throw new InfoBoardException("게시글 가져오기 실패!", e);
+		} finally {
+			close(rset);
+			close(pstmt);
+		}
+		
+		return info;
+	}
+
+	public int updateReadCount(Connection conn, String code) {
+		PreparedStatement pstmt = null;
+		String sql = prop.getProperty("updateReadCount");
+		int result = 0;
+		
+		try {
+			pstmt = conn.prepareStatement(sql);
+			
+			pstmt.setString(1, code);
+		} catch (SQLException e) {
+			throw new InfoBoardException("조회수 카운트 실패!", e);
+		} finally {
+			close(pstmt);
+		}
+		
+		return result;
 	}
 
 }
