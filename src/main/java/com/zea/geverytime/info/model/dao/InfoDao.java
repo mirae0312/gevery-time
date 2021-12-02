@@ -808,7 +808,7 @@ public class InfoDao {
 				re.setCode(rset.getString("code"));
 				re.setMemberId(rset.getString("member_id"));
 				re.setRecommend(rset.getString("recommend"));
-				re.setHeadContent(rset.getString("haed_content"));
+				re.setHeadContent(rset.getString("head_content"));
 				re.setContent(rset.getString("content"));
 				re.setRegDate(rset.getDate("reg_date"));
 				ir.add(re);
