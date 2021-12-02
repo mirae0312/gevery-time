@@ -177,7 +177,7 @@
 		<form action="<%= request.getContextPath() %>/info/insertReview"
 			id="reviewEnrollFrm"
 			method="post" enctype="multipart/form-data">
-			<div id="writeReview"></div><br />
+			<textarea name="writeReview" id="writeReview" cols="30" rows="10"></textarea>
 <% if(loginMember != null && MemberService.USER_ROLE.equals(loginMember.getMemberRole())){ %>
 			<button>등록</button>
 <% } %>
