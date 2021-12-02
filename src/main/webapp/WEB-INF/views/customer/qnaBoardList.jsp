@@ -9,7 +9,7 @@
  <div id="total">
         <h3>Q&A</h3>
  <div id="leftbox">
-            <span>Q&A</span>
+            <span><a href="<%= request.getContextPath() %>/customer/qnaBoardList">Q&A</a></span>
             <br><br>
             <span><a href="<%= request.getContextPath() %>/customer/faqBoardList">FAQ</a></span>
             <br><br>
@@ -56,7 +56,7 @@
                         <td><%= qnaBoard.getNo() %></td>
                         <td style="font-size:12px;color:red"><%= qnaBoard.getCategory() %></td>
                         <td class="tit" colspan="5">
-                          <a href="<%= request.getContextPath() %>/customer/qnaBoardView?no=<%= qnaBoard.getNo() %>">ㄴ>RE: <%= qnaBoard.getTitle() %></a>
+                          <a href="<%= request.getContextPath() %>/customer/qnaBoardView?no=<%= qnaBoard.getNo() %>">↳RE: <%= qnaBoard.getTitle() %></a>
                           
                         </td>
                         <td><%= qnaBoard.getWriter() %></td>

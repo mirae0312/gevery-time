@@ -14,7 +14,7 @@
             <br><br>
             <span><a href="<%= request.getContextPath() %>/customer/faqBoardList">FAQ</a></span>
             <br><br>
-            <span>신고내역</span>
+            <span><a href="<%= request.getContextPath() %>/customer/reportBoardList">신고내역</a></span>
  </div>
  <%String searchKeyword = request.getParameter("searchKeyword"); %><!-- 이번 요청의 searchKeyword -->
  <div id="search" class="search">
