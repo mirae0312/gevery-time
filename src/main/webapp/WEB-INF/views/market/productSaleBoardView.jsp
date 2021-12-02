@@ -81,6 +81,9 @@ $(() => {
 			</tr>
 		</thead>
 		<tbody>
+		
+		<!-- 수정하기 / 삭제하기 : 작성자 로그인 시에만 보여짐 -->
+		<% if(loginMember != null && loginMember.getMemberId().equals(board.getSellerId())) { %>
 			<tr>
 				<td><input type="button" value="수정하기" id="boardEdit" onclick="updateBoard();"/></td>
 				<td>
@@ -91,6 +94,7 @@ $(() => {
 					
 				</td>
 			</tr>
+		<% } %>
 			<tr>
 				<th>섬네일</th>
 				<td><img src="<%= request.getContextPath() %>/upload/market/productSale/<%= thumbnailImg %>" style="width:300px;"></td>
