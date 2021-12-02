@@ -15,7 +15,11 @@ import java.util.Properties;
 
 import com.zea.geverytime.common.model.vo.Attachment;
 import com.zea.geverytime.info.model.exception.InfoBoardException;
+import com.zea.geverytime.info.model.vo.CafeRestaurant;
+import com.zea.geverytime.info.model.vo.Hospital;
 import com.zea.geverytime.info.model.vo.Info;
+import com.zea.geverytime.info.model.vo.Pension;
+import com.zea.geverytime.info.model.vo.Salon;
 
 public class InfoDao {
 	
@@ -218,16 +222,15 @@ public class InfoDao {
 			pstmt.setString(2, info.getBusinessNo());
 			pstmt.setString(3, info.getHeadContent());
 			pstmt.setString(4, info.getBodyContents());
-			pstmt.setString(5, info.getServiceContent());
-			pstmt.setString(6, info.getSite());
-			pstmt.setString(7, info.getStartHour());
-			pstmt.setString(8, info.getEndHour());
-			pstmt.setString(9, info.getStartLaunch());
-			pstmt.setString(10, info.getEndLaunch());
-			pstmt.setString(11, info.getStartDinner());
-			pstmt.setString(12, info.getEndDinner());
-			pstmt.setString(13, info.getHoliday());
-			pstmt.setString(14, info.getRoadGuide());
+			pstmt.setString(5, info.getSite());
+			pstmt.setString(6, info.getStartHour());
+			pstmt.setString(7, info.getEndHour());
+			pstmt.setString(8, info.getStartLaunch());
+			pstmt.setString(9, info.getEndLaunch());
+			pstmt.setString(10, info.getStartDinner());
+			pstmt.setString(11, info.getEndDinner());
+			pstmt.setString(12, info.getHoliday());
+			pstmt.setString(13, info.getRoadGuide());
 			
 			result = pstmt.executeUpdate();
 
@@ -418,6 +421,107 @@ public class InfoDao {
 			pstmt.setString(1, code);
 		} catch (SQLException e) {
 			throw new InfoBoardException("조회수 카운트 실패!", e);
+		} finally {
+			close(pstmt);
+		}
+		
+		return result;
+	}
+
+	public int insertHospitalService(Connection conn, Hospital hospital) {
+		PreparedStatement pstmt = null;
+		String sql = prop.getProperty("insertHospitalService");
+		int result = 0;
+		
+		try {
+			pstmt = conn.prepareStatement(sql);
+			
+			pstmt.setString(1, hospital.getCode());
+			pstmt.setString(2, hospital.getService());
+			
+		} catch (SQLException e) {
+			throw new InfoBoardException("병원 진료과목 저장 실패!", e);
+		} finally {
+			close(pstmt);
+		}
+		
+		return result;
+	}
+
+	public int insertCafeRestaurantService(Connection conn, CafeRestaurant cr) {
+		PreparedStatement pstmt = null;
+		String sql = prop.getProperty("insertCafeRestaurantService");
+		int result = 0;
+		
+		try {
+			pstmt = conn.prepareStatement(sql);
+			
+			pstmt.setString(1, cr.getCode());
+			pstmt.setString(2, cr.getService());
+			pstmt.setString(3, cr.getPrice());
+			
+		} catch (SQLException e) {
+			throw new InfoBoardException("가격표 저장 실패!", e);
+		} finally {
+			close(pstmt);
+		}
+		
+		return result;
+	}
+
+	public int insertPensionService(Connection conn, Pension pension) {
+		PreparedStatement pstmt = null;
+		String sql = prop.getProperty("insertPensionService");
+		int result = 0;
+		
+		try {
+			pstmt = conn.prepareStatement(sql);
+			
+			pstmt.setString(1, pension.getCode());
+			pstmt.setString(2, pension.getRoom());
+			pstmt.setString(3, pension.getPrice1());
+			pstmt.setString(4, pension.getPrice2());
+			pstmt.setString(5, pension.getPrice3());
+			pstmt.setString(6, pension.getPrice4());
+			pstmt.setString(7, pension.getPrice5());
+			pstmt.setString(8, pension.getPrice6());
+			
+		} catch (SQLException e) {
+			throw new InfoBoardException("가격표(펜션) 저장 실패!", e);
+		} finally {
+			close(pstmt);
+		}
+		
+		return result;
+	}
+
+	public int insertSalonService(Connection conn, Salon salon) {
+		PreparedStatement pstmt = null;
+		String sql = prop.getProperty("insertSalonService");
+		int result = 0;
+		
+		try {
+			pstmt = conn.prepareStatement(sql);
+			
+			pstmt.setString(1, salon.getCode());
+			pstmt.setString(2, salon.getSmallBath());
+			pstmt.setString(3, salon.getMiddleBath());
+			pstmt.setString(4, salon.getSpecialBath());
+			pstmt.setString(5, salon.getSmallBathAnd());
+			pstmt.setString(6, salon.getMiddleBathAnd());
+			pstmt.setString(7, salon.getSpecialBathAnd());
+			pstmt.setString(8, salon.getSmallMachine());
+			pstmt.setString(9, salon.getMiddleMachine());
+			pstmt.setString(10, salon.getSpecialMachine());
+			pstmt.setString(11, salon.getSmallSpotting());
+			pstmt.setString(12, salon.getMiddleSpotting());
+			pstmt.setString(13, salon.getSpecialSpotting());
+			pstmt.setString(14, salon.getSmallScissors());
+			pstmt.setString(15, salon.getMiddleScissors());
+			pstmt.setString(16, salon.getSpecialScissors());
+			
+		} catch (SQLException e) {
+			throw new InfoBoardException("가격표(미용실) 저장 실패!", e);
 		} finally {
 			close(pstmt);
 		}

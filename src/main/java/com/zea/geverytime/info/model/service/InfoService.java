@@ -8,7 +8,11 @@ import java.util.List;
 
 import com.zea.geverytime.common.model.vo.Attachment;
 import com.zea.geverytime.info.model.dao.InfoDao;
+import com.zea.geverytime.info.model.vo.CafeRestaurant;
+import com.zea.geverytime.info.model.vo.Hospital;
 import com.zea.geverytime.info.model.vo.Info;
+import com.zea.geverytime.info.model.vo.Pension;
+import com.zea.geverytime.info.model.vo.Salon;
 
 public class InfoService {
 	
@@ -70,6 +74,38 @@ public class InfoService {
 			result = infoDao.insertInfo(conn, info);
 			String code = infoDao.selectCode(conn, info);
 			info.setCode(code);
+			
+			List<Hospital> hospitals = info.getHospitals();
+			if(hospitals != null && !hospitals.isEmpty()) {
+				for(Hospital hospital : hospitals) {
+					hospital.setCode(code);
+					result = infoDao.insertHospitalService(conn, hospital);
+				}
+			}
+			
+			List<CafeRestaurant> crs = info.getCafeRestaurants();
+			if(crs != null && !crs.isEmpty()) {
+				for(CafeRestaurant cr : crs) {
+					cr.setCode(code);
+					result = infoDao.insertCafeRestaurantService(conn, cr);
+				}
+			}
+			
+			List<Pension> pensions = info.getPensions();
+			if(pensions != null && !pensions.isEmpty()) {
+				for(Pension pension : pensions) {
+					pension.setCode(code);
+					result = infoDao.insertPensionService(conn, pension);
+				}
+			}
+			
+			List<Salon> salons = info.getSalons();
+			if(salons != null && !salons.isEmpty()) {
+				for(Salon salon : salons) {
+					salon.setCode(code);
+					result = infoDao.insertSalonService(conn, salon);
+				}
+			}
 			
 			List<Attachment> attachments = info.getAttachments();
 			if(attachments != null && !attachments.isEmpty()) {

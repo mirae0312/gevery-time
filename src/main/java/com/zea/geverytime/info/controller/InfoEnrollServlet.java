@@ -19,7 +19,10 @@ import com.zea.geverytime.common.MvcFileRenamePolicy;
 import com.zea.geverytime.common.MvcUtils;
 import com.zea.geverytime.common.model.vo.Attachment;
 import com.zea.geverytime.info.model.service.InfoService;
+import com.zea.geverytime.info.model.vo.CafeRestaurant;
+import com.zea.geverytime.info.model.vo.Hospital;
 import com.zea.geverytime.info.model.vo.Info;
+import com.zea.geverytime.info.model.vo.Pension;
 import com.zea.geverytime.info.model.vo.Salon;
 import com.zea.geverytime.member.model.vo.Member;
 
@@ -155,16 +158,17 @@ public class InfoEnrollServlet extends HttpServlet {
 				String service6 = multipartRequest.getParameter("hservice6");
 				String service7 = multipartRequest.getParameter("hservice7");
 				
-				String[] services = {service1, ",", service2, ",", service3, ",", service4, ",",
-						service5, ",", service6, ",", service7};
-				StringBuilder service = new StringBuilder();
+				String[] services = {service1, service2, service3, service4,
+						service5, service6, service7};
+				Hospital h = new Hospital();
+				List<Hospital> list = new ArrayList<>();
 				for(int i = 0; i < services.length; i++) {
 					if(services[i] != null && !services[i].isEmpty()) {
-						service.append(services[i]);
+						h.setService(services[i]);
+						list.add(h);
 					}
 				}
-				String serv = service.toString();
-				info.setServiceContent(serv);
+				info.setHospitals(list);
 			}
 			// 카페2 음식점3 / :
 			if("2".equals(no) || "3".equals(no)) {
@@ -187,15 +191,17 @@ public class InfoEnrollServlet extends HttpServlet {
 									service5, service6, service7};
 				String[] prices = {price1, price2, price3, price4, price5,
 									price6, price7};
-				StringBuilder service = new StringBuilder();
-				
+				CafeRestaurant cr = new CafeRestaurant();
+				List<CafeRestaurant> list = new ArrayList<>();
 				for(int i = 0; i < services.length; i++) {
 					if(services[i] != null && !services[i].isEmpty()) {
-						service.append(services[i] + ":" + prices[i] + "/");
+						cr.setService(services[i]);
+						cr.setPrice(prices[i]);
+						list.add(cr);
 					}
 				}
-				String serv = service.toString();
-				info.setServiceContent(serv);
+				info.setCafeRestaurants(list);
+				
 			}
 			
 			// 펜션 4 - : ,
@@ -221,17 +227,29 @@ public class InfoEnrollServlet extends HttpServlet {
 				String price34 = multipartRequest.getParameter("price34");
 				String price35 = multipartRequest.getParameter("price35");
 				String price36 = multipartRequest.getParameter("price36");
-				String[] services = {room1, ":", price11, ",", price12, ",", price13, ",", price14, ",", price15, ",", price16,
-									"-", room2, ":", price21, ",", price22, ",", price23, ",", price24, ",", price25, ",", price26,
-									"-", room3, ":", price31, ",", price32, ",", price33, ",", price34, ",", price35, ",", price36};
-				StringBuilder service = new StringBuilder();
-				for(int i = 0; i < services.length; i++) {
-					if(services[i] != null && !services[i].isEmpty()) {
-						service.append(services[i]);
-					}
-				}
-				String serv = service.toString();
-				info.setServiceContent(serv);
+				
+				Pension pension1 = new Pension(0, null, room1, price11, price12, price13, price14, price15, price16);
+				Pension pension2 = new Pension(0, null, room2, price21, price22, price23, price24, price25, price26);
+				Pension pension3 = new Pension(0, null, room3, price31, price32, price33, price34, price35, price36);
+				
+				List<Pension> pensions = new ArrayList<>();
+				pensions.add(pension1);
+				pensions.add(pension2);
+				pensions.add(pension3);
+				
+				info.setPensions(pensions);
+				
+//				String[] services = {room1, ":", price11, ",", price12, ",", price13, ",", price14, ",", price15, ",", price16,
+//									"-", room2, ":", price21, ",", price22, ",", price23, ",", price24, ",", price25, ",", price26,
+//									"-", room3, ":", price31, ",", price32, ",", price33, ",", price34, ",", price35, ",", price36};
+//				StringBuilder service = new StringBuilder();
+//				for(int i = 0; i < services.length; i++) {
+//					if(services[i] != null && !services[i].isEmpty()) {
+//						service.append(services[i]);
+//					}
+//				}
+//				String serv = service.toString();
+//				info.setServiceContent(serv);
 			}
 			
 			// 미용실 5 - ,
@@ -288,6 +306,7 @@ public class InfoEnrollServlet extends HttpServlet {
 				listS.add(salon1);
 				listS.add(salon2);
 				listS.add(salon3);
+				info.setSalons(listS);
 				
 				
 				
