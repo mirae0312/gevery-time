@@ -232,5 +232,22 @@ public class InfoService {
 		return result;
 	}
 
+	public int updateInfoLike(String code, String memberId) {
+		Connection conn = null;
+		int result = 0;
+		try {
+			conn = getConnection();
+			result = infoDao.updateInfoLike(conn, code, memberId);
+			if(result > 0)
+				commit(conn);
+		}catch(Exception e) {
+			rollback(conn);
+			throw e;
+		}finally {
+			close(conn);
+		}
+		return result;
+	}
+
 
 }

@@ -22,6 +22,7 @@
 			<img class="list-thumbnail" src="<%= request.getContextPath() %>/upload/info/<%= popInfo.getAttachments().get(0).getRenamedFilename() %>" alt="" />
 			<div class="recommend-count"><%= popInfo.getRecommend() %></div>
 			<div class="view-count"><%= popInfo.getViewCount() %></div>		
+			<input type="hidden" name="code" value="<%= popInfo.getCode() %>" />
 		</div>
 	<% } %>
 <% } %>
@@ -41,6 +42,7 @@
 				<img class="list-thumbnail" src="<%= request.getContextPath() %>/upload/info/<%= info.getAttachments().get(0).getRenamedFilename() %>" alt="" />
 				<div class="recommend-count"><%= info.getRecommend() %></div>
 				<div class="view-count"><%= info.getViewCount() %></div>
+				<input type="hidden" name="code" value="<%= info.getCode() %>" />
 			</div>
 	<% } %>
 <% } %>

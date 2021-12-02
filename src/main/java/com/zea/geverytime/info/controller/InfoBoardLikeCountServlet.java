@@ -8,6 +8,7 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
+import com.google.gson.Gson;
 import com.zea.geverytime.info.model.service.InfoService;
 import com.zea.geverytime.info.model.vo.InfoReview;
 
@@ -32,6 +33,8 @@ public class InfoBoardLikeCountServlet extends HttpServlet {
 			int no = infoService.checkInfoLike(code, memberId);
 			if("0".equals(no)) {
 				int result = infoService.insertInfoLike(codeN, code, memberId);
+			}else {
+				int result = infoService.updateInfoLike(code, memberId);
 			}
 		} catch(Exception e) {
 			e.printStackTrace();

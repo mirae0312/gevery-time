@@ -170,6 +170,13 @@
 		}
 		if($("#info-like").is(":checked") == false){
 			console.log("체크 안됨");
+			$.ajax({
+				url: "<%= request.getContextPath() %>/info/likeCount?code=<%= info.getCode() %>&memberId=<%= loginMember.getMemberId() %>",
+				success(data){
+					console.log(data);
+				},
+				error: console.log
+			});
 		}			
 	});
 	

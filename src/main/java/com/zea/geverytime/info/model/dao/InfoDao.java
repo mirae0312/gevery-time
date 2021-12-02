@@ -727,9 +727,37 @@ public class InfoDao {
 		try {
 			pstmt = conn.prepareStatement(sql);
 			
+			pstmt.setString(1, code);
+			pstmt.setString(2, memberId);
+			
+			result = pstmt.executeUpdate();
 			
 		} catch (SQLException e) {
-			e.printStackTrace();
+			throw new InfoBoardException("좋아요 등록 실패!", e);
+		}finally {
+			close(pstmt);
+		}
+		
+		return result;
+	}
+
+	public int updateInfoLike(Connection conn, String code, String memberId) {
+		PreparedStatement pstmt = null;
+		String sql = prop.getProperty("updateInfoLike");
+		int result = 0;
+		
+		try {
+			pstmt = conn.prepareStatement(sql);
+			
+			pstmt.setString(1, code);
+			pstmt.setString(2, memberId);
+			
+			result = pstmt.executeUpdate();
+			
+		} catch (SQLException e) {
+			throw new InfoBoardException("좋아요 업데이트 실패!", e);
+		}finally {
+			close(pstmt);
 		}
 		
 		return result;
