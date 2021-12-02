@@ -8,9 +8,11 @@ import javax.servlet.http.Cookie;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
 
 import com.zea.geverytime.info.model.service.InfoService;
 import com.zea.geverytime.info.model.vo.Info;
+import com.zea.geverytime.member.model.vo.Member;
 
 /**
  * Servlet implementation class InfoBoardViewServlet
@@ -26,8 +28,10 @@ public class InfoBoardViewServlet extends HttpServlet {
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		
 		try {
+									
 			// 조회용 코드
 			String code = (String) request.getParameter("code");
+			String codeN = code.substring(2, 3);
 			
 			// 조회수를 위한 쿠키 생성
 			Cookie[] cookies = request.getCookies();
@@ -59,14 +63,26 @@ public class InfoBoardViewServlet extends HttpServlet {
 			}
 			
 			// 게시물 가져오기
-			Info info = infoService.selectOneView(code);
+			Info info = infoService.selectOneView(code, codeN);
 			System.out.println("[infoBoardViewServlet] info : " + info);
 			
+			HttpSession session = request.getSession();
+			Member loginMember = (Member) session.getAttribute("loginMember");
+			String memberId = "";
+			String recommend = "";
+			if(loginMember != null) {
+				memberId = loginMember.getMemberId();
+				recommend = infoService.checkInfoRecommend(code, memberId);
+			}
+			
+			
 			// view단 처리
+			request.setAttribute("recommend", recommend);
+			request.setAttribute("codeN", codeN);
 			request.setAttribute("info", info);
 			request
-			.getRequestDispatcher("/WEB-INF/views/info/infoView.jsp")
-			.forward(request, response);
+				.getRequestDispatcher("/WEB-INF/views/info/infoView.jsp")
+				.forward(request, response);
 			
 		} catch(Exception e) {
 			e.printStackTrace();

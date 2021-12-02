@@ -21,7 +21,19 @@
 
 .info-wrap{
 	width: 600px;
-	height: 150px;
+	height: 200px;
 	border: 1px solid black;
 	cursor: pointer;
+}
+.head-content{
+	float: right;
+}
+.list-thumbnail{
+	width: 150px;
+	height: 150px;
+	object-fit: cover;
+}
+.recommend-count{
+}
+.view-count{
 }

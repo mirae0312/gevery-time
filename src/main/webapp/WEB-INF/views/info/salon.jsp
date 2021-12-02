@@ -10,18 +10,19 @@
 <%@ include file="/WEB-INF/views/common/header.jsp" %>	
 <link rel="stylesheet" href="<%=request.getContextPath() %>/css/info.css" />
 <div class="info-wrapper">
-<%-- if(loginMember != null && "B".equals(loginMember.memberType())) --%>
-	<button id="info-write" onclick="infoEnroll()">게시글 작성</button>
-<%-- } --%>
+<% if(loginMember != null && MemberService.BUSINESS_TYPE.equals(loginMember.getMemberType())){ %>
+	<button class="info-write-btn" onclick="infoEnroll()">게시글 작성</button>
+<% } %>
 	<div class="pop-contents">
 <% if(popList != null && !popList.isEmpty()){ %>
 	<% for(Info popInfo : popList){ %>
 		<div class="info-wrap">
 			<div class="business-name"><%= popInfo.getBusinessName() %></div>
 			<div class="head-content"><%= popInfo.getHeadContent() %></div>
-			<img src="<%= request.getContextPath() %>/upload/info/<%= popInfo.getAttachments().get(0).getRenamedFilename() %>" alt="" />
+			<img class="list-thumbnail" src="<%= request.getContextPath() %>/upload/info/<%= popInfo.getAttachments().get(0).getRenamedFilename() %>" alt="" />
 			<div class="recommend-count"><%= popInfo.getRecommend() %></div>
 			<div class="view-count"><%= popInfo.getViewCount() %></div>		
+			<input type="hidden" name="code" value="<%= popInfo.getCode() %>" />
 		</div>
 	<% } %>
 <% } %>
@@ -38,9 +39,10 @@
 			<div class="info-wrap">
 				<div class="business-name"><%= info.getBusinessName() %></div>
 				<div class="head-content"><%= info.getHeadContent() %></div>
-				<img src="<%= request.getContextPath() %>/upload/info/<%= info.getAttachments().get(0).getRenamedFilename() %>" alt="" />
+				<img class="list-thumbnail" src="<%= request.getContextPath() %>/upload/info/<%= info.getAttachments().get(0).getRenamedFilename() %>" alt="" />
 				<div class="recommend-count"><%= info.getRecommend() %></div>
 				<div class="view-count"><%= info.getViewCount() %></div>
+				<input type="hidden" name="code" value="<%= info.getCode() %>" />
 			</div>
 	<% } %>
 <% } %>

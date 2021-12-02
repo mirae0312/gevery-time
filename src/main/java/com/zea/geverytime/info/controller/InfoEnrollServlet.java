@@ -19,7 +19,12 @@ import com.zea.geverytime.common.MvcFileRenamePolicy;
 import com.zea.geverytime.common.MvcUtils;
 import com.zea.geverytime.common.model.vo.Attachment;
 import com.zea.geverytime.info.model.service.InfoService;
+import com.zea.geverytime.info.model.vo.CafeRestaurant;
+import com.zea.geverytime.info.model.vo.Hospital;
 import com.zea.geverytime.info.model.vo.Info;
+import com.zea.geverytime.info.model.vo.Pension;
+import com.zea.geverytime.info.model.vo.Salon;
+import com.zea.geverytime.member.model.vo.Member;
 
 /**
  * Servlet implementation class InfoEnrollServlet
@@ -34,8 +39,10 @@ public class InfoEnrollServlet extends HttpServlet {
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		try {
-//			String memberId = loginMember.getMemberId();
-			String memberId = "businessGirl";
+			HttpSession session = request.getSession();
+			Member loginMember = (Member) session.getAttribute("loginMember");
+			String memberId = loginMember.getMemberId();
+
 			boolean bool = true;
 			
 			// 글을 작성한적 있는지 확인 (개인 사업자는 사업체 한개인 것을 이용)
@@ -47,13 +54,14 @@ public class InfoEnrollServlet extends HttpServlet {
 				Info info = infoService.selectBeforeWrite(memberId);
 				System.out.println("[infoEnollServlet] info : " + info);
 				
+				
 				// 게시물 등록jsp로 이동
 				request.setAttribute("info", info);
 				request
 					.getRequestDispatcher("/WEB-INF/views/info/infoEnroll.jsp")
 					.forward(request, response);
 			} else {
-				HttpSession session = request.getSession();
+				
 				session.setAttribute("msg", "이미 등록하여 수정만 가능합니다.");
 				String location = request.getContextPath() + "/";
 				response.sendRedirect(location);
@@ -150,16 +158,17 @@ public class InfoEnrollServlet extends HttpServlet {
 				String service6 = multipartRequest.getParameter("hservice6");
 				String service7 = multipartRequest.getParameter("hservice7");
 				
-				String[] services = {service1, ",", service2, ",", service3, ",", service4, ",",
-						service5, ",", service6, ",", service7};
-				StringBuilder service = new StringBuilder();
+				String[] services = {service1, service2, service3, service4,
+						service5, service6, service7};
+				Hospital h = new Hospital();
+				List<Hospital> list = new ArrayList<>();
 				for(int i = 0; i < services.length; i++) {
 					if(services[i] != null && !services[i].isEmpty()) {
-						service.append(services[i]);
+						h.setService(services[i]);
+						list.add(h);
 					}
 				}
-				String serv = service.toString();
-				info.setServiceContent(serv);
+				info.setHospitals(list);
 			}
 			// 카페2 음식점3 / :
 			if("2".equals(no) || "3".equals(no)) {
@@ -182,15 +191,17 @@ public class InfoEnrollServlet extends HttpServlet {
 									service5, service6, service7};
 				String[] prices = {price1, price2, price3, price4, price5,
 									price6, price7};
-				StringBuilder service = new StringBuilder();
-				
+				CafeRestaurant cr = new CafeRestaurant();
+				List<CafeRestaurant> list = new ArrayList<>();
 				for(int i = 0; i < services.length; i++) {
 					if(services[i] != null && !services[i].isEmpty()) {
-						service.append(services[i] + ":" + prices[i] + "/");
+						cr.setService(services[i]);
+						cr.setPrice(prices[i]);
+						list.add(cr);
 					}
 				}
-				String serv = service.toString();
-				info.setServiceContent(serv);
+				info.setCafeRestaurants(list);
+				
 			}
 			
 			// 펜션 4 - : ,
@@ -216,17 +227,29 @@ public class InfoEnrollServlet extends HttpServlet {
 				String price34 = multipartRequest.getParameter("price34");
 				String price35 = multipartRequest.getParameter("price35");
 				String price36 = multipartRequest.getParameter("price36");
-				String[] services = {room1, ":", price11, ",", price12, ",", price13, ",", price14, ",", price15, ",", price16,
-									"-", room2, ":", price21, ",", price22, ",", price23, ",", price24, ",", price25, ",", price26,
-									"-", room3, ":", price31, ",", price32, ",", price33, ",", price34, ",", price35, ",", price36};
-				StringBuilder service = new StringBuilder();
-				for(int i = 0; i < services.length; i++) {
-					if(services[i] != null && !services[i].isEmpty()) {
-						service.append(services[i]);
-					}
-				}
-				String serv = service.toString();
-				info.setServiceContent(serv);
+				
+				Pension pension1 = new Pension(0, null, room1, price11, price12, price13, price14, price15, price16);
+				Pension pension2 = new Pension(0, null, room2, price21, price22, price23, price24, price25, price26);
+				Pension pension3 = new Pension(0, null, room3, price31, price32, price33, price34, price35, price36);
+				
+				List<Pension> pensions = new ArrayList<>();
+				pensions.add(pension1);
+				pensions.add(pension2);
+				pensions.add(pension3);
+				
+				info.setPensions(pensions);
+				
+//				String[] services = {room1, ":", price11, ",", price12, ",", price13, ",", price14, ",", price15, ",", price16,
+//									"-", room2, ":", price21, ",", price22, ",", price23, ",", price24, ",", price25, ",", price26,
+//									"-", room3, ":", price31, ",", price32, ",", price33, ",", price34, ",", price35, ",", price36};
+//				StringBuilder service = new StringBuilder();
+//				for(int i = 0; i < services.length; i++) {
+//					if(services[i] != null && !services[i].isEmpty()) {
+//						service.append(services[i]);
+//					}
+//				}
+//				String serv = service.toString();
+//				info.setServiceContent(serv);
 			}
 			
 			// 미용실 5 - ,
@@ -276,25 +299,35 @@ public class InfoEnrollServlet extends HttpServlet {
 				String smallScissors3 = multipartRequest.getParameter("smallScissors3");
 				String middleScissors3 = multipartRequest.getParameter("middleScissors3");
 				String specialScissors3 = multipartRequest.getParameter("specialScissors3");
+				Salon salon1 = new Salon(0, null, smallBath1, middleBath1, specialBath1, smallBathAnd1, middleBathAnd1, specialBathAnd1, smallMachine1, middleMachine1, specialMachine1, smallSpotting1, middleSpotting1, specialSpotting1, smallScissors1, middleScissors1, specialScissors1);
+				Salon salon2 = new Salon(0, null, smallBath2, middleBath2, specialBath2, smallBathAnd2, middleBathAnd2, specialBathAnd2, smallMachine2, middleMachine2, specialMachine2, smallSpotting2, middleSpotting2, specialSpotting2, smallScissors2, middleScissors2, specialScissors2);
+				Salon salon3 = new Salon(0, null, smallBath3, middleBath3, specialBath3, smallBathAnd3, middleBathAnd3, specialBathAnd3, smallMachine3, middleMachine3, specialMachine3, smallSpotting3, middleSpotting3, specialSpotting3, smallScissors3, middleScissors3, specialScissors3);
+				List<Salon> listS = new ArrayList<>();
+				listS.add(salon1);
+				listS.add(salon2);
+				listS.add(salon3);
+				info.setSalons(listS);
 				
-				String[] services = {smallBath1, ",", middleBath1, ",", specialBath1, ",", smallBathAnd1, ",", middleBathAnd1, ",", specialBathAnd1, 
-						smallMachine1, ",", middleMachine1, ",", specialMachine1, ",",  smallSpotting1, ",", middleSpotting1, ",", specialSpotting1, ",",
-						smallScissors1, ",", middleScissors1, ",", specialScissors1, "-",
-						smallBath2, ",", middleBath2, ",", specialBath2, ",", smallBathAnd2, ",", middleBathAnd2, ",", specialBathAnd2, 
-						smallMachine2, ",", middleMachine2, ",", specialMachine2, ",",  smallSpotting2, ",", middleSpotting2, ",", specialSpotting2, ",",
-						smallScissors2, ",", middleScissors2, ",", specialScissors2, "-",
-						smallBath3, ",", middleBath3, ",", specialBath3, ",", smallBathAnd3, ",", middleBathAnd3, ",", specialBathAnd3,
-						smallMachine3, ",", middleMachine3, ",", specialMachine3, ",",  smallSpotting3, ",", middleSpotting3, ",", specialSpotting3, ",",
-						smallScissors3, ",", middleScissors3, ",", specialScissors3};
 				
-				StringBuilder service = new StringBuilder();
-				for(int i = 0; i < services.length; i++) {
-					if(services[i] != null && !services[i].isEmpty()) {
-						service.append(services[i]);
-					}
-				}
-				String serv = service.toString();
-				info.setServiceContent(serv);
+				
+//				String[] services = {smallBath1, ",", middleBath1, ",", specialBath1, ",", smallBathAnd1, ",", middleBathAnd1, ",", specialBathAnd1, 
+//						smallMachine1, ",", middleMachine1, ",", specialMachine1, ",",  smallSpotting1, ",", middleSpotting1, ",", specialSpotting1, ",",
+//						smallScissors1, ",", middleScissors1, ",", specialScissors1, "-",
+//						smallBath2, ",", middleBath2, ",", specialBath2, ",", smallBathAnd2, ",", middleBathAnd2, ",", specialBathAnd2, 
+//						smallMachine2, ",", middleMachine2, ",", specialMachine2, ",",  smallSpotting2, ",", middleSpotting2, ",", specialSpotting2, ",",
+//						smallScissors2, ",", middleScissors2, ",", specialScissors2, "-",
+//						smallBath3, ",", middleBath3, ",", specialBath3, ",", smallBathAnd3, ",", middleBathAnd3, ",", specialBathAnd3,
+//						smallMachine3, ",", middleMachine3, ",", specialMachine3, ",",  smallSpotting3, ",", middleSpotting3, ",", specialSpotting3, ",",
+//						smallScissors3, ",", middleScissors3, ",", specialScissors3};
+//				
+//				StringBuilder service = new StringBuilder();
+//				for(int i = 0; i < services.length; i++) {
+//					if(services[i] != null && !services[i].isEmpty()) {
+//						service.append(services[i]);
+//					}
+//				}
+//				String serv = service.toString();
+//				info.setServiceContent(serv);
 			}
 			
 	
