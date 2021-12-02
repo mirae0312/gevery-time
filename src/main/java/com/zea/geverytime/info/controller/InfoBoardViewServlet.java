@@ -62,7 +62,6 @@ public class InfoBoardViewServlet extends HttpServlet {
 			Info info = infoService.selectOneView(code);
 			System.out.println("[infoBoardViewServlet] info : " + info);
 			
-			String no = info.getCode();
 			
 			// view단 처리
 			request.setAttribute("info", info);
