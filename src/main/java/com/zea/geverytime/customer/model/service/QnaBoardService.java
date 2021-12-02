@@ -121,7 +121,6 @@ public class QnaBoardService {
 		}
 		return result;
 	}
-
 	//faq게시판 전체 조회
 	public List<FaqBoard> selectAllFaqBoard(Map<String, Integer> param) {
 		Connection conn = getConnection();
@@ -149,15 +148,65 @@ public class QnaBoardService {
 	}
 
 	//serch faq
-	public List<FaqBoard> searchFaq(Map<String, Object> param) {
+	public List<FaqBoard> searchFaq(Map<String, Object> paramS) {
 			 Connection conn = getConnection();
-			 List<FaqBoard> list = qnaBoardDao.searchFaq(conn, param);
+			 List<FaqBoard> listS = qnaBoardDao.searchFaq(conn, paramS);
 			 close(conn);
-			 return list;
+			 return listS;
 			
 		 
 		}
- 
+
+	//faq 삭제 
+	public int deleteFaqBoard(int no) {
+		Connection conn = null;
+		int result = 0;
+		try {
+			conn = getConnection();
+			result = qnaBoardDao.deleteFaqBoard(conn, no);
+			commit(conn);
+		} catch (Exception e) {
+			rollback(conn);
+			throw e;
+		} finally {
+			close(conn);
+		}
+		return result;
+	}
+
+	//faq 등록
+	public int insertFaqBoard(FaqBoard faqBoard) {
+		Connection conn = null;
+		int result = 0;
+		try {
+		conn = getConnection();
+		result = qnaBoardDao.insertFaqBoard(conn, faqBoard);
+		commit(conn);
+		}catch(Exception e) {
+			rollback(conn);
+			throw e;
+		}finally {
+			close(conn);
+		}
+		return result;
+	}
+
+	//원글 상태 변경
+//	public int changeParent(int parentNo) {
+//		Connection conn = null;
+//		int result = 0;
+//		try {
+//		conn = getConnection();
+//		result = qnaBoardDao.changeParent(conn, parentNo);
+//		commit(conn);
+//		}catch(Exception e) {
+//			rollback(conn);
+//			throw e;
+//		}finally {
+//			close(conn);
+//		}
+//		return result;
+//	}
 
 	}
  

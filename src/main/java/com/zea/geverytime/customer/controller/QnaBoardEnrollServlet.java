@@ -26,7 +26,6 @@ public class QnaBoardEnrollServlet extends HttpServlet {
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 	 try {
 		//사용자입력값
-		 request.setCharacterEncoding("utf-8");
 		String title = request.getParameter("title");
 		String writer = request.getParameter("writer");
 		String content = request.getParameter("content");
@@ -44,9 +43,10 @@ public class QnaBoardEnrollServlet extends HttpServlet {
 	//redirect
 		HttpSession session = request.getSession();
 		session.setAttribute("msg", msg);
-		//session.setAttribute("qnaBoard", qnaBoard);
-		//String location = request.getContextPath()+"/customer/qnaBoardView?no=" + qnaBoard.getNo();
-		String location = request.getContextPath()+"/customer/qnaBoardList";
+		session.setAttribute("qnaBoard", qnaBoard);
+		//String location = request.getContextPath() + "/customer/qnaBoardView?no=" + qnaBoard.getNo();
+		 String location = request.getContextPath()+"/customer/qnaBoardList";
+		 
 		response.sendRedirect(location);
 		
 	 }catch(Exception e) {
