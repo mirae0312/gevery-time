@@ -18,6 +18,7 @@ import com.zea.geverytime.info.model.exception.InfoBoardException;
 import com.zea.geverytime.info.model.vo.CafeRestaurant;
 import com.zea.geverytime.info.model.vo.Hospital;
 import com.zea.geverytime.info.model.vo.Info;
+import com.zea.geverytime.info.model.vo.InfoReview;
 import com.zea.geverytime.info.model.vo.Pension;
 import com.zea.geverytime.info.model.vo.Salon;
 
@@ -787,6 +788,40 @@ public class InfoDao {
 		}
 		
 		return recommend;
+	}
+
+	public List<InfoReview> selectAllReview(Connection conn, String code) {
+		PreparedStatement pstmt = null;
+		String sql = prop.getProperty("selectAllReview");
+		ResultSet rset = null;
+		List<InfoReview> ir = new ArrayList<>();
+		
+		try {
+			pstmt = conn.prepareStatement(sql);
+			
+			pstmt.setString(1, code);
+			
+			rset = pstmt.executeQuery();
+			while(rset.next()) {
+				InfoReview re = new InfoReview();
+				re.setNo(rset.getInt("no"));
+				re.setrCode(rset.getString("r_code"));
+				re.setCode(rset.getString("code"));
+				re.setMemberId(rset.getString("member_id"));
+				re.setRecommend(rset.getString("recommend"));
+				re.setHeadContent(rset.getString("head_content"));
+				re.setContent(rset.getString("content"));
+				re.setRegDate(rset.getDate("reg_date"));
+				ir.add(re);
+			}
+		} catch (SQLException e) {
+			throw new InfoBoardException("리뷰 가져오기 실패!", e);
+		}finally {
+			close(rset);
+			close(pstmt);
+		}
+		
+		return ir;
 	}
 
 }

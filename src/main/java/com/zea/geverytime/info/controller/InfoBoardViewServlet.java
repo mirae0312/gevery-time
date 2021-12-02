@@ -1,6 +1,7 @@
 package com.zea.geverytime.info.controller;
 
 import java.io.IOException;
+import java.util.List;
 
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
@@ -12,6 +13,7 @@ import javax.servlet.http.HttpSession;
 
 import com.zea.geverytime.info.model.service.InfoService;
 import com.zea.geverytime.info.model.vo.Info;
+import com.zea.geverytime.info.model.vo.InfoReview;
 import com.zea.geverytime.member.model.vo.Member;
 
 /**
@@ -66,6 +68,7 @@ public class InfoBoardViewServlet extends HttpServlet {
 			Info info = infoService.selectOneView(code, codeN);
 			System.out.println("[infoBoardViewServlet] info : " + info);
 			
+			// 좋아요를 이미 체크 했다면 체크 되도록
 			HttpSession session = request.getSession();
 			Member loginMember = (Member) session.getAttribute("loginMember");
 			String memberId = "";
@@ -75,8 +78,13 @@ public class InfoBoardViewServlet extends HttpServlet {
 				recommend = infoService.checkInfoRecommend(code, memberId);
 			}
 			
+			// 리뷰 가져오기
+			List<InfoReview> ir = infoService.selectAllReview(code);
+			
 			
 			// view단 처리
+			if(ir != null && !ir.isEmpty())
+				request.setAttribute("ir", ir);
 			request.setAttribute("recommend", recommend);
 			request.setAttribute("codeN", codeN);
 			request.setAttribute("info", info);
