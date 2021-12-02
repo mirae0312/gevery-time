@@ -3,20 +3,22 @@
     height: 250px;
 }
 .button{
-    text-align: center;
-    margin-top: 70px;
+    text-align: right;
+    margin-top: 30px;
+    margin-left:10px;
+    padding : 9px 11px;
+    border-style : none;
+    border-radius : 5px;
+    font-size:13px;
+    cursor:pointer;
 }
-        /* * {
-    margin: 0;
-    padding: 0;
-} */
+ 
 body{
     width: 1024px;
     margin: auto;
 }
-
 #leftbox{
-     width: 110px;
+    width: 110px;
     height: 370px;
     border: solid;
     float: left;
@@ -27,13 +29,14 @@ body{
     /* size: 100px; */
     border: none;
     background-color: rgba(128, 128, 128, 0.185);
-    font-size: 15px;
+ 
 }
 #leftbox span{
-    margin-left: 5px;
-    /* margin-top: 15px; */
-    /* size: 300px; */
-    /* padding-top: 30px; */
+    font-size:17px;
+    font-weight: 600;
+}
+#leftbox span :hover {
+    text-decoration: underline;
 }
 table {
     border-collapse: collapse;
@@ -49,9 +52,10 @@ a {
 }
 
 .board_list_wrap {
-    width: 950px;
-    margin: auto;
-    padding-left: 120px;
+    width: 830px;
+    margin: 110px auto;
+    padding-left: 150px;
+   
 }
 
 .board_list {
@@ -67,8 +71,8 @@ a {
 
 .board_list th,
 .board_list td {
-    padding: 20px;
-    font-size: 15px;
+    padding: 10px;
+    font-size: 17px;
    
 }
 
@@ -79,7 +83,11 @@ thead{
     background-color: rgba(128, 128, 128, 0.103);
 }
 #total{
-        margin-top: 60px;
-          margin-bottom: 250px;
-       
+       margin-top: 60px;
     }  
+.header{
+	width:150px;
+}
+#content{
+	height: 190px; 
+}

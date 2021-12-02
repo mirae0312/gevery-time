@@ -10,9 +10,9 @@
         <h3>Q&A</h3>
  <div id="leftbox">
             <span>Q&A</span>
-            <br>
+            <br><br>
             <span><a href="<%= request.getContextPath() %>/customer/faqBoardList">FAQ</a></span>
-            <br>
+            <br><br>
             <span>신고내역</span>
         </div>
         <div class="board_list_wrap">
@@ -56,9 +56,7 @@
   <tr>
   
                         <td><%= qnaBoard.getNo() %></td>
-                        <td style="font-size:13px";><%= qnaBoard.getCategory() %></td>
-                       <!-- <td><img alt="" src="<%= request.getContextPath() %>/css/customer/check2.jpg" width="30px"></td> -->  
- 
+                        <td style="font-size:13px;color:red"><%= qnaBoard.getCategory() %></td>
                        <td > </td>
                         <td class="tit" colspan="5">
                           <a href="<%= request.getContextPath() %>/customer/qnaBoardView?no=<%= qnaBoard.getNo() %>">ㄴ>RE: <%= qnaBoard.getTitle() %></a>
