@@ -24,7 +24,7 @@ public class QnaBoardReplyEnrollServlet extends HttpServlet {
 	 */
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		// 1.사용자입력값
-				int no = Integer.valueOf(request.getParameter("no"));
+			
 				int replyLevel = Integer.valueOf(request.getParameter("replyLevel"));
 				int replyRef = Integer.valueOf(request.getParameter("replyRef"));
 				String title = request.getParameter("title");
@@ -33,7 +33,7 @@ public class QnaBoardReplyEnrollServlet extends HttpServlet {
 				String password = request.getParameter("password");
 				String category = request.getParameter("category");
 				
-				QnaBoard qnaBoard = new QnaBoard(no, title, writer, password, content, replyLevel, replyRef, category, null);
+				QnaBoard qnaBoard = new QnaBoard(0, title, writer, password, content, replyLevel, replyRef, category, null);
 				System.out.println("[BoardReplyEnrollServlet] qnaBoard = " + qnaBoard);
 				
 				// 2.업무로직
@@ -41,8 +41,13 @@ public class QnaBoardReplyEnrollServlet extends HttpServlet {
 				String msg = result > 0 ? " 등록 성공!" : " 등록 실패!";
 				request.getSession().setAttribute("msg", msg);
 				
+				//
+				
+				
+				 
 				// 3.redirect: 게시글상세페이지  
-				String location = request.getContextPath() + "/customer/qnaBoardList";
+				 String location = request.getContextPath() + "/customer/qnaBoardList";
+				//String location = request.getContextPath() + "/customer/qnaBoardView?no=" + qnaBoard.getNo();
 				response.sendRedirect(location);
 				
 				
