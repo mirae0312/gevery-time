@@ -13,7 +13,7 @@
             <br><br>
             <span><a href="<%= request.getContextPath() %>/customer/faqBoardList">FAQ</a></span>
             <br><br>
-            <span>신고내역</span>
+            <span><a href="<%= request.getContextPath() %>/customer/reportBoardList">신고내역</a></span>
         </div>
         <div class="board_list_wrap">
             <table class="board_list">
@@ -22,7 +22,6 @@
                     <tr>
                         <th>No</th>
                          <th>분류</th>
-                        <th></th>
                         <th colspan="5">제목</th>
                         <th>작성자</th>
                         <th>날짜</th>
@@ -37,8 +36,7 @@
  
                     <tr>
                         <td><%= qnaBoard.getNo() %></td>
-                        <td style="font-size:13px";><%= qnaBoard.getCategory() %></td>
-                         <td></td>
+                        <td style="font-size:12px";><%= qnaBoard.getCategory() %></td>
                         <td class="tit" colspan="5">
                           <a href="<%= request.getContextPath() %>/customer/qnaBoardView?no=<%= qnaBoard.getNo() %>"><%= qnaBoard.getTitle() %></a>
                         </td>
@@ -56,8 +54,7 @@
   <tr>
   
                         <td><%= qnaBoard.getNo() %></td>
-                        <td style="font-size:13px;color:red"><%= qnaBoard.getCategory() %></td>
-                       <td > </td>
+                        <td style="font-size:12px;color:red"><%= qnaBoard.getCategory() %></td>
                         <td class="tit" colspan="5">
                           <a href="<%= request.getContextPath() %>/customer/qnaBoardView?no=<%= qnaBoard.getNo() %>">ㄴ>RE: <%= qnaBoard.getTitle() %></a>
                           
