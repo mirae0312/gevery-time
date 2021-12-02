@@ -11,9 +11,9 @@ public class InfoReview implements Serializable {
 	private static final long serialVersionUID = 1L;
 	
 	private int no;
-	private String r_code;
+	private String rCode;
 	private String code;
-	private String member_id;
+	private String memberId;
 	private String recommend;
 	private String headContent;
 	private String content;
@@ -23,13 +23,13 @@ public class InfoReview implements Serializable {
 		super();
 	}
 
-	public InfoReview(int no, String r_code, String code, String member_id, String recommend, String headContent,
+	public InfoReview(int no, String rCode, String code, String memberId, String recommend, String headContent,
 			String content, Date regDate) {
 		super();
 		this.no = no;
-		this.r_code = r_code;
+		this.rCode = rCode;
 		this.code = code;
-		this.member_id = member_id;
+		this.memberId = memberId;
 		this.recommend = recommend;
 		this.headContent = headContent;
 		this.content = content;
@@ -44,12 +44,12 @@ public class InfoReview implements Serializable {
 		this.no = no;
 	}
 
-	public String getR_code() {
-		return r_code;
+	public String getrCode() {
+		return rCode;
 	}
 
-	public void setR_code(String r_code) {
-		this.r_code = r_code;
+	public void setrCode(String rCode) {
+		this.rCode = rCode;
 	}
 
 	public String getCode() {
@@ -60,12 +60,12 @@ public class InfoReview implements Serializable {
 		this.code = code;
 	}
 
-	public String getMember_id() {
-		return member_id;
+	public String getMemberId() {
+		return memberId;
 	}
 
-	public void setMember_id(String member_id) {
-		this.member_id = member_id;
+	public void setMemberId(String memberId) {
+		this.memberId = memberId;
 	}
 
 	public String getRecommend() {
@@ -102,11 +102,11 @@ public class InfoReview implements Serializable {
 
 	@Override
 	public String toString() {
-		return "InfoReview [no=" + no + ", r_code=" + r_code + ", code=" + code + ", member_id=" + member_id
+		return "InfoReview [no=" + no + ", rCode=" + rCode + ", code=" + code + ", memberId=" + memberId
 				+ ", recommend=" + recommend + ", headContent=" + headContent + ", content=" + content + ", regDate="
 				+ regDate + "]";
 	}
-	
-	
 
+	
+	
 }

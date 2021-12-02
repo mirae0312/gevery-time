@@ -11,6 +11,7 @@ import com.zea.geverytime.info.model.dao.InfoDao;
 import com.zea.geverytime.info.model.vo.CafeRestaurant;
 import com.zea.geverytime.info.model.vo.Hospital;
 import com.zea.geverytime.info.model.vo.Info;
+import com.zea.geverytime.info.model.vo.InfoReview;
 import com.zea.geverytime.info.model.vo.Pension;
 import com.zea.geverytime.info.model.vo.Salon;
 
@@ -261,6 +262,20 @@ public class InfoService {
 			close(conn);
 		}
 		return recommend;
+	}
+
+	public List<InfoReview> selectAllReview(String code) {
+		Connection conn = null;
+		List<InfoReview> ir = null;
+		try {
+			conn = getConnection();
+			ir = infoDao.selectAllReview(conn, code);
+		}catch(Exception e) {
+			throw e;
+		}finally {
+			close(conn);
+		}
+		return ir;
 	}
 
 
