@@ -116,21 +116,34 @@ $(() => {
 			</tr>
 			
 			<!-- 구매 관련 영역 -->
+			<% if(loginMember != null) {%>
 			<tr>
-				<td colspan=2>
-					<span>개수 : </span><input type="number" name="count" /><br />
-					<span>사용 포인트 : </span><input type="text" />
-				</td>
-				<td><input type="button" value="구매하기" /></td>
+				<td colspan=2><input type="button" value="구매하기" /></td>
 			</tr>
 
 			<tr>
-				<td colspan=2><input type="button" value="장바구니 담기" /></td>
+				<td colspan=2>
+					<form action="" name="addCartFrm">
+						<input type="hidden" id="addCartId" name="addCartId" value="<%= loginMember.getMemberId() %>" />
+						<input type="hidden" id="addCartBoardNo" name="addCartBoardNo" value="<%= board.getBoardNo() %>" />
+						<input type="submit" value="장바구니 담기"/>
+					</form>
+				</td>
 			</tr>
 			<tr>
 				<td colspan=2><input type="button" value="찜목록 담기" /></td>
 			</tr>
-			
+			<% } else { %>
+			<tr>
+				<td colspan=2><input type="button" value="구매하기" class="purchaseNeedLogin" /></td>
+			</tr>
+			<tr>
+				<td colspan=2><input type="button" value="장바구니 담기" class="purchaseNeedLogin" /></td>
+			</tr>
+			<tr>
+				<td colspan=2><input type="button" value="찜목록 담기" class="purchaseNeedLogin" /></td>
+			</tr>
+			<% } %>
 			<tr>
 				<th colspan=2>내용</th>
 			</tr>
@@ -275,7 +288,33 @@ $(() => {
 				alert("내용을 입력하세요");
 				e.preventDefault();
 			};
-		})
+		});
+		
+		// 비로그인 상태로 구매하기, 장바구니, 찜하기 클릭 시 얼럿
+		$(".purchaseNeedLogin").click((e) => {
+			alert("로그인 후 이용 가능합니다.");
+		});
+		
+		// 장바구니 담기 비동기 처리
+		$(document.addCartFrm).submit((e) =>{
+			e.preventDefault();
+			let reqmemberId = $("#addCartId").val();
+			let reqboardNo = $("#addCartBoardNo").val();
+			console.log(reqmemberId, reqboardNo);
+			$.ajax({
+				url : "<%= request.getContextPath() %>/cart/addCart",
+				method : "POST",
+				data : {
+					memberId: reqmemberId,
+					boardNo: reqboardNo
+				},
+				success(data){
+					console.log(data);
+					alert(data.msg);
+				},
+				error : console.log
+			});
+		});
 	</script>
 </body>
 </html>
