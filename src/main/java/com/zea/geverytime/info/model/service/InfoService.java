@@ -153,12 +153,29 @@ public class InfoService {
 		return check;
 	}
 
-	public Info selectOneView(String code) {
+	public Info selectOneView(String code, String codeN) {
 		Connection conn = null;
 		Info info = null;
+		List<Hospital> h = null;
+		List<CafeRestaurant> cr = null;
+		List<Pension> p = null;
+		List<Salon> s = null;
 		try {
 			conn = getConnection();
 			info = infoDao.selectOneView(conn, code);
+			if("1".equals(codeN)) {
+				h = infoDao.selectRightHospital(conn, code);
+				info.setHospitals(h);
+			}else if("2".equals(codeN) || "3".equals(codeN)) {
+				cr = infoDao.selectRightCafeRestaurant(conn, code);
+				info.setCafeRestaurants(cr);
+			}else if("4".equals(codeN)) {
+				p = infoDao.selectRightPension(conn, code);
+				info.setPensions(p);
+			}else if("5".equals(codeN)) {
+				s = infoDao.selectRightSalon(conn, code);
+				info.setSalons(s);
+			}
 		}catch(Exception e) {
 			throw e;
 		}finally {
@@ -173,6 +190,37 @@ public class InfoService {
 		try {
 			conn = getConnection();
 			result = infoDao.updateReadCount(conn, code);
+			if(result > 0)
+				commit(conn);
+		}catch(Exception e) {
+			rollback(conn);
+			throw e;
+		}finally {
+			close(conn);
+		}
+		return result;
+	}
+
+	public int checkInfoLike(String code, String memberId) {
+		Connection conn = null;
+		int no = 0;
+		try {
+			conn = getConnection();
+			no = infoDao.checkInfoLike(conn, code, memberId);
+		}catch(Exception e) {
+			throw e;
+		} finally{
+			close(conn);
+		}
+		return no;
+	}
+
+	public int insertInfoLike(String codeN, String code, String memberId) {
+		Connection conn = null;
+		int result = 0;
+		try {
+			conn = getConnection();
+			result = infoDao.insertInfoLike(conn, codeN, code, memberId);
 			if(result > 0)
 				commit(conn);
 		}catch(Exception e) {

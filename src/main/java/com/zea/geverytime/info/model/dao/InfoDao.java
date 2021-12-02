@@ -368,7 +368,6 @@ public class InfoDao {
 				info.setViewCount(rset.getInt("view_count"));
 				info.setHeadContent(rset.getString("head_content"));
 				info.setBodyContents(rset.getString("body_contents"));
-				info.setServiceContent(rset.getString("service_content"));
 				info.setSite(rset.getString("site"));
 				info.setStartHour(rset.getString("start_hour"));
 				info.setEndHour(rset.getString("end_hour"));
@@ -419,6 +418,8 @@ public class InfoDao {
 			pstmt = conn.prepareStatement(sql);
 			
 			pstmt.setString(1, code);
+			
+			result = pstmt.executeUpdate();
 		} catch (SQLException e) {
 			throw new InfoBoardException("조회수 카운트 실패!", e);
 		} finally {
@@ -438,6 +439,8 @@ public class InfoDao {
 			
 			pstmt.setString(1, hospital.getCode());
 			pstmt.setString(2, hospital.getService());
+			
+			result = pstmt.executeUpdate();
 			
 		} catch (SQLException e) {
 			throw new InfoBoardException("병원 진료과목 저장 실패!", e);
@@ -459,6 +462,8 @@ public class InfoDao {
 			pstmt.setString(1, cr.getCode());
 			pstmt.setString(2, cr.getService());
 			pstmt.setString(3, cr.getPrice());
+			
+			result = pstmt.executeUpdate();
 			
 		} catch (SQLException e) {
 			throw new InfoBoardException("가격표 저장 실패!", e);
@@ -485,6 +490,8 @@ public class InfoDao {
 			pstmt.setString(6, pension.getPrice4());
 			pstmt.setString(7, pension.getPrice5());
 			pstmt.setString(8, pension.getPrice6());
+			
+			result = pstmt.executeUpdate();
 			
 		} catch (SQLException e) {
 			throw new InfoBoardException("가격표(펜션) 저장 실패!", e);
@@ -520,10 +527,209 @@ public class InfoDao {
 			pstmt.setString(15, salon.getMiddleScissors());
 			pstmt.setString(16, salon.getSpecialScissors());
 			
+			result = pstmt.executeUpdate();
+			
 		} catch (SQLException e) {
 			throw new InfoBoardException("가격표(미용실) 저장 실패!", e);
 		} finally {
 			close(pstmt);
+		}
+		
+		return result;
+	}
+
+	public List<Hospital> selectRightHospital(Connection conn, String code) {
+		PreparedStatement pstmt = null;
+		String sql = prop.getProperty("selectRightHospital");
+		ResultSet rset = null;
+		List<Hospital> list = new ArrayList<>();
+		
+		try {
+			pstmt = conn.prepareStatement(sql);
+			
+			pstmt.setString(1, code);
+			
+			rset = pstmt.executeQuery();
+			while(rset.next()) {
+				Hospital h = new Hospital();
+				h.setNo(rset.getInt("no"));
+				h.setCode(rset.getString("code"));
+				h.setService(rset.getString("service"));
+				list.add(h);
+			}
+		} catch (SQLException e) {
+			throw new InfoBoardException("병원 진료정보 가져오기 실패!", e);
+		}finally {
+			close(rset);
+			close(pstmt);
+		}
+		
+		return list;
+	}
+
+	public List<CafeRestaurant> selectRightCafeRestaurant(Connection conn, String code) {
+		PreparedStatement pstmt = null;
+		String sql = prop.getProperty("selectRightCafeRestaurant");
+		ResultSet rset = null;
+		List<CafeRestaurant> list = new ArrayList<>();
+		
+		try {
+			pstmt = conn.prepareStatement(sql);
+			
+			pstmt.setString(1, code);
+			
+			rset = pstmt.executeQuery();
+			while(rset.next()) {
+				CafeRestaurant cr = new CafeRestaurant();
+				cr.setNo(rset.getInt("no"));
+				cr.setCode(rset.getString("code"));
+				cr.setService(rset.getString("service"));
+				cr.setPrice(rset.getString("price"));
+				list.add(cr);
+				
+			}
+		} catch (SQLException e) {
+			throw new InfoBoardException("가격표 가져오기 실패!", e);
+		} finally {
+			close(rset);
+			close(pstmt);
+		}
+		
+		return list;
+	}
+
+	public List<Pension> selectRightPension(Connection conn, String code) {
+		PreparedStatement pstmt = null;
+		String sql = prop.getProperty("selectRightPension");
+		ResultSet rset = null;
+		List<Pension> list = new ArrayList<>();
+		
+		try {
+			pstmt = conn.prepareStatement(sql);
+			
+			pstmt.setString(1, code);
+			
+			rset = pstmt.executeQuery();
+			while(rset.next()) {
+				Pension p = new Pension();
+				p.setNo(rset.getInt("no"));
+				p.setCode(rset.getString("code"));
+				p.setRoom(rset.getString("room"));
+				p.setPrice1(rset.getString("price1"));
+				p.setPrice2(rset.getString("price2"));
+				p.setPrice3(rset.getString("price3"));
+				p.setPrice4(rset.getString("price4"));
+				p.setPrice5(rset.getString("price5"));
+				p.setPrice6(rset.getString("price6"));
+				list.add(p);
+			}
+		} catch (SQLException e) {
+			throw new InfoBoardException("가격표(펜션) 가져오기 실패!", e);
+		} finally {
+			close(rset);
+			close(pstmt);
+		}
+		
+		return list;
+	}
+
+	public List<Salon> selectRightSalon(Connection conn, String code) {
+		PreparedStatement pstmt = null;
+		String sql = prop.getProperty("selectRightSalon");
+		ResultSet rset = null;
+		List<Salon> list = new ArrayList<>();
+		
+		try {
+			pstmt = conn.prepareStatement(sql);
+			
+			pstmt.setString(1, code);
+			
+			rset = pstmt.executeQuery();
+			while(rset.next()) {
+				Salon s = new Salon();
+				s.setNo(rset.getInt("no"));
+				s.setCode(rset.getString("code"));
+				s.setSmallBath(rset.getString("small_bath"));
+				s.setMiddleBath(rset.getString("middle_bath"));
+				s.setSpecialBath(rset.getString("special_bath"));
+				s.setSmallBathAnd(rset.getString("small_bath_and"));
+				s.setMiddleBathAnd(rset.getString("middle_bath_and"));
+				s.setSpecialBathAnd(rset.getString("special_bath_and"));
+				s.setSmallMachine(rset.getString("small_machine"));
+				s.setMiddleMachine(rset.getString("middle_machine"));
+				s.setSpecialMachine(rset.getString("special_machine"));
+				s.setSmallSpotting(rset.getString("small_spotting"));
+				s.setMiddleSpotting(rset.getString("middle_spotting"));
+				s.setSpecialSpotting(rset.getString("special_spotting"));
+				s.setSmallScissors(rset.getString("small_scissors"));
+				s.setMiddleScissors(rset.getString("middle_scissors"));
+				s.setSpecialScissors(rset.getString("special_scissors"));
+				list.add(s);
+				
+			}
+		} catch (SQLException e) {
+			throw new InfoBoardException("가격표(미용실) 가져오기 실패!", e);
+		} finally {
+			close(rset);
+			close(pstmt);
+		}
+		
+		return list;
+	}
+
+	public int checkInfoLike(Connection conn, String code, String memberId) {
+		PreparedStatement pstmt = null;
+		String sql = prop.getProperty("checkInfoLike");
+		ResultSet rset = null;
+		int no = 0;
+		
+		try {
+			pstmt = conn.prepareStatement(sql);
+			
+			pstmt.setString(1, code);
+			pstmt.setString(2, memberId);
+			
+			rset = pstmt.executeQuery();
+			if(rset.next())
+				no = rset.getInt(1);
+		} catch (SQLException e) {
+			throw new InfoBoardException("좋아요 확인 실패!", e);
+		}finally {
+			close(rset);
+			close(pstmt);
+		}
+		
+		return no;
+	}
+
+	public int insertInfoLike(Connection conn, String codeN, String code, String memberId) {
+		PreparedStatement pstmt = null;
+		String sql = "";
+		switch(codeN) {
+		case "1": 
+			sql = prop.getProperty("insertHospitalLike");
+			break;
+		case "2": 
+			sql = prop.getProperty("insertCafeLike");
+			break;
+		case "3":
+			sql = prop.getProperty("insertRestaurantLike");
+			break;
+		case "4": 
+			sql = prop.getProperty("insertPensionLike");
+			break;
+		case "5": 
+			sql = prop.getProperty("insertSalonLike");
+			break;
+		}
+		int result = 0;
+		
+		try {
+			pstmt = conn.prepareStatement(sql);
+			
+			
+		} catch (SQLException e) {
+			e.printStackTrace();
 		}
 		
 		return result;
