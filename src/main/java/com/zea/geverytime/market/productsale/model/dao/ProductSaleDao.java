@@ -115,7 +115,7 @@ public class ProductSaleDao {
 		
 		try {
 			pstmt = conn.prepareStatement(sql);
-			pstmt.setString(1, "%"+div+"%");
+			pstmt.setString(1, div);
 			pstmt.setString(2, state);
 			pstmt.setInt(3, startNum);
 			pstmt.setInt(4, endNum);
