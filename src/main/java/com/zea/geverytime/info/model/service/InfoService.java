@@ -249,5 +249,19 @@ public class InfoService {
 		return result;
 	}
 
+	public String checkInfoRecommend(String code, String memberId) {
+		Connection conn = null;
+		String recommend = "";
+		try {
+			conn = getConnection();
+			recommend = infoDao.checkInfoRecommend(conn, code, memberId);
+		}catch(Exception e) {
+			throw e;
+		}finally {
+			close(conn);
+		}
+		return recommend;
+	}
+
 
 }

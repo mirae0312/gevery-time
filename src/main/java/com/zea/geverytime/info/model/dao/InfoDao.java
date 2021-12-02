@@ -763,4 +763,30 @@ public class InfoDao {
 		return result;
 	}
 
+	public String checkInfoRecommend(Connection conn, String code, String memberId) {
+		PreparedStatement pstmt = null;
+		String sql = prop.getProperty("checkInfoRecommend");
+		ResultSet rset = null;
+		String recommend = "";
+		
+		try {
+			pstmt = conn.prepareStatement(sql);
+			
+			pstmt.setString(1, code);
+			pstmt.setString(2, memberId);
+			
+			rset = pstmt.executeQuery();
+			if(rset.next())
+				recommend = rset.getString("recommend");
+			
+		} catch (SQLException e) {
+			throw new InfoBoardException("좋아요 가져오기 실패!", e);
+		}finally {
+			close(rset);
+			close(pstmt);
+		}
+		
+		return recommend;
+	}
+
 }

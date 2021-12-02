@@ -8,11 +8,13 @@
 <% 
 	Info info = (Info) request.getAttribute("info"); 
 	String codeN = (String) request.getAttribute("codeN");
+	String recommend = (String) request.getAttribute("recommend");
+	System.out.println("view recommend : " + recommend);
 %>
 <%@ page import="java.sql.*" %>
 <%@ include file="/WEB-INF/views/common/header.jsp" %>
 <script type="text/javascript" src="//dapi.kakao.com/v2/maps/sdk.js?appkey=4247f28f0dc06c5cc8486ac837d411ff"></script>
-<script type="text/javascript" src="//dapi.kakao.com/v2/maps/sdk.js?appkey=APIKEY&libraries=services,clusterer,drawing"></script>
+<script type="text/javascript" src="//dapi.kakao.com/v2/maps/sdk.js?appkey=4247f28f0dc06c5cc8486ac837d411ff&libraries=services,clusterer,drawing"></script>
 <div class="info-view-wrapper">
 	<div class="info-head-wrapper">
 		<div class="left-side">
@@ -153,15 +155,20 @@
 		</div>
 	</div>
 	
-	<input type="checkbox" name="like" id="info-like" />
+	<input type="checkbox" name="like" id="info-like" <%= "G".equals(recommend) ? "checked" : "" %> />
 	<label for="info-like">좋아요</label>
 </div>
 <script>
 	$("#info-like").change((e) => {
+<% if(loginMember != null && MemberService.USER_ROLE.equals(loginMember.getMemberRole())){ %>
 		if($("#info-like").is(":checked") == true){
 			console.log("체크된 상태");
 			$.ajax({
-				url: "<%= request.getContextPath() %>/info/likeCount?code=<%= info.getCode() %>&memberId=<%= loginMember.getMemberId() %>",
+				url: "<%= request.getContextPath() %>/info/likeCount",
+				data: {
+					code: "<%= info.getCode() %>",
+					memberId: "<%= loginMember.getMemberId() %>"
+				},
 				success(data){
 					console.log(data);
 				},
@@ -171,13 +178,16 @@
 		if($("#info-like").is(":checked") == false){
 			console.log("체크 안됨");
 			$.ajax({
-				url: "<%= request.getContextPath() %>/info/likeCount?code=<%= info.getCode() %>&memberId=<%= loginMember.getMemberId() %>",
+				url: "<%= request.getContextPath() %>/info/likeCount?code=<%= info.getCode() %>&&memberId=<%= loginMember.getMemberId() %>",
 				success(data){
 					console.log(data);
 				},
 				error: console.log
 			});
-		}			
+		}		
+<% }else{ %>
+		alert("로그인 후 이용해 주세요");
+<% } %>
 	});
 	
 	
@@ -216,6 +226,7 @@
 			
 			// 지도의 중심을 결과값으로 받은 위치로 이동시킵니다
 			map.setCenter(coords);
+			console.log(coords);
 		} 
 	});    
 </script>
