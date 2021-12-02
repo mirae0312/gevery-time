@@ -14,7 +14,7 @@
 		<% if(loginMember != null && loginMember.getMemberType().equals("B")) { %>
 		<li id="businessInfo"><a href="#">내정보(사업자)</a></li> 
 		<% } %>
-		<li id="point"><a href="<%=request.getContextPath() %>/myPage/point">나의 Point</a></li>
+		<li id="point"><a href="<%=request.getContextPath() %>/myPage/myPagePoint">나의 Point</a></li>
 		<li id="salesList"><a href="<%=request.getContextPath() %>/myPage/salesList">나의 판매내역</a></li>
 		<li id="buyList"><a href="<%=request.getContextPath() %>/myPage/buyList">나의 구매내역</a></li>
 		<% if(loginMember != null && loginMember.getMemberType().equals("B")) { %>
@@ -135,11 +135,10 @@
 
 const updateMember = () => {
 	// 폼의 action값 할당 후 제출
-	console.log("회원정보 수정");
+	//console.log("회원정보 수정");
 	$(memberUpdateFrm)
 		.attr("action", "<%= request.getContextPath() %>/myPage/memberUpdate")
 		.submit();
-	System.out.println("회원정보수정 성공");
 };
 
 //유효성검사
