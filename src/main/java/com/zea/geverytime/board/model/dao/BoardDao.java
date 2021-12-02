@@ -14,6 +14,7 @@ import java.util.Properties;
 
 import com.zea.geverytime.board.model.exception.BoardException;
 import com.zea.geverytime.board.model.vo.Board;
+import com.zea.geverytime.board.model.vo.BoardComment;
 import com.zea.geverytime.common.model.vo.Attachment;
 
 import static com.zea.geverytime.common.JdbcTemplate.*;
@@ -114,9 +115,9 @@ public class BoardDao {
 		return result;
 	}
 
-	public String selectLastBoardCode(Connection conn) {
-		String code = "";
-		String sql = prop.getProperty("selectLastBoardCode");
+	public int selectLastBoardNo(Connection conn) {
+		int no = 0;
+		String sql = prop.getProperty("selectLastBoardNo");
 		PreparedStatement pstmt = null;
 		ResultSet rset = null;
 		
@@ -124,16 +125,16 @@ public class BoardDao {
 			pstmt = conn.prepareStatement(sql);
 			rset = pstmt.executeQuery();
 			if(rset.next()) {
-				code = rset.getString(1);
+				no = rset.getInt(1);
 			}
 		} catch (SQLException e) {
 			e.printStackTrace();
-			throw new BoardException("마지막 게시물 번호 불러오기 오류");
+			throw new BoardException("마지막 게시물 불러오기 오류");
 		}finally {
 			close(rset);
 			close(pstmt);
 		}
-		return code;
+		return no;
 	}
 
 	public int enrollBoardAttachment(Connection conn, Attachment a) {
@@ -167,6 +168,7 @@ public class BoardDao {
 			pstmt = conn.prepareStatement(sql);
 			pstmt.setInt(1, no);
 			pstmt.setInt(2, no);
+			pstmt.setInt(3, no);
 			rset = pstmt.executeQuery();
 			if(rset.next()) {
 				board.setNo(rset.getInt("no"));
@@ -178,6 +180,7 @@ public class BoardDao {
 				board.setLikeCount(rset.getInt("like_count"));
 				board.setRegDate(rset.getDate("reg_date"));
 				board.setAttachCount(rset.getInt("attach_count"));
+				board.setCommentCount(rset.getInt("comment_count"));
 			}
 		} catch (SQLException e) {
 			e.printStackTrace();
@@ -219,7 +222,7 @@ public class BoardDao {
 		return list;
 	}
 
-	public Attachment selectOneAttahment(Connection conn, int no) {
+	public Attachment selectOneAttachment(Connection conn, int no) {
 		String sql = prop.getProperty("selectOneAttahment");
 		Attachment attach = new Attachment();
 		PreparedStatement pstmt = null;
@@ -245,4 +248,132 @@ public class BoardDao {
 		}
 		return attach;
 	}
+
+	public int updateBoard(Connection conn, Board board) {
+		int result = 0;
+		String sql = prop.getProperty("updateBoard");
+		PreparedStatement pstmt = null;
+		
+		try {
+			pstmt = conn.prepareStatement(sql);
+			pstmt.setString(1,board.getTitle());
+			pstmt.setString(2,board.getContent());
+			pstmt.setInt(3,board.getNo());
+			result = pstmt.executeUpdate();
+		} catch (SQLException e) {
+			e.printStackTrace();
+			throw new BoardException("게시물 수정 오류!");
+		}finally {
+			close(pstmt);
+		}
+		
+		return result;
+	}
+
+	public int deleteAttachment(Connection conn, int no) {
+		int result = 0;
+		String sql = prop.getProperty("deleteAttachment");
+		PreparedStatement pstmt = null;
+		
+		try {
+			pstmt = conn.prepareStatement(sql);
+			pstmt.setInt(1, no);
+			result = pstmt.executeUpdate();
+		} catch (SQLException e) {
+			e.printStackTrace();
+			throw new BoardException("첨부파일 삭제 오류");
+		}finally {
+			close(pstmt);
+		}
+		return result;
+	}
+
+	public int deleteBoardAttachments(Connection conn, String orCode) {
+		int result = 0;
+		String sql = prop.getProperty("deleteBoardAttachments");
+		PreparedStatement pstmt = null;
+				
+		try {
+			pstmt = conn.prepareStatement(sql);
+			pstmt.setString(1, orCode);
+			result = pstmt.executeUpdate();
+		} catch (SQLException e) {
+			e.printStackTrace();
+			throw new BoardException("첨부파일 삭제 오류!");
+		}finally{
+			close(pstmt);
+		}
+		
+		return result;
+	}
+
+	public int deleteBoard(Connection conn, int no) {
+		int result = 0;
+		String sql = prop.getProperty("deleteBoard");
+		PreparedStatement pstmt = null;
+		
+		try {
+			pstmt = conn.prepareStatement(sql);
+			pstmt.setInt(1, no);
+			result = pstmt.executeUpdate();
+		} catch (SQLException e) {
+			e.printStackTrace();
+			throw new BoardException("게시물 삭제 오류");
+		}finally {
+			close(pstmt);
+		}
+		
+		return result;
+	}
+
+	public List<BoardComment> getBoardCommentList(Connection conn, int no) {
+		List<BoardComment> list = new ArrayList<>();
+		String sql = prop.getProperty("getBoardCommentList");
+		PreparedStatement pstmt = null;
+		ResultSet rset = null;
+		
+		try {
+			pstmt = conn.prepareStatement(sql);
+			pstmt.setInt(1, no);
+			rset = pstmt.executeQuery();
+			while(rset.next()) {
+				BoardComment c = new BoardComment();
+				//comment_ref like_count reg_date
+				c.setNo(rset.getInt("no"));
+				c.setOrCode(rset.getString("or_code"));
+				c.setCommentLevel(rset.getInt("comment_level"));
+				c.setWriter(rset.getString("writer"));
+				c.setContent(rset.getString("content"));
+				c.setBoardNo(rset.getInt("board_no"));
+				c.setCommentRef(rset.getInt("comment_ref"));
+				c.setLikeCount(rset.getInt("like_count"));
+				c.setRegDate(rset.getDate("reg_date"));
+				list.add(c);
+			}
+		} catch (SQLException e) {
+			e.printStackTrace();
+			throw new BoardException("댓글 불러오기 오류");
+		} finally {
+			close(rset);
+			close(pstmt);
+		}
+		return list;
+	}
+
+	public int enrollBoardComment(Connection conn, BoardComment bc) {
+		int result = 0;
+		String sql = prop.getProperty("enrollBoardComment");
+		PreparedStatement pstmt = null;
+		
+		try {
+			pstmt = conn.prepareStatement(sql);
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		
+		
+		return result;
+	}
+
 }

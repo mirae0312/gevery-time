@@ -1,5 +1,11 @@
 package com.zea.geverytime.common;
 
+
+import java.io.UnsupportedEncodingException;
+import java.security.MessageDigest;
+import java.security.NoSuchAlgorithmException;
+import java.util.Base64;
+import java.util.Base64.Encoder;
 import com.oreilly.servlet.MultipartRequest;
 import com.zea.geverytime.common.model.vo.Attachment;
 

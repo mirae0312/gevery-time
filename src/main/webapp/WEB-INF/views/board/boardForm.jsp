@@ -27,7 +27,7 @@
 	<tr>
 		<th>작성자</th>
 		<td>
-			<input type="text" name="writer" value="<%-- <%=loginMember.getMemberid() %> --%>"/>
+			<input type="text" name="writer" value="<%=loginMember.getMemberId() %>" readonly/>
 		</td>
 	</tr>
 	<tr>

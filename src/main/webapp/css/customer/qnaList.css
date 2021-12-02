@@ -9,15 +9,18 @@ h3{
 
 #leftbox{
     width: 110px;
-    height: 250px;
+    height: 370px;
     border: solid;
     float: left;
     /* margin-left: 150px; */
-    text-align:left;
+    text-align:right;
+    padding-right:10px;
+    padding-top:10px;
+
     /* size: 100px; */
     border: none;
     background-color: rgba(128, 128, 128, 0.185);
-    font-size: 14px;
+    font-size: 15px;
 }
 #leftbox span{
     margin-left: 5px;
@@ -102,9 +105,20 @@ a {
 #total{
         margin-top: 60px;
     }  
-      
+ #btn-add{
+    background-color: rgba(211, 211, 211, 0.479);
+    border-style: none;
+    font-size: 15px;
+    padding: 10px 16px;
+    border-radius: 10px;
+    cursor: pointer;
+}
+#inputBox{
+   margin-top: 20px;
+   margin-left: 930px;
+}     
 /*페이지바*/
-div#pageBar{margin-top:10px; text-align:center; }
-div#pageBar span.cPage{color: #0066ff; margin-right: 5px;}
+div#pageBar{margin-top:14px; text-align:center; font-size:19px; }
+div#pageBar span.cPage{color: gray; margin-right: 5px;}
 div#pageBar a{margin-right: 5px;}
       

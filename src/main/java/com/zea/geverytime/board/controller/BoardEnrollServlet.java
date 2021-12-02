@@ -73,7 +73,7 @@ public class BoardEnrollServlet extends HttpServlet {
 			
 			// 3. 응답처리
 			request.getSession().setAttribute("msg", msg);
-			response.sendRedirect(request.getContextPath()+"/board/freeBoard");
+			response.sendRedirect(request.getContextPath()+"/board/boardView?no="+board.getNo());
 		}catch(Exception e) {
 			throw e;
 		}

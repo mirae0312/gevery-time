@@ -6,7 +6,9 @@
     pageEncoding="UTF-8"%>
     <%@ include file="/WEB-INF/views/common/header.jsp" %>
     
-<% Board board = (Board)request.getAttribute("board");%>
+<% Board board = (Board)request.getAttribute("board");
+	List<BoardComment> commentList = (List<BoardComment>)request.getAttribute("comment");
+%>
 
 	<table>
 	<tr>
@@ -42,8 +44,8 @@
 		<td><h1><%=board.getContent() %></h1></td>
 	</tr>
 	<tr>
-		<td><input type="button" value="수정하기"/></td>
-		<td><input type="button" value="삭제하기" /></td>
+		<td><input type="button" value="수정하기" onclick="location.href='<%=request.getContextPath()%>/board/boardUpdate?no=<%=board.getNo()%>'"/></td>
+		<td><input type="button" value="삭제하기" onclick="boardDelete();"/></td>
 	</tr> 
 	</table>
 		<div class="comment-container">
@@ -52,8 +54,9 @@
             	action="<%=request.getContextPath()%>/board/boardCommentEnroll" 
             	method="post" 
             	name="boardCommentFrm">
-                <input type="hidden" name="boardNo" value="" />
-                <input type="hidden" name="writer" value="" />
+                <input type="hidden" name="orCode" value="<%=board.getOrCode().substring(0,3)%>c" />
+                <input type="hidden" name="boardNo" value="<%=board.getNo()%>" />
+                <input type="hidden" name="writer" value="<%=loginMember.getMemberId()%>" />
                 <input type="hidden" name="commentLevel" value="1" />
                 <input type="hidden" name="commentRef" value="0" />    
 				<textarea name="content" cols="60" rows="3" style="resize:none; width:80%;"></textarea>
@@ -61,31 +64,64 @@
             </form>
         </div>
 		<!--table#tbl-comment-->
-
+<%if (commentList!= null&&!commentList.isEmpty()){ %>
 		<table id="tbl-comment">
+		<%for(BoardComment c : commentList) {
+		if(c.getCommentLevel() == 1){%>
 			<tr class="level1">
 				<td>
-					<sub class="comment-writer">comment-writer</sub>
-					<sub class="comment-date">comment-date</sub>
+					<sub class="comment-writer"><%=c.getWriter()%></sub>
+					<sub class="comment-date"><%=c.getRegDate()%></sub>
 					<br />
-					<%-- 댓글내용 --%>
+					<%=c.getContent()%>
 				</td>
 				<td>
 					<button class="btn-reply" value="">답글</button>
+					
 					<!-- 댓글주인에게만 보임 -->
 					<button class="btn-deleteComment" value="" style ="float:right"> 삭제</button>
 				</td>
 			</tr>
+			<%} else {%>
 			<tr class="level2">
 				<td>
-					<sub class="comment-writer">comment-writer</sub>
-					<sub class="comment-date">comment-date</sub>
+					<sub class="comment-writer"><%=c.getWriter()%></sub>
+					<sub class="comment-date"><%=c.getRegDate()%></sub>
 					<br />
-					<%-- 대댓글내용 --%>
+					<%=c.getContent()%>
 					<button class="btn-deleteComment" value="" style ="float:right"> 삭제</button>
 				</td>
 				<td></td>
 			</tr>
+			<%}}%>
+			
 		</table>
+		<%} %>
 		</div>
+	<form
+		name = "boardDeleteFrm"
+		method = "post"
+		action="<%=request.getContextPath()%>/board/boardDelete">
+		<input type="hidden" name="no" value="<%=board.getNo()%>"/>
+	</form>
+<script>
+	const boardDelete =()=>{
+		if(confirm("게시글을 삭제하시겠습니까?")){
+			$(document.boardDeleteFrm).submit();
+		}
+	};
+
+	<%-- <form 
+	action="<%=request.getContextPath()%>/board/boardCommentEnroll" 
+	method="post" 
+	name="boardCommentFrm">
+    <input type="hidden" name="boardNo" value="<%=board.getNo()%>" />
+    <input type="hidden" name="writer" value="<%=loginMember.getMemberId()%>" />
+    <input type="hidden" name="commentLevel" value="2" />
+    <input type="hidden" name="commentRef" value="<%=c.getNo() %>" />    
+	<textarea name="content" cols="60" rows="3" style="resize:none; width:80%;"></textarea>
+    <button type="submit" id="btn-comment-enroll1">등록</button>
+</form> --%>
+	
+</script>
 <%@ include file="/WEB-INF/views/common/footer.jsp" %>

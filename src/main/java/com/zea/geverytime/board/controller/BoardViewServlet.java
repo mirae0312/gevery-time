@@ -1,6 +1,9 @@
 package com.zea.geverytime.board.controller;
 
 import java.io.IOException;
+import java.util.ArrayList;
+import java.util.List;
+
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
@@ -9,6 +12,7 @@ import javax.servlet.http.HttpServletResponse;
 
 import com.zea.geverytime.board.model.service.BoardService;
 import com.zea.geverytime.board.model.vo.Board;
+import com.zea.geverytime.board.model.vo.BoardComment;
 
 /**
  * Servlet implementation class BoardViewServlet
@@ -27,8 +31,13 @@ public class BoardViewServlet extends HttpServlet {
 		
 		// 2. 업무처리
 		Board board = boardService.selectOneBoard(no);
-		
+		List<BoardComment> list = null;
+		if(board.getCommentCount()>0) {
+			list = boardService.getBoardCommentList(no);
+			System.out.println(list);
+		}
 		// 3. 응답처리
+		request.setAttribute("comment",list);
 		request.setAttribute("board", board);
 		request
 			.getRequestDispatcher("/WEB-INF/views/board/boardView.jsp")

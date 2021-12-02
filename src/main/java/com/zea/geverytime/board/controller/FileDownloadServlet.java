@@ -31,7 +31,7 @@ public class FileDownloadServlet extends HttpServlet {
 			int no = Integer.parseInt(request.getParameter("no"));
 			// 2. 업무처리
 			// attachment정보 가져오기
-			Attachment attach = boardService.selectOneAttahment(no);
+			Attachment attach = boardService.selectOneAttachment(no);
 			
 			// server 내 파일 가져오기 (경로,파일이름)
 			String saveDirectory = getServletContext().getRealPath("/upload/board");
