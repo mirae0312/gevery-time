@@ -157,6 +157,13 @@
 	
 	<input type="checkbox" name="like" id="info-like" <%= "G".equals(recommend) ? "checked" : "" %> />
 	<label for="info-like">좋아요</label>
+	<div class="info-review-wrapper">
+		<div class="info-review"></div>
+		<form action="<%= request.getContextPath() %>"
+			method="post" enctype="multipart/form-data">
+			<textarea name="writeReview" id="writeReview" cols="30" rows="10"></textarea><br />
+		</form>
+	</div>
 </div>
 <script>
 	$("#info-like").change((e) => {
@@ -187,6 +194,7 @@
 		}		
 <% }else{ %>
 		alert("로그인 후 이용해 주세요");
+		$("#info-like").attr("disabled", "disabled");
 <% } %>
 	});
 	
@@ -228,7 +236,20 @@
 			map.setCenter(coords);
 			console.log(coords);
 		} 
-	});    
+	});   
+	
+	$(document).ready(function() {
+		 $('#writeReview').summernote({
+	          height: 300,                 // 에디터 높이
+	          minHeight: null,             // 최소 높이
+	          maxHeight: null,             // 최대 높이
+	          focus: false,                  // 에디터 로딩후 포커스를 맞출지 여부
+	          lang: "ko-KR",                    // 한글 설정
+	          placeholder: '최대 2048자까지 쓸 수 있습니다',    //placeholder 설정
+	          disableResizeEditor: true
+	    });
+		
+	});
 </script>
 
 <%@ include file="/WEB-INF/views/common/footer.jsp" %>
