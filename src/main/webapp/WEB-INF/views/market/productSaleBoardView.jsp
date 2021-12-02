@@ -114,6 +114,18 @@ $(() => {
 				<th>가격</th>
 				<td><%= board.getProduct().getPdtPrice() %>원</td>
 			</tr>
+			
+			<!-- 구매 관련 영역 -->
+			<tr>
+				<td colspan=2><input type="button" value="구매하기" /></td>
+			</tr>
+			<tr>
+				<td colspan=2><input type="button" value="장바구니 담기" /></td>
+			</tr>
+			<tr>
+				<td colspan=2><input type="button" value="찜목록 담기" /></td>
+			</tr>
+			
 			<tr>
 				<th colspan=2>내용</th>
 			</tr>
