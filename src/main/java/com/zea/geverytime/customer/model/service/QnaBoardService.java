@@ -191,6 +191,21 @@ public class QnaBoardService {
 		return result;
 	}
 
+	public int addQnaBoardState(int replyRef) {
+		Connection conn = getConnection();
+		int result = 0;
+		try {
+			result = qnaBoardDao.addQnaBoardState(conn, replyRef);
+			commit(conn);
+		} catch(Exception e) {
+			rollback(conn);
+			e.printStackTrace();
+		} finally {
+			close(conn);
+		}
+		return result;
+	}
+
 	//원글 상태 변경
 //	public int changeParent(int parentNo) {
 //		Connection conn = null;

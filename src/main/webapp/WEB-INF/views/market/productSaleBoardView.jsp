@@ -117,8 +117,13 @@ $(() => {
 			
 			<!-- 구매 관련 영역 -->
 			<tr>
-				<td colspan=2><input type="button" value="구매하기" /></td>
+				<td colspan=2>
+					<span>개수 : </span><input type="number" name="count" /><br />
+					<span>사용 포인트 : </span><input type="text" />
+				</td>
+				<td><input type="button" value="구매하기" /></td>
 			</tr>
+
 			<tr>
 				<td colspan=2><input type="button" value="장바구니 담기" /></td>
 			</tr>

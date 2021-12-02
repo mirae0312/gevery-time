@@ -41,7 +41,10 @@ public class QnaBoardReplyEnrollServlet extends HttpServlet {
 				String msg = result > 0 ? " 등록 성공!" : " 등록 실패!";
 				request.getSession().setAttribute("msg", msg);
 				
-				//
+				// 답변완료 시 원글 [답변완료] 추가
+				int addState = qnaBoardService.addQnaBoardState(replyRef);
+				
+				System.out.println("QnaBoardReplyServ@ addState Result : " + addState);
 				
 				
 				 

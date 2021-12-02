@@ -21,12 +21,24 @@
 		margin : 10px
 	}
 	#pdtTable{
-		width : 500px;
+		width : 1000px;
 		border : 1px solid black;
 		border-collapse : collapse;
 	}
-	#pdtTable tr, td, th{
+	#pdtTable tr{
 		border : 1px solid black;
+		height : 50px;
+	}
+	#pdtTable th{
+		border : 1px solid black;
+		height : 50px;
+	}
+	#pdtTable td{
+		border : 1px solid black;
+		height : 50px;
+	}
+	.thumbnailImg{
+		width:100px;
 	}
 </style>
 </head>
@@ -126,7 +138,7 @@
 						
 						const tr = `			<tr>
 		 					<td>\${e.boardNo}</td>
-		 					<td><img src="<%= request.getContextPath() %>/upload/market/productSale/\${imgSrc}" style="width:150px"/></td>
+		 					<td class="thumbnailImg"><img src="<%= request.getContextPath() %>/upload/market/productSale/\${imgSrc}" style="width:100px; height:50px;"/></td>
 							<td>\${e.product.state}</td>
 							<td>\${e.product.pdtDiv}</td>
 							<td><a href="<%= request.getContextPath() %>/product/boardView?no=\${e.boardNo}">\${e.title}</a></td>
