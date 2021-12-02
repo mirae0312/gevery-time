@@ -3,6 +3,7 @@ package com.zea.geverytime.market.cart.model.service;
 import static com.zea.geverytime.common.JdbcTemplate.*;
 
 import java.sql.Connection;
+import java.util.List;
 
 import com.zea.geverytime.market.cart.model.dao.CartDao;
 import com.zea.geverytime.market.cart.model.vo.Cart;
@@ -29,6 +30,13 @@ public class CartService {
 			close(conn);
 		}
 		return result;
+	}
+
+	public List<Cart> getCartList(String memberId) {
+		Connection conn = getConnection();
+		List<Cart> cartList = cartDao.getCartList(conn, memberId);
+		close(conn);
+		return cartList;
 	}
 
 }
