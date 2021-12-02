@@ -107,7 +107,7 @@ public class ProductSaleDao {
 		return list;
 	}
 
-	public List<ProductBoard> getProductSaleBoardAll(Connection conn, int startNum, int endNum) {
+	public List<ProductBoard> getProductSaleBoardAll(Connection conn, int startNum, int endNum, String div, String state) {
 		PreparedStatement pstmt = null;
 		ResultSet rset = null;
 		String sql = prop.getProperty("getProductSaleBoardAll");
@@ -115,8 +115,10 @@ public class ProductSaleDao {
 		
 		try {
 			pstmt = conn.prepareStatement(sql);
-			pstmt.setInt(1, startNum);
-			pstmt.setInt(2, endNum);
+			pstmt.setString(1, "%"+div+"%");
+			pstmt.setString(2, state);
+			pstmt.setInt(3, startNum);
+			pstmt.setInt(4, endNum);
 			rset = pstmt.executeQuery();
 			
 			while(rset.next()) {
@@ -366,7 +368,7 @@ public class ProductSaleDao {
 		return result;
 	}
 
-	public int getProductSaleBoardCount(Connection conn) {
+	public int getProductSaleBoardCount(Connection conn, String div, String state) {
 		PreparedStatement pstmt = null;
 		ResultSet rset = null;
 		String sql = prop.getProperty("getProductSaleBoardCount");
@@ -374,6 +376,8 @@ public class ProductSaleDao {
 		
 		try {
 			pstmt = conn.prepareStatement(sql);
+			pstmt.setString(1, "%"+div+"%");
+			pstmt.setString(2, state);
 			rset = pstmt.executeQuery();
 			
 			if(rset.next()) {
