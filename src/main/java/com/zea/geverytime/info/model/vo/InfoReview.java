@@ -10,28 +10,46 @@ public class InfoReview implements Serializable {
 	 */
 	private static final long serialVersionUID = 1L;
 	
+	private int no;
+	private String r_code;
 	private String code;
-	private String pCode;
-	private String writer;
+	private String member_id;
 	private String recommend;
+	private String headContent;
 	private String content;
-	private Date visitDate;
 	private Date regDate;
 	
 	public InfoReview() {
 		super();
 	}
 
-	public InfoReview(String code, String pCode, String writer, String recommend, String content, Date visitDate,
-			Date regDate) {
+	public InfoReview(int no, String r_code, String code, String member_id, String recommend, String headContent,
+			String content, Date regDate) {
 		super();
+		this.no = no;
+		this.r_code = r_code;
 		this.code = code;
-		this.pCode = pCode;
-		this.writer = writer;
+		this.member_id = member_id;
 		this.recommend = recommend;
+		this.headContent = headContent;
 		this.content = content;
-		this.visitDate = visitDate;
 		this.regDate = regDate;
+	}
+
+	public int getNo() {
+		return no;
+	}
+
+	public void setNo(int no) {
+		this.no = no;
+	}
+
+	public String getR_code() {
+		return r_code;
+	}
+
+	public void setR_code(String r_code) {
+		this.r_code = r_code;
 	}
 
 	public String getCode() {
@@ -42,20 +60,12 @@ public class InfoReview implements Serializable {
 		this.code = code;
 	}
 
-	public String getpCode() {
-		return pCode;
+	public String getMember_id() {
+		return member_id;
 	}
 
-	public void setpCode(String pCode) {
-		this.pCode = pCode;
-	}
-
-	public String getWriter() {
-		return writer;
-	}
-
-	public void setWriter(String writer) {
-		this.writer = writer;
+	public void setMember_id(String member_id) {
+		this.member_id = member_id;
 	}
 
 	public String getRecommend() {
@@ -66,20 +76,20 @@ public class InfoReview implements Serializable {
 		this.recommend = recommend;
 	}
 
+	public String getHeadContent() {
+		return headContent;
+	}
+
+	public void setHeadContent(String headContent) {
+		this.headContent = headContent;
+	}
+
 	public String getContent() {
 		return content;
 	}
 
 	public void setContent(String content) {
 		this.content = content;
-	}
-
-	public Date getVisitDate() {
-		return visitDate;
-	}
-
-	public void setVisitDate(Date visitDate) {
-		this.visitDate = visitDate;
 	}
 
 	public Date getRegDate() {
@@ -92,10 +102,11 @@ public class InfoReview implements Serializable {
 
 	@Override
 	public String toString() {
-		return "InfoReview [code=" + code + ", pCode=" + pCode + ", writer=" + writer + ", recommend=" + recommend
-				+ ", content=" + content + ", visitDate=" + visitDate + ", regDate=" + regDate + "]";
+		return "InfoReview [no=" + no + ", r_code=" + r_code + ", code=" + code + ", member_id=" + member_id
+				+ ", recommend=" + recommend + ", headContent=" + headContent + ", content=" + content + ", regDate="
+				+ regDate + "]";
 	}
 	
 	
-	
+
 }
