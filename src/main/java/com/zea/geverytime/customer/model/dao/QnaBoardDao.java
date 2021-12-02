@@ -466,6 +466,27 @@ public class QnaBoardDao {
  
 	}
 
+	public int addQnaBoardState(Connection conn, int replyRef) {
+		PreparedStatement pstmt = null;
+		String sql = prop.getProperty("addQnaBoardState");
+		int result = 0;
+		
+		try {
+			pstmt = conn.prepareStatement(sql);
+			pstmt.setInt(1, replyRef);
+			pstmt.setInt(2, replyRef);
+			
+			result = pstmt.executeUpdate();
+			System.out.println("qnaDAo@ result :"+result);
+			
+		} catch(Exception e) {
+			e.printStackTrace();
+		} finally {
+			close(pstmt);
+		}
+		return result;
+	}
+
 	//원글 상태 변경
 //	public int changeParent(Connection conn, int parentNo) {
 //		PreparedStatement pstmt = null;
