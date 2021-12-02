@@ -43,9 +43,10 @@ public class QnaBoardEnrollServlet extends HttpServlet {
 	//redirect
 		HttpSession session = request.getSession();
 		session.setAttribute("msg", msg);
-		//session.setAttribute("qnaBoard", qnaBoard);
-		//String location = request.getContextPath()+"/customer/qnaBoardView?no=" + qnaBoard.getNo();
-		String location = request.getContextPath()+"/customer/qnaBoardList";
+		session.setAttribute("qnaBoard", qnaBoard);
+		//String location = request.getContextPath() + "/customer/qnaBoardView?no=" + qnaBoard.getNo();
+		 String location = request.getContextPath()+"/customer/qnaBoardList";
+		 
 		response.sendRedirect(location);
 		
 	 }catch(Exception e) {

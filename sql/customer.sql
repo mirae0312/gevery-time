@@ -193,7 +193,7 @@ insert into faq_board values( seq_faq_board_no.nextval, '회원정보 수정을 
 insert into faq_board values( seq_faq_board_no.nextval, '회원 탈퇴를 하고 싶어요.', 'honggd', '신고~~~~~~~~~~~',  '[회원정보문의]', default );
 insert into faq_board values( seq_faq_board_no.nextval, '포인트 조회를 하고 싶어요.', 'honggd', '신고~~~~~~~~~~~',  '[포인트문의]', default );
  
-
+ 
 
 select * from member;
 select * from qna_board;
@@ -214,7 +214,7 @@ union
 select * from qna_board where reply_ref = 122)
 where reply_ref = 122;
 
-select * from qna_board;
+select * from qna_board where no=308;
 
 update qna_board set category_b='OK' where no = 188;
 

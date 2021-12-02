@@ -44,9 +44,10 @@ public class QnaBoardReplyEnrollServlet extends HttpServlet {
 				//
 				
 				
-				
+				 
 				// 3.redirect: 게시글상세페이지  
-				String location = request.getContextPath() + "/customer/qnaBoardList";
+				 String location = request.getContextPath() + "/customer/qnaBoardList";
+				//String location = request.getContextPath() + "/customer/qnaBoardView?no=" + qnaBoard.getNo();
 				response.sendRedirect(location);
 				
 				
