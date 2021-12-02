@@ -2,6 +2,7 @@ package com.zea.geverytime.member.controller;
 
 
 import java.io.IOException;
+import java.sql.Date;
 
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
@@ -22,17 +23,57 @@ import com.zea.geverytime.member.model.vo.Member;
 public class BusinessEnrollServlet extends HttpServlet {
 	private static final long serialVersionUID = 1L;
      BusinessService businessService = new BusinessService(); 
-   
-
-	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+ 	
+     protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		request
-			.getRequestDispatcher("/WEB-INF/views/member/businessEnroll.jsp")
-			.forward(request, response);
-		}
+		.getRequestDispatcher("/WEB-INF/views/member/businessEnroll.jsp")
+		.forward(request, response);
+	}
+	   
 
-	
-	
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+		try {
+			
+			request.setCharacterEncoding("utf-8");
+			
+			String memberId = request.getParameter("businessId");
+			String password = request.getParameter("password");
+			String membername = request.getParameter("name");
+			String email = request.getParameter("email");
+			
+			
+	
+			
+			
+			
+			
+	 Member member = new Member(memberId,password,membername,null,null,email,MemberService.USER_ROLE,MemberService.BUSINESS_TYPE,null);
+			 Business business = new Business();	
+			int result = businessService.insertBmember(business,member);
+			String msg = result > 0 ? "회원가입성공!" : "회원가입실패!";
+			
+			// 4.redirect 및 msg처리
+			HttpSession session = request.getSession();
+			session.setAttribute("msg", msg);
+			String start = request.getContextPath() + "/";
+			response.sendRedirect(start);
+			
+		} catch (Exception e) {
+			e.printStackTrace();
+			throw e; 
+		}
+	}
+	
+	protected void doGetB(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+		request
+		.getRequestDispatcher("/WEB-INF/views/member/businessEnroll.jsp")
+		.forward(request, response);
+	}
+	
+	
+	
+	
+	protected void doPostB(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		try {
 		
 			request.setCharacterEncoding("utf-8");
@@ -72,46 +113,13 @@ public class BusinessEnrollServlet extends HttpServlet {
 		}
 	}
 	
-	protected void doPostB(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		try {
-			
-			request.setCharacterEncoding("utf-8");
-			
-			String businessId = request.getParameter("businessId");
-			String password = request.getParameter("password");
-			String name = request.getParameter("name");
-			String email = request.getParameter("email");
-			
-			
-						
-			System.out.println("email = " + email);
-			
-			
-			
-			
-		 Member member = new Member(businessId,password,name,null,null,email,MemberService.USER_ROLE,MemberService.USER_TYPE,null);
-			
-			// 3.업무로직 service객체의 insertMember호출 & 생성한 member객체 전달
-			int result = businessService.insertBmember();
-			String msg = result > 0 ? "회원가입성공!" : "회원가입실패!";
-			
-			// 4.redirect 및 msg처리
-			HttpSession session = request.getSession();
-			session.setAttribute("msg", msg);
-			String start = request.getContextPath() + "/";
-			response.sendRedirect(start);
-			
-		} catch (Exception e) {
-			e.printStackTrace();
-			throw e; // tomcat이 error.jsp로 위임하도록 처리
-		}
-	}
 	
 	
 	
+
 	
 	
 	
-	
-	
+
+
 }

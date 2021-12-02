@@ -76,7 +76,7 @@ $(() => {
                 <div class="login_append">
                     <div class="inp_chk"> 
                    
-            <span class="enroll_"> <a href= "<%=request.getContextPath()%>/member/memberEnroll">회원가입</a></span>
+            <span class="enroll_"> <a href= "<%=request.getContextPath()%>/member/businessEnroll">회원가입</a></span>
           
           
             </label>
