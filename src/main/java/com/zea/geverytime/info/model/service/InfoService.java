@@ -8,7 +8,11 @@ import java.util.List;
 
 import com.zea.geverytime.common.model.vo.Attachment;
 import com.zea.geverytime.info.model.dao.InfoDao;
+import com.zea.geverytime.info.model.vo.CafeRestaurant;
+import com.zea.geverytime.info.model.vo.Hospital;
 import com.zea.geverytime.info.model.vo.Info;
+import com.zea.geverytime.info.model.vo.Pension;
+import com.zea.geverytime.info.model.vo.Salon;
 
 public class InfoService {
 	
@@ -71,6 +75,38 @@ public class InfoService {
 			String code = infoDao.selectCode(conn, info);
 			info.setCode(code);
 			
+			List<Hospital> hospitals = info.getHospitals();
+			if(hospitals != null && !hospitals.isEmpty()) {
+				for(Hospital hospital : hospitals) {
+					hospital.setCode(code);
+					result = infoDao.insertHospitalService(conn, hospital);
+				}
+			}
+			
+			List<CafeRestaurant> crs = info.getCafeRestaurants();
+			if(crs != null && !crs.isEmpty()) {
+				for(CafeRestaurant cr : crs) {
+					cr.setCode(code);
+					result = infoDao.insertCafeRestaurantService(conn, cr);
+				}
+			}
+			
+			List<Pension> pensions = info.getPensions();
+			if(pensions != null && !pensions.isEmpty()) {
+				for(Pension pension : pensions) {
+					pension.setCode(code);
+					result = infoDao.insertPensionService(conn, pension);
+				}
+			}
+			
+			List<Salon> salons = info.getSalons();
+			if(salons != null && !salons.isEmpty()) {
+				for(Salon salon : salons) {
+					salon.setCode(code);
+					result = infoDao.insertSalonService(conn, salon);
+				}
+			}
+			
 			List<Attachment> attachments = info.getAttachments();
 			if(attachments != null && !attachments.isEmpty()) {
 				for(Attachment attach : attachments) {
@@ -117,12 +153,29 @@ public class InfoService {
 		return check;
 	}
 
-	public Info selectOneView(String code) {
+	public Info selectOneView(String code, String codeN) {
 		Connection conn = null;
 		Info info = null;
+		List<Hospital> h = null;
+		List<CafeRestaurant> cr = null;
+		List<Pension> p = null;
+		List<Salon> s = null;
 		try {
 			conn = getConnection();
 			info = infoDao.selectOneView(conn, code);
+			if("1".equals(codeN)) {
+				h = infoDao.selectRightHospital(conn, code);
+				info.setHospitals(h);
+			}else if("2".equals(codeN) || "3".equals(codeN)) {
+				cr = infoDao.selectRightCafeRestaurant(conn, code);
+				info.setCafeRestaurants(cr);
+			}else if("4".equals(codeN)) {
+				p = infoDao.selectRightPension(conn, code);
+				info.setPensions(p);
+			}else if("5".equals(codeN)) {
+				s = infoDao.selectRightSalon(conn, code);
+				info.setSalons(s);
+			}
 		}catch(Exception e) {
 			throw e;
 		}finally {
@@ -146,6 +199,68 @@ public class InfoService {
 			close(conn);
 		}
 		return result;
+	}
+
+	public int checkInfoLike(String code, String memberId) {
+		Connection conn = null;
+		int no = 0;
+		try {
+			conn = getConnection();
+			no = infoDao.checkInfoLike(conn, code, memberId);
+		}catch(Exception e) {
+			throw e;
+		} finally{
+			close(conn);
+		}
+		return no;
+	}
+
+	public int insertInfoLike(String codeN, String code, String memberId) {
+		Connection conn = null;
+		int result = 0;
+		try {
+			conn = getConnection();
+			result = infoDao.insertInfoLike(conn, codeN, code, memberId);
+			if(result > 0)
+				commit(conn);
+		}catch(Exception e) {
+			rollback(conn);
+			throw e;
+		}finally {
+			close(conn);
+		}
+		return result;
+	}
+
+	public int updateInfoLike(String code, String memberId) {
+		Connection conn = null;
+		int result = 0;
+		try {
+			conn = getConnection();
+			result = infoDao.updateInfoLike(conn, code, memberId);
+			if(result > 0)
+				commit(conn);
+		}catch(Exception e) {
+			rollback(conn);
+			throw e;
+		}finally {
+			close(conn);
+		}
+		return result;
+	}
+
+	public String checkInfoRecommend(String code, String memberId) {
+		Connection conn = null;
+		String recommend = "";
+		try {
+			conn = getConnection();
+			recommend = infoDao.checkInfoRecommend(conn, code, memberId);
+		}catch(Exception e) {
+			throw e;
+		}finally {
+			close(conn);
+		}
+		return recommend;
 	}
 
 
