@@ -62,11 +62,13 @@ public class InfoBoardViewServlet extends HttpServlet {
 			Info info = infoService.selectOneView(code);
 			System.out.println("[infoBoardViewServlet] info : " + info);
 			
+			String no = info.getCode();
+			
 			// view단 처리
 			request.setAttribute("info", info);
 			request
-			.getRequestDispatcher("/WEB-INF/views/info/infoView.jsp")
-			.forward(request, response);
+				.getRequestDispatcher("/WEB-INF/views/info/infoView.jsp")
+				.forward(request, response);
 			
 		} catch(Exception e) {
 			e.printStackTrace();

@@ -20,6 +20,7 @@ import com.zea.geverytime.common.MvcUtils;
 import com.zea.geverytime.common.model.vo.Attachment;
 import com.zea.geverytime.info.model.service.InfoService;
 import com.zea.geverytime.info.model.vo.Info;
+import com.zea.geverytime.member.model.vo.Member;
 
 /**
  * Servlet implementation class InfoEnrollServlet
@@ -34,8 +35,10 @@ public class InfoEnrollServlet extends HttpServlet {
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		try {
-//			String memberId = loginMember.getMemberId();
-			String memberId = "businessGirl";
+			HttpSession session = request.getSession();
+			Member loginMember = (Member) session.getAttribute("loginMember");
+			String memberId = loginMember.getMemberId();
+
 			boolean bool = true;
 			
 			// 글을 작성한적 있는지 확인 (개인 사업자는 사업체 한개인 것을 이용)
@@ -47,13 +50,14 @@ public class InfoEnrollServlet extends HttpServlet {
 				Info info = infoService.selectBeforeWrite(memberId);
 				System.out.println("[infoEnollServlet] info : " + info);
 				
+				
 				// 게시물 등록jsp로 이동
 				request.setAttribute("info", info);
 				request
 					.getRequestDispatcher("/WEB-INF/views/info/infoEnroll.jsp")
 					.forward(request, response);
 			} else {
-				HttpSession session = request.getSession();
+				
 				session.setAttribute("msg", "이미 등록하여 수정만 가능합니다.");
 				String location = request.getContextPath() + "/";
 				response.sendRedirect(location);
