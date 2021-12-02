@@ -10,6 +10,7 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
+import com.zea.geverytime.member.model.service.MemberService;
 import com.zea.geverytime.member.model.vo.Member;
 import com.zea.geverytime.myPage.model.service.MyPageService;
 
@@ -20,11 +21,10 @@ import com.zea.geverytime.myPage.model.service.MyPageService;
 public class MemberUpdateServlet extends HttpServlet {
 	private static final long serialVersionUID = 1L;
 	private MyPageService myPageService = new MyPageService();
+	private MemberService memberService = new MemberService();
 
-	/**
-	 * updateMember = member_name = ?, member_id = ?, email = ?, phone = ?, address = ?, birthday = ?
-	 */
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+		HttpSession session = request.getSession();
 		request.setCharacterEncoding("utf-8");
 		
 		String memberId = request.getParameter("memberId");
@@ -43,8 +43,13 @@ public class MemberUpdateServlet extends HttpServlet {
 		
 		int result = myPageService.updateMember(member);
 		String msg = (result > 0) ? "회원정보 수정 성공" : "회원정보 수정 실패";
+		// 회원정보 수정결과 반영
+		if(result > 0) {
+			Member updateMember = memberService.selectOneMember(memberId);
+			session.setAttribute("loginMember", updateMember);
+		}
 		
-		HttpSession session = request.getSession();
+		
 		String location = request.getContextPath() + "/myPage/myPageMain";
 		response.sendRedirect(location);
 	}

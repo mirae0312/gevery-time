@@ -70,5 +70,20 @@ public class MyPageDao {
 		}
 		return result;
 	}
+	public int deleteMember(Connection conn, String memberId) {
+		int result = 0;
+		PreparedStatement pstmt = null;
+		String sql = prop.getProperty("deleteMember");
+		try {
+			pstmt = conn.prepareStatement(sql);
+			pstmt.setString(1, memberId);
+			result = pstmt.executeUpdate();
+		} catch (SQLException e) {
+			throw new MemberException("회원 삭제 오류!", e);
+		} finally {
+			close(pstmt);
+		}
+		return result;
+	}
 
 }

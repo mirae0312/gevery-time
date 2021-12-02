@@ -7,6 +7,7 @@ import static com.zea.geverytime.common.JdbcTemplate.rollback;
 
 import java.sql.Connection;
 
+import com.zea.geverytime.member.model.exception.MemberException;
 import com.zea.geverytime.member.model.vo.Member;
 import com.zea.geverytime.myPage.model.dao.MyPageDao;
 
@@ -46,6 +47,24 @@ public class MyPageService {
 				close(conn);
 			}
 			
+			return result;
+		}
+
+		public int deleteMember(String memberId) {
+			Connection conn = null;
+			int result = 0;
+			try {
+				conn = getConnection();
+				result = myPageDao.deleteMember(conn, memberId);
+				if(result == 0)
+					throw new MemberException("해당하는 회원이 없습니다.");
+				commit(conn);
+			} catch(Exception e) {
+				rollback(conn);
+				throw e;
+			} finally {
+				close(conn);
+			}
 			return result;
 		}
 }
