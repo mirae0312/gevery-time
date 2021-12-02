@@ -20,6 +20,7 @@ import com.zea.geverytime.common.MvcUtils;
 import com.zea.geverytime.common.model.vo.Attachment;
 import com.zea.geverytime.info.model.service.InfoService;
 import com.zea.geverytime.info.model.vo.Info;
+import com.zea.geverytime.info.model.vo.Salon;
 import com.zea.geverytime.member.model.vo.Member;
 
 /**
@@ -280,25 +281,34 @@ public class InfoEnrollServlet extends HttpServlet {
 				String smallScissors3 = multipartRequest.getParameter("smallScissors3");
 				String middleScissors3 = multipartRequest.getParameter("middleScissors3");
 				String specialScissors3 = multipartRequest.getParameter("specialScissors3");
+				Salon salon1 = new Salon(0, null, smallBath1, middleBath1, specialBath1, smallBathAnd1, middleBathAnd1, specialBathAnd1, smallMachine1, middleMachine1, specialMachine1, smallSpotting1, middleSpotting1, specialSpotting1, smallScissors1, middleScissors1, specialScissors1);
+				Salon salon2 = new Salon(0, null, smallBath2, middleBath2, specialBath2, smallBathAnd2, middleBathAnd2, specialBathAnd2, smallMachine2, middleMachine2, specialMachine2, smallSpotting2, middleSpotting2, specialSpotting2, smallScissors2, middleScissors2, specialScissors2);
+				Salon salon3 = new Salon(0, null, smallBath3, middleBath3, specialBath3, smallBathAnd3, middleBathAnd3, specialBathAnd3, smallMachine3, middleMachine3, specialMachine3, smallSpotting3, middleSpotting3, specialSpotting3, smallScissors3, middleScissors3, specialScissors3);
+				List<Salon> listS = new ArrayList<>();
+				listS.add(salon1);
+				listS.add(salon2);
+				listS.add(salon3);
 				
-				String[] services = {smallBath1, ",", middleBath1, ",", specialBath1, ",", smallBathAnd1, ",", middleBathAnd1, ",", specialBathAnd1, 
-						smallMachine1, ",", middleMachine1, ",", specialMachine1, ",",  smallSpotting1, ",", middleSpotting1, ",", specialSpotting1, ",",
-						smallScissors1, ",", middleScissors1, ",", specialScissors1, "-",
-						smallBath2, ",", middleBath2, ",", specialBath2, ",", smallBathAnd2, ",", middleBathAnd2, ",", specialBathAnd2, 
-						smallMachine2, ",", middleMachine2, ",", specialMachine2, ",",  smallSpotting2, ",", middleSpotting2, ",", specialSpotting2, ",",
-						smallScissors2, ",", middleScissors2, ",", specialScissors2, "-",
-						smallBath3, ",", middleBath3, ",", specialBath3, ",", smallBathAnd3, ",", middleBathAnd3, ",", specialBathAnd3,
-						smallMachine3, ",", middleMachine3, ",", specialMachine3, ",",  smallSpotting3, ",", middleSpotting3, ",", specialSpotting3, ",",
-						smallScissors3, ",", middleScissors3, ",", specialScissors3};
 				
-				StringBuilder service = new StringBuilder();
-				for(int i = 0; i < services.length; i++) {
-					if(services[i] != null && !services[i].isEmpty()) {
-						service.append(services[i]);
-					}
-				}
-				String serv = service.toString();
-				info.setServiceContent(serv);
+				
+//				String[] services = {smallBath1, ",", middleBath1, ",", specialBath1, ",", smallBathAnd1, ",", middleBathAnd1, ",", specialBathAnd1, 
+//						smallMachine1, ",", middleMachine1, ",", specialMachine1, ",",  smallSpotting1, ",", middleSpotting1, ",", specialSpotting1, ",",
+//						smallScissors1, ",", middleScissors1, ",", specialScissors1, "-",
+//						smallBath2, ",", middleBath2, ",", specialBath2, ",", smallBathAnd2, ",", middleBathAnd2, ",", specialBathAnd2, 
+//						smallMachine2, ",", middleMachine2, ",", specialMachine2, ",",  smallSpotting2, ",", middleSpotting2, ",", specialSpotting2, ",",
+//						smallScissors2, ",", middleScissors2, ",", specialScissors2, "-",
+//						smallBath3, ",", middleBath3, ",", specialBath3, ",", smallBathAnd3, ",", middleBathAnd3, ",", specialBathAnd3,
+//						smallMachine3, ",", middleMachine3, ",", specialMachine3, ",",  smallSpotting3, ",", middleSpotting3, ",", specialSpotting3, ",",
+//						smallScissors3, ",", middleScissors3, ",", specialScissors3};
+//				
+//				StringBuilder service = new StringBuilder();
+//				for(int i = 0; i < services.length; i++) {
+//					if(services[i] != null && !services[i].isEmpty()) {
+//						service.append(services[i]);
+//					}
+//				}
+//				String serv = service.toString();
+//				info.setServiceContent(serv);
 			}
 			
 	
