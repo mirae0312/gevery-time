@@ -151,8 +151,11 @@ public class InfoEnrollServlet extends HttpServlet {
 			// 병원1: 진료과목 ,
 			if("1".equals(no)) {
 				String service1 = multipartRequest.getParameter("hservice1");
+				System.out.println("service1 : " + service1);
 				String service2 = multipartRequest.getParameter("hservice2");
+				System.out.println("service2 : " + service2);
 				String service3 = multipartRequest.getParameter("hservice3");
+				System.out.println("service3 : " + service3);
 				String service4 = multipartRequest.getParameter("hservice4");
 				String service5 = multipartRequest.getParameter("hservice5");
 				String service6 = multipartRequest.getParameter("hservice6");
@@ -164,6 +167,8 @@ public class InfoEnrollServlet extends HttpServlet {
 				List<Hospital> list = new ArrayList<>();
 				for(int i = 0; i < services.length; i++) {
 					if(services[i] != null && !services[i].isEmpty()) {
+						h = new Hospital();
+						System.out.println("for service[i] : " + services[i]);
 						h.setService(services[i]);
 						list.add(h);
 					}
@@ -195,6 +200,7 @@ public class InfoEnrollServlet extends HttpServlet {
 				List<CafeRestaurant> list = new ArrayList<>();
 				for(int i = 0; i < services.length; i++) {
 					if(services[i] != null && !services[i].isEmpty()) {
+						cr = new CafeRestaurant();
 						cr.setService(services[i]);
 						cr.setPrice(prices[i]);
 						list.add(cr);

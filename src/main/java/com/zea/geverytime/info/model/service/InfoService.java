@@ -79,6 +79,7 @@ public class InfoService {
 			List<Hospital> hospitals = info.getHospitals();
 			if(hospitals != null && !hospitals.isEmpty()) {
 				for(Hospital hospital : hospitals) {
+					System.out.println("[infoservice] hospitalService : " + hospital.getService());
 					hospital.setCode(code);
 					result = infoDao.insertHospitalService(conn, hospital);
 				}
@@ -277,6 +278,87 @@ public class InfoService {
 		}
 		return ir;
 	}
+
+	public InfoReview checkReview(String code, String memberId) {
+		Connection conn = null;
+		InfoReview check = null;
+		try {
+			conn = getConnection();
+			check = infoDao.checkReview(conn, code, memberId);
+		}catch(Exception e) {
+			throw e;
+		}finally {
+			close(conn);
+		}
+		return check;
+	}
+
+	public int insertInfoReview(InfoReview ir, String codeN) {
+		Connection conn = null;
+		int result = 0;
+		try {
+			conn = getConnection();
+			result = infoDao.insertInfoReview(conn, ir, codeN);
+			String rCode = infoDao.getReviewCode(conn, ir);
+			ir.setrCode(rCode);
+			
+			List<Attachment> attachments = ir.getAttachments();
+			if(attachments != null && !attachments.isEmpty()) {
+				for(Attachment attach : attachments) {
+					attach.setCode(rCode);
+					result = infoDao.insertReviewAttachment(conn, attach);
+				}
+			}
+			if(result > 0)
+				commit(conn);
+		}catch(Exception e) {
+			rollback(conn);
+			throw e;
+		}finally {
+			close(conn);
+		}
+		return result;
+	}
+
+
+	public List<Attachment> selectAllReviewAttach() {
+		Connection conn = null;
+		List<Attachment> list = null;
+		try {
+			conn = getConnection();
+			list = infoDao.selectAllReviewAttach(conn);
+		}catch(Exception e) {
+			throw e;
+		}finally {
+			close(conn);
+		}
+		return list;
+	}
+
+	public int updateInfoReview(InfoReview ir) {
+		Connection conn = null;
+		int result = 0;
+		try {
+			conn = getConnection();
+			result = infoDao.updateInfoReview(conn, ir);
+			List<Attachment> attachments = ir.getAttachments();
+			if(attachments != null && !attachments.isEmpty()) {
+				for(Attachment attach : attachments) {
+					attach.setCode(ir.getrCode());
+					result = infoDao.insertReviewAttachment(conn, attach);
+				}
+			}
+			if(result > 0)
+				commit(conn);
+		}catch(Exception e) {
+			rollback(conn);
+			throw e;
+		}finally {
+			close(conn);
+		}
+		return result;
+	}
+
 
 
 }
