@@ -5,7 +5,6 @@
 <%@ include file="/WEB-INF/views/common/header.jsp" %>	
 <%
 	List<ProductBoard> list = (List<ProductBoard>) request.getAttribute("list");
-
 %>
 <!DOCTYPE html>
 <html>
@@ -94,7 +93,6 @@
 		$(() => {
 			selectContent(1);
 		});
-
 		$(".pageBar").click((e)=>{
 			selectContent($(e.target).data('page'));
 		})

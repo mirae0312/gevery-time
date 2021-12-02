@@ -42,12 +42,12 @@
              <nav>
                <ul class="navs">
 				<%if(loginMember == null){ %>
-               <li class="nav" id="login" name="login"><a href="<%=request.getContextPath()%>/member/login">로그인</a></li>
+               <li class="nav" id="login" ><a href="<%=request.getContextPath()%>/member/login">로그인</a></li>
               	<% } %>
                <% if(loginMember != null){ %>
                <li class="nav"><%= loginMember.getMemberName() %>님</li>
                <li class="nav" id="logout"><a href="<%= request.getContextPath() %>/member/logout">로그아웃</a></li>
-               <li class="nav" id="mypage"><a href="#">마이페이지</a></li>	              
+               <li class="nav" id="mypage"><a href="<%= request.getContextPath() %>/myPage/myPageMain">마이페이지</a></li>	              
                <%} %>
                <li class="nav" id="dm"><a href="<%= request.getContextPath() %>/chat/chatroom">DM</a></li>
 
