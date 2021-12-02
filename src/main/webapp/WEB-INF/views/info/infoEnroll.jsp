@@ -9,7 +9,7 @@
 	String no = bno.substring(bno.length() - 1);
 %>
 <script type="text/javascript" src="//dapi.kakao.com/v2/maps/sdk.js?appkey=4247f28f0dc06c5cc8486ac837d411ff"></script>
-<script type="text/javascript" src="//dapi.kakao.com/v2/maps/sdk.js?appkey=APIKEY&libraries=services,clusterer,drawing"></script>
+<script type="text/javascript" src="//dapi.kakao.com/v2/maps/sdk.js?appkey=4247f28f0dc06c5cc8486ac837d411ff&libraries=services,clusterer,drawing"></script>
 <div class="enroll-wrapper">
 	<form name="infoEnrollFrm" action="<%= request.getContextPath() %>/info/Enroll" 
 		method="post" enctype="multipart/form-data">
