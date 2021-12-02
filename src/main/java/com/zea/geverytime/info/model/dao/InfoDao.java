@@ -795,7 +795,7 @@ public class InfoDao {
 		String sql = prop.getProperty("selectAllReview");
 		ResultSet rset = null;
 		List<InfoReview> ir = new ArrayList<>();
-		
+		System.out.println("[selectAllReview] code : " + code);
 		try {
 			pstmt = conn.prepareStatement(sql);
 			
@@ -809,7 +809,7 @@ public class InfoDao {
 				re.setCode(rset.getString("code"));
 				re.setMemberId(rset.getString("member_id"));
 				re.setRecommend(rset.getString("recommend"));
-				re.setHeadContent(rset.getString("head_content"));
+				re.setHeadContent(rset.getString("haed_content"));
 				re.setContent(rset.getString("content"));
 				re.setRegDate(rset.getDate("reg_date"));
 				ir.add(re);
