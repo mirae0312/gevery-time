@@ -1,3 +1,5 @@
+<%@page import="java.util.List"%>
+<%@page import="com.zea.geverytime.info.model.vo.InfoReview"%>
 <%@page import="com.zea.geverytime.info.model.vo.Salon"%>
 <%@page import="com.zea.geverytime.info.model.vo.Pension"%>
 <%@page import="com.zea.geverytime.info.model.vo.CafeRestaurant"%>
@@ -9,7 +11,7 @@
 	Info info = (Info) request.getAttribute("info"); 
 	String codeN = (String) request.getAttribute("codeN");
 	String recommend = (String) request.getAttribute("recommend");
-	System.out.println("view recommend : " + recommend);
+	List<InfoReview> ir = (List<InfoReview>) request.getAttribute("ir");
 %>
 <%@ page import="java.sql.*" %>
 <%@ include file="/WEB-INF/views/common/header.jsp" %>
@@ -158,98 +160,128 @@
 	<input type="checkbox" name="like" id="info-like" <%= "G".equals(recommend) ? "checked" : "" %> />
 	<label for="info-like">좋아요</label>
 	<div class="info-review-wrapper">
-		<div class="info-review"></div>
-		<form action="<%= request.getContextPath() %>"
+<% if(ir != null && !ir.isEmpty()){ %>
+	<% for(InfoReview re : ir){ %>
+		<div class="info-review">
+			<form action="" class="review" method="POST">
+				<input type="hidden" value="<%= re.getrCode() %>" />
+				<div class="review-writer"><%= re.getMemberId() %></div>
+				<div class="review-head"><%= re.getHeadContent() %></div>
+				<div class="review-content"><%= re.getContent() %></div>
+				<div class="review-reg-date"><%= re.getRegDate() %></div>
+				<input type="button" class="reivew-report" />
+			</form>
+		</div>
+	<% } %>
+<% } %>
+		<form action="<%= request.getContextPath() %>/info/insertReview"
+			id="reviewEnrollFrm"
 			method="post" enctype="multipart/form-data">
-			<textarea name="writeReview" id="writeReview" cols="30" rows="10"></textarea><br />
+			<textarea name="writeReview" id="writeReview" cols="30" rows="10"></textarea>
+<% if(loginMember != null && MemberService.USER_ROLE.equals(loginMember.getMemberRole())){ %>
+			<button>등록</button>
+<% } %>
 		</form>
 	</div>
 </div>
 <script>
-	$("#info-like").change((e) => {
+// 리뷰신고
+$(".review-report").click((e) => {
+	
+});
+
+// 좋아요
+$("#info-like").change((e) => {
 <% if(loginMember != null && MemberService.USER_ROLE.equals(loginMember.getMemberRole())){ %>
-		if($("#info-like").is(":checked") == true){
-			console.log("체크된 상태");
-			$.ajax({
-				url: "<%= request.getContextPath() %>/info/likeCount",
-				data: {
-					code: "<%= info.getCode() %>",
-					memberId: "<%= loginMember.getMemberId() %>"
-				},
-				success(data){
-					console.log(data);
-				},
-				error: console.log
-			});
-		}
-		if($("#info-like").is(":checked") == false){
-			console.log("체크 안됨");
-			$.ajax({
-				url: "<%= request.getContextPath() %>/info/likeCount?code=<%= info.getCode() %>&&memberId=<%= loginMember.getMemberId() %>",
-				success(data){
-					console.log(data);
-				},
-				error: console.log
-			});
-		}		
+	if($("#info-like").is(":checked") == true){
+		console.log("체크된 상태");
+		$.ajax({
+			url: "<%= request.getContextPath() %>/info/likeCount",
+			data: {
+				code: "<%= info.getCode() %>",
+				memberId: "<%= loginMember.getMemberId() %>"
+			},
+			success(data){
+				console.log(data);
+			},
+			error: console.log
+		});
+	}
+	if($("#info-like").is(":checked") == false){
+		console.log("체크 안됨");
+		$.ajax({
+			url: "<%= request.getContextPath() %>/info/likeCount?code=<%= info.getCode() %>&&memberId=<%= loginMember.getMemberId() %>",
+			success(data){
+				console.log(data);
+			},
+			error: console.log
+		});
+	}		
 <% }else{ %>
-		alert("로그인 후 이용해 주세요");
-		$("#info-like").attr("disabled", "disabled");
+	alert("로그인 후 이용해 주세요");
+	$("#info-like").attr("disabled", "disabled");
 <% } %>
+});
+
+// summernote
+$(document).ready(function() {
+	$('#writeReview').summernote({
+		height: 300,
+		focus: false,
+		disableResizeEditor: true,
+		toolbar: [
+			['style', ['bold', 'italic', 'underline', 'clear']],
+			['font', ['strikethrough', 'superscript', 'subscript']],
+			['fontsize', ['fontsize']],
+			['color', ['color']],
+			['para', ['ul', 'ol', 'paragraph']],
+			['height', ['height']],
+		]
 	});
 	
+});
+
+
+// 카카오 지도 api
+var mapContainer = document.getElementById('map'), // 지도를 표시할 div 
+	mapOption = {
+	    center: new kakao.maps.LatLng(33.450701, 126.570667), // 지도의 중심좌표
+	    level: 3 // 지도의 확대 레벨
+};  
+
+//지도를 생성합니다    
+var map = new kakao.maps.Map(mapContainer, mapOption); 
+
+//주소-좌표 변환 객체를 생성합니다
+var geocoder = new kakao.maps.services.Geocoder();
+
+//주소로 좌표를 검색합니다
+geocoder.addressSearch('<%= info.getBusinessAddress() %>', function(result, status) {
+
+// 정상적으로 검색이 완료됐으면 
+	if (status === kakao.maps.services.Status.OK) {
 	
-	// 카카오 지도 api
-	var mapContainer = document.getElementById('map'), // 지도를 표시할 div 
-		mapOption = {
-		    center: new kakao.maps.LatLng(33.450701, 126.570667), // 지도의 중심좌표
-		    level: 3 // 지도의 확대 레벨
-	};  
-	
-	//지도를 생성합니다    
-	var map = new kakao.maps.Map(mapContainer, mapOption); 
-	
-	//주소-좌표 변환 객체를 생성합니다
-	var geocoder = new kakao.maps.services.Geocoder();
-	
-	//주소로 좌표를 검색합니다
-	geocoder.addressSearch('<%= info.getBusinessAddress() %>', function(result, status) {
-	
-	// 정상적으로 검색이 완료됐으면 
-		if (status === kakao.maps.services.Status.OK) {
+		var coords = new kakao.maps.LatLng(result[0].y, result[0].x);
 		
-			var coords = new kakao.maps.LatLng(result[0].y, result[0].x);
-			
-			// 결과값으로 받은 위치를 마커로 표시합니다
-			var marker = new kakao.maps.Marker({
-			    map: map,
-			    position: coords
-			});
-			
-			// 인포윈도우로 장소에 대한 설명을 표시합니다
-			var infowindow = new kakao.maps.InfoWindow({
-			    content: '<div style="width:150px;text-align:center;padding:6px 0;">우리회사</div>'
-			});
-			infowindow.open(map, marker);
-			
-			// 지도의 중심을 결과값으로 받은 위치로 이동시킵니다
-			map.setCenter(coords);
-			console.log(coords);
-		} 
-	});   
-	
-	$(document).ready(function() {
-		 $('#writeReview').summernote({
-	          height: 300,                 // 에디터 높이
-	          minHeight: null,             // 최소 높이
-	          maxHeight: null,             // 최대 높이
-	          focus: false,                  // 에디터 로딩후 포커스를 맞출지 여부
-	          lang: "ko-KR",                    // 한글 설정
-	          placeholder: '최대 2048자까지 쓸 수 있습니다',    //placeholder 설정
-	          disableResizeEditor: true
-	    });
+		// 결과값으로 받은 위치를 마커로 표시합니다
+		var marker = new kakao.maps.Marker({
+		    map: map,
+		    position: coords
+		});
 		
-	});
+		// 인포윈도우로 장소에 대한 설명을 표시합니다
+		var infowindow = new kakao.maps.InfoWindow({
+		    content: '<div style="width:150px;text-align:center;padding:6px 0;">우리회사</div>'
+		});
+		infowindow.open(map, marker);
+		
+		// 지도의 중심을 결과값으로 받은 위치로 이동시킵니다
+		map.setCenter(coords);
+		console.log(coords);
+	} 
+});   
+
+
 </script>
 
 <%@ include file="/WEB-INF/views/common/footer.jsp" %>
