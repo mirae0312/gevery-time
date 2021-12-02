@@ -81,6 +81,9 @@ $(() => {
 			</tr>
 		</thead>
 		<tbody>
+		
+		<!-- 수정하기 / 삭제하기 : 작성자 로그인 시에만 보여짐 -->
+		<% if(loginMember != null && loginMember.getMemberId().equals(board.getSellerId())) { %>
 			<tr>
 				<td><input type="button" value="수정하기" id="boardEdit" onclick="updateBoard();"/></td>
 				<td>
@@ -91,6 +94,7 @@ $(() => {
 					
 				</td>
 			</tr>
+		<% } %>
 			<tr>
 				<th>섬네일</th>
 				<td><img src="<%= request.getContextPath() %>/upload/market/productSale/<%= thumbnailImg %>" style="width:300px;"></td>
@@ -110,6 +114,18 @@ $(() => {
 				<th>가격</th>
 				<td><%= board.getProduct().getPdtPrice() %>원</td>
 			</tr>
+			
+			<!-- 구매 관련 영역 -->
+			<tr>
+				<td colspan=2><input type="button" value="구매하기" /></td>
+			</tr>
+			<tr>
+				<td colspan=2><input type="button" value="장바구니 담기" /></td>
+			</tr>
+			<tr>
+				<td colspan=2><input type="button" value="찜목록 담기" /></td>
+			</tr>
+			
 			<tr>
 				<th colspan=2>내용</th>
 			</tr>
@@ -215,7 +231,7 @@ $(() => {
 			<tr>
 				<th>입력하기</th>
 				<td colspan=2>
-					<form action="<%= request.getContextPath() %>/product/questionEnroll" method="POST">
+					<form action="<%= request.getContextPath() %>/product/questionEnroll" method="POST" name="commentEnrollFrm">
 						<input type="hidden" name="writer" value="<%= loginMember != null ? loginMember.getMemberId() : "" %>" readonly/><br />
 						<label for="qtitle">제목</label><input type="text" name="qtitle"/>
 						<label for="qcontent">내용</label><input type="text" name="qcontent"/>
@@ -241,6 +257,20 @@ $(() => {
 			}
 		}
 		
+		// submit null 방지 : 미로그인 회원, 미입력 시
+		$(document.commentEnrollFrm).submit((e) => {
+			<% if(loginMember == null) {%>
+				alert("로그인 후 이용 가능합니다.");
+				return false;
+			<% } %>
+			if(!/^(.|\n)+$/.test($("[name=qtitle]").val())){
+				alert("제목을 입력하세요");
+				e.preventDefault();
+			}else if (!/^(.|\n)+$/.test($("[name=qcontent]").val())){
+				alert("내용을 입력하세요");
+				e.preventDefault();
+			};
+		})
 	</script>
 </body>
 </html>
