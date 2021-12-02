@@ -2,7 +2,7 @@ package com.zea.geverytime.member.controller;
 
 
 import java.io.IOException;
-import java.sql.Date;
+
 
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
@@ -24,6 +24,7 @@ public class BusinessEnrollServlet extends HttpServlet {
 	private static final long serialVersionUID = 1L;
      BusinessService businessService = new BusinessService(); 
  	
+    
      protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		request
 		.getRequestDispatcher("/WEB-INF/views/member/businessEnroll.jsp")
@@ -64,7 +65,7 @@ public class BusinessEnrollServlet extends HttpServlet {
 		}
 	}
 	
-	protected void doGetB(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+  protected void doGetB(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		request
 		.getRequestDispatcher("/WEB-INF/views/member/businessEnroll.jsp")
 		.forward(request, response);
@@ -109,7 +110,7 @@ public class BusinessEnrollServlet extends HttpServlet {
 			
 		} catch (Exception e) {
 			e.printStackTrace();
-			throw e; // tomcat이 error.jsp로 위임하도록 처리
+			throw e; 
 		}
 	}
 	

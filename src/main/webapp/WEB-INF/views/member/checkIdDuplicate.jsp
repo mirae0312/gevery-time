@@ -28,7 +28,7 @@ span#duplicated{color:red; font-weight:bold;}
 		name="checkIdDuplicateFrm" 
 		action="<%= request.getContextPath() %>/member/checkIdDuplicate"
 		method="GET">
-		<input type="text" name="memberId" placeholder="아이디를 입려하세요."/>
+		<input type="text" name="memberId" placeholder="아이디를 입력하세요."/>
 		<input type="submit" value="아이디중복검사" />
 	</form>
 	

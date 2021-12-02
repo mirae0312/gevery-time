@@ -12,10 +12,11 @@ import javax.servlet.http.HttpServletResponse;
 import com.zea.geverytime.member.model.service.MemberService;
 import com.zea.geverytime.member.model.vo.Member;
 
-@WebServlet("/member/checkDuplicate")
+@WebServlet("/member/checkIdDuplicate")
 public class CheckIdDuplicateServlet extends HttpServlet {
 	private static final long serialVersionUID = 1L;
 	private MemberService memberService = new MemberService();
+	
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 	
 		//1. 인코딩
