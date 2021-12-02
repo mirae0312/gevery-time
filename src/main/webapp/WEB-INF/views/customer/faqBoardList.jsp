@@ -61,10 +61,17 @@
 %>
  
             </table>
-          
         </div>
+<% 	if(
+				loginMember != null && 
+				(MemberService.ADMIN_ROLE.equals(loginMember.getMemberRole()))
+			){ %>
         <div id="inputBox"><input type="button" value="글쓰기" id="btn-add"
         	onclick="location.href='<%= request.getContextPath() %>/customer/faqBoardForm'"/></div>
+ <%
+	}
+		 
+%>
 	<div id='pageBar'><%= request.getAttribute("pagebar") %></div>
  </div> 
 </section>

@@ -25,11 +25,18 @@
                     </tr>
                 </thead>
                 <tbody>
+
  <%
 	List<ReportBoard> list = (List<ReportBoard>) request.getAttribute("list");
 	for(ReportBoard reportBoard : list){
 %>
- 
+  <% 	if(
+				loginMember != null && 
+				(
+				  loginMember.getMemberId().equals(reportBoard.getMemberId())
+				  || MemberService.ADMIN_ROLE.equals(loginMember.getMemberRole())
+				)
+			){ %>
                     <tr>
                         <td class="tit" colspan="7">
                           <a href="<%= request.getContextPath() %>/customer/reportBoardView?no=<%= reportBoard.getReportNo() %>"><%= reportBoard.getTitle() %></a>
@@ -37,9 +44,13 @@
                         <td><%= reportBoard.getRegDate()%></td>
                     </tr>          
                 </tbody>
- <%} %>         
-            </table>
-        </div>
+<%} else{%>  
+                    <tr>
+                        <td>신고내역이 없습니다.</td>
+                    </tr> 
+ <%} %> 
+     <%} %>         </table>
+       </div>
  </div> 
 </section>
  <%@ include file="/WEB-INF/views/common/footer.jsp" %>

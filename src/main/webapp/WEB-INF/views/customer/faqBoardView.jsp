@@ -41,9 +41,13 @@
         </div>
         <div class="button">
         <input type="button" class="button" value="목록" onclick="showFaqBoardList()"/>
+<% 	if(
+				loginMember != null && 
+				(MemberService.ADMIN_ROLE.equals(loginMember.getMemberRole()))
+			){ %>
        <!-- <input type="button" value="수정" onclick="updateFaqBoard()"/> --> 
         <input type="button" class="button" value="삭제" onclick="deleteFaqBoard()"/>
-        
+<%} %>       
         </div>
  </div>
  </section>
