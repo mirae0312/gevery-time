@@ -108,7 +108,7 @@ $(() => {
 			</tr>
 			<tr>
 				<th>판매상태</th>
-				<td><%= board.getProduct().getState() %></td>
+				<td><span id="saleState"><%= board.getProduct().getState() %></span></td>
 			</tr>
 			<tr>
 				<th>가격</th>
@@ -298,6 +298,10 @@ $(() => {
 		// 장바구니 담기 비동기 처리
 		$(document.addCartFrm).submit((e) =>{
 			e.preventDefault();
+			if($("#saleState").html() == "품절" || $("#saleState").html() == "판매중지"){
+				alert("판매중인 상품이 아닙니다.");
+				return false;
+			};
 			let reqmemberId = $("#addCartId").val();
 			let reqboardNo = $("#addCartBoardNo").val();
 			console.log(reqmemberId, reqboardNo);
@@ -310,7 +314,9 @@ $(() => {
 				},
 				success(data){
 					console.log(data);
-					alert(data.msg);
+					if(confirm(data.msg)){
+						location.href="<%= request.getContextPath() %>/cart/main?memberId=<%= loginMember.getMemberId() %>";
+					}
 				},
 				error : console.log
 			});

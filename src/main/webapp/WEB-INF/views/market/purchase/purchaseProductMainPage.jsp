@@ -110,21 +110,8 @@
 	<input type="hidden" id="countNum" value="<%= countNum - 1 %>"/>
 	<input type="hidden" id="defaultTotalPrice" value="" />
 	
-	<input type="button" value="test" onclick="testBtn();" />
-	
-	<!-- 선택한 장바구니 삭제를 위한 hidden 영역 -->
-<%-- 	<form action="<%= request.getContextPath() %>/cart/delete" name="cartDeleteFrm" method="POST">
-	<%
-		for(int i = 1; i < countNum; i++){
-			int no = (int)delCartMap.get("bdn"+i);
-	%>
-		<input type="text" name="delCart<%= i %>" value="<%= no %>"/>
-	<%
-		}
-	%>
-		<input type="hidden" name="delCartLoginMember" value="<%= loginMember.getMemberId() %>" />
-		<input type="hidden" name="delCartCountNum" value="<%= countNum - 1 %>" />
-	</form> --%>
+	<input type="button" value="test" onclick="addPurchaseHistory('dinigo', 15000, 'uid-1212', 'muid-112');" />
+
 <script>
 	// point 사용 시 잔액과 비교
 	$("#pointSet").click((e) => {
@@ -228,8 +215,11 @@
                     	msg += "결제 금액 : " + rsp.paid_amount;
                         // 결제 성공 시 로직,
                         // 포인트 사용처리
-                        pointHandling("<%= loginMember.getMemberId() %>", usePoint, rsp.imp_uid);
+                        if(usePoint > 0){
+                        	pointHandling("<%= loginMember.getMemberId() %>", usePoint, rsp.imp_uid);
+                        }
                         delCart();
+                        addPurchaseHistory("<%= loginMember.getMemberId() %>", totalPrice, rsp.imp_uid, rsp.merchant_uid);
                         alert(msg);
             			purchaseDone(rsp.imp_uid, rsp.merchant_uid, rsp.paid_amount);
             		},
@@ -243,7 +233,6 @@
       }
 	
 	const purchaseDone = (a, b, c) => {
-		console.log(a, b, c);
 		location.href=`<%= request.getContextPath() %>/purchase/Complete?uid=\${a}&muid=\${b}&amount=\${c}`;
 	};
 	
@@ -296,6 +285,34 @@
 			},
 			success(data){
 				console.log("장바구니 지워짐");
+			},
+			error: console.log
+		})
+	};
+	
+	const addPurchaseHistory = (reqMemberId, reqTotPrice, reqUid, reqMuid) => {
+		// (회원 id, 총 가격, uid, muid), 상품 번호, 상품 개수
+		$.ajax({
+			url: "<%= request.getContextPath() %>/purchase/addHistory",
+			method: "POST",
+			data:{
+				<%
+					for(int i = 1; i < countNum; i++){
+				%>
+					pdtNo<%= i %>: $("#pdtNo<%= i %>").val(),
+					pdtCount<%= i %>: $("#pdtCount<%= i %>").val(),
+				<%
+				}
+				%>
+					memberId: reqMemberId,
+					totalPrice: reqTotPrice,
+					uid: reqUid,
+					muid: reqMuid,
+					countNum: "<%= countNum %>",
+					state: "결제"
+			},
+			success(data){
+				console.log(data);
 			},
 			error: console.log
 		})

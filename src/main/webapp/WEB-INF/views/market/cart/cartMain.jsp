@@ -14,7 +14,10 @@
 </head>
 <body>
 	<h1>장바구니</h1>
-<% if(!cartlist.isEmpty()) { %>
+<%
+	int countNum = 1;
+	if(!cartlist.isEmpty()) {
+%>
 	<table>
 		<thead>
 			<tr>
@@ -33,7 +36,6 @@
 		<tbody>
 		<%
 		/* 별도의 리스트 별 총 가격을 계산하기 위해, countNum을 추가함 */
-		int countNum = 1;
 		for(Cart cart : cartlist) {
 		%>
 			<tr>
@@ -65,6 +67,9 @@
 				</td>
 				<td>
 					<span id="pdtTotalVal<%= countNum %>"></span>
+				</td>
+				<td>
+					<input type="button" value="삭제하기" class="deleteFromCart" id="delete<%= countNum %>"/>
 				</td>			
 			</tr>
 		<%
@@ -92,8 +97,6 @@
 	<h1>텅 비었어요</h1>
 	<input type="button" value="쇼핑하러 가기" onclick="location.href='<%= request.getContextPath() %>/product/main'" />
 <% } %>	
-	
-
 		
 	<script>
 		$(() => {
@@ -136,11 +139,11 @@
 					let count = $(`#pdtCount\${i}`).val();
 					let title = $(`#pdtTitle\${i}`).val();
 					
-					let inputNo = `<input type="text" name="pdtNo\${orderNum}" value="\${no}"/></br>`;
-					let inputBoardNo = `<input type="text" name="pdtBoardNo\${orderNum}" value="\${boardNo}"/></br>`;
-					let inputPrice = `<input type="text" name="pdtPrice\${orderNum}" value="\${price}"/></br>`;
-					let inputCount = `<input type="text" name="pdtCount\${orderNum}" value="\${count}"></br>`;
-					let inputTitle = `<input type="text" name="pdtTitle\${orderNum}" value="\${title}"></br>`;
+					let inputNo = `<input type="hidden" name="pdtNo\${orderNum}" value="\${no}"/></br>`;
+					let inputBoardNo = `<input type="hidden" name="pdtBoardNo\${orderNum}" value="\${boardNo}"/></br>`;
+					let inputPrice = `<input type="hidden" name="pdtPrice\${orderNum}" value="\${price}"/></br>`;
+					let inputCount = `<input type="hidden" name="pdtCount\${orderNum}" value="\${count}"></br>`;
+					let inputTitle = `<input type="hidden" name="pdtTitle\${orderNum}" value="\${title}"></br>`;
 					
 					$("#purchaseFrm").append(inputNo);
 					$("#purchaseFrm").append(inputBoardNo);
@@ -171,8 +174,36 @@
 		};
 		$(document.purchaseFrm).submit(orderFrm);
 		
+		
+		const delCart = (boardNo) => {
+ 			$.ajax({
+				url: "<%= request.getContextPath() %>/cart/deleteCart",
+				method: "POST",
+				data:{
+						delCart1: boardNo,
+						delCartLoginMember: "<%= loginMember.getMemberId() %>",
+						delCartCountNum: "1"
+				},
+				success(data){
+					console.log("장바구니 지워짐");
+					reloadCart();
+				},
+				error: console.log
+			});
+		};
+		
+		$(".deleteFromCart").click((e) => {
+			if(confirm("삭제하시겠습니까?")){
+				let number = $(e.target).prop("id").substring(6);
+				let boardNo = $(`#pdtBoardNo\${number}`).val();
+				delCart(boardNo);				
+			}
+		});
+		
+		const reloadCart = () => {
+			location.href="<%= request.getContextPath() %>/cart/main?memberId=<%= loginMember.getMemberId() %>";
+		};
 	</script>
-
 </body>
 </html>
 <%@ include file="/WEB-INF/views/common/footer.jsp" %>
