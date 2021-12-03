@@ -25,7 +25,7 @@ public class MemberService {
 		Connection conn = getConnection();
 		
 		// 2. Dao에 쿼리실행 요청
-		Member member = memberDao.selectOneMember(conn, memberId);
+		Member member = memberDao.selectOneMember(conn,memberId);
 		
 		// 3. Connection자원반납
 		close(conn);
@@ -54,4 +54,6 @@ public class MemberService {
 		}
 		return result;
 	}
+
+	
 }

@@ -795,7 +795,6 @@ public class InfoDao {
 		String sql = prop.getProperty("selectAllReview");
 		ResultSet rset = null;
 		List<InfoReview> ir = new ArrayList<>();
-		
 		try {
 			pstmt = conn.prepareStatement(sql);
 			
