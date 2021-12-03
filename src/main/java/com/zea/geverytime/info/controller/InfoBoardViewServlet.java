@@ -68,7 +68,7 @@ public class InfoBoardViewServlet extends HttpServlet {
 			
 			// 게시물 가져오기
 			Info info = infoService.selectOneView(code, codeN);
-			System.out.println("[infoBoardViewServlet] info : " + info);
+//			System.out.println("[infoBoardViewServlet] info : " + info);
 			String site1 = "";
 			String site2 = "";
 			String site = info.getSite();
