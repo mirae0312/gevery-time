@@ -84,16 +84,16 @@ public class ProductSaleService {
 		return list;
 	}
 
-	public List<ProductBoard> getProductSaleBoardAll(int startNum, int endNum) {
+	public List<ProductBoard> getProductSaleBoardAll(int startNum, int endNum, String div, String state) {
 		Connection conn = getConnection();
-		List<ProductBoard> list = pdtDao.getProductSaleBoardAll(conn, startNum, endNum);
+		List<ProductBoard> list = pdtDao.getProductSaleBoardAll(conn, startNum, endNum, div, state);
 		close(conn);
 		return list;
 	}
 	
-	public int getProductSaleBoardCount() {
+	public int getProductSaleBoardCount(String div, String state) {
 		Connection conn = getConnection();
-		int count = pdtDao.getProductSaleBoardCount(conn);
+		int count = pdtDao.getProductSaleBoardCount(conn, div, state);
 		close(conn);
 		return count;
 	}

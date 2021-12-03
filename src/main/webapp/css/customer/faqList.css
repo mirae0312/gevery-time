@@ -1,6 +1,7 @@
 @charset "UTF-8";
 h3{
    padding-left: 210px;
+
    }
  body{
     width: 1024px;
@@ -8,7 +9,7 @@ h3{
 }
 
 #leftbox{
-     width: 110px;
+    width: 110px;
     height: 370px;
     border: solid;
     float: left;
@@ -19,13 +20,14 @@ h3{
     /* size: 100px; */
     border: none;
     background-color: rgba(128, 128, 128, 0.185);
-    font-size: 15px;
+ 
 }
 #leftbox span{
-    margin-left: 5px;
-    /* margin-top: 15px; */
-    /* size: 300px; */
-    /* padding-top: 30px; */
+    font-size:17px;
+    font-weight: 600;
+}
+#leftbox span :hover {
+    text-decoration: underline;
 }
 table {
     border-collapse: collapse;
@@ -115,9 +117,26 @@ a {
     cursor: pointer;
 }
 #inputBox{
-   margin-top: 50px;
+   margin-top: 30px;
    margin-left: 850px;
-}     
+}   
+#search{
+        text-align: center;
+        margin-bottom: 20px;
+        font-family: 'Franklin Gothic Medium', 'Arial Narrow', Arial, sans-serif;
+        font-size: 16px;
+        margin-right:130px;
+        margin-top:30px;
+    }
+#radioSubmit{
+        margin-left: 20px;
+        border-style: none;
+        border-radius: 5px;
+        padding: 10px 9px;
+        font-size: 16px;
+        cursor:pointer;
+        font-weight:800;
+    }
 /*페이지바*/
 div#pageBar{margin-top:14px; text-align:center; font-size:19px; }
 div#pageBar span.cPage{color: gray; margin-right: 5px;}

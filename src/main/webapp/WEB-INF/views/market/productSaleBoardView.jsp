@@ -81,6 +81,9 @@ $(() => {
 			</tr>
 		</thead>
 		<tbody>
+		
+		<!-- 수정하기 / 삭제하기 : 작성자 로그인 시에만 보여짐 -->
+		<% if(loginMember != null && loginMember.getMemberId().equals(board.getSellerId())) { %>
 			<tr>
 				<td><input type="button" value="수정하기" id="boardEdit" onclick="updateBoard();"/></td>
 				<td>
@@ -91,6 +94,7 @@ $(() => {
 					
 				</td>
 			</tr>
+		<% } %>
 			<tr>
 				<th>섬네일</th>
 				<td><img src="<%= request.getContextPath() %>/upload/market/productSale/<%= thumbnailImg %>" style="width:300px;"></td>
@@ -104,12 +108,55 @@ $(() => {
 			</tr>
 			<tr>
 				<th>판매상태</th>
-				<td><%= board.getProduct().getState() %></td>
+				<td><span id="saleState"><%= board.getProduct().getState() %></span></td>
 			</tr>
 			<tr>
 				<th>가격</th>
 				<td><%= board.getProduct().getPdtPrice() %>원</td>
 			</tr>
+			<tr>
+				<th>수량 선택</th>
+				<td><input type="number" id="countOption" value="1"/></td>
+			</tr>
+			<!-- 구매 관련 영역 -->
+			<% if(loginMember != null) {%>
+			<tr>
+				<td colspan=2>
+					<!-- 바로 구매하기 form -->
+					<form action="<%= request.getContextPath() %>/purchase/purchasePage" name="directPurchaseFrm">
+						<input type="hidden" name="memberId" value="<%= loginMember.getMemberId() %>" />
+						<input type="hidden" name="CountNum" value="1"/>
+						<input type="hidden" name="pdtNo1" value="<%= board.getProduct().getPdtNo() %>"/>
+						<input type="hidden" name="pdtBoardNo1" value="<%= board.getBoardNo() %>" />
+						<input type="hidden" name="pdtPrice1" value="<%= board.getProduct().getPdtPrice() %>" />
+						<input type="hidden" name="pdtCount1" id="directPurchaseCount" value="1" />
+						<input type="hidden" name="pdtTitle1" value="<%= board.getTitle() %>" />
+						<input type="submit" value="구매하기" />
+					</form>
+				</td>
+			</tr>
+
+			<tr>
+				<td colspan=2>
+					<!-- 장바구니 담기 form -->
+					<form action="" name="addCartFrm">
+						<input type="hidden" id="addCartId" name="addCartId" value="<%= loginMember.getMemberId() %>" />
+						<input type="hidden" id="addCartBoardNo" name="addCartBoardNo" value="<%= board.getBoardNo() %>" />
+						<input type="submit" value="장바구니 담기"/>
+					</form>
+				</td>
+			</tr>
+			<% } else { %>
+			<tr>
+				<td colspan=2><input type="button" value="구매하기" class="purchaseNeedLogin" /></td>
+			</tr>
+			<tr>
+				<td colspan=2><input type="button" value="장바구니 담기" class="purchaseNeedLogin" /></td>
+			</tr>
+			<tr>
+				<td colspan=2><input type="button" value="찜목록 담기" class="purchaseNeedLogin" /></td>
+			</tr>
+			<% } %>
 			<tr>
 				<th colspan=2>내용</th>
 			</tr>
@@ -215,7 +262,7 @@ $(() => {
 			<tr>
 				<th>입력하기</th>
 				<td colspan=2>
-					<form action="<%= request.getContextPath() %>/product/questionEnroll" method="POST">
+					<form action="<%= request.getContextPath() %>/product/questionEnroll" method="POST" name="commentEnrollFrm">
 						<input type="hidden" name="writer" value="<%= loginMember != null ? loginMember.getMemberId() : "" %>" readonly/><br />
 						<label for="qtitle">제목</label><input type="text" name="qtitle"/>
 						<label for="qcontent">내용</label><input type="text" name="qcontent"/>
@@ -236,11 +283,76 @@ $(() => {
 		
 		// 게시글 수정하기
 		const updateBoard = () => {
-			if(confirm("수정하시겠습니까?")){
+			if(confirm("수정하시겠습니까?\n수정 시 기존에 등록된 이미지들은 모두 삭제됩니다.")){
 				location.href = "<%= request.getContextPath() %>/product/productBoardUpdateForm?no=<%= board.getBoardNo() %>";
 			}
 		}
 		
+		// submit null 방지 : 미로그인 회원, 미입력 시
+		$(document.commentEnrollFrm).submit((e) => {
+			<% if(loginMember == null) {%>
+				alert("로그인 후 이용 가능합니다.");
+				return false;
+			<% } %>
+			if(!/^(.|\n)+$/.test($("[name=qtitle]").val())){
+				alert("제목을 입력하세요");
+				e.preventDefault();
+			}else if (!/^(.|\n)+$/.test($("[name=qcontent]").val())){
+				alert("내용을 입력하세요");
+				e.preventDefault();
+			};
+		});
+		
+		// 비로그인 상태로 구매하기, 장바구니, 찜하기 클릭 시 얼럿
+		$(".purchaseNeedLogin").click((e) => {
+			alert("로그인 후 이용 가능합니다.");
+		});
+		
+		// 장바구니 담기 비동기 처리
+		$(document.addCartFrm).submit((e) =>{
+			e.preventDefault();
+			if($("#saleState").html() == "품절" || $("#saleState").html() == "판매중지"){
+				alert("판매중인 상품이 아닙니다.");
+				return false;
+			};
+			let reqmemberId = $("#addCartId").val();
+			let reqboardNo = $("#addCartBoardNo").val();
+			console.log(reqmemberId, reqboardNo);
+			$.ajax({
+				url : "<%= request.getContextPath() %>/cart/addCart",
+				method : "POST",
+				data : {
+					memberId: reqmemberId,
+					boardNo: reqboardNo
+				},
+				success(data){
+					console.log(data);
+					if(confirm(data.msg)){
+						location.href="<%= request.getContextPath() %>/cart/main?memberId=<%= loginMember.getMemberId() %>";
+					}
+				},
+				error : console.log
+			});
+		});
+		
+		$("#countOption").change((e) =>{
+			if($(e.target).val() < 1){
+				alert("최소 수량은 1개 입니다.");
+				$(e.target).val(1);
+			};
+			let countNum = $("#countOption").val();
+			$("#directPurchaseCount").val(countNum);
+		});
+		
+		$(document.directPurchaseFrm).submit((e) => {
+			e.preventDefault();
+			if($("#saleState").html() == "품절" || $("#saleState").html() == "판매중지"){
+				alert("판매중인 상품이 아닙니다.");
+				return false;
+			}
+			$(e.target).unbind();
+			$(e.target).submit();
+		})
 	</script>
 </body>
 </html>

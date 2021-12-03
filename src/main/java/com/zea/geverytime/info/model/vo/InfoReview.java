@@ -2,6 +2,9 @@ package com.zea.geverytime.info.model.vo;
 
 import java.io.Serializable;
 import java.sql.Date;
+import java.util.List;
+
+import com.zea.geverytime.common.model.vo.Attachment;
 
 public class InfoReview implements Serializable {
 
@@ -10,28 +13,48 @@ public class InfoReview implements Serializable {
 	 */
 	private static final long serialVersionUID = 1L;
 	
+	private int no;
+	private String rCode;
 	private String code;
-	private String pCode;
-	private String writer;
+	private String memberId;
 	private String recommend;
+	private String headContent;
 	private String content;
-	private Date visitDate;
 	private Date regDate;
+	private List<Attachment> attachments;
 	
 	public InfoReview() {
 		super();
 	}
 
-	public InfoReview(String code, String pCode, String writer, String recommend, String content, Date visitDate,
-			Date regDate) {
+	public InfoReview(int no, String rCode, String code, String memberId, String recommend, String headContent,
+			String content, Date regDate, List<Attachment> attachments) {
 		super();
+		this.no = no;
+		this.rCode = rCode;
 		this.code = code;
-		this.pCode = pCode;
-		this.writer = writer;
+		this.memberId = memberId;
 		this.recommend = recommend;
+		this.headContent = headContent;
 		this.content = content;
-		this.visitDate = visitDate;
 		this.regDate = regDate;
+		this.attachments = attachments;
+	}
+
+	public int getNo() {
+		return no;
+	}
+
+	public void setNo(int no) {
+		this.no = no;
+	}
+
+	public String getrCode() {
+		return rCode;
+	}
+
+	public void setrCode(String rCode) {
+		this.rCode = rCode;
 	}
 
 	public String getCode() {
@@ -42,20 +65,12 @@ public class InfoReview implements Serializable {
 		this.code = code;
 	}
 
-	public String getpCode() {
-		return pCode;
+	public String getMemberId() {
+		return memberId;
 	}
 
-	public void setpCode(String pCode) {
-		this.pCode = pCode;
-	}
-
-	public String getWriter() {
-		return writer;
-	}
-
-	public void setWriter(String writer) {
-		this.writer = writer;
+	public void setMemberId(String memberId) {
+		this.memberId = memberId;
 	}
 
 	public String getRecommend() {
@@ -66,20 +81,20 @@ public class InfoReview implements Serializable {
 		this.recommend = recommend;
 	}
 
+	public String getHeadContent() {
+		return headContent;
+	}
+
+	public void setHeadContent(String headContent) {
+		this.headContent = headContent;
+	}
+
 	public String getContent() {
 		return content;
 	}
 
 	public void setContent(String content) {
 		this.content = content;
-	}
-
-	public Date getVisitDate() {
-		return visitDate;
-	}
-
-	public void setVisitDate(Date visitDate) {
-		this.visitDate = visitDate;
 	}
 
 	public Date getRegDate() {
@@ -90,12 +105,20 @@ public class InfoReview implements Serializable {
 		this.regDate = regDate;
 	}
 
+	public List<Attachment> getAttachments() {
+		return attachments;
+	}
+
+	public void setAttachments(List<Attachment> attachments) {
+		this.attachments = attachments;
+	}
+
 	@Override
 	public String toString() {
-		return "InfoReview [code=" + code + ", pCode=" + pCode + ", writer=" + writer + ", recommend=" + recommend
-				+ ", content=" + content + ", visitDate=" + visitDate + ", regDate=" + regDate + "]";
+		return "InfoReview [no=" + no + ", rCode=" + rCode + ", code=" + code + ", memberId=" + memberId
+				+ ", recommend=" + recommend + ", headContent=" + headContent + ", content=" + content + ", regDate="
+				+ regDate + ", attachments=" + attachments + "]";
 	}
-	
-	
+
 	
 }

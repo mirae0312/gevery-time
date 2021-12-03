@@ -16,6 +16,10 @@ public class Info extends InfoEntity implements Serializable {
 	private int recommend;
 	private int attachCount;
 	private List<Attachment> attachments;
+	private List<Hospital> hospitals;
+	private List<CafeRestaurant> cafeRestaurants;
+	private List<Pension> pensions;
+	private List<Salon> salons;
 	private int commentCount;
 	
 	public Info() {
@@ -26,26 +30,20 @@ public class Info extends InfoEntity implements Serializable {
 	
 	public Info(String code, String memberId, int viewCount, String regCheck, String businessNo, Date regDate,
 			String businessName, String businessAddress, String businessTel, String location, String headContent,
-			String bodyContents, String serviceContent, String site, String mon, String tue, String wed, String thu,
-			String fri, String sat, String sun, String launch, String dinner, String holiday) {
-		super(code, memberId, viewCount, regCheck, businessNo, regDate, businessName, businessAddress, businessTel, location,
-				headContent, bodyContents, serviceContent, site, mon, tue, wed, thu, fri, sat, sun, launch, dinner, holiday);
-		// TODO Auto-generated constructor stub
-	}
-
-
-
-	public Info(String code, String memberId, int viewCount, String regCheck, String businessNo, Date regDate,
-			String businessName, String businessAddress, String businessTel, String location, String headContent,
-			String bodyContents, String serviceContent, String site, String mon, String tue, String wed, String thu,
-			String fri, String sat, String sun, String launch, String dinner, String holiday, int recommend,
-			int attachCount, List<Attachment> attachments, int commentCount) {
+			String bodyContents, String serviceContent, String site, String startHour, String endHour,
+			String startLaunch, String endLaunch, String startDinner, String endDinner, String holiday,
+			String roadGuide, int recommend, int attachCount, List<Attachment> attachments, List<Hospital> hospitals,
+			List<CafeRestaurant> cafeRestaurants, List<Pension> pensions, List<Salon> salons, int commentCount) {
 		super(code, memberId, viewCount, regCheck, businessNo, regDate, businessName, businessAddress, businessTel,
-				location, headContent, bodyContents, serviceContent, site, mon, tue, wed, thu, fri, sat, sun, launch,
-				dinner, holiday);
+				location, headContent, bodyContents, serviceContent, site, startHour, endHour, startLaunch, endLaunch,
+				startDinner, endDinner, holiday, roadGuide);
 		this.recommend = recommend;
 		this.attachCount = attachCount;
 		this.attachments = attachments;
+		this.hospitals = hospitals;
+		this.cafeRestaurants = cafeRestaurants;
+		this.pensions = pensions;
+		this.salons = salons;
 		this.commentCount = commentCount;
 	}
 
@@ -87,6 +85,54 @@ public class Info extends InfoEntity implements Serializable {
 
 
 
+	public List<Hospital> getHospitals() {
+		return hospitals;
+	}
+
+
+
+	public void setHospitals(List<Hospital> hospitals) {
+		this.hospitals = hospitals;
+	}
+
+
+
+	public List<CafeRestaurant> getCafeRestaurants() {
+		return cafeRestaurants;
+	}
+
+
+
+	public void setCafeRestaurants(List<CafeRestaurant> cafeRestaurants) {
+		this.cafeRestaurants = cafeRestaurants;
+	}
+
+
+
+	public List<Pension> getPensions() {
+		return pensions;
+	}
+
+
+
+	public void setPensions(List<Pension> pensions) {
+		this.pensions = pensions;
+	}
+
+
+
+	public List<Salon> getSalons() {
+		return salons;
+	}
+
+
+
+	public void setSalons(List<Salon> salons) {
+		this.salons = salons;
+	}
+
+
+
 	public int getCommentCount() {
 		return commentCount;
 	}
@@ -105,6 +151,10 @@ public class Info extends InfoEntity implements Serializable {
 				+ "recommend=" + recommend
 				+ "attachCount=" + attachCount 
 				+ ", attachments=" + attachments 
+				+ ", hospitals=" + hospitals
+				+ ", cafeRestaurants=" + cafeRestaurants
+				+ ", pensions=" + pensions
+				+ ", salons=" + salons
 				+ ", commentCount=" + commentCount	+ "]";
 	}
 	

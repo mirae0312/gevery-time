@@ -18,7 +18,7 @@ import com.zea.geverytime.member.model.vo.Member;
 /**
  * Servlet Filter implementation class LoginFilter
  */
-@WebFilter("/member/memberlogin")
+@WebFilter(urlPatterns = {"/member/memberlogin", "/board/boardForm","/board/boardCommentEnroll","/board/boardCommentEnroll", "/myPage/myPageMain", "/board/boardView"})
 public class LoginFilter implements Filter {
 
     /**
@@ -48,11 +48,8 @@ public class LoginFilter implements Filter {
 		
 		if(loginMember == null) {
 			session.setAttribute("msg", "로그인후 이용하세요");
-			httpResponse.sendRedirect(httpRequest.getContextPath() + "/");
+			httpResponse.sendRedirect(httpRequest.getHeader("Referer"));
 			return;
-			
-			
-			
 		}
 		
 		

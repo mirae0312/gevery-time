@@ -58,6 +58,11 @@
 	</table>
 	
 	<script>
+		$("#searchDiv").change((e) => {
+			
+		});
+	
+		// 상품 option 변경 > DB 저장 반영
 		$(".optionChange").change((e) => {
 			if(!confirm("변경하시겠습니까?")){
 				return;
@@ -84,7 +89,6 @@
 	
 		// 상품 등록하기
 		$("#pdtEnroll").click((e) => {
-			console.log("click");
 			location.href="<%= request.getContextPath() %>/product/productForm";
 		});
 	</script>

@@ -9,11 +9,11 @@ public class Attachment implements Serializable{
 	 */
 	private static final long serialVersionUID = 1L;
 	
-	private int no;
+	private int no_;
 	private String code;
 	private String originalFilename;
 	private String renamedFilename;
-	private Date regDate;
+	private Date regDate_;
 
 	public Attachment() {
 		super();
@@ -22,18 +22,18 @@ public class Attachment implements Serializable{
 	
 	public Attachment(int no, String code, String originalFilename, String renamedFilename, Date regDate) {
 		super();
-		this.no = no;
+		this.no_ = no;
 		this.code = code;
 		this.originalFilename = originalFilename;
 		this.renamedFilename = renamedFilename;
-		this.regDate = regDate;
+		this.regDate_ = regDate;
 	}
 
 	public int getNo() {
-		return no;
+		return no_;
 	}
 	public void setNo(int no) {
-		this.no = no;
+		this.no_ = no;
 	}
 	public String getCode() {
 		return code;
@@ -54,16 +54,16 @@ public class Attachment implements Serializable{
 		this.renamedFilename = renamedFilename;
 	}
 	public Date getRegDate() {
-		return regDate;
+		return regDate_;
 	}
 	public void setRegDate(Date regDate) {
-		this.regDate = regDate;
+		this.regDate_ = regDate;
 	}
 
 	@Override
 	public String toString() {
-		return "Attachment [no=" + no + ", code=" + code + ", originalFilename=" + originalFilename
-				+ ", renamedFilename=" + renamedFilename + ", regDate=" + regDate + "]";
+		return "Attachment [no=" + no_ + ", code=" + code + ", originalFilename=" + originalFilename
+				+ ", renamedFilename=" + renamedFilename + ", regDate=" + regDate_ + "]";
 	}
 	
 	
