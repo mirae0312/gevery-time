@@ -35,12 +35,12 @@
 <script type="text/javascript" src="//dapi.kakao.com/v2/maps/sdk.js?appkey=4247f28f0dc06c5cc8486ac837d411ff&libraries=services,clusterer,drawing"></script>
 <div class="info-view-wrapper">
 <% if(loginMember != null && info.getMemberId().equals(loginMember.getMemberId())){ %>
-	<form enctype="multipart/form-data" name="infoBoardModifyFrm" >
+	<form method="post" name="infoBoardModifyFrm" >
 		<input type="hidden" name="code" value="<%= info.getCode() %>" />
 		<input type="hidden" name="codeN" value="<%= codeN %>" />
 		<input type="hidden" name="id" value="<%= info.getMemberId() %>" />
-		<input type="button" value="수정" class="modifyInfoMain btn" />
-		<input type="button" value="삭제" class="deleteInfoMain btn" />
+		<input type="button" value="수정" onclick="modifyInfoMain();" />
+		<input type="button" value="삭제" onclick="deleteInfoMain();" />
 	</form>
 <% } %>
 	<input type="button" value="신고" class="reportInfoMain btn" />
@@ -214,10 +214,10 @@
 			<%-- 리뷰 수정: 로그인을 했고 작성자라면 보이도록 --%>
 			</form>
 		</div>
+				<input type="button" value="신고" class="reivew-report review-btn" onclick="reportReview();" />
 			<% if(loginMember != null && loginMember.getMemberId().equals(re.getMemberId())){ %>
 				<input type="button" value="수정" class="modify-review review-btn" onclick="modifyReviewBox();" />
 				<input type="button" value="삭제" class="delete-review review-btn" onclick="deleteReview();" />
-				<input type="button" value="신고" class="reivew-report review-btn" onclick="reportReview();" />
 			<% } %>
 		<% } %>
 	<% } %>
@@ -256,7 +256,7 @@ const modifyInfoMain = () => {
 
 // 본문 삭제
 const deleteInfoMain = () => {
-	const check = comfirm("정말 삭제하시나요?");
+	const check = confirm("정말 삭제하시나요?");
 	if(check){
 		$mFrm.attr("action", "<%= request.getContextPath() %>/info/deleteMain")
 			.submit();

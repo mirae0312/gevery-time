@@ -51,10 +51,10 @@ public class InfoService {
 			
 			switch(n) {
 			case "new": 
-				list = infoDao.selectAllList(board, conn, start, end);
+				list = infoDao.selectAllListAsc(board, conn, start, end);
 				break;
 			case "old": 
-				list = infoDao.selectAllListAsc(board, conn, start, end);
+				list = infoDao.selectAllList(board, conn, start, end);
 				break;
 			case "view": 
 				list = infoDao.selectAllListView(board, conn, start, end);
