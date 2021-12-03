@@ -233,9 +233,7 @@
 // 리뷰 수정
 const $frm = $(document.infoBoardReviewFrm);
 const modifyReview = () => {
-	$frm
-		.attr("action", "<%= request.getContextPath() %>/info/modifyReview")
-		.submit();
+	const $
 };
 
 
