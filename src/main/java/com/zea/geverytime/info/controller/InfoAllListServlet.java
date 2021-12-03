@@ -35,11 +35,11 @@ public class InfoAllListServlet extends HttpServlet {
             // 상호명(사업자), 썸네일(첨부파일), head설명(info), 조회수(한주인기게시물경우)
             // 인기 게시물
             List<Info> popList = infoService.selectPopList(board);
-            System.out.println("[InfoAllListServlet] + popList : " + popList);
+//            System.out.println("[InfoAllListServlet] + popList : " + popList);
 
             // 전체 게시물
             List<Info> list = infoService.selectAllList(board, start, end);
-            System.out.println("[InfoAllListServlet] + list : " + list);
+//            System.out.println("[InfoAllListServlet] + list : " + list);
 
             // 공통사항 list속성, jsp로 보내기
             request.setAttribute("popList", popList);

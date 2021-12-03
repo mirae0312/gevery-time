@@ -11,7 +11,7 @@ values('honggd',1234,'홍길','01011111111','대한민국','honggd@naver.com','U
 -- board생성 쿼리
 -- delete from board;
 insert into board(no, or_code, title, writer, content, read_count,like_count,reg_date)values
-(seq_board_no.nextval,'bb1b-' || to_char(seq_board_no.currval),to_char(seq_board_no.currval)||'번 게시물 - 강아지','hyungzin0309','안녕하세요',default,default,default);
+(seq_board_no.nextval,'bb1b' ||'-'|| to_char(seq_board_no.currval),to_char(seq_board_no.currval)||'번 게시물 - 강아지','hyungzin0309','안녕하세요',default,default,default);
 insert into board(no, or_code, title, writer, content, read_count,like_count,reg_date)values
 (seq_board_no.nextval,'bb2b-' || to_char(seq_board_no.currval),to_char(seq_board_no.currval)||'번 게시물 - 고양이','hyungzin0309','안녕하세요',default,default,default);
 insert into board(no, or_code, title, writer, content, read_count,like_count,reg_date)values
@@ -23,10 +23,10 @@ insert into board(no, or_code, title, writer, content, read_count,like_count,reg
 
 -- board_comment생성 쿼리
 --delete from board_comment where no = 16;
---insert into board_comment(no,or_code,comment_level,writer,content,board_no,comment_ref,like_count,reg_date) values
---(seq_board_comment_no.nextval,'bb1c-'||to_char(seq_board_comment_no.currval),2,'hyungzin0309','반갑습니다.',146,11,default,default);
-
-
+insert into board_comment(no,or_code,comment_level,writer,content,board_no,comment_ref,like_count,reg_date) values
+(seq_board_comment_no.nextval,'bb1c-'||to_char(seq_board_comment_no.currval),2,'hyungzin0309','반갑습니다.',649,21,default,default);
+commit;
+select * from board_comment;
 --========================================================
 -- 테이블 생성 쿼리들
 select * from tab;
@@ -74,16 +74,30 @@ create sequence seq_board_comment_or_code;
 commit;
 
 select * from board;
-select * from board where or_code like 'bb1b%';
-select * from board where or_code like 'bb1b%' or or_code like'bb1b%';
+select * from attachment;
+select * from member;
 
-update board set read_count=100 where no=470;
-select * from (select row_number() over(order by 'like_count' desc) rnum, b.* from board b where or_code like 'bb4b%') where rnum between 1 and 1000;
+select * from attachment;
 
-select * from (select row_number() over(order by no desc) rnum, b.* from board b where REGEXP_LIKE(or_code, 'bb1b|bb2b'));
 
-select * from (select row_number() over(order by no desc) rnum, b.* from board b where REGEXP_LIKE(or_code,'bb1b|bb2b'));
-select * from (select row_number() over(order by read_count desc) rnum, b.* from board b where REGEXP_LIKE(or_code,'bb1b|bb2b')) where rnum between 1 and 30;
-select * from (select row_number() over(order by 'no' desc) rnum, b.* from board b where REGEXP_LIKE(or_code,'bb1b|bb2b'));
-select * from (select row_number() over(order by 'no' desc) rnum, b.* from board b where REGEXP_LIKE(or_code,'bb1b|bb2b'));
-select * from (select row_number() over(order by no desc) rnum, b.* from board b where REGEXP_LIKE(or_code,'bb1b|bb2b'));
+select * from attachment where or_no = 'bb1b-649';
+
+select b.*, (select count(*) from attachment where or_no = b.or_code) attach_count from board b;
+select * from (select row_number() over(order by no desc)  rnum, b.*,(select count(*) from attachment where or_no = b.or_code) attach_count,(select count(*) from board_comment where board_no = b.no) comment_count from board b where REGEXP_LIKE(or_code,'bb1b|bb2b')) where rnum between ? and ?;
+update board   set title = 'asdf', content = 'asdf' where no = 200;
+
+delete from board where no = 201;
+commit;
+
+select * from board where no = (select seq_board_no.currval from dual);
+select seq_board_no.currval from dual;
+select * from seq;
+
+alter sequence seq_board_no increment by -1;
+select  seq_board_no.currval from dual;
+alter sequence seq_board_no increment by 1;
+commit;
+
+select*from board_comment;
+select * from board_comment start with comment_level = 1 connect by prior no = comment_ref order siblings by no;
+insert into board_comment(no, or_code, comment_level, writer, content, board_no, comment_ref, like_count, reg_date) values(seq_board_comment_no.nextval,'bb1c' || '-' || to_char(seq_board_comment_no.currval, 1, 'hyungzin0309', 'gdgd', '649', null, default, default);

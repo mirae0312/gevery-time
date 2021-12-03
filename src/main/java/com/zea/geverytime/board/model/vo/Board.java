@@ -7,22 +7,16 @@ import java.util.List;
 
 import com.zea.geverytime.common.model.vo.Attachment;
 
-public class Board extends Attachment implements Serializable{
+public class Board extends BoardEntity implements Serializable{
 
 	/**
 	 * 
 	 */
 	private static final long serialVersionUID = 1L;
+	private int commentCount;
+	private int attachCount; // 첨부파일 수
+	private List<Attachment> attachments;
 	
-	private int no;
-	private String orCode;
-	private String title;
-	private String writer;
-	private String content;
-	private int readCount;
-	private int likeCount;
-	private Date regDate;
-	private List<Attachment> attachments = new ArrayList<>();
 	
 	public Board() {
 		super();
@@ -30,93 +24,37 @@ public class Board extends Attachment implements Serializable{
 	}
 	public Board(int no, String orCode, String title, String writer, String content, int readCount, int likeCount,
 			Date regDate) {
-		super();
-		this.no = no;
-		this.orCode = orCode;
-		this.title = title;
-		this.writer = writer;
-		this.content = content;
-		this.readCount = readCount;
-		this.likeCount = likeCount;
-		this.regDate = regDate;
+		super(no, orCode, title, writer, content, readCount, likeCount, regDate);
+		// TODO Auto-generated constructor stub
 	}
-	public Board(int no, String orCode, String title, String writer, String content, int readCount, int likeCount,
-			Date regDate, List<Attachment> attachments) {
-		super();
-		this.no = no;
-		this.orCode = orCode;
-		this.title = title;
-		this.writer = writer;
-		this.content = content;
-		this.readCount = readCount;
-		this.likeCount = likeCount;
-		this.regDate = regDate;
-		this.attachments = attachments;
+	public int getCommentCount() {
+		return commentCount;
 	}
-
-	public int getNo() {
-		return no;
+	public void setCommentCount(int commentCount) {
+		this.commentCount = commentCount;
 	}
-	public void setNo(int no) {
-		this.no = no;
+	public int getAttachCount() {
+		return attachCount;
 	}
-	public String getOrCode() {
-		return orCode;
+	public void setAttachCount(int attachCount) {
+		this.attachCount = attachCount;
 	}
-	public void setOrCode(String or_code) {
-		this.orCode = or_code;
-	}
-	public String getTitle() {
-		return title;
-	}
-	public void setTitle(String title) {
-		this.title = title;
-	}
-	public String getWriter() {
-		return writer;
-	}
-	public void setWriter(String writer) {
-		this.writer = writer;
-	}
-	public String getContent() {
-		return content;
-	}
-	public void setContent(String content) {
-		this.content = content;
-	}
-	public int getReadCount() {
-		return readCount;
-	}
-	public void setReadCount(int readCount) {
-		this.readCount = readCount;
-	}
-	public int getLikeCount() {
-		return likeCount;
-	}
-	public void setLikeCount(int likeCount) {
-		this.likeCount = likeCount;
-	}
-	public Date getRegDate() {
-		return regDate;
-	}
-	public void setRegDate(Date regDate) {
-		this.regDate = regDate;
-	}
-	
 	public List<Attachment> getAttachments() {
 		return attachments;
 	}
-
 	public void setAttachments(List<Attachment> attachments) {
 		this.attachments = attachments;
 	}
-
 	@Override
 	public String toString() {
-		return "Board [no=" + no + ", orCode=" + orCode + ", title=" + title + ", writer=" + writer + ", content="
-				+ content + ", readCount=" + readCount + ", likeCount=" + likeCount + ", regDate=" + regDate + ", attachments="
-				+ attachments + "]";
+		return "Board ["+super.toString()+", commentCount=" + commentCount + ", attachCount=" + attachCount + ", attachments=" + attachments
+				+ "]";
 	}
+	
+
+	
+	
+	
 
 
 	
