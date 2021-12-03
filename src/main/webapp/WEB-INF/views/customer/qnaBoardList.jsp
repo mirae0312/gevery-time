@@ -38,7 +38,11 @@
                         <td><%= qnaBoard.getNo() %></td>
                         <td style="font-size:12px";><%= qnaBoard.getCategory() %></td>
                         <td class="tit" colspan="5">
-                          <a href="<%= request.getContextPath() %>/customer/qnaBoardView?no=<%= qnaBoard.getNo() %>"><%= qnaBoard.getTitle() %></a>
+				<%if(MemberService.ADMIN_ROLE.equals(loginMember.getMemberRole())){ %>
+             			<a href="<%= request.getContextPath() %>/customer/qnaBoardView?no=<%= qnaBoard.getNo() %>"><%= qnaBoard.getTitle() %></a>
+				<% }else{%>
+                         <a href="<%= request.getContextPath() %>/customer/passwordCheck?no=<%= qnaBoard.getNo() %>"><%= qnaBoard.getTitle() %></a>
+      				<%} %>
                         </td>
                         <td><%= qnaBoard.getWriter() %></td>
                         <td><%=qnaBoard.getRegDate() %></td>
@@ -50,9 +54,7 @@
 	}else{
 		 
 %>
-
-  <tr>
-  
+  					<tr>
                         <td><%= qnaBoard.getNo() %></td>
                         <td style="font-size:12px;color:red"><%= qnaBoard.getCategory() %></td>
                         <td class="tit" colspan="5">
@@ -73,7 +75,7 @@
 %>
  
             </table>
-          
+ 
         </div>
         <div id="inputBox"><input type="button" value="글쓰기" id="btn-add"
         	onclick="location.href='<%= request.getContextPath() %>/customer/qnaBoardForm'"/></div>

@@ -219,9 +219,15 @@ public class QnaBoardService {
 		 return reportBoard;
 		 
 	}
-	
 
-	 
+	//비밀번호 체크 
+	public int passwordCheck(int no, String password) {
+		Connection conn = getConnection();
+		int cnt  = qnaBoardDao.passwordCheck(no,password,conn);
+		close(conn);
+		return cnt;
+	}
+	
  
 	}
  

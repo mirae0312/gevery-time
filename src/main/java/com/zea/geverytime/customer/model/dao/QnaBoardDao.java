@@ -523,6 +523,31 @@ public class QnaBoardDao {
  
 	 
 	}
+
+	//비밀번호 체크 
+	public int passwordCheck(int no, String password, Connection conn) {
+		PreparedStatement pstmt = null;
+		String sql = prop.getProperty("passwordCheck");
+		ResultSet rset = null;
+		int cnt = 0;
+		
+		try {
+			pstmt = conn.prepareStatement(sql);
+			pstmt.setInt(1,no);
+			pstmt.setString(2, password);
+			 
+			rset = pstmt.executeQuery();
+			if(rset.next()) {
+				cnt = rset.getInt(1);
+			}
+		} catch (SQLException e) {
+			e.printStackTrace();
+		} finally {
+			close(rset);
+			close(pstmt);
+		}
+		return cnt;
+	}
 	 
 	 
 }

@@ -33,7 +33,7 @@
 	name="boardReplyEnrollFrm"
 	action="<%=request.getContextPath() %>/customer/qnaBoardReplyEnroll" 
 	method="post">
-	<!-- <input type="hidden" name="no" value="<%= no %>" /> -->
+	 <!-- <input type="hidden" name="no" value="<%= no %>" />  -->
     <input type="hidden" name="replyLevel" value="2" />
      <input type="hidden" name="replyRef" value="<%= no %>" />  
 	<table id="tbl-board-view">
