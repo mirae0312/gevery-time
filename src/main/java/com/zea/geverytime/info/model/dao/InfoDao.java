@@ -175,7 +175,7 @@ public class InfoDao {
 		return attach;
 	}
 
-	public List<Attachment> selectAllAttach(Connection conn, String code, int start, int end) {
+	public List<Attachment> selectAllAttach(Connection conn, String code) {
 		PreparedStatement pstmt = null;
 		String sql = prop.getProperty("selectAllAttach");
 		ResultSet rset = null;
@@ -185,13 +185,12 @@ public class InfoDao {
 			pstmt = conn.prepareStatement(sql);
 			
 			pstmt.setString(1, code);
-			pstmt.setInt(2, start);
-			pstmt.setInt(3, end);
 			
 			rset = pstmt.executeQuery();
 			while(rset.next()) {
 				Attachment info = new Attachment();
 				info.setNo(rset.getInt("no"));
+				info.setCode(rset.getString("or_no"));
 				info.setOriginalFilename(rset.getString("original_filename"));
 				info.setRenamedFilename(rset.getString("renamed_filename"));
 				info.setRegDate(rset.getDate("reg_date"));

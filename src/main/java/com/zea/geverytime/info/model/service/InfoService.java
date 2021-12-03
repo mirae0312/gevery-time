@@ -51,8 +51,10 @@ public class InfoService {
 			list = infoDao.selectAllList(board, conn, start, end);
 			for(int i = 0; i < list.size(); i++) {
 				String code = list.get(i).getCode();
-				attach = infoDao.selectAllAttach(conn, code, start, end);
+				attach = infoDao.selectAllAttach(conn, code);
 				System.out.println("[Service] AllAttach : " + attach);
+				System.out.println("[Service] code : " + code);
+				
 				list.get(i).setAttachments(attach);
 			}
 		}catch(Exception e) {

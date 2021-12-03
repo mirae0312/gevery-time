@@ -80,14 +80,11 @@ const scrollPage = () => {
 			const $div = $(".info-content");
 			
 			$data.each((i, {code, businessName, headContent, attachments, recommend, viewCount}) => {
-				$(attachments).each((i, renamedFilename) => {
-					console.log(renamedFilename)
-				});
-				console.log(attachments);
+				
 				const $contents = `<div class="info-wrap">
 				<div class="business-name">\${businessName}</div>
 				<div class="head-content">\${headContent}</div>				
-				<img class="list-thumbnail" src="<%= request.getContextPath() %>/upload/info/" alt="" />
+				<img class="list-thumbnail" src="<%= request.getContextPath() %>/upload/info/\${attachments[0].renamedFilename}" alt="" />
 				<div class="recommend-count">\${recommend}</div>
 				<div class="view-count">\${viewCount}</div>	
 				<div class="hidden-code">\${code}</div>
