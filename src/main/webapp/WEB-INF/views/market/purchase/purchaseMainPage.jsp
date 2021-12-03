@@ -51,27 +51,97 @@
 		<%
 		countNum++;
 		}
-		%>
+		%>			
+		</tbody>
+	</table>
+
+	<br />
+	<!-- 주문자 정보 테이블 -->
+	<h3>주문자 정보</h3>
+	<table id="consumerInfo">
+		<tbody>
 			<tr>
+				<th>이름</th>
 				<td>
-				 <span>결제 금액은</span>
-				 <span id="totalPricePlace"></span>
-				 <span>원 입니다.</span>
+					<input type="text" name="conName" id="" value="<%= loginMember != null ? loginMember.getMemberName() : "" %>"/>
 				</td>
+			</tr>
+			<tr>
+				<th>전화번호</th>
+				<td>
+					<input type="text" name="conPhone" value="<%= loginMember != null ? loginMember.getPhone() : "" %>" />
+				</td>
+			</tr>
+			<tr>
+				<th>주소</th>
+				<td>
+					<input type="text" name="conAddr" value="<%= loginMember != null ? loginMember.getAddress() : "" %>" />
+				</td>
+				<td>
+					<span>상세주소</span><input type="text" name="conAddrDetail" />
+				</td>
+			</tr>
+			<tr>
+				<td>인적사항이 다른 경우 다시 입력해주세요.</td>
 			</tr>
 		</tbody>
 	</table>
 	
+	<br />
+	
+	<h3>포인트 적용</h3>
+	<span>나의 보유 point : </span><span id="myPoint"></span><br />
+	<label for="usePoint">사용할 포인트 입력 </label><input type="text" name="conPoint" id="usePoint" value="0"/>
+	<input type="button" value="적용하기" id="pointSet" />
+	<br /><br />
+	
+	
+	<!-- 최종 결제 금액 영역 -->
+	<span>최종 결제 금액은 : </span><span id="totalPricePlace"></span><span>원 입니다.</span>
+	
+	<br /><br />	
 	<button onclick="requestPay()">결제하기</button>
 	
 	<input type="hidden" id="countNum" value="<%= countNum - 1 %>"/>
+	<input type="hidden" id="defaultTotalPrice" value="" />
 	
 <script>
+	// point 사용 시 잔액과 비교
+	$("#pointSet").click((e) => {
+		let pointBal = $("#myPoint").html();
+		let usePoint = $("#usePoint").val();
+		let defaultTotalPrice = $("#defaultTotalPrice").val();
+		
+		if(pointBal - usePoint < 0){
+			alert("입력하신 금액이 보유하신 포인트보다 많습니다.");
+			$("#usePoint").val(0);
+		} else {
+			let finalPrice = defaultTotalPrice - usePoint;
+			$("#totalPricePlace").html(finalPrice);
+			console.log(finalPrice);
+		}
+	})
+
 	$(() => {
+		// 금액 계산
 		priceCalculate();
+		
+		// 포인트 잔액 load
+		const loginMemberId = "<%= loginMember.getMemberId() %>";
+		$.ajax({
+			url: "<%= request.getContextPath() %>/point/getBalance",
+			data: {
+				memberId : loginMemberId  
+			},
+			success(data){
+				$("#myPoint").html(data.pointBal);
+			},
+			error : console.log
+		});
+		
 	});
 
-	// 금액 계산 함수
+	// 상품 총 금액 계산 함수(포인트 미적용)
 	const priceCalculate = () => {
 		let countNum = $("#countNum").val();
 		
@@ -81,10 +151,12 @@
 			let count = $(`#pdtCount\${i}`).val();
 			$(`#pdtTotalVal\${i}`).html(price*count);
 			TotalPrice += price*count;
-			console.log(price, count, TotalPrice);
 		}			
+		$("#defaultTotalPrice").val(TotalPrice);
 		$("#totalPricePlace").html(TotalPrice);
 	};
+	
+	
 	
 	// 카카오페이 연동
 	var IMP = window.IMP; 
@@ -98,7 +170,6 @@
 		let second = String(date.getSeconds());
 		
 		const totalPrice = $("#totalPricePlace").html();
-		console.log(totalPrice);
 		
         // IMP.request_pay(param, callback) 결제창 호출
         IMP.request_pay({ // param
