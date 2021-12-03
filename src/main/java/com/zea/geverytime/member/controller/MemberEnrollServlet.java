@@ -35,13 +35,13 @@ public class MemberEnrollServlet extends HttpServlet {
 		try {
 			
 			
-			// 2.사용자입력값 처리 사용자입력값 -> Member VO객체 생성
-			String memberId = request.getParameter("memberId");
+		
+			String memberId = request.getParameter("Id");
 			String password = request.getParameter("password");
-			String memberName = request.getParameter("memberName");
+			String memberName = request.getParameter("name");
+			String email = request.getParameter("email");
 			String phone = request.getParameter("phone");
 			String address = request.getParameter("address");
-			String email = request.getParameter("email");
 			String _birthday = request.getParameter("birthday"); 
 						
 			System.out.println("email = " + email);

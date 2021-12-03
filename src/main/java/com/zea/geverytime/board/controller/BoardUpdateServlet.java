@@ -33,7 +33,6 @@ public class BoardUpdateServlet extends HttpServlet {
 		int no = Integer.parseInt(request.getParameter("no"));
 		// 2. 업무로직
 		Board board = boardService.selectOneBoard(no);
-		System.out.println(board);
 		// 3. 응답처리
 		request.setAttribute("board",board);
 		request
@@ -104,7 +103,5 @@ public class BoardUpdateServlet extends HttpServlet {
 		}catch(Exception e) {
 			throw e;
 		}
-	
 	}
-
 }

@@ -15,7 +15,7 @@ public static final String BUSINESSTYPE = "B";
 
 	private BusinessDao businessDao = new BusinessDao();
 	
-	public int insertBmember(Business business,Member member) {
+	public int insertBmember(Business business) {
 		Connection conn = null;
 		int bresult = 0;
 		try {
@@ -23,7 +23,7 @@ public static final String BUSINESSTYPE = "B";
 			conn = getConnection();
 			
 			// 2.Dao요청
-			bresult = businessDao.insertBmember(conn, business, member);
+			bresult = businessDao.insertBmember(conn, business);
 			// 3.트랜잭션처리
 			commit(conn);
 		} catch (Exception e) {
@@ -38,26 +38,7 @@ public static final String BUSINESSTYPE = "B";
 
 
 
-	public int insertBusiness(Business business) {
-		Connection conn = null;
-		int result = 0;
-		try {
-			// 1.Connection객체 생성
-			conn = getConnection();
-			
-			// 2.Dao요청
-			result = businessDao.insertBusiness(conn, business);
-			// 3.트랜잭션처리
-			commit(conn);
-		} catch (Exception e) {
-			rollback(conn);
-			throw e;
-		} finally {
-			// 4.Connection 자원반납
-			close(conn);
-		}
-		return result;
-	}
+
 
 	
 

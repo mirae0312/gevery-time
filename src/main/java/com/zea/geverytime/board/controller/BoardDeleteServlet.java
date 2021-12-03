@@ -28,16 +28,6 @@ public class BoardDeleteServlet extends HttpServlet {
 		try {
 			// 1. 사용자 입력값 처리
 			int no = Integer.parseInt(request.getParameter("no"));
-			System.out.println("1");
-			System.out.println("2");
-			System.out.println("3");
-			System.out.println("4");
-			System.out.println("5");
-			System.out.println("6");
-			System.out.println("7");
-			System.out.println("8");
-			System.out.println("9");
-
 			
 			// 2. 업무처리
 			// 게시물 고유코드 가져와서 첨부파일 삭제, 게시물 삭제, 서버 파일 삭제
@@ -53,13 +43,11 @@ public class BoardDeleteServlet extends HttpServlet {
 					File file = new File(getServletContext().getRealPath("/upload/board"),a.getRenamedFilename());
 					if(file!=null) {
 						file.delete();
-						System.out.println("11");
 
 					}
 				}
 			}
 			int result = boardService.deleteBoard(no);
-			System.out.println("12");
 
 			// 3. 응답처리
 			String msg = result>0? "게시글 삭제 완료":"게시글 삭제 실패";

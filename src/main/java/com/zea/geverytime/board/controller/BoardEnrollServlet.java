@@ -2,6 +2,7 @@ package com.zea.geverytime.board.controller;
 
 import java.io.IOException;
 import java.util.ArrayList;
+import java.util.Enumeration;
 import java.util.List;
 
 import javax.servlet.ServletException;
@@ -51,20 +52,14 @@ public class BoardEnrollServlet extends HttpServlet {
 			board.setOrCode(boardCode);
 			
 			// 첨부파일 있는 경우 board객체에 첨부파일 List 추가
-			if(multipartRequest.getFile("file1") != null
-					|| multipartRequest.getFile("file2")!=null) {
-				System.out.println("첨부파일 있음");
-				List<Attachment> list = new ArrayList<>();
-				Attachment attachment =  null;
-				if(multipartRequest.getFile("file1")  != null) {
-					attachment = MvcUtils.makeAttachment(multipartRequest,"file1");
-					list.add(attachment);
+			Enumeration fileNames = multipartRequest.getFileNames();
+			List<Attachment> list = new ArrayList<>();
+			while(fileNames.hasMoreElements()) {
+				String fileName = (String)fileNames.nextElement();
+				if(!fileName.equals("files") && multipartRequest.getFile(fileName)!= null) {
+					Attachment a = MvcUtils.makeAttachment(multipartRequest,fileName);
+					list.add(a);
 				}
-				if(multipartRequest.getFile("file2") != null) {
-					attachment =  MvcUtils.makeAttachment(multipartRequest,"file2");
-					list.add(attachment);
-				}
-				board.setAttachments(list);
 			}
 		
 			// 2. 업무처리
