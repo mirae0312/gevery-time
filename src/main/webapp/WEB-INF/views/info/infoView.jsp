@@ -198,7 +198,7 @@
 			<% } %>
 				<div class="review-content"><%= re.getContent() %></div>
 				<div class="review-reg-date"><%= re.getRegDate() %></div>
-			<%-- 로그인을 했고 작성자라면 보이도록 --%>
+			<%-- 리뷰 수정: 로그인을 했고 작성자라면 보이도록 --%>
 			<% if(loginMember != null && loginMember.getMemberId().equals(re.getMemberId())){ %>
 				<input type="button" value="수정" class="modify-review review-btn" onclick="modifyReview();" />
 			<% } %>
@@ -209,7 +209,7 @@
 	<% } %>
 <% } %>
 <%-- 리뷰 --%>
-<% if(loginMember != null && MemberService.USER_ROLE.equals(loginMember.getMemberRole())){ %>
+<% if(loginMember != null && MemberService.USER_ROLE.equals(loginMember.getMemberRole()) && !info.getMemberId().equals(loginMember.getMemberId())){ %>
 		<form action="<%= request.getContextPath() %>/info/insertReview"
 			name="reviewEnrollFrm"
 			method="post" enctype="multipart/form-data">
@@ -224,7 +224,7 @@
 			<input type="file" name="reviewPic1" accept="image/*" onchange="previewF1();"/>
 			<input type="file" name="reviewPic2" accept="image/*" onchange="previewF2();"/>
 			<textarea name="bodyContent" id="writeReview" cols="30" rows="10" required></textarea>
-			<button>등록</button>
+			<button class="review-enroll-btn">등록</button>
 <% } %>
 		</form>
 	</div>

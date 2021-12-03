@@ -43,3 +43,7 @@
 }
 .view-count{
 }
+
+.hidden-code{
+	display: none;
+}

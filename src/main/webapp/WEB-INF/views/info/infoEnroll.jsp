@@ -23,7 +23,7 @@
 			<input type="text" name="businessName" id="business-name" value="<%= info.getBusinessName() %>" readonly/>
 			썸네일
 			<div class="thumb"><img src="#" alt="" id="thumbnail" style="width:200px;height:180px;"/></div>
-			<input type="file" name="headFile" accept="image/*" onchange="setThumbnail();" id="head-file" />
+			<input type="file" name="headFile" accept="image/*" onchange="setThumbnail();" id="head-file" required />
 			인사말
 			<input type="text" name="headContent" id="head-content" />		
 		</div><br />

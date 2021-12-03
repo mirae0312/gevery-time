@@ -55,8 +55,9 @@ public class InfoReviewEnrollServlet extends HttpServlet {
 			InfoReview ir = new InfoReview(0, null, code, memberId, null, headContent, bodyContent, null, null);
 			
 			// 리뷰를 쓴적 있는지 확인
+			System.out.println("[inforeviewenrollservlet] code, memberid : " + code + ", " + memberId);
 			InfoReview check = infoService.checkReview(code, memberId);
-			
+//			System.out.println("[inforeviewEnrollservlet] rCode : " + check.getrCode());
 						
 			File reviewPic1 = multipartRequest.getFile("reviewPic1");
 			File reviewPic2 = multipartRequest.getFile("reviewPic2");
@@ -79,15 +80,15 @@ public class InfoReviewEnrollServlet extends HttpServlet {
 			
 			String location = request.getContextPath() + "/info/view?code=" + code;
 			int result = 0;
-			if(check.getrCode() == null || check.getrCode().isEmpty()) {
+			
+			if("0".equals(check.getrCode()) && "0".equals(check.getHeadContent())) {
 				result = infoService.insertInfoReview(ir, codeN);
 				session.setAttribute("msg", "리뷰 작성 성공!");
-			}else if((check.getrCode() != null || !check.getrCode().isEmpty()) &&
-					(check.getHeadContent() == null || !check.getHeadContent().isEmpty())) {
+			}else if(!"0".equals(check.getrCode()) && "0".equals(check.getHeadContent())) {
 				ir.setrCode(check.getrCode());
 				result = infoService.updateInfoReview(ir);
 				session.setAttribute("msg", "리뷰 작성 성공!");
-			}else {
+			}else if(!"0".equals(check.getrCode()) && "0".equals(check.getHeadContent())) {
 				session.setAttribute("msg", "리뷰는 한번만 작성 가능합니다!");
 			}
 			response.sendRedirect(location);

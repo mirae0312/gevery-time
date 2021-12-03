@@ -855,7 +855,7 @@ public class InfoDao {
 			rset = pstmt.executeQuery();
 			if(rset.next()) {
 				check = new InfoReview();
-				check.setrCode(rset.getString("r_code"));
+				check.setrCode(rset.getString("r_code"));					
 				check.setHeadContent(rset.getString("head_content"));
 			}
 		} catch (SQLException e) {

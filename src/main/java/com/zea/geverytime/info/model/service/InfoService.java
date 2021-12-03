@@ -4,6 +4,7 @@ import static com.zea.geverytime.common.JdbcTemplate.*;
 import static com.zea.geverytime.common.JdbcTemplate.getConnection;
 
 import java.sql.Connection;
+import java.util.ArrayList;
 import java.util.List;
 
 import com.zea.geverytime.common.model.vo.Attachment;
@@ -52,11 +53,6 @@ public class InfoService {
 				String code = list.get(i).getCode();
 				attach = infoDao.selectAllAttach(conn, code, start, end);
 				System.out.println("[Service] AllAttach : " + attach);
-				if(attach.isEmpty()) {
-					Attachment infoAttach = new Attachment();
-					infoAttach.setRenamedFilename("파일 없음");
-					attach.add(infoAttach);
-				}
 				list.get(i).setAttachments(attach);
 			}
 		}catch(Exception e) {
@@ -285,6 +281,7 @@ public class InfoService {
 		try {
 			conn = getConnection();
 			check = infoDao.checkReview(conn, code, memberId);
+//			System.out.println("[infoService] + check : " + check);
 		}catch(Exception e) {
 			throw e;
 		}finally {
