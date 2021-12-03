@@ -1211,12 +1211,50 @@ public class InfoDao {
 			
 			result = pstmt.executeUpdate();
 		} catch (SQLException e) {
-			throw new InfoBoardException("첨부파일 삭제 실패!", e);
+			throw new InfoBoardException("첨부파일 수정 실패!", e);
 		}finally {
 			close(pstmt);
 		}
 		
 		return result;
+	}
+
+	public void deleteReview(Connection conn, String rCode) {
+		PreparedStatement pstmt = null;
+		String spl = prop.getProperty("deleteReview");
+		int result = 0;
+		
+		try {
+			pstmt = conn.prepareCall(spl);
+			
+			pstmt.setString(1, rCode);
+			
+			result = pstmt.executeUpdate();
+		}catch(SQLException e) {
+			throw new InfoBoardException("리뷰 삭제 실패!", e);
+		}finally {
+			close(pstmt);
+		}
+		
+	}
+
+	public void deleteAttachment(Connection conn, String code) {
+		PreparedStatement pstmt = null;
+		String spl = prop.getProperty("deleteAttachment");
+		int result = 0;
+		
+		try {
+			pstmt = conn.prepareCall(spl);
+			
+			pstmt.setString(1, code);
+			
+			result = pstmt.executeUpdate();
+		}catch(SQLException e) {
+			throw new InfoBoardException("첨부파일 삭제 실패!", e);
+		}finally {
+			close(pstmt);
+		}
+		
 	}
 
 

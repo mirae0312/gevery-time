@@ -411,6 +411,36 @@ public class InfoService {
 		return result;
 	}
 
+	public void deleteReview(String rCode) {
+		Connection conn = null;
+		try {
+			conn = getConnection();
+			infoDao.deleteReview(conn, rCode);			
+			commit(conn);
+		}catch(Exception e) {
+			rollback(conn);
+			throw e;
+		}finally {
+			close(conn);
+		}
+		
+	}
+
+	public void deleteAttachment(String code) {
+		Connection conn = null;
+		try {
+			conn = getConnection();
+			infoDao.deleteAttachment(conn, code);
+			commit(conn);
+		}catch(Exception e) {
+			rollback(conn);
+			throw e;
+		}finally {
+			close(conn);
+		}
+		
+	}
+
 
 
 }

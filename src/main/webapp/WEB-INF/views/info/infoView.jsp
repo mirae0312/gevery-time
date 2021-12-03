@@ -37,7 +37,7 @@
 <% if(loginMember != null && info.getMemberId().equals(loginMember.getMemberId())){ %>
 	<form action="" enctype="multipart/form-data" name="infoBoardModifyFrm" >
 		<input type="hidden" name="code" value="<%= info.getCode() %>" />
-		<input type="hidden" name="code" value="<%= info.getCode() %>" />
+		<input type="hidden" name="codeN" value="<%= codeN %>" />
 		<input value="수정" type="button" onclick="" />
 	</form>
 <% } %>
@@ -207,14 +207,15 @@
 			<% } %>
 				<div class="review-content"><%= re.getContent() %></div>
 				<div class="review-reg-date"><%= re.getRegDate() %></div>
-			<%-- 리뷰 수정: 로그인을 했고 작성자라면 보이도록 --%>
-			<% if(loginMember != null && loginMember.getMemberId().equals(re.getMemberId())){ %>
 				<table id= reBox></table>
-				<input type="button" value="수정" class="modify-review review-btn" onclick="modifyReviewBox();" />
-			<% } %>
-				<input type="button" value="신고" class="reivew-report review-btn" onclick="reportReview();" />
+			<%-- 리뷰 수정: 로그인을 했고 작성자라면 보이도록 --%>
 			</form>
 		</div>
+			<% if(loginMember != null && loginMember.getMemberId().equals(re.getMemberId())){ %>
+				<input type="button" value="수정" class="modify-review review-btn" onclick="modifyReviewBox();" />
+				<input type="button" value="삭제" class="delete-review review-btn" onclick="deleteReview();" />
+				<input type="button" value="신고" class="reivew-report review-btn" onclick="reportReview();" />
+			<% } %>
 		<% } %>
 	<% } %>
 <% } %>
@@ -240,8 +241,21 @@
 	</div>
 </div>
 <script>
-// 리뷰 수정
+// 리뷰 수정 삭제 신고용 폼
 const $frm = $(document.infoBoardReviewFrm);
+
+// 리뷰 삭제
+const deleteReview = () => {
+	const check = confirm("정말 삭제하시나요?");
+	if(check){
+		$frm.attr("action", "<%= request.getContextPath() %>/info/deleteReview")
+			.submit();
+	}
+	
+};
+
+
+// 리뷰 수정
 const modifyReviewBox = () => {
 	$frm.attr("action", "<%= request.getContextPath() %>/info/reviewModify")
 		.submit();
