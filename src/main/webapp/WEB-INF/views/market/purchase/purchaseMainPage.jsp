@@ -1,3 +1,5 @@
+<%@page import="java.util.HashMap"%>
+<%@page import="java.util.ArrayList"%>
 <%@page import="java.util.Map"%>
 <%@page import="java.util.List"%>
 <%@ page language="java" contentType="text/html; charset=UTF-8"
@@ -5,6 +7,7 @@
 <%@ include file="/WEB-INF/views/common/header.jsp" %>
 <%
 	List<Map<String, Object>> list = (List<Map<String, Object>>) request.getAttribute("list");
+	Map<String, Object> delCartMap = (Map<String, Object>) new HashMap<String, Object>();
 %>
 <!DOCTYPE html>
 <html>
@@ -48,7 +51,9 @@
 					<input type="hidden" id="pdtCount<%= countNum %>" value="<%= pdt.get("count") %>" />
 				</td>
 			</tr>
+			
 		<%
+			delCartMap.put("bdn"+countNum, pdt.get("boardNo"));
 		countNum++;
 		}
 		%>			
@@ -105,6 +110,21 @@
 	<input type="hidden" id="countNum" value="<%= countNum - 1 %>"/>
 	<input type="hidden" id="defaultTotalPrice" value="" />
 	
+	<input type="button" value="test" onclick="testBtn();" />
+	
+	<!-- 선택한 장바구니 삭제를 위한 hidden 영역 -->
+<%-- 	<form action="<%= request.getContextPath() %>/cart/delete" name="cartDeleteFrm" method="POST">
+	<%
+		for(int i = 1; i < countNum; i++){
+			int no = (int)delCartMap.get("bdn"+i);
+	%>
+		<input type="text" name="delCart<%= i %>" value="<%= no %>"/>
+	<%
+		}
+	%>
+		<input type="hidden" name="delCartLoginMember" value="<%= loginMember.getMemberId() %>" />
+		<input type="hidden" name="delCartCountNum" value="<%= countNum - 1 %>" />
+	</form> --%>
 <script>
 	// point 사용 시 잔액과 비교
 	$("#pointSet").click((e) => {
@@ -170,6 +190,7 @@
 		let second = String(date.getSeconds());
 		
 		const totalPrice = $("#totalPricePlace").html();
+		const usePoint = $("#usePoint").val();
 		
         // IMP.request_pay(param, callback) 결제창 호출
         IMP.request_pay({ // param
@@ -206,6 +227,9 @@
                     	msg += "상점 거래 ID : " + rsp.merchant_uid;
                     	msg += "결제 금액 : " + rsp.paid_amount;
                         // 결제 성공 시 로직,
+                        // 포인트 사용처리
+                        pointHandling("<%= loginMember.getMemberId() %>", usePoint, rsp.imp_uid);
+                        delCart();
                         alert(msg);
             			purchaseDone(rsp.imp_uid, rsp.merchant_uid, rsp.paid_amount);
             		},
@@ -223,7 +247,59 @@
 		location.href=`<%= request.getContextPath() %>/purchase/Complete?uid=\${a}&muid=\${b}&amount=\${c}`;
 	};
 	
+	const pointHandling = (useMemberId, usePoint, purchase_uid) => {
+		$.ajax({
+			url: "<%= request.getContextPath() %>/point/usePoint",
+			method: "POST",
+			data: {
+				memberId: useMemberId,
+				point: usePoint
+			},
+			success(data){
+				addPointHistory(data.pointNo, '사용', data.usePoint, '일반 상품 결제', purchase_uid);
+			},
+			error: console.log
+		});
+	};
 	
+	const addPointHistory = (reqpointNo, reqdiv, reqpointVal, reqhistory, req_purchase_uid) => {
+		$.ajax({
+			url: "<%= request.getContextPath() %>/point/addPointHistory",
+			method: "POST",
+			data: {
+				pointNo: reqpointNo,
+				div: reqdiv,
+				pointVal: reqpointVal,
+				history: reqhistory,
+				purchaseUid: req_purchase_uid
+			},
+			success(data){
+				console.log(data);
+			},
+			error: console.log
+		});
+	};
+	
+	const delCart = () => {
+		$.ajax({
+			url: "<%= request.getContextPath() %>/cart/deleteCart",
+			method: "POST",
+			data:{
+				<%
+					for(int i = 1; i < countNum; i++){
+						int no = (int)delCartMap.get("bdn"+i);
+				%>
+					delCart<%= i %>: "<%= no %>",
+				<% } %>
+					delCartLoginMember: "<%= loginMember.getMemberId() %>",
+					delCartCountNum: "<%= countNum -1 %>"
+			},
+			success(data){
+				console.log("장바구니 지워짐");
+			},
+			error: console.log
+		})
+	};
 </script>
 </body>
 </html>
