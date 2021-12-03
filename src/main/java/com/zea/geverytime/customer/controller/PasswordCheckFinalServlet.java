@@ -32,7 +32,7 @@ public class PasswordCheckFinalServlet extends HttpServlet {
 		HttpSession session = request.getSession();
 		session.setAttribute("msg", msg);
 		
-		if(cnt == 1) {
+		if(cnt > 0) {
 		String location = request.getContextPath() +"/customer/qnaBoardView?no=" + no;
 		response.sendRedirect(location);	
 		}else {
