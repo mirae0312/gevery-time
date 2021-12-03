@@ -29,7 +29,7 @@ public class InfoService {
 			for(int i = 0; i < popList.size(); i++) {
 				String code = popList.get(i).getCode();
 				attach = infoDao.selectPopAttach(conn, code);
-				System.out.println("service attach : " + attach);
+//				System.out.println("service attach : " + attach);
 				popList.get(i).setAttachments(attach);
 			}
 
@@ -79,7 +79,7 @@ public class InfoService {
 			List<Hospital> hospitals = info.getHospitals();
 			if(hospitals != null && !hospitals.isEmpty()) {
 				for(Hospital hospital : hospitals) {
-					System.out.println("[infoservice] hospitalService : " + hospital.getService());
+//					System.out.println("[infoservice] hospitalService : " + hospital.getService());
 					hospital.setCode(code);
 					result = infoDao.insertHospitalService(conn, hospital);
 				}

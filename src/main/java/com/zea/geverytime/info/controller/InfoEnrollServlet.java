@@ -315,26 +315,6 @@ public class InfoEnrollServlet extends HttpServlet {
 				listS.add(salon3);
 				info.setSalons(listS);
 				
-				
-				
-//				String[] services = {smallBath1, ",", middleBath1, ",", specialBath1, ",", smallBathAnd1, ",", middleBathAnd1, ",", specialBathAnd1, 
-//						smallMachine1, ",", middleMachine1, ",", specialMachine1, ",",  smallSpotting1, ",", middleSpotting1, ",", specialSpotting1, ",",
-//						smallScissors1, ",", middleScissors1, ",", specialScissors1, "-",
-//						smallBath2, ",", middleBath2, ",", specialBath2, ",", smallBathAnd2, ",", middleBathAnd2, ",", specialBathAnd2, 
-//						smallMachine2, ",", middleMachine2, ",", specialMachine2, ",",  smallSpotting2, ",", middleSpotting2, ",", specialSpotting2, ",",
-//						smallScissors2, ",", middleScissors2, ",", specialScissors2, "-",
-//						smallBath3, ",", middleBath3, ",", specialBath3, ",", smallBathAnd3, ",", middleBathAnd3, ",", specialBathAnd3,
-//						smallMachine3, ",", middleMachine3, ",", specialMachine3, ",",  smallSpotting3, ",", middleSpotting3, ",", specialSpotting3, ",",
-//						smallScissors3, ",", middleScissors3, ",", specialScissors3};
-//				
-//				StringBuilder service = new StringBuilder();
-//				for(int i = 0; i < services.length; i++) {
-//					if(services[i] != null && !services[i].isEmpty()) {
-//						service.append(services[i]);
-//					}
-//				}
-//				String serv = service.toString();
-//				info.setServiceContent(serv);
 			}
 			
 	

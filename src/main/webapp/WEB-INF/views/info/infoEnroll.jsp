@@ -8,7 +8,6 @@
 	String bno = info.getBusinessNo();
 	String no = bno.substring(bno.length() - 1);
 %>
-<script type="text/javascript" src="//dapi.kakao.com/v2/maps/sdk.js?appkey=4247f28f0dc06c5cc8486ac837d411ff"></script>
 <script type="text/javascript" src="//dapi.kakao.com/v2/maps/sdk.js?appkey=4247f28f0dc06c5cc8486ac837d411ff&libraries=services,clusterer,drawing"></script>
 <div class="enroll-wrapper">
 	<%-- 전체 등록 폼 --%>
@@ -21,7 +20,7 @@
 		<%-- 왼쪽 상단 위치 --%>
 		<div class="left-head">
 			상호명
-			<input type="text" name="businessName" id="business-name" value="<%= info.getBusinessName() %>" required/>
+			<input type="text" name="businessName" id="business-name" value="<%= info.getBusinessName() %>" readonly/>
 			썸네일
 			<div class="thumb"><img src="#" alt="" id="thumbnail" style="width:200px;height:180px;"/></div>
 			<input type="file" name="headFile" accept="image/*" onchange="setThumbnail();" id="head-file" />
@@ -31,9 +30,9 @@
 		<%-- 오른쪽 상단 위치 --%>
 		<div class="right-head">
 			<label for="tel">전화번호</label>
-			<input type="text" name="tel" id="tel" value="<%= info.getBusinessTel() %>" required/><br />
+			<input type="text" name="tel" id="tel" value="<%= info.getBusinessTel() %>" readonly/><br />
 			<label for="addr">주소</label>
-			<input type="text" name="addr" id="addr" value="<%= info.getBusinessAddress() %>" /><br />
+			<input type="text" name="addr" id="addr" value="<%= info.getBusinessAddress() %>" readonly /><br />
 			영업시간
 			<input type="time" name="startHour" class="business-hours" required/>~<input type="time" name="endHour" class="business-hours" required/><br />
 			점심시간
@@ -362,7 +361,7 @@ geocoder.addressSearch('서울 영등포구 양평로 5 성원빌딩', function(
 		
 		// 인포윈도우로 장소에 대한 설명을 표시합니다
 		var infowindow = new kakao.maps.InfoWindow({
-		    content: '<div style="width:150px;text-align:center;padding:6px 0;">우리회사</div>'
+		    content: '<div style="width:150px;text-align:center;padding:6px 0;"><%= info.getBusinessName() %></div>'
 		});
 		infowindow.open(map, marker);
 		

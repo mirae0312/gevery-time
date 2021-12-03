@@ -90,7 +90,6 @@ public class InfoDao {
 	public List<Info> selectAllList(String board, Connection conn, int start, int end) {
 		PreparedStatement pstmt = null;
 		String sql = "";
-//		System.out.println("[InfoDao] board : " + board);
 		switch(board) {
 		case "info": 
 			sql = prop.getProperty("selectAllList");
@@ -112,7 +111,6 @@ public class InfoDao {
 			break;
 		}
 		
-		System.out.println("[dao] query : " + sql);
 		
 		ResultSet rset = null;
 		List<Info> list = new ArrayList<>();

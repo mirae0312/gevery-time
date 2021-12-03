@@ -32,7 +32,7 @@
 <%@ page import="java.sql.*" %>
 <%@ include file="/WEB-INF/views/common/header.jsp" %>
 <link rel="stylesheet" href="<%=request.getContextPath() %>/css/info/infoView.css" />
-<script type="text/javascript" src="//dapi.kakao.com/v2/maps/sdk.js?appkey=4247f28f0dc06c5cc8486ac837d411ff"></script>
+
 <script type="text/javascript" src="//dapi.kakao.com/v2/maps/sdk.js?appkey=4247f28f0dc06c5cc8486ac837d411ff&libraries=services,clusterer,drawing"></script>
 <div class="info-view-wrapper">
 	<div class="info-head-wrapper">
@@ -166,8 +166,8 @@
 <% } %>
 		</div>	<br />	
 	</div><br />
+	<%-- 바디 내용 --%>
 	<div class="info-body-wrapper">
-<%-- 바디 내용 --%>
 		<img style="width:300px; height:200px;" src="<%= request.getContextPath() %>/upload/info/<%= pic2 %>" alt="" />
 		<p><%= info.getBodyContents() %></p>
 		<%-- 지도 --%>
@@ -352,7 +352,7 @@ geocoder.addressSearch('<%= info.getBusinessAddress() %>', function(result, stat
 		
 		// 인포윈도우로 장소에 대한 설명을 표시합니다
 		var infowindow = new kakao.maps.InfoWindow({
-		    content: '<div style="width:150px;text-align:center;padding:6px 0;">우리회사</div>'
+		    content: '<div style="width:150px;text-align:center;padding:6px 0;"><%= info.getBusinessName() %></div>'
 		});
 		infowindow.open(map, marker);
 		
