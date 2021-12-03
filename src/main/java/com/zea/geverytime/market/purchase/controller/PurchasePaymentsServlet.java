@@ -86,8 +86,6 @@ public class PurchasePaymentsServlet extends HttpServlet {
 			e.printStackTrace();
 		}
 		
-		
-		
 		// 2. 검증하기
 		
 		url = new URL("https://api.iamport.kr/payments/"+impUid);

@@ -14,11 +14,13 @@
 </head>
 <body>
 	<h1>장바구니</h1>
+<% if(!cartlist.isEmpty()) { %>
 	<table>
 		<thead>
 			<tr>
 				<th>선택</th>
 				<th>상품 번호</th>
+				<th>게시글 번호</th>
 				<th>상품명</th>
 				<th>제목</th>				
 				<th>가격</th>
@@ -41,6 +43,10 @@
 				<td>
 					<%= cart.getPdtBoard().getProduct().getPdtNo() %>
 					<input type="hidden" id="pdtNo<%= countNum %>" value="<%= cart.getPdtBoard().getProduct().getPdtNo() %>"/>
+				</td>
+				<td>
+					<%= cart.getProductboardNo() %>
+					<input type="hidden" id="pdtBoardNo<%= countNum %>" value="<%= cart.getProductboardNo() %>" />
 				</td>
 				<td>
 					<%= cart.getPdtBoard().getProduct().getPdtName() %>
@@ -74,9 +80,6 @@
 			</tr>
 		</tbody>
 	</table>
-	
-	
-
 	<!-- 합계 처리 위한 영역 -->
 	<input type="hidden" id="countNum" value="<%= countNum - 1 %>"/>
 	
@@ -85,6 +88,12 @@
 		<button>주문하기</button></br>
 		<input type="hidden" name="memberId" value="<%= loginMember.getMemberId() %>"/>
 	</form>
+<% } else { %>
+	<h1>텅 비었어요</h1>
+	<input type="button" value="쇼핑하러 가기" onclick="location.href='<%= request.getContextPath() %>/product/main'" />
+<% } %>	
+	
+
 		
 	<script>
 		$(() => {
@@ -122,16 +131,19 @@
 				if($(`#pdtCheck\${i}`).prop("checked") == true){
 					console.log("true");
 					let no = $(`#pdtNo\${i}`).val();
+					let boardNo = $(`#pdtBoardNo\${i}`).val();
 					let price = parseInt($(`#pdtPrice\${i}`).val());
 					let count = $(`#pdtCount\${i}`).val();
 					let title = $(`#pdtTitle\${i}`).val();
 					
 					let inputNo = `<input type="text" name="pdtNo\${orderNum}" value="\${no}"/></br>`;
+					let inputBoardNo = `<input type="text" name="pdtBoardNo\${orderNum}" value="\${boardNo}"/></br>`;
 					let inputPrice = `<input type="text" name="pdtPrice\${orderNum}" value="\${price}"/></br>`;
 					let inputCount = `<input type="text" name="pdtCount\${orderNum}" value="\${count}"></br>`;
 					let inputTitle = `<input type="text" name="pdtTitle\${orderNum}" value="\${title}"></br>`;
 					
 					$("#purchaseFrm").append(inputNo);
+					$("#purchaseFrm").append(inputBoardNo);
 					$("#purchaseFrm").append(inputPrice);
 					$("#purchaseFrm").append(inputCount);
 					$("#purchaseFrm").append(inputTitle);
