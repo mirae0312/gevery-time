@@ -65,7 +65,7 @@ $(() => {
                 <div class="box_login">
                     <div class="inp_text">
                     <label for="loginId" class="screen_out">아이디</label>
-                    <input type="text " id="memberId" name="memberId" placeholder="ID" >
+                    <input type="text" id="memberId" name="memberId" placeholder="ID" >
                     </div>
                     <div class="inp_text">
                     <label for="loginPw" class="screen_out">비밀번호</label>

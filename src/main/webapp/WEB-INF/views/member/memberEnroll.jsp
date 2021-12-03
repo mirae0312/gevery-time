@@ -43,7 +43,7 @@ function handleOnInput(el, maxlength) {
 
         <td>ID:</td>
 
-        <td><input type="text" name="memberId" id="_memberId">
+        <td><input type="text" name="Id" id="_Id">
 
             <input type="button" value="중복확인" onclick="checkIdDuplicate();" />
             <input type="hidden" id="idValid" value="0" />
@@ -72,7 +72,7 @@ function handleOnInput(el, maxlength) {
 
         <td>이 름:</td>
 
-        <td><input type="text" id="memberName" name="memberName"> </td>
+        <td><input type="text" id="name" name="name"> </td>
 
       </tr>
 

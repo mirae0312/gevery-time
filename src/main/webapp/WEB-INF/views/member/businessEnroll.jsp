@@ -38,7 +38,7 @@ function handleOnInput(el, maxlength) {
 	
 <section>
    <h3>회원가입</h3>
-	<form  name ="businessEnrollFrm" action="" method="POST">
+	<form  name ="memberEnrollFrm" action="" method="POST">
    <table cellpadding="5" cellspacing="0"
 
           bgcolor="eeeeee">
@@ -47,11 +47,13 @@ function handleOnInput(el, maxlength) {
 
         <td>ID:</td>
 
-        <td><input type="text" name="businessId" id="_businessId">
+        <td><input type="text" name="Id" id="_Id">
 
-            <input type="button" value="중복확인" onclick="checkIdDuplicate();" />
+            <input type="button" value="중복확인" onclick="check();" />
+          	
+          	
             <input type="hidden" id="idValid" value="0" />
-
+			
         </td>
 
       </tr>
@@ -125,7 +127,7 @@ function handleOnInput(el, maxlength) {
 
         <td>
         
-         <select id="phone" name= "phone">
+         <select id="tel" name= "tel">
     <option value="010">010</option>
     <option value="055">055</option>
     <option value="02">055</option>
@@ -154,25 +156,29 @@ function handleOnInput(el, maxlength) {
 
 </body>
 <form 
-	name="checkDuplicateFrm" 
-	action="<%= request.getContextPath() %>/member/checkDuplicate" 
+	name="checkIdDuplicateFrm" 
+	action="<%= request.getContextPath() %>/member/checkIdDuplicate" 
 	method="GET">
+	<input type="hidden" name="memberId" />
 </form>
 <script>
-const checkDuplicate = () => {
+const check = () => {
 		const name = "checkIdDuplicatePopup"; 
 		const spec = "left = 500px, top =500px, width=300px, height=250px";
 		const popup = open("",name, spec); 
 		
-		const $memberId = $(_memberId);
+		const $memberId = $(_Id);
 		const $frm = $(document.checkDuplicateFrm);
 		$frm.find("[name=memberId]").val($memberId.val());
 		$frm.attr("target",name)
 			.submit();
 	
 };
-	
-};
+$(_memberId).change(() => {
+	$(idValid).val(0);
+});
+
+
 /**
  *name= memberEnrollFrm 유효성검사
  *-id/비번 영문자/숫자 4글자이상
@@ -182,10 +188,10 @@ const checkDuplicate = () => {
  *
  *
  */
-$(documnet.memberEnrollFrm).submit((e) => {
+$(document.memberEnrollFrm).submit((e) => {
 		
 	//memberId
-	const $memberId = $(_memberId);
+	const $memberId = $(_Id);
 	//아이디는 영문자/숫자 4글자이상만 허용
 	if(!/^\w{4,}$/.test($memberId.val()){
 		alert("아이디는 최소 4자리 이상이어야 합니다.");

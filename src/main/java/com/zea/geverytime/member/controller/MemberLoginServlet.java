@@ -26,11 +26,11 @@ public class MemberLoginServlet extends HttpServlet {
         System.out.println("memberId = " + memberId + ", password = " + password);
     
         Member member = memberService.selectOneMember(memberId);
-        System.out.println("member@MemberLoginServlet.doPost = " + member);
+        System.out.println("member@MemberLoginServlet.doPost = " + (Member)member);
+        System.out.println(member.getMemberRole());
         
-    
         HttpSession session = request.getSession(true); 
-        System.out.println(session.getId());
+      
         
         session.setMaxInactiveInterval(10*60);
     
