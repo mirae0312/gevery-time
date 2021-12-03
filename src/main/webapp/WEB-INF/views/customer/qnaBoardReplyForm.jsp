@@ -62,11 +62,11 @@
 		<th>내 용</th>
 		<td><textarea name="content" id="summernote" class="summernote"></textarea></td>
 	</tr>
-	<th>비밀번호</th>
+	<!-- <th>비밀번호</th>
 		<td>
 			<input class="inputBox" type="password" name="password" value="" />
 		</td>
-	<tr>
+	<tr> -->
 		<th colspan="2">
 			<div id=box><input class="submit" type="submit" value="등록하기"></div>
 		</th>
