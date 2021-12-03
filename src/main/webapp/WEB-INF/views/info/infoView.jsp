@@ -35,6 +35,9 @@
 
 <script type="text/javascript" src="//dapi.kakao.com/v2/maps/sdk.js?appkey=4247f28f0dc06c5cc8486ac837d411ff&libraries=services,clusterer,drawing"></script>
 <div class="info-view-wrapper">
+<% if(loginMember != null && info.getMemberId().equals(loginMember.getMemberId())){ %>
+	<input value="수정" type="button" onclick="" />
+<% { %>
 	<div class="info-head-wrapper">
 		<div class="left-side">
 			<h1><%= info.getBusinessName() %></h1>
@@ -200,7 +203,7 @@
 				<div class="review-reg-date"><%= re.getRegDate() %></div>
 			<%-- 리뷰 수정: 로그인을 했고 작성자라면 보이도록 --%>
 			<% if(loginMember != null && loginMember.getMemberId().equals(re.getMemberId())){ %>
-				<input type="button" value="수정" class="modify-review review-btn" onclick="modifyReview();" />
+				<input type="button" value="수정" class="modify-review review-btn" onclick="modifyReviewBox();" />
 			<% } %>
 				<input type="button" value="신고" class="reivew-report review-btn" onclick="reportReview();" />
 			</form>
@@ -232,8 +235,9 @@
 <script>
 // 리뷰 수정
 const $frm = $(document.infoBoardReviewFrm);
-const modifyReview = () => {
-	const $
+const modifyReviewBox = () => {
+	const name = "modifyReviewPopup";
+	const spec = "left=500px, top=500px, width=350px, height=300px"
 };
 
 
@@ -257,6 +261,7 @@ const previewF2 = () => {
 
 
 // 리뷰신고
+<%--
 $(".info-review").click((e) => {
 	if($(e.target) == $(e.target).$(".review-report"))
 		console.log("success");
@@ -269,6 +274,7 @@ const reportReview = () => {
 	const $frm = $(document.reviewReportFrm);
 	$frm.find
 };
+--%>
 
 // 좋아요
 $("#info-like").change((e) => {
