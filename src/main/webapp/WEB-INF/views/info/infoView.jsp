@@ -187,7 +187,7 @@
 	<% for(InfoReview re : ir){ %>
 		<% if(re.getHeadContent() != null){ %>
 		<div class="info-review">
-			<form action="" class="review" method="POST">
+			<form action="" class="review" name="infoBoardReviewFrm" method="POST">
 				<input type="hidden" class="review-code" value="<%= re.getrCode() %>" />
 				<div class="review-writer"><%= re.getMemberId() %></div>
 				<div class="review-head"><%= re.getHeadContent() %></div>
@@ -230,6 +230,10 @@
 	</div>
 </div>
 <script>
+// 리뷰 수정
+const modifyReview = () => {
+	
+};
 
 
 // 리뷰등록하기 사진 미리보기
