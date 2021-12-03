@@ -33,7 +33,7 @@
   <% 	if(
 				loginMember != null && 
 				(
-				  loginMember.getId().equals(reportBoard.getMemberId())
+				  loginMember.getMemberId().equals(reportBoard.getMemberId())
 				  || MemberService.ADMIN_ROLE.equals(loginMember.getMemberRole())
 				)
 			){ %>

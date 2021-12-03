@@ -53,7 +53,7 @@
 	<% 	if(
 				loginMember != null && 
 				(
-				  loginMember.getId().equals(qnaBoard.getWriter())
+				  loginMember.getMemberId().equals(qnaBoard.getWriter())
 				  || MemberService.ADMIN_ROLE.equals(loginMember.getMemberRole())
 				)
 			){ %>
