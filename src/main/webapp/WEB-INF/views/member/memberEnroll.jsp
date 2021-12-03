@@ -1,6 +1,14 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
-
+ <%@page import="com.zea.geverytime.member.model.vo.Member"%>
+<%
+	String msg = (String) session.getAttribute("msg");
+	if(msg != null) session.removeAttribute("msg");
+	
+	Member loginMember = (Member) session.getAttribute("loginMember");
+	
+	
+	%>
 <!DOCTYPE html>
 
 <html>
@@ -45,7 +53,7 @@ function handleOnInput(el, maxlength) {
 
         <td><input type="text" name="Id" id="_Id">
 
-            <input type="button" value="중복확인" onclick="checkIdDuplicate();" />
+        	<input type="button" value="아이디중복검사" onclick =" checkIdDuplicate();"/>
             <input type="hidden" id="idValid" value="0" />
 
         </td>
@@ -131,9 +139,9 @@ function handleOnInput(el, maxlength) {
 
 <form
 	name="checkIdDuplicateFrm" 
-	action="<%= request.getContextPath() %>/member/checkIdDuplicate" 
+	action="<%= request.getContextPath() %>/member/checkDuplicate" 
 	method="GET">
-	<input type="hidden" name="memberId"/>
+	<input type="hidden" name="Id"/>
 </form>
 <script>
 const checkIdDuplicate = () => {
@@ -141,15 +149,15 @@ const checkIdDuplicate = () => {
 		const spec = "left = 500px, top =500px, width=300px, height=250px";
 		const popup = open("",name, spec); 
 		
-		const $memberId = $(_memberId);
+		const $memberId = $(_Id);
 		const $frm = $(document.checkIdDuplicateFrm);
-		$frm.find("[name=memberId]").val($memberId.val());
+		$frm.find("[name=Id]").val($memberId.val());
 		$frm.attr("target",name)
 			.submit();
 	
 };
 
-$(_memberId).change(() => {
+$(_Id).change(() => {
 	$(idValid).val(0);
 });
 	

@@ -16,11 +16,6 @@
 <body>
 	<h1><%= MemberId %>님의 판매중인 상품 목록</h1>
 	<button id="pdtEnroll">상품 등록하기</button>
-	<select name="searchDiv" id="searchDiv">
-		<option value="div1">대분류1</option>
-		<option value="div2">대분류2</option>
-		<option value="div3">대분류3</option>
-	</select>
 	
 	<table>
 		<thead>
@@ -94,7 +89,6 @@
 	
 		// 상품 등록하기
 		$("#pdtEnroll").click((e) => {
-			console.log("click");
 			location.href="<%= request.getContextPath() %>/product/productForm";
 		});
 	</script>

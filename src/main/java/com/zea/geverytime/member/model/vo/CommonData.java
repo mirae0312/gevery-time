@@ -1,7 +1,9 @@
 package com.zea.geverytime.member.model.vo;
 
-public class CommonData {
-	 
+
+
+public class CommonData  {
+
 	 protected String Id;
 	 protected String password;
 	 protected String name;
