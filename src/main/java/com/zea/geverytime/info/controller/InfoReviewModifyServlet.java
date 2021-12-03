@@ -1,6 +1,10 @@
 package com.zea.geverytime.info.controller;
 
+import java.io.File;
 import java.io.IOException;
+import java.util.ArrayList;
+import java.util.Enumeration;
+import java.util.List;
 
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
@@ -11,6 +15,8 @@ import javax.servlet.http.HttpServletResponse;
 import com.oreilly.servlet.MultipartRequest;
 import com.oreilly.servlet.multipart.FileRenamePolicy;
 import com.zea.geverytime.common.MvcFileRenamePolicy;
+import com.zea.geverytime.common.MvcUtils;
+import com.zea.geverytime.common.model.vo.Attachment;
 import com.zea.geverytime.info.model.service.InfoService;
 import com.zea.geverytime.info.model.vo.InfoReview;
 
@@ -52,6 +58,26 @@ public class InfoReviewModifyServlet extends HttpServlet {
 			
 			System.out.println("[infoReviewModifyServlet] infoReview : " + infoReview);
 			
+			Enumeration fileNames = multipartRequest.getFileNames();
+			List<Attachment> attachments = new ArrayList<>();
+			while(fileNames.hasMoreElements()) {
+				String fileName = (String) fileNames.nextElement();
+				System.out.println("[infoReviewModifyServlet] fileName : " + fileName);
+				File upFile = multipartRequest.getFile(fileName);
+				if(upFile != null) {
+					Attachment attach = MvcUtils.makeAttachment(multipartRequest, fileName);
+					attach.setCode(rCode);
+					attachments.add(attach);
+				}
+			}
+			
+			if(!attachments.isEmpty()) {
+				infoReview.setAttachments(attachments);
+			}
+			
+			if(delFiles != null) {
+				for(String temp)
+			}
 			
 			
 		}catch(Exception e) {

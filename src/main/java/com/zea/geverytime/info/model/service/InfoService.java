@@ -42,18 +42,33 @@ public class InfoService {
 		return popList;
 	}
 
-	public List<Info> selectAllList(String board, int start, int end) {
+	public List<Info> selectAllList(String board, int start, int end, String n) {
 		Connection conn = null;
 		List<Info> list = null;
 		List<Attachment> attach = null;
 		try {
 			conn = getConnection();
-			list = infoDao.selectAllList(board, conn, start, end);
+			
+			switch(n) {
+			case "new": 
+				list = infoDao.selectAllList(board, conn, start, end);
+				break;
+			case "old": 
+				list = infoDao.selectAllListAsc(board, conn, start, end);
+				break;
+			case "view": 
+				list = infoDao.selectAllListView(board, conn, start, end);
+				break;
+			case "like": 
+				list = infoDao.selectAllListPop(board, conn, start, end);
+				break;
+			}
+			
 			for(int i = 0; i < list.size(); i++) {
 				String code = list.get(i).getCode();
 				attach = infoDao.selectAllAttach(conn, code);
-				System.out.println("[Service] AllAttach : " + attach);
-				System.out.println("[Service] code : " + code);
+				System.out.println("[infoService] AllAttach : " + attach);
+				System.out.println("[infoService] code : " + code);
 				
 				list.get(i).setAttachments(attach);
 			}

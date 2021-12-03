@@ -142,6 +142,174 @@ public class InfoDao {
 		
 		return list;
 	}
+	
+	public List<Info> selectAllListAsc(String board, Connection conn, int start, int end) {
+		PreparedStatement pstmt = null;
+		String sql = "";
+		switch(board) {
+		case "info": 
+			sql = prop.getProperty("selectAllListAsc");
+			break;
+		case "hospital":
+			sql = prop.getProperty("selectHospitalAllListAsc");
+			break;
+		case "cafe": 
+			sql = prop.getProperty("selectCafeAllListAsc");
+			break;
+		case "restaurant":
+			sql = prop.getProperty("selectRestaurantAllListAsc");
+			break;
+		case "pension": 
+			sql = prop.getProperty("selectPensionAllListAsc");
+			break;
+		case "salon": 
+			sql = prop.getProperty("selectSalonAllListAsc");
+			break;
+		}
+		
+		
+		ResultSet rset = null;
+		List<Info> list = new ArrayList<>();
+		
+		try {
+			pstmt = conn.prepareStatement(sql);
+			
+			pstmt.setInt(1, start);
+			pstmt.setInt(2, end);
+			
+			rset = pstmt.executeQuery();
+			while(rset.next()) {
+				Info info = new Info();
+				info.setCode(rset.getString("code"));
+				info.setMemberId(rset.getString("writer"));
+				info.setBusinessName(rset.getString("business_name"));
+				info.setHeadContent(rset.getString("head_content"));
+				info.setViewCount(rset.getInt("view_count"));
+				info.setRecommend(rset.getInt("count"));
+				
+				list.add(info);
+			}
+		} catch (SQLException e) {
+			throw new InfoBoardException("게시글 불러오기 실패!", e);
+		} finally {
+			close(rset);
+			close(pstmt);
+		}
+		
+		return list;
+	}
+	
+	public List<Info> selectAllListView(String board, Connection conn, int start, int end) {
+		PreparedStatement pstmt = null;
+		String sql = "";
+		switch(board) {
+		case "info": 
+			sql = prop.getProperty("selectAllListView");
+			break;
+		case "hospital":
+			sql = prop.getProperty("selectHospitalAllListView");
+			break;
+		case "cafe": 
+			sql = prop.getProperty("selectCafeAllListView");
+			break;
+		case "restaurant":
+			sql = prop.getProperty("selectRestaurantAllListView");
+			break;
+		case "pension": 
+			sql = prop.getProperty("selectPensionAllListView");
+			break;
+		case "salon": 
+			sql = prop.getProperty("selectSalonAllListView");
+			break;
+		}
+		
+		
+		ResultSet rset = null;
+		List<Info> list = new ArrayList<>();
+		
+		try {
+			pstmt = conn.prepareStatement(sql);
+			
+			pstmt.setInt(1, start);
+			pstmt.setInt(2, end);
+			
+			rset = pstmt.executeQuery();
+			while(rset.next()) {
+				Info info = new Info();
+				info.setCode(rset.getString("code"));
+				info.setMemberId(rset.getString("writer"));
+				info.setBusinessName(rset.getString("business_name"));
+				info.setHeadContent(rset.getString("head_content"));
+				info.setViewCount(rset.getInt("view_count"));
+				info.setRecommend(rset.getInt("count"));
+				
+				list.add(info);
+			}
+		} catch (SQLException e) {
+			throw new InfoBoardException("게시글 불러오기 실패!", e);
+		} finally {
+			close(rset);
+			close(pstmt);
+		}
+		
+		return list;
+	}
+	
+	public List<Info> selectAllListPop(String board, Connection conn, int start, int end) {
+		PreparedStatement pstmt = null;
+		String sql = "";
+		switch(board) {
+		case "info": 
+			sql = prop.getProperty("selectAllListPop");
+			break;
+		case "hospital":
+			sql = prop.getProperty("selectHospitalAllListPop");
+			break;
+		case "cafe": 
+			sql = prop.getProperty("selectCafeAllListPop");
+			break;
+		case "restaurant":
+			sql = prop.getProperty("selectRestaurantAllListPop");
+			break;
+		case "pension": 
+			sql = prop.getProperty("selectPensionAllListPop");
+			break;
+		case "salon": 
+			sql = prop.getProperty("selectSalonAllListPop");
+			break;
+		}
+		
+		
+		ResultSet rset = null;
+		List<Info> list = new ArrayList<>();
+		
+		try {
+			pstmt = conn.prepareStatement(sql);
+			
+			pstmt.setInt(1, start);
+			pstmt.setInt(2, end);
+			
+			rset = pstmt.executeQuery();
+			while(rset.next()) {
+				Info info = new Info();
+				info.setCode(rset.getString("code"));
+				info.setMemberId(rset.getString("writer"));
+				info.setBusinessName(rset.getString("business_name"));
+				info.setHeadContent(rset.getString("head_content"));
+				info.setViewCount(rset.getInt("view_count"));
+				info.setRecommend(rset.getInt("count"));
+				
+				list.add(info);
+			}
+		} catch (SQLException e) {
+			throw new InfoBoardException("게시글 불러오기 실패!", e);
+		} finally {
+			close(rset);
+			close(pstmt);
+		}
+		
+		return list;
+	}
 
 	public List<Attachment> selectPopAttach(Connection conn, String code) {
 		PreparedStatement pstmt = null;
