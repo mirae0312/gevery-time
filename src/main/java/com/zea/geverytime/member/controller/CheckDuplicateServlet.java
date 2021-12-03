@@ -14,8 +14,8 @@ import com.zea.geverytime.member.model.vo.Member;
 /**
  * Servlet implementation class CheckIdDuplicateServlet
  */
-@WebServlet("/member/checkIdDuplicate")
-public class CheckIdDuplicateServlet extends HttpServlet {
+@WebServlet("/member/checkDuplicate")
+public class CheckDuplicateServlet extends HttpServlet {
 	private static final long serialVersionUID = 1L;
 	private MemberService memberService = new MemberService();
 
@@ -27,7 +27,7 @@ public class CheckIdDuplicateServlet extends HttpServlet {
 		request.setCharacterEncoding("utf-8");
 		
 		// 2.사용자입력값 처리
-		String memberId = request.getParameter("memberId");
+		String memberId = request.getParameter("Id");
 		System.out.println("memberId = " + memberId);
 		
 		// 3.업무로직

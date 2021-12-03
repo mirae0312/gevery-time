@@ -6,6 +6,7 @@ import java.io.FileReader;
 import java.io.IOException;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
+import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.Properties;
 
@@ -25,6 +26,42 @@ public class BusinessDao {
 		e.printStackTrace();
 	}
 }
+	
+	public Business selectOneMember(Connection conn, String businessId) {
+		PreparedStatement pstmt = null;
+		String sql = prop.getProperty("selectBoneMember");
+		ResultSet rset = null;
+		Business business = null;
+		
+		try {
+			pstmt = conn.prepareStatement(sql);
+			pstmt.setString(1,businessId);
+			rset = pstmt.executeQuery();
+			while(rset.next()) {
+				System.out.println("business:" + businessId);
+				business = new Business(
+						rset.getString("business_id"),
+						rset.getString("password"),
+						rset.getString("name"),
+						rset.getString("email"),
+						rset.getString("business_no"),
+						rset.getString("business_name"),
+						rset.getString("business_address"),
+						rset.getString("business_tel"),
+						rset.getString("location"),
+						rset.getString("business_type"));
+			
+			}
+			
+		} catch (SQLException e) {
+			e.printStackTrace();
+		} finally {
+			close(rset);
+			close(pstmt);
+		}
+		
+		return business;
+	}
 	public int insertBmember(Connection conn, Business business) {
 		String sql = prop.getProperty("insertBMember");
 		PreparedStatement pstmt = null;
