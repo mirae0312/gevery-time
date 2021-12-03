@@ -32,19 +32,22 @@ public class PurchaseMainPage extends HttpServlet {
 		// 선택된 상품 번호, 가격, 개수 가져오기
 		for(int i = 1; i <= countNum; i++) {
 			int no = Integer.parseInt(request.getParameter("pdtNo"+i));
+			int boardNo = Integer.parseInt(request.getParameter("pdtBoardNo"+i));
 			int price = Integer.parseInt(request.getParameter("pdtPrice"+i));
 			int count = Integer.parseInt(request.getParameter("pdtCount"+i));
 			String title = request.getParameter("pdtTitle"+i);
 			
-			System.out.println("선택상품"+i+" > no :"+no+", price : "+price+", count : "+count+", title : "+title);
 			Map<String, Object> map = new HashMap<>();
 			map.put("no", no);
+			map.put("boardNo", boardNo);
 			map.put("price", price);
 			map.put("count", count);
 			map.put("title", title);
 			
 			list.add(map);
 		}
+		
+		// 장바군에서 해당 상품 지우기
 		
 		request.setAttribute("list", list);
 		

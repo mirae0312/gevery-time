@@ -39,4 +39,27 @@ public class CartService {
 		return cartList;
 	}
 
+	public int deleteCart(List<Integer> list, String memberId) {
+		Connection conn = getConnection();
+		int result = 0;
+		try {
+			int countNum = 0;
+			for(Integer num : list) {
+				result += cartDao.deleteCart(conn, num, memberId);
+				countNum++;
+			}
+			if(result == countNum) {
+				commit(conn);				
+			} else {
+				System.out.println("뭔가 등록이 안되었음");
+			}
+		} catch(Exception e) {
+			rollback(conn);
+			e.printStackTrace();
+		} finally {
+			close(conn);
+		}
+		return result;
+	}
+
 }
