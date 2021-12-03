@@ -18,6 +18,7 @@ input[type="number"]::-webkit-inner-spin-button
 }
 </style>
 <script src="<%= request.getContextPath() %>/js/jquery-3.6.0.js"></script>
+<script src="<%= request.getContextPath() %>/js/businessEnroll/businessEnroll.js"></script>
 <title>회원가입</title>
 <script>
 
@@ -115,10 +116,12 @@ function handleOnInput(el, maxlength) {
       
       <tr>
            <td> 지역 : </td>
-      
-        <td><input type="text"  name="location" id="_location"> </td>
-      
-      </tr>
+  
+		<td><select name="addressRegion]" id="addressRegion1"></select>
+    		<select name="addressDo" id="addressDo1"></select>
+    		<select name="addressSiGunGu" id="addressSiGunGu1"></select>
+      																</td>
+     </tr>
      
       
       <tr>
