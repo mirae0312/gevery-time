@@ -35,7 +35,7 @@
 	<tr>
 		<th>작성자</th>
 		<td>
-			<input class="inputBox" type="text" name="writer" value="<%= loginMember.getMemberId() %>" readonly/>
+			<input class="inputBox" type="text" name="writer" value="<%= loginMember.getId() %>" readonly/>
 		</td>
 	</tr>
 	<tr>
