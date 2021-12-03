@@ -54,7 +54,7 @@
 					<%= cart.getPdtBoard().getProduct().getPdtName() %>
 				</td>
 				<td>
-					<%= cart.getPdtBoard().getTitle() %>
+					<a href="<%= request.getContextPath() %>/product/boardView?no=<%= cart.getProductboardNo() %>"><%= cart.getPdtBoard().getTitle() %></a>
 					<input type="hidden" id="pdtTitle<%= countNum %>" value="<%= cart.getPdtBoard().getTitle() %>"/>	
 				</td>				
 				<td>
@@ -88,6 +88,7 @@
 	<!-- 합계 처리 위한 영역 -->
 	<input type="hidden" id="countNum" value="<%= countNum - 1 %>"/>
 	
+	<input type="button" value="전체 선택/해제하기" id="checkAllBtn"/>
 	<!-- 전달할 form -->
 	<form action="<%= request.getContextPath() %>/purchase/purchasePage" name="purchaseFrm" id="purchaseFrm" method="GET">
 		<button>선택 상품 주문하기</button></br>
@@ -99,6 +100,14 @@
 <% } %>	
 		
 	<script>
+		$("#checkAllBtn").click((e) => {
+			if($(".selectCheckBox").prop("checked") == true){
+				$(".selectCheckBox").prop("checked", false);				
+			} else{
+				$(".selectCheckBox").prop("checked", true);
+			}
+		});
+		
 		$(() => {
 			priceCalculate();
 		});
@@ -154,9 +163,9 @@
 					orderNum++;
 				}
 			}			
-			let inputOrderCount = `<input type="text" name="CountNum" value="\${orderNum-1}" />`;
+			let inputOrderCount = `<input type="hidden" name="CountNum" value="\${orderNum-1}" />`;
 			if(orderNum == 1){
-				alert("선택된 상품이 없습니다. 상품을 담아주세요.");
+				alert("선택된 상품이 없습니다. 상품을 선택해주세요.");
 				return false;
 			}
 			$("#purchaseFrm").append(inputOrderCount);
@@ -168,7 +177,6 @@
 			if(check == true){
 				confirm("결제페이지로 이동 하시겠습니까?");	
 			} else{
-				alert("정상적인 실행이 아닙니다.");
 				return false;
 			}			
 		};
