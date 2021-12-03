@@ -1,4 +1,4 @@
-package com.zea.geverytime.info.model.vo;
+package com.zea.geverytime.member.model.vo;
 
 import java.sql.Connection;
 import java.sql.DriverManager;

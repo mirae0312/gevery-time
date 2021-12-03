@@ -90,3 +90,14 @@ delete from board where no = 201;
 commit;
 
 select * from board where no = (select seq_board_no.currval from dual);
+select seq_board_no.currval from dual;
+select * from seq;
+
+alter sequence seq_board_no increment by -1;
+select  seq_board_no.currval from dual;
+alter sequence seq_board_no increment by 1;
+commit;
+
+select*from board_comment;
+select * from board_comment start with comment_level = 1 connect by prior no = comment_ref order siblings by no;
+insert into board_comment(no, or_code, comment_level, writer, content, board_no, comment_ref, like_count, reg_date) values(seq_board_comment_no.nextval,'bb1c' || '-' || to_char(seq_board_comment_no.currval, 1, 'hyungzin0309', 'gdgd', '649', null, default, default);

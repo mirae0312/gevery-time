@@ -367,13 +367,25 @@ public class BoardDao {
 		
 		try {
 			pstmt = conn.prepareStatement(sql);
+			pstmt.setString(1,bc.getOrCode()); 
+			pstmt.setInt(2,bc.getCommentLevel()); // 1 or 2
+			pstmt.setString(3,bc.getWriter());
+			pstmt.setString(4,bc.getContent());
+			pstmt.setInt(5,bc.getBoardNo());
+			// 참조하는 댓글이 없는 경우 null을 넣어줘야 하는데 setInt로는 불가
+			// setObject 사용
+//			pstmt.setInt(5,bc.getCommentRef());
+			pstmt.setObject(6, bc.getCommentRef() == 0? null : bc.getCommentRef());
+			result = pstmt.executeUpdate();
+			
 		} catch (SQLException e) {
-			// TODO Auto-generated catch block
 			e.printStackTrace();
+			throw new BoardException("댓글 등록 오류");
+		} finally {
+			close(pstmt);
 		}
-		
-		
 		return result;
 	}
+
 
 }

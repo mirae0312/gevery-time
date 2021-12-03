@@ -36,9 +36,13 @@ public class BoardCommentEnrollServlet extends HttpServlet {
 		bc.setWriter(writer);
 		bc.setContent(content);
 		System.out.println(bc.getOrCode());
-//		int result = boardService.enrollBoardComment(bc);
+		int result = boardService.enrollBoardComment(bc);
+		String msg = (result>0) ? "댓글 등록 성공" : "댓글 등록 실패";
+		request.getSession().setAttribute("msg", msg);
 		
 		// 3. 응답처리
+		String loaction = request.getContextPath() + "/board/boardView?no=" + boardNo;
+		response.sendRedirect(loaction);
 	}
 
 }
