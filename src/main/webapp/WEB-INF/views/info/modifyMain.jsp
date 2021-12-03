@@ -35,6 +35,7 @@
 	<form name="infoEnrollFrm" 
 		method="post" enctype="multipart/form-data">
 		<%-- 아이디 사업자 번호 --%>
+		<input type="hidden" name="code" value="<%= info.getCode() %>" />
 		<input type="hidden" name="writer" value="<%= info.getMemberId() %>" />
 		<input type="hidden" name="businessNo" value="<%= info.getBusinessNo() %>" />
 		<input type="hidden" name="selectNo" value="<%= no %>" />
