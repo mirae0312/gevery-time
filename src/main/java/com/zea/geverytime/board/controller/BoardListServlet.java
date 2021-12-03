@@ -55,7 +55,9 @@ public class BoardListServlet extends HttpServlet {
 			
 			Map<String,Object> jsonMap = new HashMap<>();
 			jsonMap.put("pagebar",pagebar);
+			System.out.println(pagebar);
 			jsonMap.put("list", list);
+			System.out.println(list);
 			// 3. 응답처리
 			response.setContentType("application/json; charset=utf-8");
 			new Gson().toJson(jsonMap,response.getWriter());
