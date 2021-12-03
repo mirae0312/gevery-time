@@ -45,7 +45,7 @@
 	<tr>
 		<th>작성자</th>
 		<td>
-			<input class="inputBox" type="text" name="writer" value=""/>
+			<input class="inputBox" type="text" name="writer" value="<%= loginMember.getMemberId() %>"/>
 		</td>
 	</tr>
 	<tr>
@@ -54,10 +54,7 @@
         <label for="category"></label> 
          <select class="inputBox" name="category" id="category"  >
           <option value="[답변]">답변</option>
-         <!-- <option value="[회원정보 관련]">회원정보 관련</option>
-          <option value="[포인트 관련]">포인트 관련</option>
-          <option value="[주문/결제관련]">주문/결제관련</option>
-           --> 
+        
         </select>
        </td>
     </tr>              

@@ -27,8 +27,14 @@ public class PasswordCheckFinalServlet extends HttpServlet {
 		String password = request.getParameter("password");	
 		
 		int cnt = qnaBoardService.passwordCheck(no,password);
-		String msg = cnt > 0 ? "비밀번호가 일치합니다. 게시글을 확인하실 수 있습니다." : "비밀번호가 일치하지 않습니다.";
-
+		
+		//String msg = cnt > 0 ? "비밀번호가 일치합니다. " : "비밀번호가 일치하지 않습니다.";
+		
+		String msg = null;
+		if(cnt == 0) {
+			msg = "비밀번호가 일치하지 않습니다.";
+		}
+		
 		HttpSession session = request.getSession();
 		session.setAttribute("msg", msg);
 		

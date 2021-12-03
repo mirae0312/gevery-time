@@ -58,8 +58,10 @@
                         <td><%= qnaBoard.getNo() %></td>
                         <td style="font-size:12px;color:red"><%= qnaBoard.getCategory() %></td>
                         <td class="tit" colspan="5">
+                     
                           <a href="<%= request.getContextPath() %>/customer/qnaBoardView?no=<%= qnaBoard.getNo() %>">↳RE: <%= qnaBoard.getTitle() %></a>
-                          
+                      
+                     
                         </td>
                         <td><%= qnaBoard.getWriter() %></td>
                         <td><%=qnaBoard.getRegDate() %></td>
