@@ -47,11 +47,9 @@ public class PurchaseMainPage extends HttpServlet {
 			list.add(map);
 		}
 		
-		// 장바군에서 해당 상품 지우기
-		
 		request.setAttribute("list", list);
 		
-		request.getRequestDispatcher("/WEB-INF/views/market/purchase/purchaseMainPage.jsp").forward(request, response);
+		request.getRequestDispatcher("/WEB-INF/views/market/purchase/purchaseProductMainPage.jsp").forward(request, response);
 	}
 
 }

@@ -1,3 +1,5 @@
+<%@page import="java.util.Map"%>
+<%@page import="java.util.List"%>
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
 <%@ include file="/WEB-INF/views/common/header.jsp" %>
@@ -5,6 +7,7 @@
 	String uid = (String) request.getAttribute("uid");
 	String muid = (String) request.getAttribute("muid");
 	String amount = (String) request.getAttribute("amount");
+	
 %>
 <!DOCTYPE html>
 <html>
@@ -39,6 +42,7 @@
 	</table>
 	
 	<button onclick="location.href='<%= request.getContextPath() %>/product/main'">쇼핑 계속하기</button>
+	
 </body>
 </html>
 <%@ include file="/WEB-INF/views/common/footer.jsp" %>
