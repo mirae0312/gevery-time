@@ -89,7 +89,7 @@
 		<input type="hidden" name="memberId" value="<%= loginMember.getMemberId() %>"/>
 	</form>
 <% } else { %>
-	<h3>텅 비었어요</h3>
+	<h1>텅 비었어요</h1>
 	<input type="button" value="쇼핑하러 가기" onclick="location.href='<%= request.getContextPath() %>/product/main'" />
 <% } %>	
 	
