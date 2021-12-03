@@ -5,10 +5,10 @@
 <%
 	List<Info> list = (List<Info>) request.getAttribute("list");
 	List<Info> popList = (List<Info>) request.getAttribute("popList");
-	String check = (String) request.getAttribute("check");
+	String check = (String) request.getAttribute("check");	
 %>
 <%@ include file="/WEB-INF/views/common/header.jsp" %>	
-<link rel="stylesheet" href="<%=request.getContextPath() %>/css/info.css" />
+<link rel="stylesheet" href="<%=request.getContextPath() %>/css/info/info.css" />
 <div class="info-wrapper">
 <% if(loginMember != null && MemberService.BUSINESS_TYPE.equals(loginMember.getMemberType())){ %>
 	<button class="info-write-btn" onclick="infoEnroll()">게시글 작성</button>
@@ -22,7 +22,7 @@
 			<img class="list-thumbnail" src="<%= request.getContextPath() %>/upload/info/<%= popInfo.getAttachments().get(0).getRenamedFilename() %>" alt="" />
 			<div class="recommend-count"><%= popInfo.getRecommend() %></div>
 			<div class="view-count"><%= popInfo.getViewCount() %></div>	
-			<input type="hidden" name="code" value="<%= popInfo.getCode() %>" />	
+			<div class="hidden-code"><%= popInfo.getCode() %></div>	
 		</div>
 	<% } %>
 <% } %>
@@ -42,7 +42,7 @@
 				<img class="list-thumbnail" src="<%= request.getContextPath() %>/upload/info/<%= info.getAttachments().get(0).getRenamedFilename() %>" alt="" />
 				<div class="recommend-count"><%= info.getRecommend() %></div>
 				<div class="view-count"><%= info.getViewCount() %></div>
-				<input type="hidden" name="code" value="<%= info.getCode() %>" />
+				<div class="hidden-code"><%= info.getCode() %></div>
 			</div>
 	<% } %>
 <% } %>
@@ -53,8 +53,9 @@
 </div>
 <script>
 $(".info-wrap").click((e) => {
-	const $code = $(e.currentTarget).find('input').val();
+	const $code = $(e.currentTarget).find('div.hidden-code').text();
 	console.log($code);
+	
 	location.href=`<%= request.getContextPath() %>/info/view?code=\${$code}`;
 });
 
@@ -78,19 +79,26 @@ const scrollPage = () => {
 			
 			const $div = $(".info-content");
 			
-			$data.each((i, {businessName, headContent, attachments, recommend, viewCount}) => {
+			$data.each((i, {code, businessName, headContent, attachments, recommend, viewCount}) => {
 				//console.log(i,businessName, headContent);
-				
 				const $contents = `<div class="info-wrap">
-				<div class="head">\${businessName}</div>
+				<div class="business-name">\${businessName}</div>
 				<div class="head-content">\${headContent}</div>				
-				<div class="list-thumbnail">\${attachments[0].renamedFilename}</div>
+				<img class="list-thumbnail" src="<%= request.getContextPath() %>/upload/info/\${attachments[0].getRenamedFilename}" alt="" />
 				<div class="recommend-count">\${recommend}</div>
 				<div class="view-count">\${viewCount}</div>	
+				<div class="hidden-code">\${code}</div>
 				</div>
 				`;
-				
 				$div.append($contents);
+				$(".info-wrap").click((e) => {
+					const $code = $(e.currentTarget).find('div.hidden-code').text();
+					console.log($code);
+					
+					location.href=`<%= request.getContextPath() %>/info/view?code=\${$code}`;
+				});
+				
+				
 			});
 			$div.append(`<hr />`);
 			
@@ -115,5 +123,7 @@ $(window).scroll(function(){
 		}
 	}
 });
+
+
 </script>
 <%@ include file="/WEB-INF/views/common/footer.jsp" %> 

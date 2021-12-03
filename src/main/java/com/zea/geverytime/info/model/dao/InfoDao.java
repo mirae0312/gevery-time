@@ -90,7 +90,6 @@ public class InfoDao {
 	public List<Info> selectAllList(String board, Connection conn, int start, int end) {
 		PreparedStatement pstmt = null;
 		String sql = "";
-//		System.out.println("[InfoDao] board : " + board);
 		switch(board) {
 		case "info": 
 			sql = prop.getProperty("selectAllList");
@@ -112,7 +111,6 @@ public class InfoDao {
 			break;
 		}
 		
-		System.out.println("[dao] query : " + sql);
 		
 		ResultSet rset = null;
 		List<Info> list = new ArrayList<>();
@@ -177,7 +175,7 @@ public class InfoDao {
 		return attach;
 	}
 
-	public List<Attachment> selectAllAttach(Connection conn, String code, int start, int end) {
+	public List<Attachment> selectAllAttach(Connection conn, String code) {
 		PreparedStatement pstmt = null;
 		String sql = prop.getProperty("selectAllAttach");
 		ResultSet rset = null;
@@ -187,13 +185,12 @@ public class InfoDao {
 			pstmt = conn.prepareStatement(sql);
 			
 			pstmt.setString(1, code);
-			pstmt.setInt(2, start);
-			pstmt.setInt(3, end);
 			
 			rset = pstmt.executeQuery();
 			while(rset.next()) {
 				Attachment info = new Attachment();
 				info.setNo(rset.getInt("no"));
+				info.setCode(rset.getString("or_no"));
 				info.setOriginalFilename(rset.getString("original_filename"));
 				info.setRenamedFilename(rset.getString("renamed_filename"));
 				info.setRegDate(rset.getDate("reg_date"));
@@ -211,9 +208,26 @@ public class InfoDao {
 		return list;
 	}
 
-	public int insertInfo(Connection conn, Info info) {
+	public int insertInfo(Connection conn, Info info, String no) {
 		PreparedStatement pstmt = null;
-		String sql = prop.getProperty("insertInfo");
+		String sql = "";
+		switch(no) {
+		case "1":
+			sql = prop.getProperty("insertHospitalInfo");
+			break;
+		case "2": 
+			sql = prop.getProperty("insertCafeInfo");
+			break;
+		case "3":
+			sql = prop.getProperty("insertRestaurantInfo");
+			break;
+		case "4": 
+			sql = prop.getProperty("insertPensionInfo");
+			break;
+		case "5": 
+			sql = prop.getProperty("insertSalonInfo");
+			break;
+		}
 		int result = 0;
 		
 		try {
@@ -742,7 +756,7 @@ public class InfoDao {
 		return result;
 	}
 
-	public int updateInfoLike(Connection conn, String code, String memberId) {
+	public int updateInfoLike(Connection conn, String state, String code, String memberId) {
 		PreparedStatement pstmt = null;
 		String sql = prop.getProperty("updateInfoLike");
 		int result = 0;
@@ -750,8 +764,9 @@ public class InfoDao {
 		try {
 			pstmt = conn.prepareStatement(sql);
 			
-			pstmt.setString(1, code);
-			pstmt.setString(2, memberId);
+			pstmt.setString(1, state);
+			pstmt.setString(2, code);
+			pstmt.setString(3, memberId);
 			
 			result = pstmt.executeUpdate();
 			
@@ -811,6 +826,7 @@ public class InfoDao {
 				re.setHeadContent(rset.getString("head_content"));
 				re.setContent(rset.getString("content"));
 				re.setRegDate(rset.getDate("reg_date"));
+				
 				ir.add(re);
 			}
 		} catch (SQLException e) {
@@ -822,5 +838,174 @@ public class InfoDao {
 		
 		return ir;
 	}
+
+	public InfoReview checkReview(Connection conn, String code, String memberId) {
+		PreparedStatement pstmt = null;
+		String sql = prop.getProperty("checkReview");
+		ResultSet rset = null;
+		InfoReview check = null;
+		
+		try {
+			pstmt = conn.prepareStatement(sql);
+			
+			pstmt.setString(1, code);
+			pstmt.setString(2, memberId);
+			
+			rset = pstmt.executeQuery();
+			if(rset.next()) {
+				check = new InfoReview();
+				check.setrCode(rset.getString("r_code"));					
+				check.setHeadContent(rset.getString("head_content"));
+			}
+		} catch (SQLException e) {
+			throw new InfoBoardException("리뷰 체크 실패!", e);
+		}finally {
+			close(rset);
+			close(pstmt);
+		}
+		
+		return check;
+	}
+
+	public int insertInfoReview(Connection conn, InfoReview ir, String codeN) {
+		PreparedStatement pstmt = null;
+		String sql = "";
+		switch(codeN) {
+		case "1": 
+			sql = prop.getProperty("insertHospitalReview");
+			break;
+		case "2": 
+			sql = prop.getProperty("insertCafeReview");
+			break;
+		case "3":
+			sql = prop.getProperty("insertRestaurantReview");
+			break;
+		case "4": 
+			sql = prop.getProperty("insertPensionReview");
+			break;
+		case "5": 
+			sql = prop.getProperty("insertSalonReview");
+			break;
+		}
+		int result = 0;
+		
+		try {
+			pstmt = conn.prepareStatement(sql);
+			
+			pstmt.setString(1, ir.getCode());
+			pstmt.setString(2, ir.getMemberId());
+			pstmt.setString(3, ir.getHeadContent());
+			pstmt.setString(4, ir.getContent());
+			
+			result = pstmt.executeUpdate();
+			
+		} catch (SQLException e) {
+			throw new InfoBoardException("리뷰 등록 실패!", e);
+		}finally {
+			close(pstmt);
+		}
+		
+		return result;
+	}
+
+	public String getReviewCode(Connection conn, InfoReview ir) {
+		PreparedStatement pstmt = null;
+		String sql = prop.getProperty("getReviewCode");
+		ResultSet rset = null;
+		String code = "";
+		
+		try {
+			pstmt = conn.prepareStatement(sql);
+			
+			pstmt.setString(1, ir.getCode());
+			pstmt.setString(2, ir.getMemberId());
+			
+			rset = pstmt.executeQuery();
+			if(rset.next())
+				code = rset.getString("r_code");
+		} catch (SQLException e) {
+			throw new InfoBoardException("리뷰 등록(코드가져오기) 실패!", e);
+		}finally {
+			close(rset);
+			close(pstmt);
+		}
+		
+		return code;
+	}
+
+	public int insertReviewAttachment(Connection conn, Attachment attach) {
+		PreparedStatement pstmt = null;
+		String sql = prop.getProperty("insertReviewAttachment");
+		int result = 0;
+		
+		try {
+			pstmt = conn.prepareStatement(sql);
+			
+			pstmt.setString(1, attach.getCode());
+			pstmt.setString(2, attach.getOriginalFilename());
+			pstmt.setString(3, attach.getRenamedFilename());
+			
+			result = pstmt.executeUpdate();
+		} catch (SQLException e) {
+			throw new InfoBoardException("리뷰 등록(첨부파일) 실패!", e);
+		}finally {
+			close(pstmt);
+		}
+		
+		return result;
+	}
+
+
+	public List<Attachment> selectAllReviewAttach(Connection conn) {
+		PreparedStatement pstmt = null;
+		String sql = prop.getProperty("selectAllReviewAttach");
+		ResultSet rset = null;
+		List<Attachment> list = new ArrayList<>();
+		
+		try {
+			pstmt = conn.prepareStatement(sql);
+			
+			rset = pstmt.executeQuery();
+			while(rset.next()) {
+				Attachment attach = new Attachment();
+				attach.setNo(rset.getInt("no"));
+				attach.setCode(rset.getString("or_no"));
+				attach.setOriginalFilename(rset.getString("original_filename"));
+				attach.setRenamedFilename(rset.getString("renamed_filename"));
+				attach.setRegDate(rset.getDate("reg_date"));
+				list.add(attach);
+			}
+		} catch (SQLException e) {
+			throw new InfoBoardException("리뷰 가져오기(첨부파일) 실패!", e);
+		}finally {
+			close(rset);
+			close(pstmt);
+		}
+		
+		return list;
+	}
+
+	public int updateInfoReview(Connection conn, InfoReview ir) {
+		PreparedStatement pstmt = null;
+		String sql = prop.getProperty("updateInfoReview");
+		int result = 0;
+		
+		try {
+			pstmt = conn.prepareStatement(sql);
+			
+			pstmt.setString(1, ir.getHeadContent());
+			pstmt.setString(2, ir.getContent());
+			pstmt.setString(3, ir.getrCode());
+			
+			result = pstmt.executeUpdate();
+		} catch (SQLException e) {
+			throw new InfoBoardException("리뷰 등록(수정) 실패!", e);
+		}finally {
+			close(pstmt);
+		}
+		
+		return result;
+	}
+
 
 }

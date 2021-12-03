@@ -103,6 +103,7 @@ public class InfoEnrollServlet extends HttpServlet {
 			info.setMemberId(memberId);
 			info.setBusinessNo(businessNo);
 			
+			// 업종 확인용
 			String no = businessNo.substring(businessNo.length() - 1);
 			
 			// 상호명, headcontent
@@ -151,8 +152,11 @@ public class InfoEnrollServlet extends HttpServlet {
 			// 병원1: 진료과목 ,
 			if("1".equals(no)) {
 				String service1 = multipartRequest.getParameter("hservice1");
+				System.out.println("service1 : " + service1);
 				String service2 = multipartRequest.getParameter("hservice2");
+				System.out.println("service2 : " + service2);
 				String service3 = multipartRequest.getParameter("hservice3");
+				System.out.println("service3 : " + service3);
 				String service4 = multipartRequest.getParameter("hservice4");
 				String service5 = multipartRequest.getParameter("hservice5");
 				String service6 = multipartRequest.getParameter("hservice6");
@@ -164,6 +168,8 @@ public class InfoEnrollServlet extends HttpServlet {
 				List<Hospital> list = new ArrayList<>();
 				for(int i = 0; i < services.length; i++) {
 					if(services[i] != null && !services[i].isEmpty()) {
+						h = new Hospital();
+						System.out.println("for service[i] : " + services[i]);
 						h.setService(services[i]);
 						list.add(h);
 					}
@@ -195,6 +201,7 @@ public class InfoEnrollServlet extends HttpServlet {
 				List<CafeRestaurant> list = new ArrayList<>();
 				for(int i = 0; i < services.length; i++) {
 					if(services[i] != null && !services[i].isEmpty()) {
+						cr = new CafeRestaurant();
 						cr.setService(services[i]);
 						cr.setPrice(prices[i]);
 						list.add(cr);
@@ -308,26 +315,6 @@ public class InfoEnrollServlet extends HttpServlet {
 				listS.add(salon3);
 				info.setSalons(listS);
 				
-				
-				
-//				String[] services = {smallBath1, ",", middleBath1, ",", specialBath1, ",", smallBathAnd1, ",", middleBathAnd1, ",", specialBathAnd1, 
-//						smallMachine1, ",", middleMachine1, ",", specialMachine1, ",",  smallSpotting1, ",", middleSpotting1, ",", specialSpotting1, ",",
-//						smallScissors1, ",", middleScissors1, ",", specialScissors1, "-",
-//						smallBath2, ",", middleBath2, ",", specialBath2, ",", smallBathAnd2, ",", middleBathAnd2, ",", specialBathAnd2, 
-//						smallMachine2, ",", middleMachine2, ",", specialMachine2, ",",  smallSpotting2, ",", middleSpotting2, ",", specialSpotting2, ",",
-//						smallScissors2, ",", middleScissors2, ",", specialScissors2, "-",
-//						smallBath3, ",", middleBath3, ",", specialBath3, ",", smallBathAnd3, ",", middleBathAnd3, ",", specialBathAnd3,
-//						smallMachine3, ",", middleMachine3, ",", specialMachine3, ",",  smallSpotting3, ",", middleSpotting3, ",", specialSpotting3, ",",
-//						smallScissors3, ",", middleScissors3, ",", specialScissors3};
-//				
-//				StringBuilder service = new StringBuilder();
-//				for(int i = 0; i < services.length; i++) {
-//					if(services[i] != null && !services[i].isEmpty()) {
-//						service.append(services[i]);
-//					}
-//				}
-//				String serv = service.toString();
-//				info.setServiceContent(serv);
 			}
 			
 	
@@ -360,7 +347,7 @@ public class InfoEnrollServlet extends HttpServlet {
 			System.out.println("[InfoEnrollServlet] info : " + info);
 						
 			// 업무로직
-			int result = infoService.insertInfo(info);
+			int result = infoService.insertInfo(info, no);
 			
 			// redirect
 			HttpSession session = request.getSession();
