@@ -6,6 +6,7 @@ import java.io.FileReader;
 import java.io.IOException;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
+import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.Properties;
 
@@ -25,15 +26,51 @@ public class BusinessDao {
 		e.printStackTrace();
 	}
 }
+	
+	public Business selectOneMember(Connection conn, String businessId) {
+		PreparedStatement pstmt = null;
+		String sql = prop.getProperty("selectBoneMember");
+		ResultSet rset = null;
+		Business business = null;
+		
+		try {
+			pstmt = conn.prepareStatement(sql);
+			pstmt.setString(1,businessId);
+			rset = pstmt.executeQuery();
+			while(rset.next()) {
+				System.out.println("business:" + businessId);
+				business = new Business(
+						rset.getString("business_id"),
+						rset.getString("password"),
+						rset.getString("name"),
+						rset.getString("email"),
+						rset.getString("business_no"),
+						rset.getString("business_name"),
+						rset.getString("business_address"),
+						rset.getString("business_tel"),
+						rset.getString("location"),
+						rset.getString("business_type"));
+			
+			}
+			
+		} catch (SQLException e) {
+			e.printStackTrace();
+		} finally {
+			close(rset);
+			close(pstmt);
+		}
+		
+		return business;
+	}
 	public int insertBmember(Connection conn, Business business) {
 		String sql = prop.getProperty("insertBMember");
 		PreparedStatement pstmt = null;
 		int result = 0;
 		try {
 				pstmt = conn.prepareStatement(sql);
-				pstmt.setString(1,business.getId());
+				pstmt.setString(1,business.getMemberId());
 				pstmt.setString(2,business.getPassword());
-				pstmt.setString(3,business.getName());
+				pstmt.setString(3,business.getMemberName());
 				pstmt.setString(4,"");
 				pstmt.setString(5,"");
 				pstmt.setString(6,business.getEmail());
@@ -57,9 +94,9 @@ public class BusinessDao {
 		try {
 		pstmt = conn.prepareStatement(sql);
 
-		pstmt.setString(1,business.getId());
+		pstmt.setString(1,business.getMemberId());
 		pstmt.setString(2,business.getPassword());
-		pstmt.setString(3,business.getName());
+		pstmt.setString(3,business.getMemberName());
 		pstmt.setString(4,business.getEmail());
 		pstmt.setString(5,business.getBusinessNo());
 		pstmt.setString(6,business.getbName());

@@ -41,8 +41,7 @@ public class MemberDao {
 			rset = pstmt.executeQuery();
 			while(rset.next()) {
 				member = new Member(rset.getString("member_id"),rset.getString("password"),
-						rset.getString("email"),rset.getString("member_name"),rset.getString("phone"),
-						rset.getString("address"),
+						rset.getString("member_name"),rset.getString("phone"),rset.getString("address"),rset.getString("email"),
 						rset.getString("member_role"),rset.getString("member_type")
 						,rset.getDate("birthday"));
 		
@@ -65,9 +64,9 @@ public class MemberDao {
 		
 		try {
 		pstmt = conn.prepareStatement(sql);
-		pstmt.setString(1,member.getId());
+		pstmt.setString(1,member.getMemberId());
 		pstmt.setString(2,member.getPassword());
-		pstmt.setString(3,member.getName());
+		pstmt.setString(3,member.getMemberName());
 		pstmt.setString(4,member.getPhone());
 		pstmt.setString(5,member.getAddress());
 		pstmt.setString(6,member.getEmail());

@@ -38,14 +38,19 @@ public class BusinessEnrollServlet extends HttpServlet {
 			String password = request.getParameter("password");
 			String name = request.getParameter("name");
 			String email = request.getParameter("email");
-			String businessNo = request.getParameter("businessNo");
 			String bName = request.getParameter("businessName");
-			String baddress = request.getParameter("address");
-			String btel = request.getParameter("tel");
-			String location = request.getParameter("location");
-	
-			
-			
+			String bAddress = request.getParameter("baddress");
+			String location1 = request.getParameter("location1");
+			String location2 = request.getParameter("location2");
+			String location = location1.concat(location2);
+			String btel1 = request.getParameter("tel1");
+			String btel2 = request.getParameter("tel2").concat("-");
+			String btel3 = request.getParameter("tel3");
+			String btel4 = btel2.concat(btel3);
+			String btel = btel1.concat(btel4);
+			String businessNo1 = request.getParameter("businessNo1");
+			String businessNo2 = request.getParameter("businessNo2");
+			String businessNo = businessNo1.concat(businessNo2);
 			
 			
 	Business business = new Business
@@ -55,7 +60,7 @@ public class BusinessEnrollServlet extends HttpServlet {
 			email, 
 			 businessNo ,
 			 bName, 
-			 baddress,
+			 bAddress,
 			 btel,
 			 location,
 			 businessService.BUSINESSTYPE);
