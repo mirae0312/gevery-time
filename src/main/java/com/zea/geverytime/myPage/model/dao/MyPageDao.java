@@ -6,9 +6,17 @@ import java.io.FileReader;
 import java.io.IOException;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
+import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.util.ArrayList;
+import java.util.List;
+import java.util.Map;
 import java.util.Properties;
 
+import com.zea.geverytime.common.model.vo.Attachment;
+import com.zea.geverytime.info.model.exception.InfoBoardException;
+import com.zea.geverytime.info.model.vo.Info;
+import com.zea.geverytime.info.model.vo.InfoEntity;
 import com.zea.geverytime.member.model.exception.MemberException;
 import com.zea.geverytime.member.model.vo.Member;
 
@@ -85,5 +93,5 @@ public class MyPageDao {
 		}
 		return result;
 	}
-
+	
 }
