@@ -67,12 +67,12 @@ public class InfoService {
 		return list;
 	}
 
-	public int insertInfo(Info info) {
+	public int insertInfo(Info info, String no) {
 		Connection conn = null;
 		int result = 0;
 		try {
 			conn = getConnection();
-			result = infoDao.insertInfo(conn, info);
+			result = infoDao.insertInfo(conn, info, no);
 			String code = infoDao.selectCode(conn, info);
 			info.setCode(code);
 			
@@ -234,12 +234,12 @@ public class InfoService {
 		return result;
 	}
 
-	public int updateInfoLike(String code, String memberId) {
+	public int updateInfoLike(String state, String code, String memberId) {
 		Connection conn = null;
 		int result = 0;
 		try {
 			conn = getConnection();
-			result = infoDao.updateInfoLike(conn, code, memberId);
+			result = infoDao.updateInfoLike(conn, state, code, memberId);
 			if(result > 0)
 				commit(conn);
 		}catch(Exception e) {

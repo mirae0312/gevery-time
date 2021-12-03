@@ -26,6 +26,7 @@ public class InfoBoardLikeCountServlet extends HttpServlet {
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		
 		try {
+			String state = request.getParameter("state");
 			String code = (String) request.getParameter("code");
 			String codeN = code.substring(2, 3);
 			String memberId = (String) request.getParameter("memberId");
@@ -34,10 +35,12 @@ public class InfoBoardLikeCountServlet extends HttpServlet {
 			System.out.println("[infoBoardLikeCountServlet] no : " + no);
 			if(no == 0) {
 				int result = infoService.insertInfoLike(codeN, code, memberId);
+				System.out.println("[infoBoardLikeCountServlet] insertresult : " + result);
 				response.setContentType("application/json; charset=utf-8");
 				new Gson().toJson(result, response.getWriter());
 			}else {
-				int result = infoService.updateInfoLike(code, memberId);
+				int result = infoService.updateInfoLike(state, code, memberId);
+				System.out.println("[infoBoardLikeCountServlet] updateresult : " + result);
 				response.setContentType("application/json; charset=utf-8");
 				new Gson().toJson(result, response.getWriter());
 			}

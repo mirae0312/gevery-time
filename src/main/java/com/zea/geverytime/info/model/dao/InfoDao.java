@@ -211,9 +211,26 @@ public class InfoDao {
 		return list;
 	}
 
-	public int insertInfo(Connection conn, Info info) {
+	public int insertInfo(Connection conn, Info info, String no) {
 		PreparedStatement pstmt = null;
-		String sql = prop.getProperty("insertInfo");
+		String sql = "";
+		switch(no) {
+		case "1":
+			sql = prop.getProperty("insertHospitalInfo");
+			break;
+		case "2": 
+			sql = prop.getProperty("insertCafeInfo");
+			break;
+		case "3":
+			sql = prop.getProperty("insertRestaurantInfo");
+			break;
+		case "4": 
+			sql = prop.getProperty("insertPensionInfo");
+			break;
+		case "5": 
+			sql = prop.getProperty("insertSalonInfo");
+			break;
+		}
 		int result = 0;
 		
 		try {
@@ -742,7 +759,7 @@ public class InfoDao {
 		return result;
 	}
 
-	public int updateInfoLike(Connection conn, String code, String memberId) {
+	public int updateInfoLike(Connection conn, String state, String code, String memberId) {
 		PreparedStatement pstmt = null;
 		String sql = prop.getProperty("updateInfoLike");
 		int result = 0;
@@ -750,8 +767,9 @@ public class InfoDao {
 		try {
 			pstmt = conn.prepareStatement(sql);
 			
-			pstmt.setString(1, code);
-			pstmt.setString(2, memberId);
+			pstmt.setString(1, state);
+			pstmt.setString(2, code);
+			pstmt.setString(3, memberId);
 			
 			result = pstmt.executeUpdate();
 			

@@ -17,6 +17,7 @@
 		<%-- 아이디 사업자 번호 --%>
 		<input type="hidden" name="writer" value="<%= info.getMemberId() %>" />
 		<input type="hidden" name="businessNo" value="<%= info.getBusinessNo() %>" />
+		<input type="hidden" name="selectNo" value="<%= no %>" />
 		<%-- 왼쪽 상단 위치 --%>
 		<div class="left-head">
 			상호명
@@ -65,7 +66,7 @@
 			<div class="service-wrap">
 				<label for="service">가격표</label>
 				<input type="text" name="service1" class="service" />:			
-				<input type="text" name="price1" class="service" />원	<br />		
+				<input type="text" name="price1" class="service" />(단위 천원)	<br />		
 			</div><br />
 			<button type="button" class="add-btn add-service" onclick="addService();">추가</button>
 <% } %>
@@ -74,7 +75,7 @@
 				<table>
 					<thead>
 						<tr>
-							<th rowspan="2">객실</th>
+							<th rowspan="2">객실 (단위 만원)</th>
 							<th colspan="2">비수기</th>
 							<th colspan="2">성수기</th>
 							<th colspan="2">평수기</th>
@@ -125,7 +126,7 @@
 				<table>
 					<thead>
 						<tr>
-							<th rowspan="2">무게</th>
+							<th rowspan="2">무게 (단위 만원)</th>
 							<th colspan="3">목욕</th>
 							<th colspan="3">목욕+부분</th>
 							<th colspan="3">기계컷</th>

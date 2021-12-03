@@ -103,6 +103,7 @@ public class InfoEnrollServlet extends HttpServlet {
 			info.setMemberId(memberId);
 			info.setBusinessNo(businessNo);
 			
+			// 업종 확인용
 			String no = businessNo.substring(businessNo.length() - 1);
 			
 			// 상호명, headcontent
@@ -366,7 +367,7 @@ public class InfoEnrollServlet extends HttpServlet {
 			System.out.println("[InfoEnrollServlet] info : " + info);
 						
 			// 업무로직
-			int result = infoService.insertInfo(info);
+			int result = infoService.insertInfo(info, no);
 			
 			// redirect
 			HttpSession session = request.getSession();

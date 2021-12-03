@@ -51,12 +51,12 @@
 					<th colspan="2">저녁시간</th>
 				</tr>
 				<tr>
-					<td><%= info.getStartHour() %>~</td>
-					<td><%= info.getEndHour() %></td>
-					<td><%= info.getStartLaunch() %>~</td>
-					<td><%= info.getEndLaunch() %></td>
-					<td><%= info.getStartDinner() %>~</td>
-					<td><%= info.getEndDinner() %></td>
+					<td><%= info.getStartHour() == null ? "" : info.getStartHour() %>~</td>
+					<td><%= info.getEndHour() == null ? "" : info.getEndHour() %></td>
+					<td><%= info.getStartLaunch() == null ? "" : info.getStartLaunch() %>~</td>
+					<td><%= info.getEndLaunch() == null ? "" : info.getEndLaunch() %></td>
+					<td><%= info.getStartDinner() == null ? "" : info.getStartDinner() %>~</td>
+					<td><%= info.getEndDinner() == null ? "" : info.getEndDinner() %></td>
 				</tr>
 			</table>
 <% if(site1 != null && !site1.isEmpty()){ %>
@@ -103,13 +103,13 @@
 	<% if(info.getPensions() != null && !info.getPensions().isEmpty()){ %>
 		<% for(Pension p : info.getPensions()){ %>
 				<tr>
-					<td><%= p.getRoom() %></td>
-					<td><%= p.getPrice1() %></td>
-					<td><%= p.getPrice2() %></td>
-					<td><%= p.getPrice3() %></td>
-					<td><%= p.getPrice4() %></td>
-					<td><%= p.getPrice5() %></td>
-					<td><%= p.getPrice6() %></td>
+					<td><%= p.getRoom() == null ? "" : p.getRoom() %></td>
+					<td><%= p.getPrice1() == null ? "" : p.getPrice1() %></td>
+					<td><%= p.getPrice2() == null ? "" : p.getPrice2() %></td>
+					<td><%= p.getPrice3() == null ? "" : p.getPrice3() %></td>
+					<td><%= p.getPrice4() == null ? "" : p.getPrice4() %></td>
+					<td><%= p.getPrice5() == null ? "" : p.getPrice5() %></td>
+					<td><%= p.getPrice6() == null ? "" : p.getPrice6() %></td>
 				</tr>
 		<% } %>
 	<% } %>
@@ -144,21 +144,21 @@
 	<%if(info.getSalons() != null && !info.getSalons().isEmpty()){ %>
 		<% for(Salon s : info.getSalons()){ %>
 				<tr>
-					<td><%= s.getSmallBath() %></td>
-					<td><%= s.getMiddleBath() %></td>
-					<td><%= s.getSpecialBath() %></td>
-					<td><%= s.getSmallBathAnd() %></td>
-					<td><%= s.getMiddleBathAnd() %></td>
-					<td><%= s.getSpecialBathAnd() %></td>
-					<td><%= s.getSmallMachine() %></td>
-					<td><%= s.getMiddleMachine() %></td>
-					<td><%= s.getSpecialMachine() %></td>
-					<td><%= s.getSmallSpotting() %></td>
-					<td><%= s.getMiddleSpotting() %></td>
-					<td><%= s.getSpecialSpotting() %></td>
-					<td><%= s.getSmallScissors() %></td>
-					<td><%= s.getMiddleScissors() %></td>
-					<td><%= s.getSpecialScissors() %></td>
+					<td><%= s.getSmallBath() == null ? "" : s.getSmallBath() %></td>
+					<td><%= s.getMiddleBath() == null ? "" : s.getMiddleBath() %></td>
+					<td><%= s.getSpecialBath() == null ? "" :s.getSpecialBath() %></td>
+					<td><%= s.getSmallBathAnd() == null ? "" : s.getSmallBathAnd() %></td>
+					<td><%= s.getMiddleBathAnd() == null ? "" : s.getMiddleBathAnd() %></td>
+					<td><%= s.getSpecialBathAnd() == null ? "" : s.getSpecialBathAnd() %></td>
+					<td><%= s.getSmallMachine() == null ? "" : s.getSmallMachine() %></td>
+					<td><%= s.getMiddleMachine() == null ? "" : s.getMiddleMachine() %></td>
+					<td><%= s.getSpecialMachine() == null ? "" : s.getSpecialMachine() %></td>
+					<td><%= s.getSmallSpotting() == null ? "" : s.getSmallSpotting() %></td>
+					<td><%= s.getMiddleSpotting() == null ? "" : s.getMiddleSpotting() %></td>
+					<td><%= s.getSpecialSpotting() == null ? "" : s.getSpecialSpotting() %></td>
+					<td><%= s.getSmallScissors() == null ? "" : s.getSmallScissors() %></td>
+					<td><%= s.getMiddleScissors() == null ? "" : s.getMiddleScissors() %></td>
+					<td><%= s.getSpecialScissors() == null ? "" : s.getSpecialScissors() %></td>
 				</tr>
 		<% } %>
 	<% } %>
@@ -273,6 +273,7 @@ $("#info-like").change((e) => {
 		$.ajax({
 			url: "<%= request.getContextPath() %>/info/likeCount",
 			data: {
+				state : "G",
 				code: "<%= info.getCode() %>",
 				memberId: "<%= loginMember.getMemberId() %>"
 			},
@@ -286,6 +287,11 @@ $("#info-like").change((e) => {
 		console.log("체크 안됨");
 		$.ajax({
 			url: "<%= request.getContextPath() %>/info/likeCount?code=<%= info.getCode() %>&&memberId=<%= loginMember.getMemberId() %>",
+			data:{
+				state : "B",
+				code: "<%= info.getCode() %>",
+				memberId: "<%= loginMember.getMemberId() %>"
+			},
 			success(data){
 				console.log(data);
 			},
