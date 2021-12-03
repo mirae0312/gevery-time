@@ -47,8 +47,7 @@ public class MemberLoginServlet extends HttpServlet {
                 }
                 
                 
-                
-                String location = request.getHeader("Referer");
+                String location = request.getContextPath();
                 response.sendRedirect(location);
                 
                 

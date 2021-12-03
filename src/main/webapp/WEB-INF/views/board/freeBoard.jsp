@@ -73,12 +73,18 @@ const selectContent = (cPage) => {
 			$(data.list).each((i,e)=>{
 				console.log($(e.no));
 				let img = "";
-				if(e.hasOwnProperty('attachment')){
+				let commentCount = "";
+				if(e.attachCount>0){
 					img = "<img src=\"<%=request.getContextPath() %>/images/file.png\"  width=\"16px\"/>";
+				}
+				if(e.commentCount>0){
+					console.log(e.commentCount);
+					commentCount = '('+e.commentCount+')';
+					console.log(commentCount);
 				}
 				const tr = `			<tr>
  					<td>\${e.no}</td>
- 					<td>\${e.title}</td>
+ 					<td><a href="<%=request.getContextPath()%>/board/boardView?no=\${e.no}">\${e.title}</a> \${commentCount}</td>
 					<td>\${e.writer}</td>
 					<td>
  						\${img}
