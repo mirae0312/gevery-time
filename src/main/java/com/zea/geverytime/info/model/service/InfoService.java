@@ -358,6 +358,23 @@ public class InfoService {
 		return result;
 	}
 
+	public int checkInfoTrue(String code, String in) {
+		Connection conn = null;
+		int result = 0;
+		try {
+			conn = getConnection();
+			result = infoDao.checkInfoTrue(conn, code, in);
+			if(result > 0)
+				commit(conn);
+		}catch(Exception e) {
+			rollback(conn);
+			throw e;
+		}finally {
+			close(conn);
+		}
+		return result;
+	}
+
 
 
 }

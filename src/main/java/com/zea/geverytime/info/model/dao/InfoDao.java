@@ -1007,5 +1007,27 @@ public class InfoDao {
 		return result;
 	}
 
+	public int checkInfoTrue(Connection conn, String code, String in) {
+		PreparedStatement pstmt = null;
+		String sql = prop.getProperty("checkInfoTrue");
+		int result = 0;
+		
+		try {
+			pstmt = conn.prepareStatement(sql);
+			
+			pstmt.setString(1, in);
+			pstmt.setString(2, code);
+			
+			result = pstmt.executeUpdate();
+			
+		} catch (SQLException e) {
+			throw new InfoBoardException("게시물 승인 실패!", e);
+		}finally {
+			close(pstmt);
+		}
+		
+		return result;
+	}
+
 
 }
