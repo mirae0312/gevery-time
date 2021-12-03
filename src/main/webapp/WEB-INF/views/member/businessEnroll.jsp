@@ -17,8 +17,17 @@ input[type="number"]::-webkit-inner-spin-button
 	
 }
 </style>
+<script>
+
+function handleOnInput(el, maxlength) {
+	  if(el.value.length > maxlength)  {
+	    el.value 
+	      = el.value.substr(0, maxlength);
+	  }
+	}
+</script>
 <script src="<%= request.getContextPath() %>/js/jquery-3.6.0.js"></script>
-<script src="<%= request.getContextPath() %>/js/businessEnroll/businessEnroll.js"></script>
+<script src="<%= request.getContextPath() %>/js/Businesslocation/location.js"></script>
 <title>회원가입</title>
 <script>
 
@@ -50,7 +59,7 @@ function handleOnInput(el, maxlength) {
 
         <td><input type="text" name="Id" id="_Id">
 
-            <input type="button" value="중복확인" onclick="check();" />
+            <input type="button" value="중복확인" onclick="checkIdDuplicate();" />
           	
           	
             <input type="hidden" id="idValid" value="0" />
@@ -92,8 +101,8 @@ function handleOnInput(el, maxlength) {
 
       <tr>
       <td>사업자번호 : </td>
-  		<td><input type="number"  name="businessNo" id="_businessNo" oninput='handleOnInput(this, 9)'/>   
-      	<select name="businessNo" id="_businessNo">
+  		<td ><input type="number"  name="businessNo1" id="_businessNo" oninput='handleOnInput(this, 9)'/>   
+      	<select name="businessNo2" id="_businessNo" onchange= this.value>
       	<option value="1">1.병원</option>
       	<option value="2">2.카페</option>
       	<option value="3">3.음식점</option>
@@ -111,17 +120,19 @@ function handleOnInput(el, maxlength) {
 		
 		<tr>
             <td>사업장주소 : </td>
-        <td><input type="text"  name="address" id="_address"> </td>
+        <td><input type="text"  name="baddress" id="baddress"> </td>
       </tr>
       
       <tr>
            <td> 지역 : </td>
-  
-		<td><select name="addressRegion]" id="addressRegion1"></select>
-    		<select name="addressDo" id="addressDo1"></select>
-    		<select name="addressSiGunGu" id="addressSiGunGu1"></select>
-      																</td>
-     </tr>
+				   <td >
+				
+				<select name="location1" id="location"  onchange= this.value></select>
+				<select name="location2" id="location" onchange=this.value ></select>
+					
+				</td>
+						
+				     </tr>
      
       
       <tr>
@@ -130,14 +141,14 @@ function handleOnInput(el, maxlength) {
 
         <td>
         
-         <select id="tel" name= "tel">
-    <option value="010">010</option>
-    <option value="055">055</option>
-    <option value="02">055</option>
+         <select id="tel" name= "tel1" onchange=this.value>
+    <option value="010-">010</option>
+    <option value="055-">055</option>
+    <option value="02-">02</option>
 		</select>
 				 -
-			<input type="text" size="4" id="tel" name="_tel"> -
-			<input type="text" size="4" id="tel" name="_tel"> 
+			<input type="number" size="4" id="tel" name="tel2" style="width:4em"   oninput='handleOnInput(this, 4)'/> -
+			<input type="number" size="4" id="tel" name="tel3" style="width:4em"  oninput='handleOnInput(this, 4)'/> 
 
 
         </td>
@@ -165,71 +176,12 @@ function handleOnInput(el, maxlength) {
 	<input type="hidden" name="memberId" />
 </form>
 <script>
-const check = () => {
-		const name = "checkIdDuplicatePopup"; 
-		const spec = "left = 500px, top =500px, width=300px, height=250px";
-		const popup = open("",name, spec); 
-		
-		const $memberId = $(_Id);
-		const $frm = $(document.checkDuplicateFrm);
-		$frm.find("[name=memberId]").val($memberId.val());
-		$frm.attr("target",name)
-			.submit();
-	
-};
-$(_memberId).change(() => {
-	$(idValid).val(0);
-});
-
-
-/**
- *name= memberEnrollFrm 유효성검사
- *-id/비번 영문자/숫자 4글자이상
- * -이름 한글 2글자이상
- * -전화번호 숫자확인
- *
- *
- *
- */
-$(document.memberEnrollFrm).submit((e) => {
-		
-	//memberId
-	const $memberId = $(_Id);
-	//아이디는 영문자/숫자 4글자이상만 허용
-	if(!/^\w{4,}$/.test($memberId.val()){
-		alert("아이디는 최소 4자리 이상이어야 합니다.");
-		return false;
-	}
-	//memberId 중복검사
-	const $idValid = $(idValid);
-	if($idValid.val() == 0){
-		alert("아이디 중복 검사해주세요.");
-		return false
-	}
-
-	//password
-	const $password = $(_password);
-	const $passwordCheck = $(passwordCheck);
-	
-	if(!/^[a-zA-Z0-9!@#$]{4,}$/.test($password.val())){
-		alert("유효한 패스워드를 입력하세요.");
-		return false;
-	}
-	if($password.val() != $passwordCheck.val()){
-		alert("패스워드가 일치하지 않습니다.");
-		return false;
-	}	
-	//memberName
-	const $memberName = $(memberName);
-	if(!/^[가-힣]{2,}$?.test($memberName.val())){
-		alert("이름은 한글 2글자 이상이어야 합니다.");
-		return false;
-	}
-	return true;
-});
-
-
-
+$("checkIdDuplicate").on("click",function(){
+	var id = $("#Id").val();
+  //window.open:  새창 띄우기.
+  //idDuplCheck.jsp?  : idDuplCheck.jsp페이지로 이동할건데, key값(name)=id , value=id 를 전송
+    window.open("chekcIdDuplicate.jsp?Id="+Id,"",width=400px,height=300px,top=300px,left=200px)
+})
 
 
 </script>

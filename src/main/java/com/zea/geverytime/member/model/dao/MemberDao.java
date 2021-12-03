@@ -41,8 +41,7 @@ public class MemberDao {
 			rset = pstmt.executeQuery();
 			while(rset.next()) {
 				member = new Member(rset.getString("member_id"),rset.getString("password"),
-						rset.getString("email"),rset.getString("member_name"),rset.getString("phone"),
-						rset.getString("address"),
+						rset.getString("member_name"),rset.getString("phone"),rset.getString("address"),rset.getString("email"),
 						rset.getString("member_role"),rset.getString("member_type")
 						,rset.getDate("birthday"));
 		
