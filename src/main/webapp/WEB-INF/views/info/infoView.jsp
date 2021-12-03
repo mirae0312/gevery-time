@@ -37,7 +37,7 @@
 <div class="info-view-wrapper">
 <% if(loginMember != null && info.getMemberId().equals(loginMember.getMemberId())){ %>
 	<input value="수정" type="button" onclick="" />
-<% { %>
+<% } %>
 	<div class="info-head-wrapper">
 		<div class="left-side">
 			<h1><%= info.getBusinessName() %></h1>
@@ -191,18 +191,21 @@
 		<% if(re.getHeadContent() != null){ %>
 		<div class="info-review">
 			<form action="" class="review" name="infoBoardReviewFrm" method="POST">
-				<input type="hidden" class="review-code" value="<%= re.getrCode() %>" />
+				<input type="hidden" name="pCode" value="<%= info.getCode() %>" />
+				<input type="hidden" class="reviewCode" value="<%= re.getrCode() %>" />
 				<div class="review-writer"><%= re.getMemberId() %></div>
 				<div class="review-head"><%= re.getHeadContent() %></div>
 			<% if(re.getAttachments() != null && !re.getAttachments().isEmpty()){ %>
-				<% for(Attachment attach : re.getAttachments()){ %>
-				<img class="reviewPictures" src="<%= request.getContextPath() %>/upload/info/<%= attach.getRenamedFilename() %>" alt="" />
+				<% for(int i = 0; i < re.getAttachments().size(); i++){ %>
+				<input type="hidden" name="attachNo<%= i %>" value="<%= re.getAttachments().get(i).getNo() %>" />
+				<img class="reviewPictures" src="<%= request.getContextPath() %>/upload/info/<%= re.getAttachments().get(i).getRenamedFilename() %>" alt="" />
 				<% } %>
 			<% } %>
 				<div class="review-content"><%= re.getContent() %></div>
 				<div class="review-reg-date"><%= re.getRegDate() %></div>
 			<%-- 리뷰 수정: 로그인을 했고 작성자라면 보이도록 --%>
 			<% if(loginMember != null && loginMember.getMemberId().equals(re.getMemberId())){ %>
+				<div class="reBox"></div>
 				<input type="button" value="수정" class="modify-review review-btn" onclick="modifyReviewBox();" />
 			<% } %>
 				<input type="button" value="신고" class="reivew-report review-btn" onclick="reportReview();" />
@@ -211,7 +214,7 @@
 		<% } %>
 	<% } %>
 <% } %>
-<%-- 리뷰 --%>
+<%-- 리뷰 작성 --%>
 <% if(loginMember != null && MemberService.USER_ROLE.equals(loginMember.getMemberRole()) && !info.getMemberId().equals(loginMember.getMemberId())){ %>
 		<form action="<%= request.getContextPath() %>/info/insertReview"
 			name="reviewEnrollFrm"
@@ -236,9 +239,41 @@
 // 리뷰 수정
 const $frm = $(document.infoBoardReviewFrm);
 const modifyReviewBox = () => {
-	const name = "modifyReviewPopup";
-	const spec = "left=500px, top=500px, width=350px, height=300px"
+	$frm.attr("action", "<%= request.getContextPath() %>/info/reviewModify")
+		.submit();
 };
+<% if(loginMember != null){ %>
+
+$(".info-review").one("click", function(event){
+	
+	const $btn = $(event.currentTarget).find('div.review-writer').text();
+	const $reBox = $(event.currentTarget).find('div.reBox');
+	const $box = `
+	<input type="file" name="mPic1" accept="image/*" onchange="previewF3();"/>
+	<input type="file" name="mPic2" accept="image/*" onchange="previewF4();"/>
+	<input type="text" class="mHead" name="mHead" />
+	<textarea name="mBody" class="mBody" cols="30" rows="10"></textarea>
+	`;
+	
+	if($btn == '<%= loginMember.getMemberId() %>'){
+		$reBox.append($box);		
+	}
+	$('.mBody').summernote({
+		height: 300,
+		focus: false,
+		disableResizeEditor: true,
+		toolbar: [
+			['style', ['bold', 'italic', 'underline', 'clear']],
+			['font', ['strikethrough', 'superscript', 'subscript']],
+			['fontsize', ['fontsize']],
+			['color', ['color']],
+			['para', ['ul', 'ol', 'paragraph']],
+			['height', ['height']],
+		]
+	});
+});
+
+<% } %>
 
 
 // 리뷰등록하기 사진 미리보기
@@ -258,6 +293,7 @@ const previewF2 = () => {
 	}
 	reader.readAsDataURL(event.target.files[0]);
 };
+
 
 
 // 리뷰신고
@@ -330,11 +366,11 @@ $(document).ready(function() {
 			['height', ['height']],
 		]
 	});
+
 	
 });
-
-
-// 카카오 지도 api
+</script>
+<script>
 var mapContainer = document.getElementById('map'), // 지도를 표시할 div 
 	mapOption = {
 	    center: new kakao.maps.LatLng(33.450701, 126.570667), // 지도의 중심좌표
@@ -348,7 +384,7 @@ var map = new kakao.maps.Map(mapContainer, mapOption);
 var geocoder = new kakao.maps.services.Geocoder();
 
 //주소로 좌표를 검색합니다
-geocoder.addressSearch('<%= info.getBusinessAddress() %>', function(result, status) {
+geocoder.addressSearch('서울 영등포구 양평로 5 성원빌딩', function(result, status) {
 
 // 정상적으로 검색이 완료됐으면 
 	if (status === kakao.maps.services.Status.OK) {
@@ -369,11 +405,9 @@ geocoder.addressSearch('<%= info.getBusinessAddress() %>', function(result, stat
 		
 		// 지도의 중심을 결과값으로 받은 위치로 이동시킵니다
 		map.setCenter(coords);
-		console.log(coords);
 	} 
-});   
-
-
+});    
 </script>
+
 
 <%@ include file="/WEB-INF/views/common/footer.jsp" %>
