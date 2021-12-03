@@ -90,7 +90,7 @@
 	
 	<!-- 전달할 form -->
 	<form action="<%= request.getContextPath() %>/purchase/purchasePage" name="purchaseFrm" id="purchaseFrm" method="GET">
-		<button>주문하기</button></br>
+		<button>선택 상품 주문하기</button></br>
 		<input type="hidden" name="memberId" value="<%= loginMember.getMemberId() %>"/>
 	</form>
 <% } else { %>
