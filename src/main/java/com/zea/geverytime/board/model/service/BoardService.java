@@ -181,4 +181,21 @@ public class BoardService {
 		}
 		return result;
 	}
+
+	public int readCountUp(int boardNo) {
+		Connection conn = null;
+		int result = 0;
+		
+		try {
+			conn = getConnection();
+			result = boardDao.readCountUp(conn,boardNo);
+			commit(conn);
+		}catch(Exception e) {
+			rollback(conn);
+		}finally {
+			close(conn);
+		}
+		
+		return result;
+	}
 }

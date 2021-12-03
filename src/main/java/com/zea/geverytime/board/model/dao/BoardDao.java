@@ -387,5 +387,24 @@ public class BoardDao {
 		return result;
 	}
 
+	public int readCountUp(Connection conn, int boardNo) {
+		int result = 0;
+		String sql = prop.getProperty("readCountUp");
+		PreparedStatement pstmt = null;
+		
+		try {
+			pstmt = conn.prepareStatement(sql);
+			pstmt.setInt(1, boardNo);
+			result = pstmt.executeUpdate();
+		} catch (SQLException e) {
+			e.printStackTrace();
+			throw new BoardException("조회수 증가 오류");
+		}finally {
+			close(pstmt); 
+		}
+		
+		return result;
+	}
+
 
 }
