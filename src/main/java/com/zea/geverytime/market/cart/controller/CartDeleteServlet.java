@@ -27,6 +27,7 @@ public class CartDeleteServlet extends HttpServlet {
 		
 		for(int i = 1; i <= countNum; i++) {
 			int boardNo = Integer.parseInt(request.getParameter("delCart"+i));
+			System.out.println("boardNo");
 			list.add(boardNo);
 		}
 		

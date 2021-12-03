@@ -33,8 +33,6 @@ public class PurchasePaymentsServlet extends HttpServlet {
 		// 1. 결제내역 보내기
 		String impUid = request.getParameter("imp_uid");
 		String merchantUid = request.getParameter("merchant_uid");
-		System.out.println(impUid);
-		System.out.println(merchantUid);
 		
 		// url 설정
 		URL url = new URL("https://api.iamport.kr/users/getToken");

@@ -38,9 +38,9 @@ public class CartAddPdtServlet extends HttpServlet {
 		
 		String msg = "";
 		if(result > 0) {
-			msg = "장바구니에 담았습니다.";
+			msg = "장바구니에 담았습니다. \n 장바구니로 이동하시겠습니까?";
 		} else {
-			msg = "중복 상품이 존재합니다.";
+			msg = "중복 상품이 존재합니다. \n 장바구니로 이동하시겠습니까?";
 		}
 		
 		Map<String, Object> map = new HashMap<>();
