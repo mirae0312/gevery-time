@@ -17,10 +17,10 @@ public class CommonData {
 		this.name = name;
 		this.email = email;
 	}
-	public String getId() {
+	public String getMemberId() {
 		return Id;
 	}
-	public void setId(String id) {
+	public void setMemberId(String id) {
 		Id = id;
 	}
 	public String getPassword() {
@@ -29,10 +29,10 @@ public class CommonData {
 	public void setPassword(String password) {
 		this.password = password;
 	}
-	public String getName() {
+	public String getMemberName() {
 		return name;
 	}
-	public void setName(String name) {
+	public void setMemberName(String name) {
 		this.name = name;
 	}
 	public String getEmail() {
