@@ -221,3 +221,39 @@ update qna_board set category_b='OK' where no = 188;
 
 
 commit;
+
+
+create table CLIENT_REPORT(
+    report_no number,
+    title varchar2(500) not null,
+    content varchar2(2000) not null,
+    report_code number,
+    report_check varchar2(10) default 'U' ,
+    member_id varchar2(100),
+    business_no varchar2(100),
+    constraint pk_report_no primary key(report_no),
+    constraint uni_report_code_unique unique(report_code),
+    constraint ck_report_check check(report_check in('U','C')),
+    constraint fk_business_no foreign key(business_no)  references business(business_no) on delete cascade,
+    constraint fk_member_id foreign key(member_id)  references member(member_id) on delete cascade 
+);
+select * from CLIENT_REPORT;
+
+select * from business;
+ 
+ 
+create sequence SEQ_CLIENT_REPORT_REPORT_NO;
+
+COMMIT;
+insert into CLIENT_REPORT
+(report_no,title,content,reg_date,member_id)
+values (SEQ_CLIENT_REPORT_REPORT_NO.nextval,'부적절한 게시글 올렸어요','신고합니다',default,'mirim');
+ 
+alter table client_report add reg_date date default sysdate;
+
+select * from member;
+
+delete  from CLIENT_REPORT;
+
+select * from qna_board;
+
