@@ -1197,5 +1197,27 @@ public class InfoDao {
 		return result;
 	}
 
+	public int updateAttachment(Connection conn, Attachment attach) {
+		PreparedStatement pstmt = null;
+		String sql = prop.getProperty("updateAttachment");
+		int result = 0;
+		
+		try {
+			pstmt = conn.prepareStatement(sql);
+			
+			pstmt.setString(1, attach.getOriginalFilename());
+			pstmt.setString(2, attach.getRenamedFilename());
+			pstmt.setString(3, attach.getCode());
+			
+			result = pstmt.executeUpdate();
+		} catch (SQLException e) {
+			throw new InfoBoardException("첨부파일 삭제 실패!", e);
+		}finally {
+			close(pstmt);
+		}
+		
+		return result;
+	}
+
 
 }

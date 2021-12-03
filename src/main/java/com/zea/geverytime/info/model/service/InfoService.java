@@ -390,6 +390,27 @@ public class InfoService {
 		return result;
 	}
 
+	public int updateAttachment(List<Attachment> attachments) {
+		Connection conn = null;
+		int result = 0;
+		try {
+			conn = getConnection();
+			if(attachments != null && !attachments.isEmpty()) {
+				for(Attachment attach : attachments) {
+					result = infoDao.updateAttachment(conn, attach);
+				}				
+			}
+			if(result > 0)
+				commit(conn);
+		}catch(Exception e) {
+			rollback(conn);
+			throw e;
+		}finally {
+			close(conn);
+		}
+		return result;
+	}
+
 
 
 }

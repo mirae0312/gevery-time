@@ -3,7 +3,6 @@ package com.zea.geverytime.info.controller;
 import java.io.File;
 import java.io.IOException;
 import java.util.ArrayList;
-import java.util.Enumeration;
 import java.util.List;
 
 import javax.servlet.ServletException;
@@ -11,6 +10,7 @@ import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
 
 import com.oreilly.servlet.MultipartRequest;
 import com.oreilly.servlet.multipart.FileRenamePolicy;
@@ -34,6 +34,7 @@ public class InfoReviewModifyServlet extends HttpServlet {
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 
 		try {
+			
 			String saveDirectory = getServletContext().getRealPath("/upload/info");
 			
 			int maxPostSize = 1024 * 1024 * 10;
@@ -43,12 +44,13 @@ public class InfoReviewModifyServlet extends HttpServlet {
 			
 			MultipartRequest multipartRequest = 
 					new MultipartRequest(request, saveDirectory, maxPostSize, encoding, policy);
-						
-			int no = Integer.parseInt(multipartRequest.getParameter("attachNo"));			
+								
 			String code = multipartRequest.getParameter("pCode");
 			String rCode = multipartRequest.getParameter("reviewCode");
 			String headContent = multipartRequest.getParameter("mHead");
 			String bodyContent = multipartRequest.getParameter("mBody");
+			String re1 = multipartRequest.getParameter("attachName0");
+			String re2 = multipartRequest.getParameter("attachName1");
 			
 			InfoReview infoReview = new InfoReview();
 			infoReview.setCode(code);
@@ -58,26 +60,47 @@ public class InfoReviewModifyServlet extends HttpServlet {
 			
 			System.out.println("[infoReviewModifyServlet] infoReview : " + infoReview);
 			
-			Enumeration fileNames = multipartRequest.getFileNames();
+			int no1 = Integer.parseInt(multipartRequest.getParameter("attachNo0"));
+			int no2 = Integer.parseInt(multipartRequest.getParameter("attachNo1"));
+			
+			File mPic1 = multipartRequest.getFile("mPic1");
+			File mPic2 = multipartRequest.getFile("mPic2");
+			
+			// 새로 가져온 사진이 있다면 서버에서 우선 삭제
 			List<Attachment> attachments = new ArrayList<>();
-			while(fileNames.hasMoreElements()) {
-				String fileName = (String) fileNames.nextElement();
-				System.out.println("[infoReviewModifyServlet] fileName : " + fileName);
-				File upFile = multipartRequest.getFile(fileName);
-				if(upFile != null) {
-					Attachment attach = MvcUtils.makeAttachment(multipartRequest, fileName);
-					attach.setCode(rCode);
-					attachments.add(attach);
+			if(mPic1 != null || mPic2 != null) {
+				if(re1 != null) {
+					File delRe = new File(saveDirectory, re1);
+					boolean removed = delRe.delete();
+					System.out.println("[InfoReviewModifyServlet] 기존파일1 삭제 : " + removed);
 				}
+				if(re2 != null) {
+					File delRe = new File(saveDirectory, re2);
+					boolean removed = delRe.delete();
+					System.out.println("[InfoReviewModifyServlet] 기존파일2 삭제 : " + removed);
+				}
+				
+				
+				
+				if(mPic1 != null) {
+					Attachment attach1 = MvcUtils.makeAttachment(multipartRequest, "mPic1");
+					attach1.setCode(rCode);
+					attachments.add(attach1);
+				}
+				if(mPic2 != null) {
+					Attachment attach2 = MvcUtils.makeAttachment(multipartRequest, "mPic2");
+					attach2.setCode(rCode);
+					attachments.add(attach2);
+				}			
 			}
 			
-			if(!attachments.isEmpty()) {
-				infoReview.setAttachments(attachments);
-			}
+			int result1 = infoService.updateInfoReview(infoReview);
+			int result2 = infoService.updateAttachment(attachments);
 			
-			if(delFiles != null) {
-				for(String temp)
-			}
+			HttpSession session = request.getSession();
+			session.setAttribute("msg", "리뷰 수정 성공!");
+			String location = request.getContextPath() + "/info/view?code=" + code;
+			response.sendRedirect(location);			
 			
 			
 		}catch(Exception e) {

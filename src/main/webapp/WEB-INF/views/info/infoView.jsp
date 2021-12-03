@@ -32,11 +32,14 @@
 <%@ page import="java.sql.*" %>
 <%@ include file="/WEB-INF/views/common/header.jsp" %>
 <link rel="stylesheet" href="<%=request.getContextPath() %>/css/info/infoView.css" />
-
 <script type="text/javascript" src="//dapi.kakao.com/v2/maps/sdk.js?appkey=4247f28f0dc06c5cc8486ac837d411ff&libraries=services,clusterer,drawing"></script>
 <div class="info-view-wrapper">
 <% if(loginMember != null && info.getMemberId().equals(loginMember.getMemberId())){ %>
-	<input value="수정" type="button" onclick="" />
+	<form action="" enctype="multipart/form-data" name="infoBoardModifyFrm" >
+		<input type="hidden" name="code" value="<%= info.getCode() %>" />
+		<input type="hidden" name="code" value="<%= info.getCode() %>" />
+		<input value="수정" type="button" onclick="" />
+	</form>
 <% } %>
 	<div class="info-head-wrapper">
 		<div class="left-side">
@@ -190,13 +193,14 @@
 	<% for(InfoReview re : ir){ %>
 		<% if(re.getHeadContent() != null){ %>
 		<div class="info-review">
-			<form action="" class="review" name="infoBoardReviewFrm" method="POST">
+			<form action="" class="review" name="infoBoardReviewFrm" method="POST" enctype="multipart/form-data">
 				<input type="hidden" name="pCode" value="<%= info.getCode() %>" />
-				<input type="hidden" class="reviewCode" value="<%= re.getrCode() %>" />
+				<input type="hidden" name="reviewCode" class="reviewCode" value="<%= re.getrCode() %>" />
 				<div class="review-writer"><%= re.getMemberId() %></div>
 				<div class="review-head"><%= re.getHeadContent() %></div>
 			<% if(re.getAttachments() != null && !re.getAttachments().isEmpty()){ %>
 				<% for(int i = 0; i < re.getAttachments().size(); i++){ %>
+				<input type="hidden" name="attachName<%= i %>" value="<%= re.getAttachments().get(i).getRenamedFilename() %>" />
 				<input type="hidden" name="attachNo<%= i %>" value="<%= re.getAttachments().get(i).getNo() %>" />
 				<img class="reviewPictures" src="<%= request.getContextPath() %>/upload/info/<%= re.getAttachments().get(i).getRenamedFilename() %>" alt="" />
 				<% } %>
@@ -205,7 +209,7 @@
 				<div class="review-reg-date"><%= re.getRegDate() %></div>
 			<%-- 리뷰 수정: 로그인을 했고 작성자라면 보이도록 --%>
 			<% if(loginMember != null && loginMember.getMemberId().equals(re.getMemberId())){ %>
-				<div class="reBox"></div>
+				<table id= reBox></table>
 				<input type="button" value="수정" class="modify-review review-btn" onclick="modifyReviewBox();" />
 			<% } %>
 				<input type="button" value="신고" class="reivew-report review-btn" onclick="reportReview();" />
@@ -247,12 +251,18 @@ const modifyReviewBox = () => {
 $(".info-review").one("click", function(event){
 	
 	const $btn = $(event.currentTarget).find('div.review-writer').text();
-	const $reBox = $(event.currentTarget).find('div.reBox');
+	const $reBox = $("#reBox");
 	const $box = `
-	<input type="file" name="mPic1" accept="image/*" onchange="previewF3();"/>
-	<input type="file" name="mPic2" accept="image/*" onchange="previewF4();"/>
-	<input type="text" class="mHead" name="mHead" />
-	<textarea name="mBody" class="mBody" cols="30" rows="10"></textarea>
+	<tr>
+	<td><input type="file" name="mPic1" accept="image/*" onchange="previewF3();"/></td>
+	<td><input type="file" name="mPic2" accept="image/*" onchange="previewF4();"/></td>
+	</tr>
+	<tr>
+	<td colspan="2"><input type="text" class="mHead" name="mHead" /></td>
+	</tr>
+	<tr>
+	<td><textarea name="mBody" class="mBody" cols="30" rows="10"></textarea></td>
+	</tr>	
 	`;
 	
 	if($btn == '<%= loginMember.getMemberId() %>'){
@@ -384,7 +394,7 @@ var map = new kakao.maps.Map(mapContainer, mapOption);
 var geocoder = new kakao.maps.services.Geocoder();
 
 //주소로 좌표를 검색합니다
-geocoder.addressSearch('서울 영등포구 양평로 5 성원빌딩', function(result, status) {
+geocoder.addressSearch('<%= info.getBusinessAddress() %>', function(result, status) {
 
 // 정상적으로 검색이 완료됐으면 
 	if (status === kakao.maps.services.Status.OK) {

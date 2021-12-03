@@ -32,7 +32,7 @@
 			<option value="">지역</option>
 		</select>
 		<select name="lining" class="lining">
-			<option value="">정렬</option>
+			<option value="new">정렬</option>
 			<option value="new">최신순</option>
 			<option value="old">등록순</option>
 			<option value="view">방문순</option>
