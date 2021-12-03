@@ -8,27 +8,31 @@
 	String bno = info.getBusinessNo();
 	String no = bno.substring(bno.length() - 1);
 %>
-<script type="text/javascript" src="//dapi.kakao.com/v2/maps/sdk.js?appkey=4247f28f0dc06c5cc8486ac837d411ff"></script>
 <script type="text/javascript" src="//dapi.kakao.com/v2/maps/sdk.js?appkey=4247f28f0dc06c5cc8486ac837d411ff&libraries=services,clusterer,drawing"></script>
 <div class="enroll-wrapper">
+	<%-- 전체 등록 폼 --%>
 	<form name="infoEnrollFrm" action="<%= request.getContextPath() %>/info/Enroll" 
 		method="post" enctype="multipart/form-data">
+		<%-- 아이디 사업자 번호 --%>
 		<input type="hidden" name="writer" value="<%= info.getMemberId() %>" />
 		<input type="hidden" name="businessNo" value="<%= info.getBusinessNo() %>" />
+		<input type="hidden" name="selectNo" value="<%= no %>" />
+		<%-- 왼쪽 상단 위치 --%>
 		<div class="left-head">
 			상호명
-			<input type="text" name="businessName" id="business-name" value="<%= info.getBusinessName() %>" required/>
+			<input type="text" name="businessName" id="business-name" value="<%= info.getBusinessName() %>" readonly/>
 			썸네일
 			<div class="thumb"><img src="#" alt="" id="thumbnail" style="width:200px;height:180px;"/></div>
-			<input type="file" name="headFile" accept="image/*" onchange="setThumbnail();" id="head-file" />
+			<input type="file" name="headFile" accept="image/*" onchange="setThumbnail();" id="head-file" required />
 			인사말
 			<input type="text" name="headContent" id="head-content" />		
 		</div><br />
+		<%-- 오른쪽 상단 위치 --%>
 		<div class="right-head">
 			<label for="tel">전화번호</label>
-			<input type="text" name="tel" id="tel" value="<%= info.getBusinessTel() %>" required/><br />
+			<input type="text" name="tel" id="tel" value="<%= info.getBusinessTel() %>" readonly/><br />
 			<label for="addr">주소</label>
-			<input type="text" name="addr" id="addr" value="<%= info.getBusinessAddress() %>" /><br />
+			<input type="text" name="addr" id="addr" value="<%= info.getBusinessAddress() %>" readonly /><br />
 			영업시간
 			<input type="time" name="startHour" class="business-hours" required/>~<input type="time" name="endHour" class="business-hours" required/><br />
 			점심시간
@@ -44,6 +48,7 @@
 			<input type="checkbox" name="holiday" value="토" id="sat" /><label for="sat">토</label>
 			<input type="checkbox" name="holiday" value="일" id="sun" /><label for="sun">일</label>
 			<br />
+			<%-- 홈페이지 입력 2개 까지 가능 --%>
 			<div id="site-wrap">
 				<label for="site">홈페이지</label>
 				<input type="text" name="site1" class="site" />
@@ -60,7 +65,7 @@
 			<div class="service-wrap">
 				<label for="service">가격표</label>
 				<input type="text" name="service1" class="service" />:			
-				<input type="text" name="price1" class="service" />원	<br />		
+				<input type="text" name="price1" class="service" />(단위 천원)	<br />		
 			</div><br />
 			<button type="button" class="add-btn add-service" onclick="addService();">추가</button>
 <% } %>
@@ -69,7 +74,7 @@
 				<table>
 					<thead>
 						<tr>
-							<th rowspan="2">객실</th>
+							<th rowspan="2">객실 (단위 만원)</th>
 							<th colspan="2">비수기</th>
 							<th colspan="2">성수기</th>
 							<th colspan="2">평수기</th>
@@ -120,7 +125,7 @@
 				<table>
 					<thead>
 						<tr>
-							<th rowspan="2">무게</th>
+							<th rowspan="2">무게 (단위 만원)</th>
 							<th colspan="3">목욕</th>
 							<th colspan="3">목욕+부분</th>
 							<th colspan="3">기계컷</th>
@@ -205,6 +210,7 @@
 			</div>
 <% } %>
 		</div>
+		<%-- 본문 --%>
 		<div id="body-description">
 			<div class="description-wrapper">
 				body
@@ -214,6 +220,7 @@
 			</div>
 			<%--<button type="button" class="add-btn add-description" onclick="addDescription();">추가</button>--%>
 		</div><br />
+		<%-- 하단 --%>
 		<div class="the-way">
 			<div id="map" style="width:500px;height:400px;"></div><br />
 			오시는길
@@ -225,150 +232,142 @@
 	</form>
 </div>
 <script>
-	function setThumbnail(){
-		const reader = new FileReader();
-		
-		reader.onload = function(event){
-			$("#thumbnail").attr("src", event.target.result);
-		}
-		reader.readAsDataURL(event.target.files[0]);
-		
+// 사진 미리보기
+function setThumbnail(){
+	const reader = new FileReader();
+	
+	reader.onload = function(event){
+		$("#thumbnail").attr("src", event.target.result);
 	}
-	function bodyThumb(){
-		const reader = new FileReader();
-		
-		reader.onload = function(event){
-			$(".body-thumb").attr("src", event.target.result);
-		}
-		reader.readAsDataURL(event.target.files[0]);
-		
+	reader.readAsDataURL(event.target.files[0]);
+	
+}
+function bodyThumb(){
+	const reader = new FileReader();
+	
+	reader.onload = function(event){
+		$(".body-thumb").attr("src", event.target.result);
 	}
+	reader.readAsDataURL(event.target.files[0]);
+	
+}
 
-	const addSite = (e) => {
-		const site2 = `
-			<input type="text" name="site2" class="site" />
-		`;
-		$("#site-wrap").append(site2);
-		$(".site-wrap .add-site").attr("disabled", "disabled");
-		
-	};
-	var i = 2;
-	const addhservice = () => {
-		var addSer = `
-		,<input type="text" name="hservice\${i}" class="hservice" /><br />
-		`;
-		$(".hservice").append(addSer);
-		if(i === 7){
-			$(".right-head .add-hservice").attr("disabled", "disabled");			
-		}
-		i++;
-	};
-	var i = 2;
-	const addService = () => {
-		var addSer = `
-		,<input type="text" name="service\${i}" class="service" />:
-		<input type="text" name="price\${i}" class="service" />원	<br />
-		`;
-		$(".service-wrap").append(addSer);
-		if(i === 7){
-			$(".right-head .add-service").attr("disabled", "disabled");			
-		}
-		i++;
-	};
-	<%--
-	var a = 2;
-	const addDescription = () => {
-		var addDes = `
-		<div class="thumb"><img src="#" alt="" class="thumb\${a}" style="width:500px;height:250px;"/></div>
-		<input type="file" name="file\${a}" class="file" accept="image/*" onchange="contentImg(thumb\${a});" />
-		head<input type="text" name="bodyHead\${a}" class="body-head" placeholder="" />
-		body<input type="text" name="bodyContent\${a}" class="body-content" placeholder="" /><br />	
-		`;
-		$("#body-description").append(addDes);
-		if(a === 3){
-			$("#body-description .add-description").attr("disabled", "disabled");
-		}
-		a++;
-	};
-	--%>
-	$(document).ready(function() {
-	    $('bodyContent').summernote({
-	          height: 300,                 // 에디터 높이
-	          minHeight: null,             // 최소 높이
-	          maxHeight: null,             // 최대 높이
-	          focus: false,                  // 에디터 로딩후 포커스를 맞출지 여부
-	          lang: "ko-KR",                    // 한글 설정
-	          placeholder: '최대 2048자까지 쓸 수 있습니다',    //placeholder 설정
-	          disableResizeEditor: true
-	    });
-		$('#bodyContent').summernote({
-			height: 300,
-			focus: false,
-			disableResizeEditor: true,
-			toolbar: [
-				// [groupName, [list of button]]
-				['fontname', ['Arial', 'Arial Black', 'Comic Sans MS', 'Courier New','맑은 고딕','궁서','굴림체','굴림','돋움체','바탕체']],
-				['style', ['bold', 'italic', 'underline', 'clear']],
-				['font', ['strikethrough', 'superscript', 'subscript']],
-				['fontsize', ['fontsize']],
-				['color', ['color']],
-				['para', ['ul', 'ol', 'paragraph']],
-				['height', ['height']],
-			]
-		});
-		$('.way').summernote({
-			height: 300,
-			focus: false,
-			disableResizeEditor: true,
-			toolbar: [
-				// [groupName, [list of button]]
-				['fontname', ['Arial', 'Arial Black', 'Comic Sans MS', 'Courier New','맑은 고딕','궁서','굴림체','굴림','돋움체','바탕체']],
-				['style', ['bold', 'italic', 'underline', 'clear']],
-				['font', ['strikethrough', 'superscript', 'subscript']],
-				['fontsize', ['fontsize']],
-				['color', ['color']],
-				['para', ['ul', 'ol', 'paragraph']],
-				['height', ['height']],
-			]
-		});
+// 사이트 부분 입력 추가
+const addSite = (e) => {
+	const site2 = `
+		<input type="text" name="site2" class="site" />
+	`;
+	$("#site-wrap").append(site2);
+	$(".site-wrap .add-site").attr("disabled", "disabled");
+	
+};
+
+// 진료과목 추가
+var i = 2;
+const addhservice = () => {
+	var addSer = `
+	,<input type="text" name="hservice\${i}" class="hservice" /><br />
+	`;
+	$(".hservice").append(addSer);
+	if(i === 7){
+		$(".right-head .add-hservice").attr("disabled", "disabled");			
+	}
+	i++;
+};
+
+// 가격표 추가
+var i = 2;
+const addService = () => {
+	var addSer = `
+	,<input type="text" name="service\${i}" class="service" />:
+	<input type="text" name="price\${i}" class="service" />원	<br />
+	`;
+	$(".service-wrap").append(addSer);
+	if(i === 7){
+		$(".right-head .add-service").attr("disabled", "disabled");			
+	}
+	i++;
+};
+
+// 썸머노트
+$(document).ready(function() {
+    $('bodyContent').summernote({
+          height: 300,                 // 에디터 높이
+          minHeight: null,             // 최소 높이
+          maxHeight: null,             // 최대 높이
+          focus: false,                  // 에디터 로딩후 포커스를 맞출지 여부
+          lang: "ko-KR",                    // 한글 설정
+          placeholder: '최대 2048자까지 쓸 수 있습니다',    //placeholder 설정
+          disableResizeEditor: true
+    });
+	$('#bodyContent').summernote({
+		height: 300,
+		focus: false,
+		disableResizeEditor: true,
+		toolbar: [
+			// [groupName, [list of button]]
+			['fontname', ['Arial', 'Arial Black', 'Comic Sans MS', 'Courier New','맑은 고딕','궁서','굴림체','굴림','돋움체','바탕체']],
+			['style', ['bold', 'italic', 'underline', 'clear']],
+			['font', ['strikethrough', 'superscript', 'subscript']],
+			['fontsize', ['fontsize']],
+			['color', ['color']],
+			['para', ['ul', 'ol', 'paragraph']],
+			['height', ['height']],
+		]
 	});
+	$('.way').summernote({
+		height: 300,
+		focus: false,
+		disableResizeEditor: true,
+		toolbar: [
+			// [groupName, [list of button]]
+			['fontname', ['Arial', 'Arial Black', 'Comic Sans MS', 'Courier New','맑은 고딕','궁서','굴림체','굴림','돋움체','바탕체']],
+			['style', ['bold', 'italic', 'underline', 'clear']],
+			['font', ['strikethrough', 'superscript', 'subscript']],
+			['fontsize', ['fontsize']],
+			['color', ['color']],
+			['para', ['ul', 'ol', 'paragraph']],
+			['height', ['height']],
+		]
+	});
+});
 </script>
 <script>
-	var mapContainer = document.getElementById('map'), // 지도를 표시할 div 
-		mapOption = {
-		    center: new kakao.maps.LatLng(33.450701, 126.570667), // 지도의 중심좌표
-		    level: 3 // 지도의 확대 레벨
-	};  
+var mapContainer = document.getElementById('map'), // 지도를 표시할 div 
+	mapOption = {
+	    center: new kakao.maps.LatLng(33.450701, 126.570667), // 지도의 중심좌표
+	    level: 3 // 지도의 확대 레벨
+};  
+
+//지도를 생성합니다    
+var map = new kakao.maps.Map(mapContainer, mapOption); 
+
+//주소-좌표 변환 객체를 생성합니다
+var geocoder = new kakao.maps.services.Geocoder();
+
+//주소로 좌표를 검색합니다
+geocoder.addressSearch('서울 영등포구 양평로 5 성원빌딩', function(result, status) {
+
+// 정상적으로 검색이 완료됐으면 
+	if (status === kakao.maps.services.Status.OK) {
 	
-	//지도를 생성합니다    
-	var map = new kakao.maps.Map(mapContainer, mapOption); 
-	
-	//주소-좌표 변환 객체를 생성합니다
-	var geocoder = new kakao.maps.services.Geocoder();
-	
-	//주소로 좌표를 검색합니다
-	geocoder.addressSearch('서울 영등포구 양평로 5 성원빌딩', function(result, status) {
-	
-	// 정상적으로 검색이 완료됐으면 
-		if (status === kakao.maps.services.Status.OK) {
+		var coords = new kakao.maps.LatLng(result[0].y, result[0].x);
 		
-			var coords = new kakao.maps.LatLng(result[0].y, result[0].x);
-			
-			// 결과값으로 받은 위치를 마커로 표시합니다
-			var marker = new kakao.maps.Marker({
-			    map: map,
-			    position: coords
-			});
-			
-			// 인포윈도우로 장소에 대한 설명을 표시합니다
-			var infowindow = new kakao.maps.InfoWindow({
-			    content: '<div style="width:150px;text-align:center;padding:6px 0;">우리회사</div>'
-			});
-			infowindow.open(map, marker);
-			
-			// 지도의 중심을 결과값으로 받은 위치로 이동시킵니다
-			map.setCenter(coords);
-		} 
-	});    
+		// 결과값으로 받은 위치를 마커로 표시합니다
+		var marker = new kakao.maps.Marker({
+		    map: map,
+		    position: coords
+		});
+		
+		// 인포윈도우로 장소에 대한 설명을 표시합니다
+		var infowindow = new kakao.maps.InfoWindow({
+		    content: '<div style="width:150px;text-align:center;padding:6px 0;"><%= info.getBusinessName() %></div>'
+		});
+		infowindow.open(map, marker);
+		
+		// 지도의 중심을 결과값으로 받은 위치로 이동시킵니다
+		map.setCenter(coords);
+	} 
+});    
 </script>
 <%@ include file="/WEB-INF/views/common/footer.jsp" %> 

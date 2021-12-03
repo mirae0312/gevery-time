@@ -10,6 +10,12 @@
 	float: left;
 	margin: 50px, 0;
 }
+.pop-contetn .info-wrap{
+	width: 250px;
+	height: 230px;
+	border: 1px solid black;
+	cursor: pointer;
+}
 
 #info-write{
 	width: 90px;
@@ -19,9 +25,9 @@
 	bottom: 100px;
 }
 
-.info-wrap{
+.all-contents .info-wrap{
 	width: 600px;
-	height: 200px;
+	height: 230px;
 	border: 1px solid black;
 	cursor: pointer;
 }
@@ -36,4 +42,8 @@
 .recommend-count{
 }
 .view-count{
+}
+
+.hidden-code{
+	display: none;
 }

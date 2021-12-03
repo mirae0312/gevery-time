@@ -31,9 +31,9 @@ public class BusinessDao {
 		int result = 0;
 		try {
 				pstmt = conn.prepareStatement(sql);
-				pstmt.setString(1,business.getId());
+				pstmt.setString(1,business.getMemberId());
 				pstmt.setString(2,business.getPassword());
-				pstmt.setString(3,business.getName());
+				pstmt.setString(3,business.getMemberName());
 				pstmt.setString(4,"");
 				pstmt.setString(5,"");
 				pstmt.setString(6,business.getEmail());
@@ -57,9 +57,9 @@ public class BusinessDao {
 		try {
 		pstmt = conn.prepareStatement(sql);
 
-		pstmt.setString(1,business.getId());
+		pstmt.setString(1,business.getMemberId());
 		pstmt.setString(2,business.getPassword());
-		pstmt.setString(3,business.getName());
+		pstmt.setString(3,business.getMemberName());
 		pstmt.setString(4,business.getEmail());
 		pstmt.setString(5,business.getBusinessNo());
 		pstmt.setString(6,business.getbName());

@@ -1,12 +1,15 @@
 package com.zea.geverytime.board.model.service;
 
 import java.sql.Connection;
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
 
 import com.zea.geverytime.board.model.dao.BoardDao;
 import com.zea.geverytime.board.model.vo.Board;
+import com.zea.geverytime.board.model.vo.BoardComment;
 import com.zea.geverytime.common.model.vo.Attachment;
+
 
 import static com.zea.geverytime.common.JdbcTemplate.*;
 
@@ -40,15 +43,155 @@ public class BoardService {
 			//게시물 등록
 			boardDao.enrollBoard(conn,board);
 			//게시물 번호 가져오기
-			String code = boardDao.selectLastBoardCode(conn);
+			int no = boardDao.selectLastBoardNo(conn);
+			Board newBoard = boardDao.selectOneBoard(conn,no); // 식별번호-seq번호
+			board.setNo(newBoard.getNo());
+			board.setOrCode(newBoard.getOrCode());
 			//attachment 등록
-			for(Attachment a : board.getAttachments()) {
-				a.setCode(code);
+			List<Attachment> list = board.getAttachments();
+			if(list!=null && !list.isEmpty()) {
+				for(Attachment a : board.getAttachments()) {
+					a.setCode(board.getOrCode());
+					boardDao.enrollBoardAttachment(conn, a);
+				}
+			}
+			commit(conn);
+			result = 1;
+		}catch(Exception e) {
+			rollback(conn);
+			throw e;
+		}finally {
+			close(conn);
+		}
+		
+		return result;
+	}
+
+	public Board selectOneBoard(int no) {
+		Connection conn = getConnection();
+		Board board = boardDao.selectOneBoard(conn, no);
+		if(board.getAttachCount()>0) {
+			List<Attachment> list = boardDao.selectBoardAttachments(conn, board.getOrCode());
+			board.setAttachments(list);
+		}
+		close(conn);
+		return board;
+	}
+
+	public Attachment selectOneAttachment(int no) {
+		Connection conn = getConnection();
+		Attachment attach = boardDao.selectOneAttachment(conn, no);
+		close(conn);
+		return attach;
+	}
+
+	public int updateBoard(Board board) {
+		int result = 0;
+		Connection conn = null;
+		try {
+			conn = getConnection();
+			boardDao.updateBoard(conn, board);
+			List<Attachment> list = board.getAttachments();
+			if(list != null && !list.isEmpty()) {
+				for(Attachment a : list) {
+					result = boardDao.enrollBoardAttachment(conn, a);
+				}
 			}
 			commit(conn);
 		}catch(Exception e) {
 			rollback(conn);
 			throw e;
+		}finally {
+			close(conn);
+		}
+		return result;
+	}
+
+	public int deleteAttachment(int no) {
+		Connection conn = null;
+		int result = 0;
+		try {
+			conn = getConnection();
+			result = boardDao.deleteAttachment(conn, no);
+			commit(conn);
+		}catch(Exception e) {
+			rollback(conn);
+			throw e;
+		}finally {
+			close(conn);
+		}
+		
+		return result;
+	}
+
+	public int  deleteBoard(int no) {
+		Connection conn = null;
+		int result = 0;
+		
+		try {
+			conn = getConnection();
+			result = boardDao.deleteBoard(conn, no);
+			commit(conn);
+		}catch(Exception e) {
+			rollback(conn);
+		}finally {
+			close(conn);
+		}
+		
+		return result;
+	}
+
+	public int deleteBoardAttachments(String orCode) {
+		int result = 0;
+		Connection conn = null;
+		
+		try {
+			conn = getConnection();
+			result = boardDao.deleteBoardAttachments(conn, orCode);
+			commit(conn);
+		}catch(Exception e) {
+			rollback(conn);
+		}finally{
+			close(conn);
+		}
+		
+		return result;
+	}
+
+	public List<BoardComment> getBoardCommentList(int no) {
+		Connection conn = getConnection();
+		List<BoardComment> list = boardDao.getBoardCommentList(conn, no);
+		close(conn);
+		return list;
+	}
+
+	public int enrollBoardComment(BoardComment bc) {
+		int result = 0;
+		Connection conn = null;
+		
+		try {
+			conn = getConnection();
+			result = boardDao.enrollBoardComment(conn, bc);
+			commit(conn);
+		}catch(Exception e) {
+			rollback(conn);
+			throw e;
+		}finally {
+			close(conn);
+		}
+		return result;
+	}
+
+	public int readCountUp(int boardNo) {
+		Connection conn = null;
+		int result = 0;
+		
+		try {
+			conn = getConnection();
+			result = boardDao.readCountUp(conn,boardNo);
+			commit(conn);
+		}catch(Exception e) {
+			rollback(conn);
 		}finally {
 			close(conn);
 		}

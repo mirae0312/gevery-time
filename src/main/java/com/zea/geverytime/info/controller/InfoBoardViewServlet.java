@@ -1,6 +1,7 @@
 package com.zea.geverytime.info.controller;
 
 import java.io.IOException;
+import java.util.ArrayList;
 import java.util.List;
 
 import javax.servlet.ServletException;
@@ -11,6 +12,7 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
+import com.zea.geverytime.common.model.vo.Attachment;
 import com.zea.geverytime.info.model.service.InfoService;
 import com.zea.geverytime.info.model.vo.Info;
 import com.zea.geverytime.info.model.vo.InfoReview;
@@ -58,7 +60,7 @@ public class InfoBoardViewServlet extends HttpServlet {
 				int result = infoService.updateReadCount(code);
 				
 				Cookie cookie = new Cookie("infoBoardCoo", infoBoardCooVal + "[" + code + "]");
-				cookie.setPath(request.getContextPath() + "info/view");
+				cookie.setPath(request.getContextPath() + "/info/view");
 				cookie.setMaxAge(90 * 24 * 60 * 60);
 				response.addCookie(cookie);
 				
@@ -67,6 +69,23 @@ public class InfoBoardViewServlet extends HttpServlet {
 			// 게시물 가져오기
 			Info info = infoService.selectOneView(code, codeN);
 			System.out.println("[infoBoardViewServlet] info : " + info);
+			String site1 = "";
+			String site2 = "";
+			String site = info.getSite();
+			if(site != null && !site.isEmpty()) {
+				String[] sites = site.split(",");
+				if(sites.length == 2) {
+					site1 = sites[0];
+					site2 = sites[1];
+					request.setAttribute("site1", site1);
+					request.setAttribute("site2", site2);
+				}else {
+					site1 = site;
+					request.setAttribute("site1", site1);
+				}
+				
+			}
+				
 			
 			// 좋아요를 이미 체크 했다면 체크 되도록
 			HttpSession session = request.getSession();
@@ -80,6 +99,26 @@ public class InfoBoardViewServlet extends HttpServlet {
 			
 			// 리뷰 가져오기
 			List<InfoReview> ir = infoService.selectAllReview(code);
+			List<Attachment> reviewAttach = infoService.selectAllReviewAttach();
+//			System.out.println("[infoBoardViewServlet] reviewAttach : " + reviewAttach);
+			
+			Attachment attach = new Attachment();
+			List<Attachment> list = new ArrayList<>();
+			for(int i = 0; i < ir.size(); i++) {
+				String rcode = ir.get(i).getrCode();
+				for(int j = 0; j < reviewAttach.size(); j++) {
+					if(rcode.equals(reviewAttach.get(j).getCode())) {
+						attach = new Attachment(reviewAttach.get(j).getNo(),
+								reviewAttach.get(j).getCode(), reviewAttach.get(j).getOriginalFilename(), 
+								reviewAttach.get(j).getRenamedFilename(), reviewAttach.get(j).getRegDate());
+						
+						list.add(attach);
+					}
+				}
+				ir.get(i).setAttachments(list);
+				
+			}
+//			System.out.println("[infoBoardViewServlet] ir : " + ir);
 			
 			
 			// view단 처리
