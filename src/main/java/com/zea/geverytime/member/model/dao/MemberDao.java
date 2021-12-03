@@ -37,19 +37,15 @@ public class MemberDao {
 		
 		try {
 			pstmt = conn.prepareStatement(sql);
-			pstmt.setString(1, memberId);
+			pstmt.setString(1,memberId);
 			rset = pstmt.executeQuery();
 			while(rset.next()) {
-				member = new Member();
-				member.setMemberId(rset.getString("member_id"));
-				member.setPassword(rset.getString("password"));
-				member.setMemberName(rset.getString("member_name"));
-				member.setPhone(rset.getString("phone"));
-				member.setAddress(rset.getString("address"));
-				member.setEmail(rset.getString("email"));
-				member.setMemberRole(rset.getString("member_role"));
-				member.setMemberType(rset.getString("member_Type"));
-				member.setBirthday(rset.getDate("birthday"));
+				member = new Member(rset.getString("member_id"),rset.getString("password"),
+						rset.getString("email"),rset.getString("member_name"),rset.getString("phone"),
+						rset.getString("address"),
+						rset.getString("member_role"),rset.getString("member_type")
+						,rset.getDate("birthday"));
+		
 			}
 			
 		} catch (SQLException e) {
@@ -69,9 +65,9 @@ public class MemberDao {
 		
 		try {
 		pstmt = conn.prepareStatement(sql);
-		pstmt.setString(1,member.getMemberId());
+		pstmt.setString(1,member.getId());
 		pstmt.setString(2,member.getPassword());
-		pstmt.setString(3,member.getMemberName());
+		pstmt.setString(3,member.getName());
 		pstmt.setString(4,member.getPhone());
 		pstmt.setString(5,member.getAddress());
 		pstmt.setString(6,member.getEmail());

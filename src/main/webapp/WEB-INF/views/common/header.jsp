@@ -34,7 +34,7 @@
                </ul>
                <ul>
                    <!--관리자페이지표시 안 보이게 할 때 아래 한 줄만 처리해야 흐트러지지 않음 -->
-                 <%  if(loginMember != null &&MemberService.ADMIN_ROLE.equals(loginMember.getMemberRole())){ %>
+                 <%  if(loginMember != null && MemberService.ADMIN_ROLE.equals(loginMember.getMemberRole())){ %>
                    <li id="admin"><a href="<%= request.getContextPath() %>/admin/adminList" style="color: red">관리자페이지</a></li>
                	<% } %>
                </ul>
@@ -45,7 +45,7 @@
                <li class="nav" id="login" ><a href="<%=request.getContextPath()%>/member/login">로그인</a></li>
               	<% } %>
                <% if(loginMember != null){ %>
-               <li class="nav"><%= loginMember.getMemberName() %>님</li>
+               <li class="nav"><%= loginMember.getName() %>님</li>
                <li class="nav" id="logout"><a href="<%= request.getContextPath() %>/member/logout">로그아웃</a></li>
                <li class="nav" id="mypage"><a href="<%= request.getContextPath() %>/myPage/myPageMain">마이페이지</a></li>	              
                <%} %>
@@ -82,7 +82,7 @@
 	                <li class="market-pagenav" id="cart"><a href="<%= request.getContextPath() %>/cart/main?memberId=<%= loginMember.getMemberId() %>">장바구니</a></li>
 	                <% } %>
 	                <% if(loginMember != null && loginMember.getMemberType().equals("B")) { %>
-	                <li class="market-pagenav" id="product"><a href="<%= request.getContextPath() %>/product/onsaleProduct?sellerId=<%= loginMember.getMemberId() %>">상품 관리</a></li>
+	                <li class="market-pagenav" id="product"><a href="<%= request.getContextPath() %>/product/onsaleProduct?sellerId=<%= loginMember.getId() %>">상품 관리</a></li>
 	                <% } %>
 	            </ul>
 	        </div>
