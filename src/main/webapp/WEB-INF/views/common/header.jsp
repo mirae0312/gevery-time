@@ -34,7 +34,7 @@
                </ul>
                <ul>
                    <!--관리자페이지표시 안 보이게 할 때 아래 한 줄만 처리해야 흐트러지지 않음 -->
-                 <%  if(loginMember != null &&MemberService.ADMIN_ROLE.equals(loginMember.getMemberRole())){ %>
+                 <%  if(loginMember != null && MemberService.ADMIN_ROLE.equals(loginMember.getMemberRole())){ %>
                    <li id="admin"><a href="<%= request.getContextPath() %>/admin/adminList" style="color: red">관리자페이지</a></li>
                	<% } %>
                </ul>
