@@ -1257,5 +1257,24 @@ public class InfoDao {
 		
 	}
 
+	public void deleteInfoMain(Connection conn, String code) {
+		PreparedStatement pstmt = null;
+		String sql = prop.getProperty("deleteInfoMain");
+		int result = 0;
+		
+		try {
+			pstmt = conn.prepareStatement(sql);
+			
+			pstmt.setString(1, code);
+			
+			result = pstmt.executeUpdate();
+		} catch (SQLException e) {
+			throw new InfoBoardException("게시물 삭제 실패!", e);
+		}finally {
+			close(pstmt);
+		}
+		
+	}
+
 
 }

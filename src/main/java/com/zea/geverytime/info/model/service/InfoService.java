@@ -441,6 +441,21 @@ public class InfoService {
 		
 	}
 
+	public void deleteInfoMain(String code) {
+		Connection conn = null;
+		try {
+			conn = getConnection();
+			infoDao.deleteInfoMain(conn, code);
+			commit(conn);
+		}catch(Exception e) {
+			rollback(conn);
+			throw e;
+		}finally {
+			close(conn);
+		}
+		
+	}
+
 
 
 }
