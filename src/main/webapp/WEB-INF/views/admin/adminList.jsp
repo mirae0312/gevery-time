@@ -39,7 +39,13 @@
 					<td><%= info.getCode() %></td>
 					<td><%= info.getMemberId() %></td>
 					<td><%= info.getBusinessName() %></td>
-					<td><%= info.getHeadContent() %></td>
+					<td>
+			<%-- 			<a href="<%= request.getContextPath() %>/admin/check?code=<%= info.getCode() %>" target="_blank" onclick="infoCheck();"><%= info.getHeadContent() %></a> --%>
+						<a href="#"
+							target="_self" onclick="window.open('<%= request.getContextPath() %>/admin/check?code=<%= info.getCode() %>', 
+							'_blank', 'width=500px, height=500px, scrollbars = yes')"><%= info.getHeadContent() %>
+						</a>
+					</td>
 					<td><%= info.getRegDate() %></td>
 					<td><%= info.getRegCheck() %></td>	
 				</tr>
@@ -47,9 +53,15 @@
 
 			</tbody>
 		</table>
+		
 	</ul>
 </div>
 <script>
+<%-- 
+const infoCheck() => {
+    var popup = 
+    	window.open('`<%= request.getContextPath() %>/admin/check?code=\${$code}`', '_blank', 'width=500px, height=500px, scrollbars = yes');
+}; --%>
 
 </script>
 <%@ include file="/WEB-INF/views/common/footer.jsp" %>

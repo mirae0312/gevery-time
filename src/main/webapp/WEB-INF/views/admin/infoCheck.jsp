@@ -28,7 +28,25 @@
 	
 %>
 <%@ page import="java.sql.*" %>
-<%@ include file="/WEB-INF/views/common/header.jsp" %>
+<%
+	String msg = (String) session.getAttribute("msg");
+	if(msg != null) session.removeAttribute("msg");
+	
+%>
+ 
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>index</title>
+<link rel="stylesheet" href="<%=request.getContextPath() %>/css/style.css" />
+<link rel="stylesheet" href="<%=request.getContextPath() %>/css/summernote/summernote-lite.css">
+<script src="<%= request.getContextPath() %>/js/jquery-3.6.0.js"></script>
+<script src="<%= request.getContextPath() %>/js/summernote/summernote-lite.js"></script>
+<script src="<%= request.getContextPath() %>/js/summernote/lang/summernote-ko-KR.js"></script>
+
+</head>
+<body>
 <link rel="stylesheet" href="<%=request.getContextPath() %>/css/info/infoView.css" />
 <script type="text/javascript" src="//dapi.kakao.com/v2/maps/sdk.js?appkey=4247f28f0dc06c5cc8486ac837d411ff&libraries=services"></script>
 <div class="info-view-wrapper">
@@ -168,7 +186,7 @@
 		<img style="width:300px; height:200px;" src="<%= request.getContextPath() %>/upload/info/<%= pic2 %>" alt="" />
 		<p><%= info.getBodyContents() %></p>
 		<%-- 지도 --%>
-		<div id="map" style="width:500px;height:400px;"></div><br />
+		<div id="map" style="width:400px;height:300px;"></div><br />
 		<%-- 길안내 --%>
 		<div class="way-content">
 			<h1>오시는 길</h1>
@@ -233,4 +251,5 @@ geocoder.addressSearch('<%= info.getBusinessAddress() %>', function(result, stat
 
 
 </script>
-<%@ include file="/WEB-INF/views/common/footer.jsp" %>
+</body>
+</html>
