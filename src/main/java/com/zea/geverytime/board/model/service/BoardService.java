@@ -204,7 +204,7 @@ public class BoardService {
 		List<Board> list = boardDao.getFreePopularList(conn);
 		close(conn);
 		return list;
-	}
+	} 
 
 	public List<Board> selectOtherContentList(Map<String, Object> map) {
 		Connection conn = getConnection();
