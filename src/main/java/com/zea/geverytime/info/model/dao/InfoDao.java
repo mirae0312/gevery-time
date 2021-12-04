@@ -771,7 +771,6 @@ public class InfoDao {
 			rset = pstmt.executeQuery();
 			while(rset.next()) {
 				Hospital h = new Hospital();
-				h.setNo(rset.getInt("no"));
 				h.setCode(rset.getString("code"));
 				h.setService(rset.getString("service"));
 				list.add(h);
@@ -800,7 +799,6 @@ public class InfoDao {
 			rset = pstmt.executeQuery();
 			while(rset.next()) {
 				CafeRestaurant cr = new CafeRestaurant();
-				cr.setNo(rset.getInt("no"));
 				cr.setCode(rset.getString("code"));
 				cr.setService(rset.getString("service"));
 				cr.setPrice(rset.getString("price"));
@@ -831,7 +829,6 @@ public class InfoDao {
 			rset = pstmt.executeQuery();
 			while(rset.next()) {
 				Pension p = new Pension();
-				p.setNo(rset.getInt("no"));
 				p.setCode(rset.getString("code"));
 				p.setRoom(rset.getString("room"));
 				p.setPrice1(rset.getString("price1"));
@@ -866,7 +863,6 @@ public class InfoDao {
 			rset = pstmt.executeQuery();
 			while(rset.next()) {
 				Salon s = new Salon();
-				s.setNo(rset.getInt("no"));
 				s.setCode(rset.getString("code"));
 				s.setSmallBath(rset.getString("small_bath"));
 				s.setMiddleBath(rset.getString("middle_bath"));
@@ -1451,6 +1447,38 @@ public class InfoDao {
 		}
 		
 		return result;
+	}
+
+	public void deleteService(Connection conn, String code, String codeN) {
+		PreparedStatement pstmt = null;
+		String sql = "";
+		switch(codeN) {
+		case "1": 
+			sql = prop.getProperty("deleteHospitalService");
+			break;
+		case "2": 
+			sql = prop.getProperty("deleteCafeRestaurantService");
+			break;
+		case "3": 
+			sql = prop.getProperty("deletePensionService");
+			break;
+		case "4": 
+			sql = prop.getProperty("deleteSalonService");
+			break;
+		}
+		
+		try {
+			pstmt = conn.prepareStatement(sql);
+			
+			pstmt.setString(1, code);
+			
+			pstmt.executeUpdate();
+		} catch (SQLException e) {
+			throw new InfoBoardException("서비스 이전 정보 삭제 실패!", e);
+		} finally {
+			close(pstmt);
+		}
+		
 	}
 
 

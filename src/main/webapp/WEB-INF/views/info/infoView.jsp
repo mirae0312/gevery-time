@@ -36,7 +36,7 @@
 <script type="text/javascript" src="//dapi.kakao.com/v2/maps/sdk.js?appkey=4247f28f0dc06c5cc8486ac837d411ff&libraries=services,clusterer,drawing"></script>
 <div class="info-view-wrapper">
 <% if(loginMember != null && info.getMemberId().equals(loginMember.getMemberId())){ %>
-	<form method="post" name="infoBoardModifyFrm" >
+	<form enctype="multipart/form-data" name="infoBoardModifyFrm" >
 		<input type="hidden" name="code" value="<%= info.getCode() %>" />
 		<input type="hidden" name="codeN" value="<%= codeN %>" />
 		<input type="hidden" name="id" value="<%= info.getMemberId() %>" />
@@ -205,7 +205,6 @@
 			<% if(re.getAttachments() != null && !re.getAttachments().isEmpty()){ %>
 				<% for(int i = 0; i < re.getAttachments().size(); i++){ %>
 				<input type="hidden" name="attachName<%= i %>" value="<%= re.getAttachments().get(i).getRenamedFilename() %>" />
-				<input type="hidden" name="attachNo<%= i %>" value="<%= re.getAttachments().get(i).getNo() %>" />
 				<img class="reviewPictures" src="<%= request.getContextPath() %>/upload/info/<%= re.getAttachments().get(i).getRenamedFilename() %>" alt="" />
 				<% } %>
 			<% } %>
@@ -217,7 +216,6 @@
 		</div>
 				<input type="button" value="신고" class="reivew-report review-btn btn" onclick="reportReview();" />
 			<% if(loginMember != null && loginMember.getMemberId().equals(re.getMemberId())){ %>
-				<%--<input type="button" value="수정" class="modify-review review-btn btn" onclick="modifyReviewBox();" />--%>
 				<input type="button" value="삭제" class="delete-review review-btn btn" onclick="deleteReview();" />
 			<% } %>
 		<% } %>
@@ -271,9 +269,11 @@ const deleteReview = () => {
 };
 // 리뷰 수정
 const modifyReviewBox = () => {
-	if($(".mHead").val() != null && $(".mBody").val() != null){
+	if($(".mHead").val() != "" && $(".mBody").val() != ""){
 		$frm.attr("action", "<%= request.getContextPath() %>/info/reviewModify")
 			.submit();		
+	}else{
+		alert("제목과 내용을 입력하세요.");
 	}
 };
 <% if(loginMember != null){ %>
