@@ -98,28 +98,7 @@ public class InfoBoardViewServlet extends HttpServlet {
 			}
 			
 			// 리뷰 가져오기
-			List<InfoReview> ir = infoService.selectAllReview(code);
-			List<Attachment> reviewAttach = infoService.selectAllReviewAttach();
-//			System.out.println("[infoBoardViewServlet] reviewAttach : " + reviewAttach);
-			
-			Attachment attach = new Attachment();
-			List<Attachment> list = new ArrayList<>();
-			for(int i = 0; i < ir.size(); i++) {
-				String rcode = ir.get(i).getrCode();
-				for(int j = 0; j < reviewAttach.size(); j++) {
-					if(rcode.equals(reviewAttach.get(j).getCode())) {
-						attach = new Attachment(reviewAttach.get(j).getNo(),
-								reviewAttach.get(j).getCode(), reviewAttach.get(j).getOriginalFilename(), 
-								reviewAttach.get(j).getRenamedFilename(), reviewAttach.get(j).getRegDate());
-						
-						list.add(attach);
-					}
-				}
-				ir.get(i).setAttachments(list);
-				
-			}
-//			System.out.println("[infoBoardViewServlet] ir : " + ir);
-			
+			List<InfoReview> ir = infoService.selectAllReview(code);			
 			
 			// view단 처리
 			if(ir != null && !ir.isEmpty())

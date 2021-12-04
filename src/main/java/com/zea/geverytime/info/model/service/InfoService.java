@@ -67,8 +67,8 @@ public class InfoService {
 			for(int i = 0; i < list.size(); i++) {
 				String code = list.get(i).getCode();
 				attach = infoDao.selectAllAttach(conn, code);
-				System.out.println("[infoService] AllAttach : " + attach);
-				System.out.println("[infoService] code : " + code);
+//				System.out.println("[infoService] AllAttach : " + attach);
+//				System.out.println("[infoService] code : " + code);
 				
 				list.get(i).setAttachments(attach);
 			}
@@ -147,35 +147,35 @@ public class InfoService {
 			conn = getConnection();
 			result = infoDao.updateInfo(conn, info);
 			String code = info.getCode();
-			
+			infoDao.deleteService(conn,code, codeN);
 			switch(codeN) {
 			case "1": 
 				List<Hospital> hospitals = info.getHospitals();
 				for(Hospital hospital : hospitals) {
-//					System.out.println("[infoservice] hospitalService : " + hospital.getService());
 					hospital.setCode(code);
-					result = infoDao.updateHospitalService(conn, hospital);
+//					System.out.println("[infoservice] hospitalService : " + hospital);
+					result = infoDao.insertHospitalService(conn, hospital);
 				}
 				break;
 			case "2": 
 				List<CafeRestaurant> crs = info.getCafeRestaurants();
 				for(CafeRestaurant cr : crs) {
 					cr.setCode(code);
-					result = infoDao.updateCafeRestaurantService(conn, cr);
+					result = infoDao.insertCafeRestaurantService(conn, cr);
 				}
 				break;
 			case "3": 
 				List<Pension> pensions = info.getPensions();
 				for(Pension pension : pensions) {
 					pension.setCode(code);
-					result = infoDao.updatePensionService(conn, pension);
+					result = infoDao.insertPensionService(conn, pension);
 				}
 				break;
 			case "4": 
 				List<Salon> salons = info.getSalons();
 				for(Salon salon : salons) {
 					salon.setCode(code);
-					result = infoDao.updateSalonService(conn, salon);
+					result = infoDao.insertSalonService(conn, salon);
 				}
 				break;			
 			}
@@ -338,10 +338,17 @@ public class InfoService {
 
 	public List<InfoReview> selectAllReview(String code) {
 		Connection conn = null;
-		List<InfoReview> ir = null;
+		List<InfoReview> ir = new ArrayList<>();
 		try {
 			conn = getConnection();
-			ir = infoDao.selectAllReview(conn, code);
+			List<InfoReview> rcodes = infoDao.selectAllRealReviewCode(conn, code);
+			if(rcodes != null && !rcodes.isEmpty()){
+				for(InfoReview rcode : rcodes) {
+					InfoReview review = new InfoReview();
+					review = infoDao.selectAllReview(conn, rcode.getrCode());
+					ir.add(review);
+				}							
+			}			
 		}catch(Exception e) {
 			throw e;
 		}finally {
@@ -392,21 +399,6 @@ public class InfoService {
 		return result;
 	}
 
-
-	public List<Attachment> selectAllReviewAttach() {
-		Connection conn = null;
-		List<Attachment> list = null;
-		try {
-			conn = getConnection();
-			list = infoDao.selectAllReviewAttach(conn);
-		}catch(Exception e) {
-			throw e;
-		}finally {
-			close(conn);
-		}
-		return list;
-	}
-
 	public int updateInfoReview(InfoReview ir) {
 		Connection conn = null;
 		int result = 0;
@@ -437,7 +429,7 @@ public class InfoService {
 		try {
 			conn = getConnection();
 			result = infoDao.checkInfoTrue(conn, code, in);
-			System.out.println("Admin서비스" + result);
+//			System.out.println("[InfoServiceCheckInfoTrue] Admin서비스 : " + result);
 			if(result > 0)
 				commit(conn);
 		}catch(Exception e) {

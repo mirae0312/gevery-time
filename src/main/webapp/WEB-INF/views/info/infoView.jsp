@@ -31,19 +31,22 @@
 %>
 <%@ page import="java.sql.*" %>
 <%@ include file="/WEB-INF/views/common/header.jsp" %>
+<link rel="stylesheet" href="<%=request.getContextPath() %>/css/info/info.css" />
 <link rel="stylesheet" href="<%=request.getContextPath() %>/css/info/infoView.css" />
 <script type="text/javascript" src="//dapi.kakao.com/v2/maps/sdk.js?appkey=4247f28f0dc06c5cc8486ac837d411ff&libraries=services,clusterer,drawing"></script>
 <div class="info-view-wrapper">
 <% if(loginMember != null && info.getMemberId().equals(loginMember.getMemberId())){ %>
-	<form method="post" name="infoBoardModifyFrm" >
+	<form enctype="multipart/form-data" name="infoBoardModifyFrm" >
 		<input type="hidden" name="code" value="<%= info.getCode() %>" />
 		<input type="hidden" name="codeN" value="<%= codeN %>" />
 		<input type="hidden" name="id" value="<%= info.getMemberId() %>" />
-		<input type="button" value="수정" onclick="modifyInfoMain();" />
-		<input type="button" value="삭제" onclick="deleteInfoMain();" />
+		<input type="button" class="btn" value="수정" onclick="modifyInfoMain();" />
+		<input type="button" class="btn" value="삭제" onclick="deleteInfoMain();" />
 	</form>
 <% } %>
+<% if(loginMember != null && !info.getMemberId().equals(loginMember.getMemberId())){ %>
 	<input type="button" value="신고" class="reportInfoMain btn" />
+<% } %>
 	<div class="info-head-wrapper">
 		<div class="left-side">
 			<h1><%= info.getBusinessName() %></h1>
@@ -189,37 +192,40 @@
 	</div>
 	<%-- 좋아요 --%>
 	<input type="checkbox" name="like" id="info-like" <%= "G".equals(recommend) ? "checked" : "" %> />
-	<label for="info-like">좋아요</label>
+	<label for="info-like">좋아요</label><hr />
 	<div class="info-review-wrapper">
 <%-- 리뷰 그리고 신고 --%>
 <% if(ir != null && !ir.isEmpty()){ %>
-	<% for(InfoReview re : ir){ %>
-		<% if(re.getHeadContent() != null){ %>
-		<div class="info-review">
+	<% for(int i = 0; i < ir.size(); i++){ %>
+		<div class="view-control-review">
 			<form action="" class="review" name="infoBoardReviewFrm" method="POST" enctype="multipart/form-data">
-				<input type="hidden" name="pCode" value="<%= info.getCode() %>" />
-				<input type="hidden" name="reviewCode" class="reviewCode" value="<%= re.getrCode() %>" />
-				<div class="review-writer"><%= re.getMemberId() %></div>
-				<div class="review-head"><%= re.getHeadContent() %></div>
-			<% if(re.getAttachments() != null && !re.getAttachments().isEmpty()){ %>
-				<% for(int i = 0; i < re.getAttachments().size(); i++){ %>
-				<input type="hidden" name="attachName<%= i %>" value="<%= re.getAttachments().get(i).getRenamedFilename() %>" />
-				<input type="hidden" name="attachNo<%= i %>" value="<%= re.getAttachments().get(i).getNo() %>" />
-				<img class="reviewPictures" src="<%= request.getContextPath() %>/upload/info/<%= re.getAttachments().get(i).getRenamedFilename() %>" alt="" />
+				<div class="info-review">
+					<input type="hidden" name="pCode" value="<%= info.getCode() %>" />
+					<input type="hidden" name="reviewCode" class="reviewCode" value="<%= ir.get(i).getrCode() %>" />
+					<div class="review-writer"><%= ir.get(i).getMemberId() %></div>
+					<div class="review-head"><%= ir.get(i).getHeadContent() %></div>
+		<% if(ir.get(i).getAttachments() != null && !ir.get(i).getAttachments().isEmpty()){ %>
+			<% for(int j = 0; j < ir.get(i).getAttachments().size(); j++){ %>
+				<% if(ir.get(i).getrCode().equals(ir.get(i).getAttachments().get(j).getCode())){ %>
+					<input type="hidden" name="attachName<%= i %>" value="<%= ir.get(i).getAttachments().get(j).getRenamedFilename() %>" />
+					<img class="reviewPictures" src="<%= request.getContextPath() %>/upload/info/<%= ir.get(i).getAttachments().get(j).getRenamedFilename() %>" alt="" />
 				<% } %>
 			<% } %>
-				<div class="review-content"><%= re.getContent() %></div>
-				<div class="review-reg-date"><%= re.getRegDate() %></div>
-				<table id= reBox></table>
-			<%-- 리뷰 수정: 로그인을 했고 작성자라면 보이도록 --%>
-			</form>
-		</div>
-				<input type="button" value="신고" class="reivew-report review-btn" onclick="reportReview();" />
-			<% if(loginMember != null && loginMember.getMemberId().equals(re.getMemberId())){ %>
-				<input type="button" value="수정" class="modify-review review-btn" onclick="modifyReviewBox();" />
-				<input type="button" value="삭제" class="delete-review review-btn" onclick="deleteReview();" />
-			<% } %>
 		<% } %>
+					<div class="review-content"><%= ir.get(i).getContent() %></div>
+					<div class="review-reg-date"><%= ir.get(i).getRegDate() %></div>
+					<table id= reBox></table>
+				<%-- 리뷰 수정: info-review클릭 --%>
+				</div>
+		<% if(loginMember != null && loginMember.getMemberId().equals(ir.get(i).getMemberId())){ %>
+			<% if(!loginMember.getMemberId().equals(ir.get(i).getMemberId())){ %>
+					<input type="button" value="신고" class="reivew-report review-btn btn" onclick="reportReview();" />
+			<% }else{ %>
+					<input type="button" value="삭제" class="delete-review review-btn btn" onclick="deleteReview();" />
+			<% } %>
+		<% } %>	
+			</form>
+		</div>				
 	<% } %>
 <% } %>
 <%-- 리뷰 작성 --%>
@@ -238,7 +244,7 @@
 			<input type="file" name="reviewPic1" accept="image/*" onchange="previewF1();"/>
 			<input type="file" name="reviewPic2" accept="image/*" onchange="previewF2();"/>
 			<textarea name="bodyContent" id="writeReview" cols="30" rows="10" required></textarea>
-			<button class="review-enroll-btn">등록</button>
+			<button class="review-enroll-btn btn">등록</button>
 <% } %>
 		</form>
 	</div>
@@ -247,6 +253,23 @@
 // 본문,리뷰 수정 삭제 신고용 폼
 const $frm = $(document.infoBoardReviewFrm);
 const $mFrm = $(document.infoBoardModifyFrm);
+
+//리뷰신고
+<%--
+$(".review-report").click((e) => {
+	if($(e.target) == $(e.target).$(".review-report"))
+		console.log("success");
+});
+const reportReview = () => {
+	const name = "report-review";
+	const spec = "left=500px, top=500px, width=300px, height=250px";
+	const popup = open("", name, spec);
+	
+	const $frm = $(document.reviewReportFrm);
+	$frm.find
+};
+--%>
+
 // 본문 수정
 const modifyInfoMain = () => {
 	$mFrm.attr("action", "<%= request.getContextPath() %>/info/modifyMain")
@@ -270,8 +293,12 @@ const deleteReview = () => {
 };
 // 리뷰 수정
 const modifyReviewBox = () => {
-	$frm.attr("action", "<%= request.getContextPath() %>/info/reviewModify")
-		.submit();
+	if($(".mHead").val() != "" && $(".mBody").val() != ""){
+		$frm.attr("action", "<%= request.getContextPath() %>/info/reviewModify")
+			.submit();		
+	}else{
+		alert("제목과 내용을 입력하세요.");
+	}
 };
 <% if(loginMember != null){ %>
 $(".info-review").one("click", function(event){
@@ -289,6 +316,9 @@ $(".info-review").one("click", function(event){
 	<tr>
 	<td><textarea name="mBody" class="mBody" cols="30" rows="10"></textarea></td>
 	</tr>	
+	<tr>
+	<td><input type="button" value="수정" class="modify-review review-btn btn" onclick="modifyReviewBox();" /></td>
+	</tr>
 	`;
 	
 	if($btn == '<%= loginMember.getMemberId() %>'){
@@ -326,21 +356,7 @@ const previewF2 = () => {
 	}
 	reader.readAsDataURL(event.target.files[0]);
 };
-// 리뷰신고
-<%--
-$(".info-review").click((e) => {
-	if($(e.target) == $(e.target).$(".review-report"))
-		console.log("success");
-});
-const reportReview = () => {
-	const name = "report-review";
-	const spec = "left=500px, top=500px, width=300px, height=250px";
-	const popup = open("", name, spec);
-	
-	const $frm = $(document.reviewReportFrm);
-	$frm.find
-};
---%>
+
 // 좋아요
 $("#info-like").change((e) => {
 <% if(loginMember != null && MemberService.USER_ROLE.equals(loginMember.getMemberRole())){ %>

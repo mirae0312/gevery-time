@@ -7,18 +7,32 @@
 	border: 1px solid red;
 }
 
+.btn{
+  width: 80px;
+  height: 30px;
+  border: none;
+  border-radius: 10%;
+}
+
 .pop-contents{
 	display: flex;
 	margin: 50px, 0;
 }
 .pop-contents .info-wrap{
+	position: relative;
 	width: 300px;
 	height: 300px;
 	border: 1px solid black;
 	cursor: pointer;
+	padding: 8px;
+}
+.pop-contents .business-name{
+	font-size: 1.3em;
+	font-weight: bold;
 }
 .pop-contents .head-content{
-	
+	position: absolute;
+	top:260px;
 }
 .pop-contents .list-thumbnail{
 	width: 200px;
@@ -26,9 +40,19 @@
 	object-fit: cover;
 }
 .pop-contents .recommend-count{
-	float: right;
+	display:inline;
+	font-size:0.8em;
+	opacity: 0.8;
 }
 .pop-contents .view-count{
+	display:inline;
+	font-size:0.8em;
+	opacity: 0.8;
+}
+.pop-contents .popInfo-comment{
+	display:inline;
+	font-size:0.8em;
+	opacity: 0.8;
 }
 
 #info-write{
@@ -40,22 +64,44 @@
 }
 
 .all-contents .info-wrap{
+	position: relative;
 	width: 600px;
 	height: 230px;
 	border: 1px solid black;
 	cursor: pointer;
+	padding: 20px;
+}
+.all-contents .business-name{
+	font-size: 1.3em;
+	font-weight: bold;
 }
 .all-contents .head-content{
-	float: right;
+	position: absolute;
+	left:300px;
+	top: 70px;
 }
 .all-contents .list-thumbnail{
-	width: 150px;
-	height: 150px;
+	width: 250px;
+	height: 170px;
 	object-fit: cover;
+	margin: 8px, 0;
 }
-.recommend-count{
+.all-contents .recommend-count{
+	display:inline;
 }
-.view-count{
+.all-contents .view-count{
+	display:inline;
+}
+.all-contents .info-reg-date{
+	position: absolute;
+	float:right;
+	font-weight: bold;
+	opacity: 0.2;
+	right: 10px;
+	bottom: 10px;
+}
+.all-contents .info-comment-count{
+	display:inline;
 }
 
 .hidden-code{

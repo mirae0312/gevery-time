@@ -29,6 +29,7 @@
 %>
 <%@ page import="java.sql.*" %>
 <%@ include file="/WEB-INF/views/common/header.jsp" %>
+<link rel="stylesheet" href="<%=request.getContextPath() %>/css/info/info.css" />
 <script type="text/javascript" src="//dapi.kakao.com/v2/maps/sdk.js?appkey=4247f28f0dc06c5cc8486ac837d411ff&libraries=services,clusterer,drawing"></script>
 <div class="enroll-wrapper">
 	<%-- 전체 등록 폼 --%>
@@ -250,8 +251,8 @@
 				<textarea name="way" class="way" cols="30" rows="10" required><%= info.getRoadGuide() %></textarea><br />			
 			</div>
 		</div>
-		<input type="button" class="submit-btn" onclick="submitInfo();" value="등록" />
-		<input type="button" class="close-btn" onclick="backInfo();" value="취소" />
+		<input type="button" class="submit-btn btn" onclick="submitInfo();" value="등록" />
+		<input type="button" class="close-btn btn" onclick="backInfo();" value="취소" />
 	</form>
 </div>
 <script>

@@ -11,7 +11,7 @@
 <link rel="stylesheet" href="<%=request.getContextPath() %>/css/info/info.css" />
 <div class="info-wrapper">
 <% if(loginMember != null && MemberService.BUSINESS_TYPE.equals(loginMember.getMemberType())){ %>
-	<button class="info-write-btn" onclick="infoEnroll()">게시글 작성</button>
+	<button class="info-write-btn btn" onclick="infoEnroll()">게시글 작성</button>
 <% } %>
 	<div class="pop-contents">
 <% if(popList != null && !popList.isEmpty()){ %>

@@ -60,8 +60,6 @@ public class InfoReviewModifyServlet extends HttpServlet {
 			
 			System.out.println("[infoReviewModifyServlet] infoReview : " + infoReview);
 			
-			int no1 = Integer.parseInt(multipartRequest.getParameter("attachNo0"));
-			int no2 = Integer.parseInt(multipartRequest.getParameter("attachNo1"));
 			
 			File mPic1 = multipartRequest.getFile("mPic1");
 			File mPic2 = multipartRequest.getFile("mPic2");
@@ -94,8 +92,8 @@ public class InfoReviewModifyServlet extends HttpServlet {
 				}			
 			}
 			
-			int result1 = infoService.updateInfoReview(infoReview);
-			int result2 = infoService.updateAttachment(attachments);
+			infoService.updateInfoReview(infoReview);
+			infoService.updateAttachment(attachments);
 			
 			HttpSession session = request.getSession();
 			session.setAttribute("msg", "리뷰 수정 성공!");
