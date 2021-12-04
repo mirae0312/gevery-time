@@ -70,9 +70,9 @@ public class AdminCheckInfoServlet extends HttpServlet {
 		int result = 0;
 		try {
 			String code = request.getParameter("code");
+			System.out.println("[AdminCheckInfo@Servlet] code = " + code);
 			String in = "I";
 			result = infoService.checkInfoTrue(code, in);
-			System.out.println("[AdminCheckInfo@Servlet] code = " + code);
 			System.out.println("[AdminCheckInfo@Servlet] in = " + in);
 			
 			msg = (result > 0) ?

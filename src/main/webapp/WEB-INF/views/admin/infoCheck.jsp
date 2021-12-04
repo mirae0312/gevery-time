@@ -194,16 +194,29 @@
 		</div>
 	</div>
 </div>
-<form id="checkTrueFrm" action="<%= request.getContextPath() %>/admin/check" method="POST">
-	<input type="hidden" name="code" value="<%= info.getCode() %>" />
-	<button onclick="checkTrue();">승인</button>
-</form>
-<button onclick="checkFalse();">반려</button>
+	<input type="hidden" id="code" name="code" value="<%= info.getCode() %>" />
+	<button id="checkButton">승인</button>
+	<button onclick="checkFalse();">반려</button>
 <script>
-const checkTrue = () => {
-		$(checkTrueFrm).submit();
-		//close();
-};
+$("#checkButton").click((e) => {
+	$.ajax({
+		url: "<%= request.getContextPath() %>/admin/check",
+		method: "post",
+		data: {
+			code: $("#code").val()
+		},
+		success(data){
+			cosole.log("데이터전송");
+		},
+		error:console.log
+	});
+});
+/* const checkTrue = () => {
+	e.preventDefault();
+	$(checkTrueFrm).submit();
+	opener.parent.location.reload();
+	//window.close();
+}; */
 
 const checkFalse = () => {
 	close();
