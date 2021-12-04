@@ -83,6 +83,7 @@ public class AdminDao {
 					info.setHeadContent(rset.getString("head_content"));
 					info.setRegCheck(rset.getString("reg_check"));
 					info.setRegDate(rset.getDate("reg_date"));
+					info.setDeleteCheck(rset.getString("delete_check"));
 					
 					list.add(info);
 				}

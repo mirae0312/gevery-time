@@ -30,7 +30,7 @@ public class InfoDeleteMainServlet extends HttpServlet {
 			
 			String code = request.getParameter("code");
 
-			infoService.deleteInfoMain(code);
+			int result = infoService.deleteInfoMain(code);
 			
 			session.setAttribute("msg", "게시물 삭제 성공!");
 			String location = request.getContextPath() + "/";

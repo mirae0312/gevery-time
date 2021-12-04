@@ -239,7 +239,8 @@ $("#deleteButton").click((e) => {
 		url: "<%= request.getContextPath() %>/info/deleteMain",
 		method: "POST",
 		data: {
-			code: $("#code").val()
+			code: $("#code").val(),
+			output: "A"
 		},
 		success(data){
 			console.log(data);
