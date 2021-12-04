@@ -194,21 +194,20 @@
 		</div>
 	</div>
 </div>
-<form name="checkTrueFrm" action="<%= request.getContextPath() %>/admin/check">
+<form id="checkTrueFrm" action="<%= request.getContextPath() %>/admin/check" method="POST">
 	<input type="hidden" name="code" value="<%= info.getCode() %>" />
 	<button onclick="checkTrue();">승인</button>
 </form>
 <button onclick="checkFalse();">반려</button>
 <script>
-const checkTrue = () => {	
-	$(document.checkTrueFrm).submit();
-	close();
+const checkTrue = () => {
+		$(checkTrueFrm).submit();
+		//close();
 };
+
 const checkFalse = () => {
 	close();
 };
-
-
 
 // 카카오 지도 api
 var mapContainer = document.getElementById('map'), // 지도를 표시할 div 

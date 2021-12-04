@@ -43,15 +43,13 @@ public class AdminCheckInfoServlet extends HttpServlet {
 					site2 = sites[1];
 					request.setAttribute("site1", site1);
 					request.setAttribute("site2", site2);
-				}else {
+				} else {
 					site1 = site;
 					request.setAttribute("site1", site1);
 				}
-				
 			}
-			
-			
 			// view단 처리
+			System.out.println("[AdminCheckInfo@Servlet] doGet" + info);
 			request.setAttribute("codeN", codeN);
 			request.setAttribute("info", info);
 			request
@@ -67,14 +65,19 @@ public class AdminCheckInfoServlet extends HttpServlet {
 	 * @see HttpServlet#doPost(HttpServletRequest request, HttpServletResponse response)
 	 */
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-
+		System.out.println("[AdminCheckInfo@Servlet] doPost");
+		String msg = null;
+		int result = 0;
 		try {
-			
 			String code = request.getParameter("code");
 			String in = "I";
-			int result = infoService.checkInfoTrue(code, in);
+			result = infoService.checkInfoTrue(code, in);
+			System.out.println("[AdminCheckInfo@Servlet] code = " + code);
+			System.out.println("[AdminCheckInfo@Servlet] in = " + in);
 			
-		}catch(Exception e) {
+			msg = (result > 0) ?
+					"정보승인성공" : "정보승인실패";
+		} catch(Exception e) {
 			e.printStackTrace();
 			throw e;
 		}
