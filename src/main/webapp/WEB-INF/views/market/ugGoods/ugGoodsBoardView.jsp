@@ -12,7 +12,13 @@
 <title>중고거래 상품 상세보기</title>
 </head>
 <body>
-
+	<h1>상품 상세보기</h1>
+	<table>
+		<thead>
+			<th>제목</th>
+			<td><%= board.getTitle() %></td>
+		</thead>
+	</table>
 </body>
 </html>
 <%@ include file="/WEB-INF/views/common/footer.jsp" %> 
