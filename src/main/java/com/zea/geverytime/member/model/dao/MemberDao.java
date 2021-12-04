@@ -39,12 +39,15 @@ public class MemberDao {
 			pstmt = conn.prepareStatement(sql);
 			pstmt.setString(1,memberId);
 			rset = pstmt.executeQuery();
+			System.out.println("tryIn");
+			System.out.println("Id" + memberId);
+
 			while(rset.next()) {
+
 				member = new Member(rset.getString("member_id"),rset.getString("password"),
 						rset.getString("member_name"),rset.getString("phone"),rset.getString("address"),rset.getString("email"),
 						rset.getString("member_role"),rset.getString("member_type")
 						,rset.getDate("birthday"));
-		
 			}
 			
 		} catch (SQLException e) {
@@ -88,5 +91,36 @@ public class MemberDao {
 		
 		return result;
 	}
-
+	//아이디 찾기(분실시)
+		public Member searchId(Connection conn, String memberName, String email, String phone) {
+			PreparedStatement pstmt = null;
+			String sql = prop.getProperty("selectSerchId");
+			ResultSet rset = null;
+			Member member = null;
+			try {
+				pstmt = conn.prepareStatement(sql);
+				pstmt.setString(1, memberName);
+				System.out.println("memberName");
+				pstmt.setString(2, email);
+				System.out.println("email");
+				pstmt.setString(3, phone);
+				System.out.println("phone");
+				rset = pstmt.executeQuery();
+				while(rset.next()){
+					new Member(rset.getString("member_id"),rset.getString("password"),
+							rset.getString("member_name"),rset.getString("phone"),rset.getString("address"),rset.getString("email"),
+							rset.getString("member_role"),rset.getString("member_type")
+							,rset.getDate("birthday"));
+				}
+				
+			} catch (SQLException e) {
+				e.printStackTrace();
+			} finally {
+				close(rset);
+				close(pstmt);
+			}
+			
+		
+			return member;
+		}
 }

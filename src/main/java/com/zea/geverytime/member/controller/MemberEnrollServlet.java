@@ -39,8 +39,14 @@ public class MemberEnrollServlet extends HttpServlet {
 			String memberId = request.getParameter("Id");
 			String password = request.getParameter("password");
 			String memberName = request.getParameter("name");
-			String email = request.getParameter("email");
-			String phone = request.getParameter("phone");
+			String email01= request.getParameter("email01");
+			String email03 = request.getParameter("email03");
+			String selectEmail = request.getParameter("selectEmail");
+			String email = selectEmail != null ? email01.concat("@"+selectEmail): email01.concat("@"+email03);	
+			String phone1 = request.getParameter("phone1");
+			String phone2 = request.getParameter("phone2");
+			String phone3= request.getParameter("phone3");
+			String phone = phone1.concat(phone2).concat(phone3);
 			String address = request.getParameter("address");
 			String _birthday = request.getParameter("birthday"); 
 						
