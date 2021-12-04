@@ -46,7 +46,10 @@
                     </tr>
                 </tbody>
             </table>
-        </div>
+        </div>     
+        
+        <div id="ifReply"></div>
+        
         <div class="button">
         <input type="button" value="목록" onclick="showQnaBoardList()"/>
         

@@ -271,6 +271,9 @@ $(() => {
 		</tbody>
 	</table>
 	
+	<br />
+	<input type="button" value="목록으로 돌아가기" onclick="location.href='<%= request.getContextPath() %>/product/main'"/>
+	
 	<script>
 		// 답글달기
 		$(".reply").click((e) => {
