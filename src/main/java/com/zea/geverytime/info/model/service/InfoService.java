@@ -338,10 +338,17 @@ public class InfoService {
 
 	public List<InfoReview> selectAllReview(String code) {
 		Connection conn = null;
-		List<InfoReview> ir = null;
+		List<InfoReview> ir = new ArrayList<>();
 		try {
 			conn = getConnection();
-			ir = infoDao.selectAllReview(conn, code);
+			List<InfoReview> rcodes = infoDao.selectAllRealReviewCode(conn, code);
+			if(rcodes != null && !rcodes.isEmpty()){
+				for(InfoReview rcode : rcodes) {
+					InfoReview review = new InfoReview();
+					review = infoDao.selectAllReview(conn, rcode.getrCode());
+					ir.add(review);
+				}							
+			}			
 		}catch(Exception e) {
 			throw e;
 		}finally {
@@ -390,21 +397,6 @@ public class InfoService {
 			close(conn);
 		}
 		return result;
-	}
-
-
-	public List<Attachment> selectAllReviewAttach() {
-		Connection conn = null;
-		List<Attachment> list = null;
-		try {
-			conn = getConnection();
-			list = infoDao.selectAllReviewAttach(conn);
-		}catch(Exception e) {
-			throw e;
-		}finally {
-			close(conn);
-		}
-		return list;
 	}
 
 	public int updateInfoReview(InfoReview ir) {

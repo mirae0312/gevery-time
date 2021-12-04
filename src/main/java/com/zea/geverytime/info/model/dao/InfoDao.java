@@ -74,6 +74,7 @@ public class InfoDao {
 				info.setHeadContent(rset.getString("head_content"));
 				info.setViewCount(rset.getInt("view_count"));
 				info.setRecommend(rset.getInt("count"));
+				info.setCommentCount(rset.getInt("comment_count"));
 				
 				popList.add(info);				
 			}
@@ -131,6 +132,7 @@ public class InfoDao {
 				info.setViewCount(rset.getInt("view_count"));
 				info.setRecommend(rset.getInt("count"));
 				info.setRegDate(rset.getDate("reg_date"));
+				info.setCommentCount(rset.getInt("comment_count"));
 				
 				list.add(info);
 			}
@@ -188,6 +190,7 @@ public class InfoDao {
 				info.setViewCount(rset.getInt("view_count"));
 				info.setRecommend(rset.getInt("count"));
 				info.setRegDate(rset.getDate("reg_date"));
+				info.setCommentCount(rset.getInt("comment_count"));
 				
 				list.add(info);
 			}
@@ -245,6 +248,7 @@ public class InfoDao {
 				info.setViewCount(rset.getInt("view_count"));
 				info.setRecommend(rset.getInt("count"));
 				info.setRegDate(rset.getDate("reg_date"));
+				info.setCommentCount(rset.getInt("comment_count"));
 				
 				list.add(info);
 			}
@@ -302,6 +306,7 @@ public class InfoDao {
 				info.setViewCount(rset.getInt("view_count"));
 				info.setRecommend(rset.getInt("count"));
 				info.setRegDate(rset.getDate("reg_date"));
+				info.setCommentCount(rset.getInt("comment_count"));
 				
 				list.add(info);
 			}
@@ -1005,19 +1010,19 @@ public class InfoDao {
 		return recommend;
 	}
 
-	public List<InfoReview> selectAllReview(Connection conn, String code) {
+	public InfoReview selectAllReview(Connection conn, String rCode) {
 		PreparedStatement pstmt = null;
 		String sql = prop.getProperty("selectAllReview");
 		ResultSet rset = null;
-		List<InfoReview> ir = new ArrayList<>();
+		InfoReview re = null;
 		try {
 			pstmt = conn.prepareStatement(sql);
 			
-			pstmt.setString(1, code);
+			pstmt.setString(1, rCode);
 			
 			rset = pstmt.executeQuery();
-			while(rset.next()) {
-				InfoReview re = new InfoReview();
+			if(rset.next()) {
+				re = new InfoReview();
 				re.setNo(rset.getInt("no"));
 				re.setrCode(rset.getString("r_code"));
 				re.setCode(rset.getString("code"));
@@ -1027,7 +1032,21 @@ public class InfoDao {
 				re.setContent(rset.getString("content"));
 				re.setRegDate(rset.getDate("reg_date"));
 				
-				ir.add(re);
+				String attachCode = rCode;
+				if(attachCode != null && !attachCode.isEmpty()) {
+					List<Attachment> attachments = new ArrayList<>();
+					do {
+						Attachment attach = new Attachment();
+						attach.setNo(rset.getInt("no"));
+						attach.setCode(rset.getString("or_no"));
+						attach.setOriginalFilename(rset.getString("original_filename"));
+						attach.setRenamedFilename(rset.getString("renamed_filename"));
+						attach.setRegDate(rset.getDate("reg_date"));
+						attachments.add(attach);
+					}while(rset.next());
+					re.setAttachments(attachments);
+				}
+				
 			}
 		} catch (SQLException e) {
 			throw new InfoBoardException("리뷰 가져오기 실패!", e);
@@ -1036,7 +1055,7 @@ public class InfoDao {
 			close(pstmt);
 		}
 		
-		return ir;
+		return re;
 	}
 
 	public InfoReview checkReview(Connection conn, String code, String memberId) {
@@ -1155,35 +1174,6 @@ public class InfoDao {
 		return result;
 	}
 
-
-	public List<Attachment> selectAllReviewAttach(Connection conn) {
-		PreparedStatement pstmt = null;
-		String sql = prop.getProperty("selectAllReviewAttach");
-		ResultSet rset = null;
-		List<Attachment> list = new ArrayList<>();
-		
-		try {
-			pstmt = conn.prepareStatement(sql);
-			
-			rset = pstmt.executeQuery();
-			while(rset.next()) {
-				Attachment attach = new Attachment();
-				attach.setNo(rset.getInt("no"));
-				attach.setCode(rset.getString("or_no"));
-				attach.setOriginalFilename(rset.getString("original_filename"));
-				attach.setRenamedFilename(rset.getString("renamed_filename"));
-				attach.setRegDate(rset.getDate("reg_date"));
-				list.add(attach);
-			}
-		} catch (SQLException e) {
-			throw new InfoBoardException("리뷰 가져오기(첨부파일) 실패!", e);
-		}finally {
-			close(rset);
-			close(pstmt);
-		}
-		
-		return list;
-	}
 
 	public int updateInfoReview(Connection conn, InfoReview ir) {
 		PreparedStatement pstmt = null;
@@ -1480,6 +1470,34 @@ public class InfoDao {
 		}
 		
 	}
+
+	public List<InfoReview> selectAllRealReviewCode(Connection conn, String code) {
+		PreparedStatement pstmt = null;
+		String sql = prop.getProperty("selectAllRealReviewCode");
+		ResultSet rset = null;
+		List<InfoReview> list = new ArrayList<>();
+		
+		try {
+			pstmt = conn.prepareStatement(sql);
+			
+			pstmt.setString(1, code);
+			
+			rset = pstmt.executeQuery();
+			while(rset.next()) {
+				InfoReview ir = new InfoReview();
+				ir.setrCode(rset.getString("r_code"));
+				list.add(ir);				
+			}
+		} catch (SQLException e) {
+			throw new InfoBoardException("리뷰코드 배열 가져오기 실패!", e);
+		} finally {
+			close(rset);
+			close(pstmt);
+		}
+		
+		return list;
+	}
+
 
 
 }
