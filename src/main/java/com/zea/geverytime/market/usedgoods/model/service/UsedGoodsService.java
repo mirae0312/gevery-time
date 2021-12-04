@@ -140,4 +140,29 @@ public class UsedGoodsService {
 		}
 		return result;
 	}
+
+	public int deleteBoard(int boardNo) {
+		Connection conn = getConnection();
+		int result = 0;
+		try {
+			// 삭제 전 orCode 받아오기
+			UsedGoodsBoard board = ugDao.getUgGoodsBoard(conn, boardNo);
+			String orCode = board.getOrCode();
+			
+			// DB에서 board 삭제
+			result = ugDao.deleteBoard(conn, boardNo);
+			
+			// Attachment 삭제
+			if(result > 0) {
+				result = ugDao.deleteAttachments(conn, orCode);				
+			}
+			commit(conn);
+		} catch(Exception e) {
+			rollback(conn);
+			e.printStackTrace();
+		} finally {
+			close(conn);
+		}
+		return result;
+	}
 }

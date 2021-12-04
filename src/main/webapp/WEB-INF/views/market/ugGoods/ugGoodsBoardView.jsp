@@ -21,6 +21,9 @@
 	<% if(loginMember != null && loginMember.getMemberId().equals(board.getWriter())) { %>
 	<input type="button" value="수정하기" id="boardUpdate"/>
 	<input type="button" value="삭제하기" id="boardDelete"/>
+	<form action="<%= request.getContextPath() %>/ugGoods/deleteBoard" name="boardDeleteFrm" method="POST">
+		<input type="hidden" name="boardNo" value="<%= board.getNo() %>" />
+	</form>
 	<% } %>
 	<table>
 		<thead>
@@ -49,6 +52,20 @@
 				<th>상태</th>
 				<td><%= state %></td>
 			</tr>
+			
+			<!-- 구매자 > 구매요청 : value는 비동기로 처리 -->
+			<% if(loginMember != null && !loginMember.getMemberId().equals(board.getWriter())) { %>
+			<tr>
+				<td colspan=2><input type="button" value="구매요청" id="requestBtn"/></td>
+			</tr>
+			<% } %>
+			
+			<!-- 판매자 > 요청확인 : 비동기로 처리  -->
+			<% if(loginMember != null && loginMember.getMemberId().equals(board.getWriter())) { %>
+			<tr>
+				<td colspan=2><input type="button" value="요청확인" id="requestBtn"/></td>
+			</tr>
+			<% } %>
 			
 		<%
 		int imgNum = 1;
@@ -79,7 +96,9 @@
 		$("#boardUpdate").click((e) => {
 			location.href="<%= request.getContextPath() %>/ugGoods/boardUpdateForm?boardNo=<%= board.getNo() %>";
 		});
-	
+		$("#boardDelete").click((e) => {
+			$(document.boardDeleteFrm).submit();
+		});
 	</script>
 </body>
 </html>
