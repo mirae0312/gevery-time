@@ -27,11 +27,15 @@ public class DeleteMemberServlet extends HttpServlet {
 		try {
 			String memberId = request.getParameter("memberId");
 			int result = myPageService.deleteMember(memberId);
-			HttpSession session = request.getSession();
+			HttpSession session = request.getSession(false);
 			
 			if(result > 0) {
+				System.out.println("탈퇴성공");
 				session.setAttribute("msg", "회원탈퇴성공");
 				session.removeAttribute("loginMember");
+				
+				if(session != null)
+					session.invalidate();
 				
 				// cookie 제거
 				Cookie cookie = new Cookie("saveId", memberId);
