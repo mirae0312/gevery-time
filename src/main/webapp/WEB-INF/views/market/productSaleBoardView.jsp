@@ -153,9 +153,6 @@ $(() => {
 			<tr>
 				<td colspan=2><input type="button" value="장바구니 담기" class="purchaseNeedLogin" /></td>
 			</tr>
-			<tr>
-				<td colspan=2><input type="button" value="찜목록 담기" class="purchaseNeedLogin" /></td>
-			</tr>
 			<% } %>
 			<tr>
 				<th colspan=2>내용</th>
@@ -328,7 +325,9 @@ $(() => {
 				success(data){
 					console.log(data);
 					if(confirm(data.msg)){
+						<% if(loginMember != null) { %>
 						location.href="<%= request.getContextPath() %>/cart/main?memberId=<%= loginMember.getMemberId() %>";
+						<% } %>
 					}
 				},
 				error : console.log
