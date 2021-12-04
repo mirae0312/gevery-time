@@ -48,7 +48,9 @@
             </table>
         </div>     
         
-        <div id="ifReply"></div>
+        <div id="ifReply">
+        
+        </div>
         
         <div class="button">
         <input type="button" value="목록" onclick="showQnaBoardList()"/>
@@ -102,6 +104,34 @@
  		}
  	};
  	
+
+   $(() => {
+         // ajax
+         $.ajax({
+             url: "<%= request.getContextPath() %>/customer/getAnswer",
+             method: "GET",
+             data:{
+                 no: <%= qnaBoard.getNo() %>
+             },
+             success(data){
+                 console.log(data);
+               
+                 $(data).each((i, {title, writer, content}) => {
+                 const reply = 
+                 `<table style="border:solid";>
+                 <tr>
+                     <td>\${title}</td>
+                     <td>\${writer}</td>
+                     <td>\${content}</td>
+                </tr>
+                </table>
+                `;
+                 $("#ifReply").append(reply);
+                });
+    			},
+             error:console.log
+         });
+            	});
  </script>
 <%@ include file="/WEB-INF/views/common/footer.jsp" %>
 		

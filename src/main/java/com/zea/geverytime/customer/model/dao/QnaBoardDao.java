@@ -466,10 +466,9 @@ public class QnaBoardDao {
 			reportBoard.setReportNo(rset.getInt("report_no"));
 			reportBoard.setTitle(rset.getString("title"));
 			reportBoard.setContent(rset.getString("content"));
-			reportBoard.setReportCode(rset.getInt("report_code"));
+			reportBoard.setReportCode(rset.getString("report_code"));
 			reportBoard.setReportCheck(rset.getString("report_check"));
 			reportBoard.setMemberId(rset.getString("member_id"));
-			reportBoard.setBusinessNo(rset.getString("business_no"));
 			reportBoard.setRegDate(rset.getDate("reg_date"));
 			
 			list.add(reportBoard);
@@ -504,10 +503,9 @@ public class QnaBoardDao {
 			reportBoard.setReportNo(rset.getInt("report_no"));
 			reportBoard.setTitle(rset.getString("title"));
 			reportBoard.setContent(rset.getString("content"));
-			reportBoard.setReportCode(rset.getInt("report_code"));
+			reportBoard.setReportCode(rset.getString("report_code"));
 			reportBoard.setReportCheck(rset.getString("report_check"));
 			reportBoard.setMemberId(rset.getString("member_id"));
-			reportBoard.setBusinessNo(rset.getString("business_no"));
 			reportBoard.setRegDate(rset.getDate("reg_date"));
 			 
 		 
@@ -548,6 +546,39 @@ public class QnaBoardDao {
 		}
 		return cnt;
 	}
+
+
+	//답글상세
+	public QnaBoard selectQnaBoardReply(Connection conn, int no) {
+		QnaBoard qnaBoard = null;
+		PreparedStatement pstmt = null;
+		ResultSet rset = null;
+		
+		String sql = prop.getProperty("selectQnaBoardReply");
+		//selectQnaBoardReply = select * from qna_board where reply_ref =?
+	try {
+		pstmt = conn.prepareStatement(sql);
+		pstmt.setInt(1, no);
+		rset = pstmt.executeQuery();
+		
+		if(rset.next()){
+			qnaBoard = new QnaBoard();
+			qnaBoard.setNo(rset.getInt("no"));
+			qnaBoard.setTitle(rset.getString("title"));
+			qnaBoard.setWriter(rset.getString("writer"));
+			qnaBoard.setContent(rset.getString("content"));
+			 
+		}
+	}catch(Exception e){
+		e.printStackTrace();
+	}finally{
+		close(rset);
+		close(pstmt);
+	}
+	return qnaBoard;
+ 
 	 
+	}
+
 	 
 }
