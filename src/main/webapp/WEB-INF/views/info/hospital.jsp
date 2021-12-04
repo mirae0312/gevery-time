@@ -33,8 +33,8 @@
 		</select>
 		<select name="lining" class="lining">
 			<option value="new">정렬</option>
-			<option value="new">최신순</option>
 			<option value="old">등록순</option>
+			<option value="new">최신순</option>
 			<option value="view">방문순</option>
 			<option value="like">추천순</option>
 		</select>
@@ -87,14 +87,18 @@ const scrollPage = () => {
 			
 			const $div = $(".info-content");
 			
-			$data.each((i, {code, businessName, headContent, attachments, recommend, viewCount}) => {
+			$data.each((i, {code, businessName, headContent, attachments, recommend, viewCount, regDate}) => {
 				
+				let rd = new Date(regDate);
+				let value = `\${rd.getFullYear()}.\${(rd.getMonth() + 1)}.\${(rd.getDate())}`;
+				console.log(value);
 				const $contents = `<div class="info-wrap">
 				<div class="business-name">\${businessName}</div>
 				<div class="head-content">\${headContent}</div>				
 				<img class="list-thumbnail" src="<%= request.getContextPath() %>/upload/info/\${attachments[0].renamedFilename}" alt="" />
 				<div class="recommend-count">추천수 : \${recommend}</div>
 				<div class="view-count">조회수 : \${viewCount}</div>	
+				<div class="reg-date">\${value}</div>
 				<div class="hidden-code">\${code}</div>
 				</div><hr />
 				`;
