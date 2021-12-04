@@ -33,7 +33,7 @@
 		<div class="wrap">
 		<div id="userName">[<%=member.getMemberName()%>]님의 아이디</div><br>
 		<div id="userId">[<%=member.getMemberId() %>] 입니다.</div>
-		<button id="button" class="btn btn-outline-info " onclick="<%=request.getContextPath()%>/member/login.jsp">로그인 하러가기</button>
+		<button id="button" class="btn btn-outline-info " display:block onclick = "window.close()"; >확인</button>
 		</div>
 	</body>
 </html>
