@@ -437,6 +437,7 @@ public class InfoService {
 		try {
 			conn = getConnection();
 			result = infoDao.checkInfoTrue(conn, code, in);
+			System.out.println("Admin서비스" + result);
 			if(result > 0)
 				commit(conn);
 		}catch(Exception e) {

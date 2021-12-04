@@ -67,4 +67,6 @@ public class MyPageService {
 			}
 			return result;
 		}
+
+		
 }
