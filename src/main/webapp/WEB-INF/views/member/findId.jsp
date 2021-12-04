@@ -28,15 +28,15 @@
 	
 	<table class ="table" style="margin:0 auto;width:700px;">
 		<tr>
-			<td><input type="text" name="Name" id="name" class="form-control" placeholder="이름을 입력하세요"></td>
+			<td><input type="text" name="name" id="name" class="form-control" placeholder="이름을 입력하세요"></td>
 		</tr>
 		<br>
 		<tr>
-			<td><input type="text" name="Email" id="email"class="form-control" placeholder="이메일을 입력하세요"></td>
+			<td><input type="text" name="email" id="email"class="form-control" placeholder="이메일을 입력하세요"></td>
 		</tr>
 		<br>
 		<tr>
-			<td><input type="text" name="Phone" id="phone" class="form-control" placeholder="전화번호를 입력하세요 (- 제외)"></td>
+			<td><input type="text" name="phone" id="phone" class="form-control" placeholder="전화번호를 입력하세요 (- 제외)"></td>
 		</tr>
 	</table>
 	<button type="button" id="searchBtn" class= "btn btn-outline-info btn sm" onclick="searchId()">검색</button>

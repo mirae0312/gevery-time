@@ -59,8 +59,8 @@ public class MemberService {
 		Connection conn = getConnection();
 		
 		// 2.Dao요청
-		MemberDao dao = new MemberDao();
-		Member m = dao.searchId(conn, memberName, email, phone);
+		MemberDao Dao = new MemberDao();
+		Member m = Dao.searchId(conn, memberName, email, phone);
 		System.out.println("m : " + m);
 		
 		

@@ -25,15 +25,15 @@ public class IdFindServlet extends HttpServlet {
 		String email = request.getParameter("email");
 		String phone = request.getParameter("phone");
 		//3.비지니스로직
-		MemberService service = new MemberService();
-		Member member = service.searchId(memberName,email,phone);
+		MemberService memberService = new MemberService();
+		Member member = memberService.searchId(memberName,email,phone);
 		
 		System.out.println("member : " + member);
 
 		//4.뷰 처리
 		if(member != null) {
 			RequestDispatcher rd = request.getRequestDispatcher("/WEB-INF/views/member/findId.jsp");
-			request.setAttribute("members", member);
+			request.setAttribute("member", member);
 			rd.forward(request, response);
 			
 		}else {

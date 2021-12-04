@@ -94,14 +94,17 @@ public class MemberDao {
 	//아이디 찾기(분실시)
 		public Member searchId(Connection conn, String memberName, String email, String phone) {
 			PreparedStatement pstmt = null;
-			String sql = prop.getProperty("selectSearchId");
+			String sql = prop.getProperty("selectSerchId");
 			ResultSet rset = null;
-			Member m = null;
+			Member member = null;
 			try {
 				pstmt = conn.prepareStatement(sql);
 				pstmt.setString(1, memberName);
+				System.out.println("memberName");
 				pstmt.setString(2, email);
+				System.out.println("email");
 				pstmt.setString(3, phone);
+				System.out.println("phone");
 				rset = pstmt.executeQuery();
 				while(rset.next()){
 					new Member(rset.getString("member_id"),rset.getString("password"),
@@ -118,6 +121,6 @@ public class MemberDao {
 			}
 			
 		
-			return m;
+			return member;
 		}
 }
