@@ -247,13 +247,11 @@
 // 본문,리뷰 수정 삭제 신고용 폼
 const $frm = $(document.infoBoardReviewFrm);
 const $mFrm = $(document.infoBoardModifyFrm);
-
 // 본문 수정
 const modifyInfoMain = () => {
 	$mFrm.attr("action", "<%= request.getContextPath() %>/info/modifyMain")
 		.submit();
 }
-
 // 본문 삭제
 const deleteInfoMain = () => {
 	const check = confirm("정말 삭제하시나요?");
@@ -262,7 +260,6 @@ const deleteInfoMain = () => {
 			.submit();
 	}
 };
-
 // 리뷰 삭제
 const deleteReview = () => {
 	const check = confirm("정말 삭제하시나요?");
@@ -271,15 +268,12 @@ const deleteReview = () => {
 			.submit();
 	}	
 };
-
-
 // 리뷰 수정
 const modifyReviewBox = () => {
 	$frm.attr("action", "<%= request.getContextPath() %>/info/reviewModify")
 		.submit();
 };
 <% if(loginMember != null){ %>
-
 $(".info-review").one("click", function(event){
 	
 	const $btn = $(event.currentTarget).find('div.review-writer').text();
@@ -314,10 +308,7 @@ $(".info-review").one("click", function(event){
 		]
 	});
 });
-
 <% } %>
-
-
 // 리뷰등록하기 사진 미리보기
 const previewF1 = () => {
 	const reader = new FileReader();
@@ -335,9 +326,6 @@ const previewF2 = () => {
 	}
 	reader.readAsDataURL(event.target.files[0]);
 };
-
-
-
 // 리뷰신고
 <%--
 $(".info-review").click((e) => {
@@ -353,7 +341,6 @@ const reportReview = () => {
 	$frm.find
 };
 --%>
-
 // 좋아요
 $("#info-like").change((e) => {
 <% if(loginMember != null && MemberService.USER_ROLE.equals(loginMember.getMemberRole())){ %>
@@ -392,7 +379,6 @@ $("#info-like").change((e) => {
 	$("#info-like").attr("disabled", "disabled");
 <% } %>
 });
-
 // summernote
 $(document).ready(function() {
 	$('#writeReview').summernote({
@@ -408,7 +394,6 @@ $(document).ready(function() {
 			['height', ['height']],
 		]
 	});
-
 	
 });
 </script>
@@ -418,16 +403,12 @@ var mapContainer = document.getElementById('map'), // 지도를 표시할 div
 	    center: new kakao.maps.LatLng(33.450701, 126.570667), // 지도의 중심좌표
 	    level: 3 // 지도의 확대 레벨
 };  
-
 //지도를 생성합니다    
 var map = new kakao.maps.Map(mapContainer, mapOption); 
-
 //주소-좌표 변환 객체를 생성합니다
 var geocoder = new kakao.maps.services.Geocoder();
-
 //주소로 좌표를 검색합니다
 geocoder.addressSearch('<%= info.getBusinessAddress() %>', function(result, status) {
-
 // 정상적으로 검색이 완료됐으면 
 	if (status === kakao.maps.services.Status.OK) {
 	

@@ -70,6 +70,7 @@ public class BoardViewServlet extends HttpServlet {
 			list = boardService.getBoardCommentList(boardNo);
 			System.out.println(list);
 		}
+		
 		// 3. 응답처리
 		request.setAttribute("comment",list);
 		request.setAttribute("board", board);

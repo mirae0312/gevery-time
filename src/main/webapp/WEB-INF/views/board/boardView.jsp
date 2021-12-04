@@ -7,9 +7,9 @@
     <%@ include file="/WEB-INF/views/common/header.jsp" %>
     
 <%
-	Board board = (Board) request.getAttribute("board");
+	Board board = (Board)request.getAttribute("board");
+	List<Board> other = (List<Board>)request.getAttribute("otherBoard");
 %>
-<link rel="stylesheet" href="<%=request.getContextPath()%>/css/board.css" />
 <section id="board-container">
 	<h2>게시판</h2>
 	<table id="tbl-board-view">
@@ -53,6 +53,11 @@
 			<td>
 				<%= board.getContent() %> 
 			</td>
+		</tr>
+		<tr>
+		<td>
+		<button class="btn-board-like">좋아요 <%=board.getLikeCount()%></button>		
+		</td>
 		</tr>
 		<% 	if(
 				loginMember != null && 
@@ -108,6 +113,7 @@
 					<%= bc.getContent() %>
 				</td>
 				<td>
+				<button class="btn-comment-like" value="<%= bc.getNo() %>">좋아요 <%=bc.getLikeCount()%></button>
 					<button class="btn-reply" value="<%= bc.getNo() %>">답글</button>
 					<% if(loginMember!= null){	
 						if(loginMember.getMemberId().equals(bc.getWriter())
@@ -126,6 +132,7 @@
 					<br />
 					<%-- 대댓글내용 --%>
 					<%= bc.getContent() %>
+					<button class="btn-comment-like" value="<%= bc.getNo() %>">좋아요 <%=bc.getLikeCount()%></button>
 					<% if(loginMember!= null){	
 						if(loginMember.getMemberId().equals(bc.getWriter())
 								|| loginMember.getMemberRole().equals(MemberService.ADMIN_ROLE)){
@@ -146,6 +153,26 @@
 		
 	</div>
 </section>
+<section class="sameWriterOtherBoardList">
+<h4><%=board.getWriter() %>님의 다른 게시물</h4>
+<table id="otherBoardList">
+		<thead>
+			<tr>
+				<th>번호</th>
+				<th>제목</th>
+				<th>글쓴이</th>
+				<th>첨부파일</th>
+				<th>조회수</th>
+				<th>추천수</th>
+				<th>등록일</th>
+			</tr>
+		</thead>
+		<tbody>
+		</tbody>
+	</table>
+	<div class="pageBar"></div>
+</section>
+
 <form
 	name="boardDelFrm"
 	method="POST" 
@@ -154,14 +181,45 @@
 </form>
 
 <form
-	name="commentDelFrm"
+	name="boardLikeFrm"
 	method="POST"
-	action="<%= request.getContextPath() %>/board/commentDelete">
-	<input type="hidden" name="commentNo"/>
+	action="<%= request.getContextPath() %>/board/boardLike">
 	<input type="hidden" name="boardNo" value="<%=board.getNo()%>"/>
 </form>
+<form
+	name="commentLikeFrm"
+	method="POST"
+	action="<%= request.getContextPath() %>/board/commentLike">
+	<input type="hidden" name="boardNo" value=""/>
+</form>
 <script>
-
+	//좋아요
+	$(".btn-board-like").click((e)=>{
+		<%if(loginMember == null){%>
+			loginAlert();
+			return;
+		<%}%>
+		
+	});
+	$(".btn-comment-like").click((e)=>{
+		<%if(loginMember == null){%>
+			loginAlert();
+			return;
+		<%}%>
+		$.ajax({
+			url : "<%= request.getContextPath() %>/board/commentLike",
+			data : {
+				no : $(e.target).val(),
+				id : loginMember.getMemberId()
+			},
+			success(data){ // 해당 댓글의 좋아요 수
+				console.log(data)
+			},
+			error:console.log
+		});
+		
+	});
+	//댓글삭제
 	$(".btn-deleteComment").click((e)=>{
 		if(confirm("댓글을 삭제하시겠습니까?")){
 			$(document.commentDelFrm)
@@ -258,6 +316,66 @@
 	
 	const updateBoard = () => {
 		location.href = "<%= request.getContextPath() %>/board/boardUpdate?no=<%= board.getNo() %>";
+	};
+	
+	//글쓴이의 다른 게시글 목록
+	const f = function(n){
+        return n<10 ? `0\${n}`:n;
+    }
+	$(()=>{
+		selectContent(1);
+	});
+	$(".pageBar").click((e)=>{
+		selectContent($(e.target).data('page'));
+	})
+	const selectContent = (cPage) => {
+		const writer = "<%=board.getWriter()%>";
+		$.ajax({
+			url:"<%=request.getContextPath()%>/board/otherBoardList",
+			dataType:"json",
+			data:{
+				cPage,
+				writer
+			},
+			success(data){
+				console.log(data);
+				$("#otherBoardList tbody").empty();
+				//boardList부분
+				$(data.list).each((i,e)=>{
+					const d = new Date(e.regDate);
+					const date = `\${d.getFullYear()}-\${f(d.getMonth())}-\${f(d.getDate())}`
+					console.log($(e.no));
+					let img = "";
+					let commentCount = "";
+					if(e.attachCount>0){
+						img = "<img src=\"<%=request.getContextPath() %>/images/file.png\"  width=\"16px\"/>";
+					}
+					if(e.commentCount>0){
+						console.log(e.commentCount);
+						commentCount = '('+e.commentCount+')';
+						console.log(commentCount);
+					}
+					const tr = `			<tr>
+	 					<td>\${e.no}</td>
+	 					<td><a href="<%=request.getContextPath()%>/board/boardView?no=\${e.no}">\${e.title}</a> \${commentCount}</td>
+						<td>\${e.writer}</td>
+						<td>
+	 						\${img}
+	 					</td>
+						<td>\${e.readCount}</td>
+						<td>\${e.likeCount}</td>
+						<td>\${date}</td>
+					</tr>`
+					$("#otherBoardList tbody").append(tr);
+					
+				})
+				//pagebar부분
+				console.log(data.pagebar);
+				$(".pageBar").empty();
+				$(".pageBar").append(data.pagebar);
+			},
+			error:console.log
+		});	
 	};
 	
 </script>

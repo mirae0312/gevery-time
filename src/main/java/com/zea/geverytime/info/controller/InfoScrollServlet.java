@@ -39,7 +39,8 @@ public class InfoScrollServlet extends HttpServlet {
 						
 			// 전체 게시물
 			List<Info> list = infoService.selectAllList(board, start, end, n);
-	
+//			for(Info info : list)
+//				System.out.println("[infoScrollServlet] infoList : " + info);
 			
 			response.setContentType("application/json; charset=utf-8");
 			new Gson().toJson(list, response.getWriter());

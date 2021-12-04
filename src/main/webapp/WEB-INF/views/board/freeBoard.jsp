@@ -3,13 +3,52 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
 <%@ include file="/WEB-INF/views/common/header.jsp" %>
-<% List<Board> list = (List<Board>)request.getAttribute("list"); %>
+<% List<Board> list = (List<Board>)request.getAttribute("list"); 
+List<Board> popularList = (List<Board>)request.getAttribute("popularList"); 
+%>
 <html>
 <head>
 <meta charset="UTF-8">
 <title>Insert title here</title>
 </head>
 <body>
+		<%if(popularList != null && !popularList.isEmpty()){%>
+<h2>인기게시물</h2>
+<table id="popularBoardList">
+		<thead>
+			<tr>
+				<th>번호</th>
+				<th>제목</th>
+				<th>글쓴이</th>
+				<th>첨부파일</th>
+				<th>조회수</th>
+				<th>추천수</th>
+				<th>등록일</th>
+			</tr>
+		</thead>
+		<tbody>
+		<%for(Board board : popularList) {%>
+		<tr>
+				<td><%=board.getNo()%></td>
+				<td>
+					<a href="<%= request.getContextPath()%>/board/boardView?no=<%=board.getNo()%>">
+						<%=board.getTitle()%> <%=board.getCommentCount()>0? "("+board.getCommentCount()+")":""%>
+					</a>
+				</td>
+				<td><%=board.getWriter()%></td>
+				<td>
+<% if(board.getAttachCount()>0){ %>
+					<img src="<%=request.getContextPath() %>/images/file.png" alt="" width="16px" />
+<%} %>
+				</td>
+				<td><%=board.getReadCount()%></td>
+				<td><%=board.getLikeCount()%></td>
+				<td><%=board.getRegDate()%></td>
+			</tr>
+			<%} %>
+		</tbody>
+	</table>
+	<%} %>
 	<input type="button" value="글쓰기" id="btn-add" onclick="location.href='<%=request.getContextPath()%>/board/boardForm'" />
 	<select name="animal" id="animal">
 		<option value="Free">선택</option>
@@ -39,6 +78,9 @@
 	<div class="pageBar">
 </div>
 <script>
+const f = function(n){
+    return n<10 ? `0\${n}`:n;
+}
 $(()=>{
 	selectContent(1);
 });
@@ -71,6 +113,8 @@ const selectContent = (cPage) => {
 			$("#boardList tbody").empty();
 			//boardList부분
 			$(data.list).each((i,e)=>{
+				const d = new Date(e.regDate);
+				const date = `\${d.getFullYear()}-\${f(d.getMonth())}-\${f(d.getDate())}`
 				console.log($(e.no));
 				let img = "";
 				let commentCount = "";
@@ -91,7 +135,7 @@ const selectContent = (cPage) => {
  					</td>
 					<td>\${e.readCount}</td>
 					<td>\${e.likeCount}</td>
-					<td>\${e.regDate}</td>
+					<td>\${date}</td>
 				</tr>`
 				console.log($("#boardList tbody"));
 				$("#boardList tbody").append(tr);
