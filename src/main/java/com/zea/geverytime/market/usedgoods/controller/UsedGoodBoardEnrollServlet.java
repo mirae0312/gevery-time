@@ -1,4 +1,4 @@
-package com.zea.geverytime.market.productsale.controller;
+package com.zea.geverytime.market.usedgoods.controller;
 
 import java.io.File;
 import java.io.IOException;
@@ -17,44 +17,37 @@ import com.oreilly.servlet.multipart.FileRenamePolicy;
 import com.zea.geverytime.common.MvcFileRenamePolicy;
 import com.zea.geverytime.common.MvcUtils;
 import com.zea.geverytime.common.model.vo.Attachment;
-import com.zea.geverytime.market.productsale.model.service.ProductSaleService;
-import com.zea.geverytime.market.productsale.model.vo.ProductBoard;
+import com.zea.geverytime.market.usedgoods.model.service.UsedGoodsService;
+import com.zea.geverytime.market.usedgoods.model.vo.UsedGoodsBoard;
 
 /**
- * Servlet implementation class ProductSaleBoardEnroll
+ * Servlet implementation class UsedGoodBoardEnrollServlet
  */
-@WebServlet("/product/boardEnroll")
-public class ProductSaleBoardEnrollServlet extends HttpServlet {
+@WebServlet("/ugGoods/boardEnroll")
+public class UsedGoodBoardEnrollServlet extends HttpServlet {
 	private static final long serialVersionUID = 1L;
-	private ProductSaleService pdtService = new ProductSaleService();
+	private UsedGoodsService ugService = new UsedGoodsService();
 
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		
-		// 첨부파일 
-		String saveDirectory = getServletContext().getRealPath("/upload/market/productSale");
-
+		// 첨부파일 관리
+		String saveDirectory = getServletContext().getRealPath("/upload/market/UgSale");
 		int maxPostSize = 1024*1024*10;
 		
 		FileRenamePolicy policy = new MvcFileRenamePolicy();
 		
 		MultipartRequest multipartRequest = new MultipartRequest(request, saveDirectory, maxPostSize, "utf-8", policy);
 		
-		// 게시글정보
+		// 요청 파라미터
 		String title = multipartRequest.getParameter("title");
-		String author = multipartRequest.getParameter("author");
+		String writer = multipartRequest.getParameter("writer");
+		int price = Integer.parseInt(multipartRequest.getParameter("price"));
 		String content = multipartRequest.getParameter("summernote");
-		System.out.println("enrollServ@content : "+content);
+
 		
-		// 물품정보
-		int pdtNo = Integer.parseInt(multipartRequest.getParameter("pdtNo"));
-		
-		// vo객체에 담기
-		ProductBoard pdtBoard = new ProductBoard(0, null, title, content, null, author, pdtNo);
-				
-		// attachment original FileName, renamed FileName set
+		// attachment DB 등록
 		Enumeration fileNames = multipartRequest.getFileNames();
 		List<Attachment> attachments = new ArrayList<>();
-		while(fileNames.hasMoreElements()){
+		while(fileNames.hasMoreElements()) {
 			String fileName = (String) fileNames.nextElement();
 			
 			File upFile = multipartRequest.getFile(fileName);
@@ -63,17 +56,26 @@ public class ProductSaleBoardEnrollServlet extends HttpServlet {
 				attachments.add(attach);
 			}
 		}
-
-		// board DB 등록 프로세스 진행
-		int result = pdtService.productSaleBoardEnroll(pdtBoard, attachments);
-		System.out.println("serv@result:" + result);
 		
+		UsedGoodsBoard ugBoard = new UsedGoodsBoard(0, title, content, null, null, writer, price);
+		ugBoard.setAttachment(attachments);
 		
-		// boardNo 가져오기
-		int boardNo = pdtBoard.getBoardNo();
-		System.out.println("bdEnrollServ@boardNo :" + boardNo);
+		// 게시물 DB 등록
+		int result = ugService.insertUgBoard(ugBoard, attachments);
+		System.out.println("중고거래 게시물 등록 결과 : "+result);
 		
-		response.sendRedirect(request.getContextPath()+"/product/boardView?no="+boardNo);
+		String msg = "";
+		if(result > 0) {
+			msg = "판매글이 등록되었습니다.";
+		} else {
+			msg = "판매글이 정상적으로 등록되지 않았습니다.";
+		}
+		
+		int boardNo = ugBoard.getNo();
+		
+		request.getSession().setAttribute("msg", msg);
+		response.sendRedirect(request.getContextPath()+"/ugGoods/boardView?boardNo="+boardNo);
+		
 	}
 
 }

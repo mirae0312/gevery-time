@@ -89,7 +89,6 @@
 	<script>
 		// 상품 등록하기
 		$("#pdtEnroll").click((e) => {
-			console.log("click");
 			location.href="<%= request.getContextPath() %>/product/productForm";
 		});
 		
