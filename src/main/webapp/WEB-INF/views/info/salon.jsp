@@ -47,10 +47,12 @@
 </div>
 <form action=""></form>
 <script>
+// 시작시 ajax실행
 $(() => {
 	scrollPage();
 });
 
+// 게시물 상세보기 용
 $(".info-wrap").click((e) => {
 	const $code = $(e.currentTarget).find('div.hidden-code').text();
 	console.log($code);
@@ -58,15 +60,18 @@ $(".info-wrap").click((e) => {
 	location.href=`<%= request.getContextPath() %>/info/view?code=\${$code}`;
 });
 
+// 게시물 등록
 const infoEnroll = () => {
 	location.href="<%= request.getContextPath() %>/info/Enroll";
 };
 
+// ajax data
 var loading = false;
 var page = 1;
 var pageCheck = "<%= check %>";
 var n = "new";
 
+// select 값이 변하면 페이지 비우고 ajax 재시작
 $(".lining").change((e) => {
 	$(".info-content").empty();	
 	page = 1;
@@ -126,7 +131,7 @@ const scrollPage = () => {
 
 }
 
-
+// scroll 위치지정 및 ajax실행
 $(window).scroll(function(){
 	if($(window).scrollTop() + 10 >= $(document).height() - $(window).height()){
 		if(!loading){
