@@ -1223,7 +1223,7 @@ public class InfoDao {
 			pstmt.setString(2, code);
 			
 			result = pstmt.executeUpdate();
-			
+			System.out.println("Dao admin = " + result);
 		} catch (SQLException e) {
 			throw new InfoBoardException("게시물 승인 실패!", e);
 		}finally {
