@@ -1,7 +1,8 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
 <%
-	String memberId = request.getParameter("memeberId");
+	String memberId = request.getParameter("memberId");
+	System.out.println("memberId = " + memberId);
 	boolean available = (boolean) request.getAttribute("available");
 %>
 <!DOCTYPE html>
@@ -25,9 +26,9 @@ span#duplicated{color:red; font-weight:bold;}
 	[<span id="duplicated"><%= memberId %></span>]는 이미 사용중입니다.
 	<form 
 		name="checkIdDuplicateFrm" 
-		action="<%= request.getContextPath() %>/member/checkIdDuplicate"
+		action="<%= request.getContextPath() %>/member/checkDuplicate"
 		method="GET">
-		<input type="text" name="memberId" placeholder="아이디를 입려하세요."/>
+		<input type="text" name="memberId" placeholder="아이디를 입력하세요."/>
 		<input type="submit" value="아이디중복검사" />
 	</form>
 	
@@ -37,7 +38,7 @@ span#duplicated{color:red; font-weight:bold;}
 const popupClose = () => {
 	// opener는 popup창을 생성한 페이지의 window객체
 	const $frm = $(opener.document.memberEnrollFrm);
-	$frm.find("[name=Id]").val("<%= memberId %>");
+	$frm.find("[name=memberId]").val("<%= memberId %>");
 	$frm.find("#idValid").val(1);
 	close();
 };
