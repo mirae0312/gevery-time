@@ -13,6 +13,16 @@ public class Business extends CommonData implements Serializable{
 	private String businessType;
 	
 
+	public Business() {
+		super();
+		// TODO Auto-generated constructor stub
+	}
+
+	public Business(String id, String password, String name, String email) {
+		super(id, password, name, email);
+		// TODO Auto-generated constructor stub
+	}
+
 	public Business(String Id,
 			String password,
 			String name,
@@ -28,6 +38,7 @@ public class Business extends CommonData implements Serializable{
 			
 			this.businessNo = businessNo;
 			this.bName = bName;
+			this.bAddress = bAddress;
 			this.bTel  = bTel;
 			this.location = location;
 			this.businessType = businessType;
@@ -83,6 +94,13 @@ public class Business extends CommonData implements Serializable{
 
 	public static long getSerialversionuid() {
 		return serialVersionUID;
+	}
+
+	@Override
+	public String toString() {
+		return "Business [businessNo=" + businessNo + ", bName=" + bName + ", bAddress=" + bAddress + ", bTel=" + bTel
+				+ ", location=" + location + ", businessType=" + businessType + ", Id=" + Id + ", password=" + password
+				+ ", name=" + name + ", email=" + email + "]";
 	}
 	
 

@@ -18,10 +18,10 @@
 	<% for(Info popInfo : popList){ %>
 		<div class="info-wrap">
 			<div class="business-name"><%= popInfo.getBusinessName() %></div>
-			<div class="head-content"><%= popInfo.getHeadContent() %></div>
 			<img class="list-thumbnail" src="<%= request.getContextPath() %>/upload/info/<%= popInfo.getAttachments().get(0).getRenamedFilename() %>" alt="" />
-			<div class="recommend-count"><%= popInfo.getRecommend() %></div>
-			<div class="view-count"><%= popInfo.getViewCount() %></div>	
+			<div class="head-content"><%= popInfo.getHeadContent() %></div>
+			<div class="recommend-count">추천수 : <%= popInfo.getRecommend() %></div>
+			<div class="view-count">조회수 : <%= popInfo.getViewCount() %></div>	
 			<div class="hidden-code"><%= popInfo.getCode() %></div>	
 		</div>
 	<% } %>
@@ -31,27 +31,26 @@
 		<select name="location" id="location">
 			<option value="">지역</option>
 		</select>
+		<select name="lining" class="lining">
+			<option value="new">정렬</option>
+			<option value="old">등록순</option>
+			<option value="new">최신순</option>
+			<option value="view">방문순</option>
+			<option value="like">추천순</option>
+		</select>
 	</div>
 	<div class="all-contents">
 		<div class="info-content">
-<% if(list != null && !list.isEmpty()){ %>
-	<% for(Info info : list){ %>
-			<div class="info-wrap">
-				<div class="business-name"><%= info.getBusinessName() %></div>
-				<div class="head-content"><%= info.getHeadContent() %></div>
-				<img class="list-thumbnail" src="<%= request.getContextPath() %>/upload/info/<%= info.getAttachments().get(0).getRenamedFilename() %>" alt="" />
-				<div class="recommend-count"><%= info.getRecommend() %></div>
-				<div class="view-count"><%= info.getViewCount() %></div>
-				<div class="hidden-code"><%= info.getCode() %></div>
-			</div>
-	<% } %>
-<% } %>
-			<hr />
 		</div>
 
 	</div>
 </div>
+<form action=""></form>
 <script>
+$(() => {
+	scrollPage();
+});
+
 $(".info-wrap").click((e) => {
 	const $code = $(e.currentTarget).find('div.hidden-code').text();
 	console.log($code);
@@ -63,15 +62,24 @@ const infoEnroll = () => {
 	location.href="<%= request.getContextPath() %>/info/Enroll";
 };
 
-
 var loading = false;
-var page = 2;
+var page = 1;
 var pageCheck = "<%= check %>";
+var n = "new";
 
-const scrollPage = () => {
+$(".lining").change((e) => {
+	$(".info-content").empty();	
+	page = 1;
+	n = $(".lining").val();
+	scrollPage();
+});
+
+
+const scrollPage = () => {	
+	
 	$.ajax({
 		url: "<%= request.getContextPath() %>/info/scrollList",
-		data: {'page':page, 'pageCheck':pageCheck},
+		data: {'page':page, 'pageCheck':pageCheck, 'n':n},
 		dataType: "json",
 		success(data){
 			const $data = $(data);
@@ -79,16 +87,20 @@ const scrollPage = () => {
 			
 			const $div = $(".info-content");
 			
-			$data.each((i, {code, businessName, headContent, attachments, recommend, viewCount}) => {
+			$data.each((i, {code, businessName, headContent, attachments, recommend, viewCount, regDate}) => {
 				
+				let rd = new Date(regDate);
+				let value = `\${rd.getFullYear()}.\${(rd.getMonth() + 1)}.\${(rd.getDate())}`;
+				console.log(value);
 				const $contents = `<div class="info-wrap">
 				<div class="business-name">\${businessName}</div>
 				<div class="head-content">\${headContent}</div>				
 				<img class="list-thumbnail" src="<%= request.getContextPath() %>/upload/info/\${attachments[0].renamedFilename}" alt="" />
-				<div class="recommend-count">\${recommend}</div>
-				<div class="view-count">\${viewCount}</div>	
+				<div class="recommend-count">추천수 : \${recommend}</div>
+				<div class="view-count">조회수 : \${viewCount}</div>	
+				<div class="reg-date">\${value}</div>
 				<div class="hidden-code">\${code}</div>
-				</div>
+				</div><hr />
 				`;
 				$div.append($contents);
 				$(".info-wrap").click((e) => {
@@ -96,11 +108,9 @@ const scrollPage = () => {
 					console.log($code);
 					
 					location.href=`<%= request.getContextPath() %>/info/view?code=\${$code}`;
-				});
-				
+				});				
 				
 			});
-			$div.append(`<hr />`);
 			
 			page++;
 			
@@ -112,8 +122,10 @@ const scrollPage = () => {
 			console.log(pageCheck);
 		},
 		error: console.log
-	});
+	});		
+
 }
+
 
 $(window).scroll(function(){
 	if($(window).scrollTop() + 10 >= $(document).height() - $(window).height()){

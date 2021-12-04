@@ -37,7 +37,7 @@ span#duplicated{color:red; font-weight:bold;}
 const popupClose = () => {
 	// opener는 popup창을 생성한 페이지의 window객체
 	const $frm = $(opener.document.memberEnrollFrm);
-	$frm.find("[name=memberId]").val("<%= memberId %>");
+	$frm.find("[name=Id]").val("<%= memberId %>");
 	$frm.find("#idValid").val(1);
 	close();
 };

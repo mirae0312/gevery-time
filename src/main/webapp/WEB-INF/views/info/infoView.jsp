@@ -32,12 +32,18 @@
 <%@ page import="java.sql.*" %>
 <%@ include file="/WEB-INF/views/common/header.jsp" %>
 <link rel="stylesheet" href="<%=request.getContextPath() %>/css/info/infoView.css" />
-
 <script type="text/javascript" src="//dapi.kakao.com/v2/maps/sdk.js?appkey=4247f28f0dc06c5cc8486ac837d411ff&libraries=services,clusterer,drawing"></script>
 <div class="info-view-wrapper">
 <% if(loginMember != null && info.getMemberId().equals(loginMember.getMemberId())){ %>
-	<input value="수정" type="button" onclick="" />
+	<form method="post" name="infoBoardModifyFrm" >
+		<input type="hidden" name="code" value="<%= info.getCode() %>" />
+		<input type="hidden" name="codeN" value="<%= codeN %>" />
+		<input type="hidden" name="id" value="<%= info.getMemberId() %>" />
+		<input type="button" value="수정" onclick="modifyInfoMain();" />
+		<input type="button" value="삭제" onclick="deleteInfoMain();" />
+	</form>
 <% } %>
+	<input type="button" value="신고" class="reportInfoMain btn" />
 	<div class="info-head-wrapper">
 		<div class="left-side">
 			<h1><%= info.getBusinessName() %></h1>
@@ -171,8 +177,8 @@
 	</div><br />
 	<%-- 바디 내용 --%>
 	<div class="info-body-wrapper">
-<%-- 		<img style="width:300px; height:200px;" src="<%= request.getContextPath() %>/upload/info/<%= pic2 %>" alt="" />
- --%>		<p><%= info.getBodyContents() %></p>
+		<img style="width:300px; height:200px;" src="<%= request.getContextPath() %>/upload/info/<%= pic2 %>" alt="" />
+		<p><%= info.getBodyContents() %></p>
 		<%-- 지도 --%>
 		<div id="map" style="width:500px;height:400px;"></div><br />
 		<%-- 길안내 --%>
@@ -190,27 +196,29 @@
 	<% for(InfoReview re : ir){ %>
 		<% if(re.getHeadContent() != null){ %>
 		<div class="info-review">
-			<form action="" class="review" name="infoBoardReviewFrm" method="POST">
+			<form action="" class="review" name="infoBoardReviewFrm" method="POST" enctype="multipart/form-data">
 				<input type="hidden" name="pCode" value="<%= info.getCode() %>" />
-				<input type="hidden" class="reviewCode" value="<%= re.getrCode() %>" />
+				<input type="hidden" name="reviewCode" class="reviewCode" value="<%= re.getrCode() %>" />
 				<div class="review-writer"><%= re.getMemberId() %></div>
 				<div class="review-head"><%= re.getHeadContent() %></div>
 			<% if(re.getAttachments() != null && !re.getAttachments().isEmpty()){ %>
-				<% for(Attachment attach : re.getAttachments()){ %>
-				<input type="hidden" name="attachNo" value="<%= attach.getNo() %>" />
-				<img class="reviewPictures" src="<%= request.getContextPath() %>/upload/info/<%= attach.getRenamedFilename() %>" alt="" />
+				<% for(int i = 0; i < re.getAttachments().size(); i++){ %>
+				<input type="hidden" name="attachName<%= i %>" value="<%= re.getAttachments().get(i).getRenamedFilename() %>" />
+				<input type="hidden" name="attachNo<%= i %>" value="<%= re.getAttachments().get(i).getNo() %>" />
+				<img class="reviewPictures" src="<%= request.getContextPath() %>/upload/info/<%= re.getAttachments().get(i).getRenamedFilename() %>" alt="" />
 				<% } %>
 			<% } %>
 				<div class="review-content"><%= re.getContent() %></div>
 				<div class="review-reg-date"><%= re.getRegDate() %></div>
+				<table id= reBox></table>
 			<%-- 리뷰 수정: 로그인을 했고 작성자라면 보이도록 --%>
-			<% if(loginMember != null && loginMember.getMemberId().equals(re.getMemberId())){ %>
-				<div class="reBox"></div>
-				<input type="button" value="수정" class="modify-review review-btn" onclick="modifyReviewBox();" />
-			<% } %>
-				<input type="button" value="신고" class="reivew-report review-btn" onclick="reportReview();" />
 			</form>
 		</div>
+				<input type="button" value="신고" class="reivew-report review-btn" onclick="reportReview();" />
+			<% if(loginMember != null && loginMember.getMemberId().equals(re.getMemberId())){ %>
+				<input type="button" value="수정" class="modify-review review-btn" onclick="modifyReviewBox();" />
+				<input type="button" value="삭제" class="delete-review review-btn" onclick="deleteReview();" />
+			<% } %>
 		<% } %>
 	<% } %>
 <% } %>
@@ -236,19 +244,71 @@
 	</div>
 </div>
 <script>
-// 리뷰 수정
+// 본문,리뷰 수정 삭제 신고용 폼
 const $frm = $(document.infoBoardReviewFrm);
+const $mFrm = $(document.infoBoardModifyFrm);
+// 본문 수정
+const modifyInfoMain = () => {
+	$mFrm.attr("action", "<%= request.getContextPath() %>/info/modifyMain")
+		.submit();
+}
+// 본문 삭제
+const deleteInfoMain = () => {
+	const check = confirm("정말 삭제하시나요?");
+	if(check){
+		$mFrm.attr("action", "<%= request.getContextPath() %>/info/deleteMain")
+			.submit();
+	}
+};
+// 리뷰 삭제
+const deleteReview = () => {
+	const check = confirm("정말 삭제하시나요?");
+	if(check){
+		$frm.attr("action", "<%= request.getContextPath() %>/info/deleteReview")
+			.submit();
+	}	
+};
+// 리뷰 수정
 const modifyReviewBox = () => {
 	$frm.attr("action", "<%= request.getContextPath() %>/info/reviewModify")
 		.submit();
 };
 <% if(loginMember != null){ %>
-
-
-
+$(".info-review").one("click", function(event){
+	
+	const $btn = $(event.currentTarget).find('div.review-writer').text();
+	const $reBox = $("#reBox");
+	const $box = `
+	<tr>
+	<td><input type="file" name="mPic1" accept="image/*" onchange="previewF3();"/></td>
+	<td><input type="file" name="mPic2" accept="image/*" onchange="previewF4();"/></td>
+	</tr>
+	<tr>
+	<td colspan="2"><input type="text" class="mHead" name="mHead" /></td>
+	</tr>
+	<tr>
+	<td><textarea name="mBody" class="mBody" cols="30" rows="10"></textarea></td>
+	</tr>	
+	`;
+	
+	if($btn == '<%= loginMember.getMemberId() %>'){
+		$reBox.append($box);		
+	}
+	$('.mBody').summernote({
+		height: 300,
+		focus: false,
+		disableResizeEditor: true,
+		toolbar: [
+			['style', ['bold', 'italic', 'underline', 'clear']],
+			['font', ['strikethrough', 'superscript', 'subscript']],
+			['fontsize', ['fontsize']],
+			['color', ['color']],
+			['para', ['ul', 'ol', 'paragraph']],
+			['height', ['height']],
+		]
+	});
+});
 <% } %>
-
-
 // 리뷰등록하기 사진 미리보기
 const previewF1 = () => {
 	const reader = new FileReader();
@@ -266,8 +326,6 @@ const previewF2 = () => {
 	}
 	reader.readAsDataURL(event.target.files[0]);
 };
-
-
 // 리뷰신고
 <%--
 $(".info-review").click((e) => {
@@ -283,7 +341,6 @@ const reportReview = () => {
 	$frm.find
 };
 --%>
-
 // 좋아요
 $("#info-like").change((e) => {
 <% if(loginMember != null && MemberService.USER_ROLE.equals(loginMember.getMemberRole())){ %>
@@ -322,22 +379,9 @@ $("#info-like").change((e) => {
 	$("#info-like").attr("disabled", "disabled");
 <% } %>
 });
-
 // summernote
-$(".info-review").one("click", function(event){
-	
-	const $btn = $(event.currentTarget).find('div.review-writer').text();
-	const $reBox = $(event.currentTarget).find('div.reBox');
-	const $box = `
-	<input type="file" name="reviewPic1" accept="image/*" onchange="previewF1();"/>
-	<input type="file" name="reviewPic2" accept="image/*" onchange="previewF2();"/>
-	<input type="text" class="mHead" name="mHead" />
-	<textarea name="mBody" class="mBody" cols="30" rows="10"></textarea>
-	`;
-	if($btn == '<%= loginMember.getMemberId() %>'){
-		$reBox.append($box);		
-	}
-	$('.mBody').summernote({
+$(document).ready(function() {
+	$('#writeReview').summernote({
 		height: 300,
 		focus: false,
 		disableResizeEditor: true,
@@ -350,10 +394,8 @@ $(".info-review").one("click", function(event){
 			['height', ['height']],
 		]
 	});
+	
 });
-
-
-
 </script>
 <script>
 var mapContainer = document.getElementById('map'), // 지도를 표시할 div 
@@ -361,16 +403,12 @@ var mapContainer = document.getElementById('map'), // 지도를 표시할 div
 	    center: new kakao.maps.LatLng(33.450701, 126.570667), // 지도의 중심좌표
 	    level: 3 // 지도의 확대 레벨
 };  
-
 //지도를 생성합니다    
 var map = new kakao.maps.Map(mapContainer, mapOption); 
-
 //주소-좌표 변환 객체를 생성합니다
 var geocoder = new kakao.maps.services.Geocoder();
-
 //주소로 좌표를 검색합니다
-geocoder.addressSearch('서울 영등포구 양평로 5 성원빌딩', function(result, status) {
-
+geocoder.addressSearch('<%= info.getBusinessAddress() %>', function(result, status) {
 // 정상적으로 검색이 완료됐으면 
 	if (status === kakao.maps.services.Status.OK) {
 	

@@ -193,22 +193,33 @@
 	<input type="hidden" name="boardNo" value=""/>
 </form>
 <script>
+	//좋아요
 	$(".btn-board-like").click((e)=>{
 		<%if(loginMember == null){%>
 			loginAlert();
 			return;
 		<%}%>
-		$(document.boardLikeFrm).submit();
+		
 	});
 	$(".btn-comment-like").click((e)=>{
 		<%if(loginMember == null){%>
 			loginAlert();
 			return;
 		<%}%>
-		console.log($(e.target).val());
-		$(document.commentLikeFrm).children().val($(e.target).val());
-		$(document.commentLikeFrm).submit();
+		$.ajax({
+			url : "<%= request.getContextPath() %>/board/commentLike",
+			data : {
+				no : $(e.target).val(),
+				id : loginMember.getMemberId()
+			},
+			success(data){ // 해당 댓글의 좋아요 수
+				console.log(data)
+			},
+			error:console.log
+		});
+		
 	});
+	//댓글삭제
 	$(".btn-deleteComment").click((e)=>{
 		if(confirm("댓글을 삭제하시겠습니까?")){
 			$(document.commentDelFrm)
