@@ -32,7 +32,6 @@ public class ProductSaleBoardEnrollServlet extends HttpServlet {
 		
 		// 첨부파일 
 		String saveDirectory = getServletContext().getRealPath("/upload/market/productSale");
-		System.out.println("saveDirectory : "+saveDirectory);
 
 		int maxPostSize = 1024*1024*10;
 		
@@ -52,12 +51,11 @@ public class ProductSaleBoardEnrollServlet extends HttpServlet {
 		// vo객체에 담기
 		ProductBoard pdtBoard = new ProductBoard(0, null, title, content, null, author, pdtNo);
 				
-		// attachment DB 등록 프로세스 진행
+		// attachment original FileName, renamed FileName set
 		Enumeration fileNames = multipartRequest.getFileNames();
 		List<Attachment> attachments = new ArrayList<>();
 		while(fileNames.hasMoreElements()){
 			String fileName = (String) fileNames.nextElement();
-			System.out.println("pdtBoardEnrollServ@fileName : "+fileName);
 			
 			File upFile = multipartRequest.getFile(fileName);
 			if(upFile != null) {
