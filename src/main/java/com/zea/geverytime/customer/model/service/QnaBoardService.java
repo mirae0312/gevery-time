@@ -227,7 +227,15 @@ public class QnaBoardService {
 		close(conn);
 		return cnt;
 	}
-	
+
+	//답글상세보기
+	public QnaBoard selectQnaBoardReply(int no) {
+		 Connection conn = getConnection();
+		 QnaBoard qnaBoard2 = qnaBoardDao.selectQnaBoardReply(conn, no);
+		 close(conn);
+		 return qnaBoard2;
+		 
+	}
  
 	}
  

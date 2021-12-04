@@ -102,6 +102,31 @@
  		}
  	};
  	
+
+   $(() => {
+         // ajax
+         $.ajax({
+             url: "<%= request.getContextPath() %>/customer/getAnswer",
+             method: "GET",
+             data:{
+                 no: <%= qnaBoard.getNo() %>
+             },
+             success(data){
+                 console.log(data);
+                 //여기서 위에 
+                 $(data).each((i, {title, writer, content}) => {
+                 const reply = 
+                 `<tr>
+                     <td>\${title}</td>
+                     <td>\${writer}</td>
+                     <td>\${content}</td>
+                </tr>`;
+                 $("#ifReply").append(reply);
+                });
+    			},
+             error:console.log
+         });
+            	});
  </script>
 <%@ include file="/WEB-INF/views/common/footer.jsp" %>
 		

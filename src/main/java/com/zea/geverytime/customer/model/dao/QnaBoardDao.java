@@ -548,6 +548,39 @@ public class QnaBoardDao {
 		}
 		return cnt;
 	}
+
+
+	//답글상세
+	public QnaBoard selectQnaBoardReply(Connection conn, int no) {
+		QnaBoard qnaBoard = null;
+		PreparedStatement pstmt = null;
+		ResultSet rset = null;
+		
+		String sql = prop.getProperty("selectQnaBoardReply");
+		//selectQnaBoardReply = select * from qna_board where reply_ref =?
+	try {
+		pstmt = conn.prepareStatement(sql);
+		pstmt.setInt(1, no);
+		rset = pstmt.executeQuery();
+		
+		if(rset.next()){
+			qnaBoard = new QnaBoard();
+			qnaBoard.setNo(rset.getInt("no"));
+			qnaBoard.setTitle(rset.getString("title"));
+			qnaBoard.setWriter(rset.getString("writer"));
+			qnaBoard.setContent(rset.getString("content"));
+			 
+		}
+	}catch(Exception e){
+		e.printStackTrace();
+	}finally{
+		close(rset);
+		close(pstmt);
+	}
+	return qnaBoard;
+ 
 	 
+	}
+
 	 
 }
