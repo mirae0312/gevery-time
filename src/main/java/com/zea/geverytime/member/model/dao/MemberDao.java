@@ -92,7 +92,7 @@ public class MemberDao {
 		return result;
 	}
 	//아이디 찾기(분실시)
-		public Member searchId(Connection conn, String memberName, String email, String phone) {
+		public Member searchId(Connection conn, String memberName, String email) {
 			PreparedStatement pstmt = null;
 			String sql = prop.getProperty("selectSerchId");
 			ResultSet rset = null;
@@ -102,9 +102,7 @@ public class MemberDao {
 				pstmt.setString(1, memberName);
 				System.out.println("memberName");
 				pstmt.setString(2, email);
-				System.out.println("email");
-				pstmt.setString(3, phone);
-				System.out.println("phone");
+				System.out.println("email");						
 				rset = pstmt.executeQuery();
 				while(rset.next()){
 					new Member(rset.getString("member_id"),rset.getString("password"),

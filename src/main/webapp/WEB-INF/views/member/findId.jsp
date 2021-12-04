@@ -19,7 +19,6 @@
 	<form name="searchFrm">
 		<input type="hidden" name="name">
 		<input type="hidden" name="email">
-		<input type="hidden" name="phone">
 	</form>
 	
 	
@@ -34,10 +33,7 @@
 		<tr>
 			<td><input type="text" name="email" id="email"class="form-control" placeholder="이메일을 입력하세요"></td>
 		</tr>
-		<br>
-		<tr>
-			<td><input type="text" name="phone" id="phone" class="form-control" placeholder="전화번호를 입력하세요 (- 제외)"></td>
-		</tr>
+		<br>	
 	</table>
 	<button type="button" id="searchBtn" class= "btn btn-outline-info btn sm" onclick="searchId()">검색</button>
 
@@ -45,19 +41,18 @@
 	</section>
 	
 	<script>
+     
       function searchId(){
          var name = document.getElementById("name").value;
+         	console.log(name);
          var email = document.getElementById("email").value;
-         var phone = document.getElementById("phone").value;
-         if(name == "" && email == "" && phone == ""){
+         	console.log(email);
+         if(name == "" && email == ""  ){
             alert("모든 정보를 입력해주세요.");
             return;
          }
-         
-         var url = "/member/findId"; // 요청 서블릿 url
-         
+         var url ="<%=request.getContextPath()%>/member/IdFindGetServlet"; // 요청 서블릿 url
          var title ="searchId"; //윈도우 창 이름
-         
          var status = "left=500px, top=100px, width=300px, height=200px, menubar-no, status=no, scrollbar=yes";
          
          
@@ -65,15 +60,15 @@
          
          searchFrm.name.value=name;
          searchFrm.email.value=email;
-         searchFrm.phone.value=phone;
          
          searchFrm.target = title;//popup창과 form태그를 연결
          //action,method설정 후 form태그 submit
          searchFrm.action = url;
-         searchFrm.method="post";
+         searchFrm.method="GET";
          
          searchFrm.submit();
       }
+ 
    </script>
 	
 	
