@@ -42,7 +42,7 @@ public static final String BUSINESSTYPE = "B";
 		Connection conn = getConnection();
 		
 		// 2. Dao에 쿼리실행 요청
-	Business business = businessDao.selectOneMember(conn,businessId);
+	Business business = businessDao.selectOneMember(conn, businessId);
 		
 		// 3. Connection자원반납
 		close(conn);
