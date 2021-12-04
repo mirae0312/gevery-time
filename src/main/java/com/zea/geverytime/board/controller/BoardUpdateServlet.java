@@ -78,7 +78,7 @@ public class BoardUpdateServlet extends HttpServlet {
 			}
 			System.out.println(board);
 			int result = boardService.updateBoard(board);
-			
+			System.out.println(result);
 			// 선택파일 삭제
 			String delFiles[] = multipartRequest.getParameterValues("delFile");
 			if(delFiles != null) {
@@ -98,6 +98,8 @@ public class BoardUpdateServlet extends HttpServlet {
 			
 			// 3. 응답처리
 			String msg = result>0? "게시글 수정 완료":"게시글 수정 실패";
+			System.out.println(result);
+			System.out.println(msg);
 			request.getSession().setAttribute("msg", msg);
 			response.sendRedirect(request.getContextPath()+"/board/boardView?no="+board.getNo());
 		}catch(Exception e) {

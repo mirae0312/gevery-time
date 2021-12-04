@@ -11,6 +11,7 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 import com.google.gson.Gson;
+import com.zea.geverytime.customer.model.vo.QnaBoard;
 import com.zea.geverytime.market.cart.model.service.CartService;
 import com.zea.geverytime.market.cart.model.vo.Cart;
 
@@ -47,7 +48,7 @@ public class CartAddPdtServlet extends HttpServlet {
 		map.put("msg", msg);
 		
 		response.setContentType("application/json; charset=utf-8");
-		new Gson().toJson(map, response.getWriter());		
+		new Gson().toJson(map, response.getWriter());				
 	}
 
 }

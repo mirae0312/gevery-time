@@ -9,23 +9,17 @@ import java.sql.Connection;
 import java.util.List;
 import java.util.Map;
 
+import com.zea.geverytime.board.model.vo.Board;
 import com.zea.geverytime.customer.model.dao.QnaBoardDao;
 import com.zea.geverytime.customer.model.vo.FaqBoard;
 import com.zea.geverytime.customer.model.vo.QnaBoard;
+import com.zea.geverytime.customer.model.vo.ReportBoard;
 
  
 
 public class QnaBoardService {
 	
 	private QnaBoardDao qnaBoardDao = new QnaBoardDao();
-
-//////게시판 목록 조회하기///////
-//	public List<QnaBoard> selectAllQnaBoard(Map<String, Integer> param) {
-//		Connection conn = getConnection();
-//		List<QnaBoard> list = qnaBoardDao.selectAllQnaBoard(conn, param);
-//		close(conn);
-//		return list;
-//	}
 	
 ////게시판 목록 조회하기///////
 	public List<QnaBoard> selectAllQnaBoard(Map<String, Integer> param) {
@@ -190,7 +184,9 @@ public class QnaBoardService {
 		}
 		return result;
 	}
-
+	
+	 
+	//[답변완료]표시 
 	public int addQnaBoardState(int replyRef) {
 		Connection conn = getConnection();
 		int result = 0;
@@ -206,23 +202,41 @@ public class QnaBoardService {
 		return result;
 	}
 
-	//원글 상태 변경
-//	public int changeParent(int parentNo) {
-//		Connection conn = null;
-//		int result = 0;
-//		try {
-//		conn = getConnection();
-//		result = qnaBoardDao.changeParent(conn, parentNo);
-//		commit(conn);
-//		}catch(Exception e) {
-//			rollback(conn);
-//			throw e;
-//		}finally {
-//			close(conn);
-//		}
-//		return result;
-//	}
+	
+	//신고게시판 전체조회
+	public List<ReportBoard> selectAllReportBoard() {
+		Connection conn = getConnection();
+		List<ReportBoard> list = qnaBoardDao.selectAllReportBoard(conn);
+		close(conn);
+		return list;
+	}
 
+	//신고게시판 상세보기
+	public ReportBoard selectOneReportBoard(int no) {
+		 Connection conn = getConnection();
+		 ReportBoard reportBoard = qnaBoardDao.selectOneReportBoard(conn, no);
+		 close(conn);
+		 return reportBoard;
+		 
+	}
+
+	//비밀번호 체크 
+	public int passwordCheck(int no, String password) {
+		Connection conn = getConnection();
+		int cnt  = qnaBoardDao.passwordCheck(no,password,conn);
+		close(conn);
+		return cnt;
+	}
+
+	//답글상세보기
+	public QnaBoard selectQnaBoardReply(int no) {
+		 Connection conn = getConnection();
+		 QnaBoard qnaBoard2 = qnaBoardDao.selectQnaBoardReply(conn, no);
+		 close(conn);
+		 return qnaBoard2;
+		 
+	}
+ 
 	}
  
  

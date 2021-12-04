@@ -109,8 +109,6 @@
 	
 	<input type="hidden" id="countNum" value="<%= countNum - 1 %>"/>
 	<input type="hidden" id="defaultTotalPrice" value="" />
-	
-	<input type="button" value="test" onclick="addPurchaseHistory('dinigo', 15000, 'uid-1212', 'muid-112');" />
 
 <script>
 	// point 사용 시 잔액과 비교
@@ -118,6 +116,17 @@
 		let pointBal = $("#myPoint").html();
 		let usePoint = $("#usePoint").val();
 		let defaultTotalPrice = $("#defaultTotalPrice").val();
+		console.log(usePoint%100);
+		if(usePoint < 100 || usePoint%100 != 0){
+			alert("100포인트 이상부터 100포인트 단위로 사용 가능합니다.");
+			return false;
+		} else{
+			if(!confirm(`\${usePoint} 포인트를 적용하시겠습니까?`)){
+				$("#usePoint").val(0);
+				$("#totalPricePlace").html(defaultTotalPrice);
+				return false;
+			};
+		}
 		
 		if(pointBal - usePoint < 0){
 			alert("입력하신 금액이 보유하신 포인트보다 많습니다.");

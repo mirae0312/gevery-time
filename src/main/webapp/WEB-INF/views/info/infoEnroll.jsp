@@ -8,6 +8,7 @@
 	String bno = info.getBusinessNo();
 	String no = bno.substring(bno.length() - 1);
 %>
+<link rel="stylesheet" href="<%=request.getContextPath() %>/css/info/info.css" />
 <script type="text/javascript" src="//dapi.kakao.com/v2/maps/sdk.js?appkey=4247f28f0dc06c5cc8486ac837d411ff&libraries=services,clusterer,drawing"></script>
 <div class="enroll-wrapper">
 	<%-- 전체 등록 폼 --%>
@@ -52,14 +53,14 @@
 			<div id="site-wrap">
 				<label for="site">홈페이지</label>
 				<input type="text" name="site1" class="site" />
-				<button type="button" class="add-btn add-site" onclick="addSite();">추가</button>			
+				<button type="button" class="add-btn add-site btn" onclick="addSite();">추가</button>			
 			</div><br />
 <% if("1".equals(no)){ // 병원1 %>
 			<div class="service-wrap hservice">
 				진료과목
 				<input type="text" name="hservice1" class="hservice" />
 			</div><br />
-			<button type="button" class="add-btn add-hservice" onclick="addhservice();">추가</button>
+			<button type="button" class="add-btn add-hservice btn" onclick="addhservice();">추가</button>
 <% } %>
 <% if("2".equals(no) || "3".equals(no)){ // 카페2, 음식점3 %>
 			<div class="service-wrap">
@@ -67,7 +68,7 @@
 				<input type="text" name="service1" class="service" />:			
 				<input type="text" name="price1" class="service" />(단위 천원)	<br />		
 			</div><br />
-			<button type="button" class="add-btn add-service" onclick="addService();">추가</button>
+			<button type="button" class="add-btn add-service btn" onclick="addService();">추가</button>
 <% } %>
 <% if("4".equals(no)){ // 펜션4 %>
 			<div class="service-wrap">
@@ -228,7 +229,7 @@
 				<textarea name="way" class="way" cols="30" rows="10" required></textarea><br />			
 			</div>
 		</div>
-		<input type="submit" />
+		<input type="submit" class="btn" />
 	</form>
 </div>
 <script>
@@ -346,7 +347,7 @@ var map = new kakao.maps.Map(mapContainer, mapOption);
 var geocoder = new kakao.maps.services.Geocoder();
 
 //주소로 좌표를 검색합니다
-geocoder.addressSearch('서울 영등포구 양평로 5 성원빌딩', function(result, status) {
+geocoder.addressSearch('<%= info.getBusinessAddress() %>', function(result, status) {
 
 // 정상적으로 검색이 완료됐으면 
 	if (status === kakao.maps.services.Status.OK) {

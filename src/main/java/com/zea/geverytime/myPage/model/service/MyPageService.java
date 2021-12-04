@@ -8,6 +8,7 @@ import static com.zea.geverytime.common.JdbcTemplate.rollback;
 import java.sql.Connection;
 
 import com.zea.geverytime.member.model.exception.MemberException;
+import com.zea.geverytime.member.model.vo.Business;
 import com.zea.geverytime.member.model.vo.Member;
 import com.zea.geverytime.myPage.model.dao.MyPageDao;
 
@@ -67,4 +68,41 @@ public class MyPageService {
 			}
 			return result;
 		}
+
+		public int updateBusiness(Business business) {
+			Connection conn = null;
+			int result = 0;
+			try {
+				conn = getConnection();
+				result = myPageDao.updateBusiness(conn, business);
+				commit(conn);
+			} catch(Exception e) {
+				rollback(conn);
+				throw e;
+			} finally {
+				close(conn);
+			}
+			
+			return result;
+		}
+
+		public int deleteBusiness(String businessId) {
+			Connection conn = null;
+			int result = 0;
+			try {
+				conn = getConnection();
+				result = myPageDao.deleteBusiness(conn, businessId);
+				if(result == 0)
+					throw new MemberException("해당하는 사업자가 없습니다.");
+				commit(conn);
+			} catch(Exception e) {
+				rollback(conn);
+				throw e;
+			} finally {
+				close(conn);
+			}
+			return result;
+		}
+
+		
 }

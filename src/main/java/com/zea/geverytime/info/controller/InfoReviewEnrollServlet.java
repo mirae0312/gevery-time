@@ -68,10 +68,12 @@ public class InfoReviewEnrollServlet extends HttpServlet {
 				if(reviewPic1 != null) {
 					Attachment attach1 = MvcUtils.makeAttachment(multipartRequest, "reviewPic1");
 					attachments.add(attach1);
+//					System.out.println("[infoReviewEnrollServlet] attach1 : " + attach1);
 				}
 				if(reviewPic2 != null) {
 					Attachment attach2 = MvcUtils.makeAttachment(multipartRequest, "reviewPic2");
 					attachments.add(attach2);
+//					System.out.println("[infoReviewEnrollServlet] attach2 : " + attach2);
 				}
 				ir.setAttachments(attachments);
 			}
@@ -80,7 +82,7 @@ public class InfoReviewEnrollServlet extends HttpServlet {
 			
 			String location = request.getContextPath() + "/info/view?code=" + code;
 			int result = 0;
-			
+			System.out.println("[infoReviewEnrollServlet] ir : " + ir);
 			if("0".equals(check.getrCode()) && "0".equals(check.getHeadContent())) {
 				result = infoService.insertInfoReview(ir, codeN);
 				session.setAttribute("msg", "리뷰 작성 성공!");

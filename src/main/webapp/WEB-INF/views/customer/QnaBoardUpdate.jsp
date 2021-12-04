@@ -43,11 +43,6 @@
 	<tr>
 		<th>내 용</th>
 		<td><input type ="text" name="content" value="<%=qnaBoard.getContent() %>"></input></td>
-	</tr>
-	<tr>
-		<th>비밀번호</th>
-		 <td><input type="password" name="password" value="<%=qnaBoard.getPassword() %>"></input> </td>
-	</tr>
 	<tr>
 		<th colspan="2">
 			<input type="submit" value="수정하기">

@@ -90,7 +90,7 @@ public class BoardService {
 		Connection conn = null;
 		try {
 			conn = getConnection();
-			boardDao.updateBoard(conn, board);
+			result = boardDao.updateBoard(conn, board);
 			List<Attachment> list = board.getAttachments();
 			if(list != null && !list.isEmpty()) {
 				for(Attachment a : list) {
@@ -197,5 +197,26 @@ public class BoardService {
 		}
 		
 		return result;
+	}
+
+	public List<Board> getFreePopularList() {
+		Connection conn = getConnection();
+		List<Board> list = boardDao.getFreePopularList(conn);
+		close(conn);
+		return list;
+	} 
+
+	public List<Board> selectOtherContentList(Map<String, Object> map) {
+		Connection conn = getConnection();
+		List<Board> list = boardDao.selectOtherContentList(conn, map);
+		close(conn);
+		return list;
+	}
+
+	public int getTotalOtherContentCount(Map<String, Object> map) {
+		Connection conn = getConnection();
+		int count = boardDao.getTotalOtherContentCount(conn,map);
+		close(conn);
+		return count;
 	}
 }

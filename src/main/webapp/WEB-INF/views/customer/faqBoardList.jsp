@@ -14,7 +14,7 @@
             <br><br>
             <span><a href="<%= request.getContextPath() %>/customer/faqBoardList">FAQ</a></span>
             <br><br>
-            <span>신고내역</span>
+            <span><a href="<%= request.getContextPath() %>/customer/reportBoardList">신고내역</a></span>
  </div>
  <%String searchKeyword = request.getParameter("searchKeyword"); %><!-- 이번 요청의 searchKeyword -->
  <div id="search" class="search">
@@ -32,11 +32,6 @@
             <table class="board_list">
                 <caption>게시판 목록</caption>
                 <thead>
-                    <tr>
-                        <!-- <th>No</th> -->
-                        <!--  <th>분류</th>-->
-                       <!-- <th colspan="5"></th> --> 
-                    </tr>
                 </thead>
                 <tbody>
  <%
@@ -61,11 +56,18 @@
 %>
  
             </table>
-          
         </div>
+<% 	if(
+				loginMember != null && 
+				(MemberService.ADMIN_ROLE.equals(loginMember.getMemberRole()))
+			){ %>
         <div id="inputBox"><input type="button" value="글쓰기" id="btn-add"
         	onclick="location.href='<%= request.getContextPath() %>/customer/faqBoardForm'"/></div>
-	<div id='pageBar'><%= request.getAttribute("pagebar") %></div>
+ <%
+	}
+		 
+%>
  </div> 
+	<div id='pageBar'><%= request.getAttribute("pagebar") %></div>
 </section>
  <%@ include file="/WEB-INF/views/common/footer.jsp" %>

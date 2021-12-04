@@ -17,6 +17,7 @@ import java.util.Properties;
 import com.zea.geverytime.customer.model.exception.CustomerBoardException;
 import com.zea.geverytime.customer.model.vo.FaqBoard;
 import com.zea.geverytime.customer.model.vo.QnaBoard;
+import com.zea.geverytime.customer.model.vo.ReportBoard;
 
 public class QnaBoardDao {
 	
@@ -31,46 +32,7 @@ public class QnaBoardDao {
 		}
 		
 	}
-	 
-//	//게시판 목록 조회//
-//	public List<QnaBoard> selectAllQnaBoard(Connection conn, Map<String, Integer> param) {
-//		PreparedStatement pstmt = null;
-//		String sql = prop.getProperty("selectAllQnaBoard");
-//		ResultSet rset = null;
-//		List<QnaBoard> list = new ArrayList<>();
-//		
-//	try {
-//		pstmt = conn.prepareStatement(sql);
-//		pstmt.setInt(1, param.get("start"));
-//		pstmt.setInt(2, param.get("end"));
-//		
-//		rset = pstmt.executeQuery();
-//		
-//		while(rset.next()) {
-//			QnaBoard qnaBoard = new QnaBoard();
-//			
-//			qnaBoard.setNo(rset.getInt("no"));
-//			qnaBoard.setTitle(rset.getString("title"));
-//			qnaBoard.setWriter(rset.getString("writer"));
-//			qnaBoard.setPassword(rset.getString("password"));
-//			qnaBoard.setContent(rset.getString("content"));
-//			qnaBoard.setReplyLevel(rset.getInt("reply_level"));
-//			qnaBoard.setReplyRef(rset.getInt("reply_ref"));
-//			qnaBoard.setCategory(rset.getString("category_a"));
-//			qnaBoard.setRegDate(rset.getDate("reg_date"));
-//			list.add(qnaBoard);
-//	}
-//		}catch(SQLException e) {
-//			e.printStackTrace();
-//		}finally {
-//			close(rset);
-//			close(pstmt);
-//		}
-//		
-//		 
-//		
-//		return list;
-//	}
+ 
 
 	//게시판 목록 조회//
 		public List<QnaBoard> selectAllQnaBoard(Connection conn, Map<String, Integer> param ) {
@@ -487,27 +449,136 @@ public class QnaBoardDao {
 		return result;
 	}
 
-	//원글 상태 변경
-//	public int changeParent(Connection conn, int parentNo) {
-//		PreparedStatement pstmt = null;
-//		String sql = prop.getProperty("changeParent");
-//		int result = 0;
-//		
-//		//update qna_board set category_b='ok' where no = ? )
-//		try {
-//			pstmt = conn.prepareStatement(sql);
-//			pstmt.setInt(1, parentNo);
-//			result = pstmt.executeUpdate();
-//		} catch (SQLException e) {
-//			throw new CustomerBoardException("게시물 등록 오류",e);
-//		} finally {
-//			close(pstmt);
-//		}
-//		
-//		return result;
-// 
-// 
-//	}
-//	 
+	
+	//신고게시판 조회
+	public List<ReportBoard> selectAllReportBoard(Connection conn) {
+		PreparedStatement pstmt = null;
+		String sql = prop.getProperty("selectAllReportBoard");
+		ResultSet rset = null;
+		List<ReportBoard> list = new ArrayList<>();
+		
+	try {
+		pstmt = conn.prepareStatement(sql);
+		rset = pstmt.executeQuery();
+		
+		while(rset.next()) {
+			ReportBoard reportBoard = new ReportBoard();
+			reportBoard.setReportNo(rset.getInt("report_no"));
+			reportBoard.setTitle(rset.getString("title"));
+			reportBoard.setContent(rset.getString("content"));
+			reportBoard.setReportCode(rset.getString("report_code"));
+			reportBoard.setReportCheck(rset.getString("report_check"));
+			reportBoard.setMemberId(rset.getString("member_id"));
+			reportBoard.setRegDate(rset.getDate("reg_date"));
+			
+			list.add(reportBoard);
+	}
+		}catch(SQLException e) {
+			e.printStackTrace();
+		}finally {
+			close(rset);
+			close(pstmt);
+		}
+		
+		 
+		
+		return list;
+	}
+
+	//신고게시판 상세보기
+	public ReportBoard selectOneReportBoard(Connection conn, int no) {
+		ReportBoard reportBoard = null;
+		PreparedStatement pstmt = null;
+		ResultSet rset = null;
+		
+		String sql = prop.getProperty("selectOneReportBoard");
+		//selectOneReportBoard = select * from client_report where report_no =?
+	try {
+		pstmt = conn.prepareStatement(sql);
+		pstmt.setInt(1, no);
+		rset = pstmt.executeQuery();
+		
+		if(rset.next()){
+			reportBoard = new ReportBoard();
+			reportBoard.setReportNo(rset.getInt("report_no"));
+			reportBoard.setTitle(rset.getString("title"));
+			reportBoard.setContent(rset.getString("content"));
+			reportBoard.setReportCode(rset.getString("report_code"));
+			reportBoard.setReportCheck(rset.getString("report_check"));
+			reportBoard.setMemberId(rset.getString("member_id"));
+			reportBoard.setRegDate(rset.getDate("reg_date"));
+			 
+		 
+			
+		}
+	}catch(Exception e){
+		e.printStackTrace();
+	}finally{
+		close(rset);
+		close(pstmt);
+	}
+	return reportBoard;
+ 
+	 
+	}
+
+	//비밀번호 체크 
+	public int passwordCheck(int no, String password, Connection conn) {
+		PreparedStatement pstmt = null;
+		String sql = prop.getProperty("passwordCheck");
+		ResultSet rset = null;
+		int cnt = 0;
+		
+		try {
+			pstmt = conn.prepareStatement(sql);
+			pstmt.setInt(1,no);
+			pstmt.setString(2, password);
+			 
+			rset = pstmt.executeQuery();
+			if(rset.next()) {
+				cnt = rset.getInt(1);
+			}
+		} catch (SQLException e) {
+			e.printStackTrace();
+		} finally {
+			close(rset);
+			close(pstmt);
+		}
+		return cnt;
+	}
+
+
+	//답글상세
+	public QnaBoard selectQnaBoardReply(Connection conn, int no) {
+		QnaBoard qnaBoard = null;
+		PreparedStatement pstmt = null;
+		ResultSet rset = null;
+		
+		String sql = prop.getProperty("selectQnaBoardReply");
+		//selectQnaBoardReply = select * from qna_board where reply_ref =?
+	try {
+		pstmt = conn.prepareStatement(sql);
+		pstmt.setInt(1, no);
+		rset = pstmt.executeQuery();
+		
+		if(rset.next()){
+			qnaBoard = new QnaBoard();
+			qnaBoard.setNo(rset.getInt("no"));
+			qnaBoard.setTitle(rset.getString("title"));
+			qnaBoard.setWriter(rset.getString("writer"));
+			qnaBoard.setContent(rset.getString("content"));
+			 
+		}
+	}catch(Exception e){
+		e.printStackTrace();
+	}finally{
+		close(rset);
+		close(pstmt);
+	}
+	return qnaBoard;
+ 
+	 
+	}
+
 	 
 }

@@ -46,13 +46,32 @@
                     </tr>
                 </tbody>
             </table>
+        </div>     
+        
+        <div id="ifReply">
+        
         </div>
+        
         <div class="button">
         <input type="button" value="목록" onclick="showQnaBoardList()"/>
+        
+	<% 	if(
+				loginMember != null && 
+				(
+				  loginMember.getMemberId().equals(qnaBoard.getWriter())
+				  || MemberService.ADMIN_ROLE.equals(loginMember.getMemberRole())
+				)
+			){ %>
         <input type="button" value="수정" onclick="updateQnaBoard()"/>
         <input type="button" value="삭제" onclick="deleteQnaBoard()"/>
+         <% 	} %>
+        <% 	if(
+				loginMember != null && 
+				( MemberService.ADMIN_ROLE.equals(loginMember.getMemberRole()))
+			){ %>
         <input type="button" value="답변" onclick="replyQnaBoard()"/>
         </div>
+  <% 	} %>
  </div>
  </section>
 <!--  게시글 삭제-->
@@ -85,6 +104,34 @@
  		}
  	};
  	
+
+   $(() => {
+         // ajax
+         $.ajax({
+             url: "<%= request.getContextPath() %>/customer/getAnswer",
+             method: "GET",
+             data:{
+                 no: <%= qnaBoard.getNo() %>
+             },
+             success(data){
+                 console.log(data);
+               
+                 $(data).each((i, {title, writer, content}) => {
+                 const reply = 
+                 `<table style="border:solid";>
+                 <tr>
+                     <td>\${title}</td>
+                     <td>\${writer}</td>
+                     <td>\${content}</td>
+                </tr>
+                </table>
+                `;
+                 $("#ifReply").append(reply);
+                });
+    			},
+             error:console.log
+         });
+            	});
  </script>
 <%@ include file="/WEB-INF/views/common/footer.jsp" %>
 		

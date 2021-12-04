@@ -153,9 +153,6 @@ $(() => {
 			<tr>
 				<td colspan=2><input type="button" value="장바구니 담기" class="purchaseNeedLogin" /></td>
 			</tr>
-			<tr>
-				<td colspan=2><input type="button" value="찜목록 담기" class="purchaseNeedLogin" /></td>
-			</tr>
 			<% } %>
 			<tr>
 				<th colspan=2>내용</th>
@@ -274,6 +271,9 @@ $(() => {
 		</tbody>
 	</table>
 	
+	<br />
+	<input type="button" value="목록으로 돌아가기" onclick="location.href='<%= request.getContextPath() %>/product/main'"/>
+	
 	<script>
 		// 답글달기
 		$(".reply").click((e) => {
@@ -328,7 +328,9 @@ $(() => {
 				success(data){
 					console.log(data);
 					if(confirm(data.msg)){
+						<% if(loginMember != null) { %>
 						location.href="<%= request.getContextPath() %>/cart/main?memberId=<%= loginMember.getMemberId() %>";
+						<% } %>
 					}
 				},
 				error : console.log
