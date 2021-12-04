@@ -15,6 +15,26 @@
 <meta   charset="UTF-8">
 
 <head>
+<script>
+const checkIdDuplicate = (Id) => {
+		const name = "checkIdDuplicatePopup"; 
+		const spec = "left = 500px, top =500px, width=300px, height=250px";
+		const popup = open("",name, spec); 
+		const $memberId = $(Id);
+		const $frm = $(document.checkIdDuplicateFrm);
+		$frm.find("[name=memberId]").val($memberId.val());
+		$frm.attr("target",name)
+			.submit();
+	
+};
+
+$(Id).change(() => {
+	$(idValid).val(0);
+});
+</script>
+<script src="<%= request.getContextPath() %>/js/jquery-3.6.0.js"></script>
+
+
 <style>
 input[type="number"]::-webkit-outer-spin-button,
 input[type="number"]::-webkit-inner-spin-button 
@@ -34,11 +54,12 @@ function handleOnInput(el, maxlength) {
 	  }
 	}
 </script>
-<script src="<%= request.getContextPath() %>/js/jquery-3.6.0.js"></script>
+
+
 <title>회원가입</title>
 
-</head>
 
+</head>
 <body>
 <section id =enroll-container>
    <h3>회원가입</h3>
@@ -51,9 +72,10 @@ function handleOnInput(el, maxlength) {
 
         <td>ID:</td>
 
-        <td><input type="text" name="Id" id="_Id">
-
-        	<input type="button" value="아이디중복검사" onclick =" checkIdDuplicate();"/>
+        <td><input type="text" name="Id" id="Id" >
+        	
+        	<input type="button" value="아이디중복검사" onclick ="checkIdDuplicate(Id);"/>
+            
             <input type="hidden" id="idValid" value="0" />
 
         </td>
@@ -80,7 +102,7 @@ function handleOnInput(el, maxlength) {
 
         <td>이 름:</td>
 
-        <td><input type="text" id="name" name="name"> </td>
+        <td><input type="text" id="memberName" name="name"> </td>
 
       </tr>
 
@@ -91,15 +113,15 @@ function handleOnInput(el, maxlength) {
         <td>전화번호:</td>
 
         <td>
-        <select id="phone" name= "phone">
+        <select id="phone1" name= "phone1">
     <option value="010">010</option>
     <option value="055">055</option>
 		</select>
 				 -
 
-            <input type="number"  id="phone" name="phone" style="width:4em"   oninput='handleOnInput(this, 4)'/> -
+            <input type="number"  id="phone" name="phone2" style="width:4em"   oninput='handleOnInput(this, 4)'/> -
 
-            <input type="number"  id="phone" name="phone"  style="width:4em"  oninput='handleOnInput(this, 4)'/>
+            <input type="number"  id="phone" name="phone3"  style="width:4em"  oninput='handleOnInput(this, 4)'/>
 
         </td>
 
@@ -114,8 +136,15 @@ function handleOnInput(el, maxlength) {
       </tr>
       <tr>
       <td>이메일 : </td>
-      
-        <td><input type="text" id="email" name="email"> </td>
+      	<td>
+	         <input type="text" name="email01" id="email01" style="width:100px"> @
+			<input type="text" name="email02" id="email02" style="width:100px;" disabled value="naver.com">
+	 <select style="width:100px;margin-right:10px" name="selectEmail" id="selectEmail" >
+			 <option  name= "email03" value= <%request.getParameter("email02"); %>>직접입력</option>
+			 <option value="naver.com" selected>naver.com</option>
+			 <option value="hanmail.net">hanmail.net</option>
+		</select>
+			</td>
       
       </tr>
 	<tr>
@@ -134,81 +163,18 @@ function handleOnInput(el, maxlength) {
 	</form>
 </section>
 
-
-
-
 <form
 	name="checkIdDuplicateFrm" 
 	action="<%= request.getContextPath() %>/member/checkDuplicate" 
 	method="GET">
-	<input type="hidden" name="Id"/>
+	<input type="hidden" name="memberId"/>
 </form>
-<script>
-const checkIdDuplicate = () => {
-		const name = "checkIdDuplicatePopup"; 
-		const spec = "left = 500px, top =500px, width=300px, height=250px";
-		const popup = open("",name, spec); 
-		
-		const $memberId = $(_Id);
-		const $frm = $(document.checkIdDuplicateFrm);
-		$frm.find("[name=Id]").val($memberId.val());
-		$frm.attr("target",name)
-			.submit();
 	
-};
+<script src ="<%= request.getContextPath() %>/js/email/email.js" > </script>
+<script type="text/javascript" src="http://code.jquery.com/jquery-latest.min.js"></script> 
 
-$(_Id).change(() => {
-	$(idValid).val(0);
-});
-	
 
-/**
- *name= memberEnrollFrm 유효성검사
- *-id/비번 영문자/숫자 4글자이상
- * -이름 한글 2글자이상
- * -전화번호 숫자확인
- *
- *
- *
- */
-$(documnet.memberEnrollFrm).submit((e) => {
-		
-	//memberId
-	const $memberId = $(_memberId);
-	//아이디는 영문자/숫자 4글자이상만 허용
-	if(!/^\w{4,}$/.test($memberId.val()){
-		alert("아이디는 최소 4자리 이상이어야 합니다.");
-		return false;
-	}
-	//memberId 중복검사
-	const $idValid = $(idValid);
-	if($idValid.val() == 0){
-		alert("아이디 중복 검사해주세요.");
-		return false
-	}
 
-	//password
-	const $password = $(_password);
-	const $passwordCheck = $(passwordCheck);
-	
-	if(!/^[a-zA-Z0-9!@#$]{4,}$/.test($password.val())){
-		alert("유효한 패스워드를 입력하세요.");
-		return false;
-	}
-	if($password.val() != $passwordCheck.val()){
-		alert("패스워드가 일치하지 않습니다.");
-		return false;
-	}
-	//memberName
-	const $memberName = $(memberName);
-	if(!/^[가-힣]{2,}$?.test($memberName.val())){
-		alert("이름은 한글 2글자 이상이어야 합니다.");
-		return false;
-	}
-	return true;
-});
-
-</script>
 
 
 
