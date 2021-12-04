@@ -19,7 +19,7 @@ public class UsedGoodsBoard implements Serializable {
 	private Date regDate;
 	private String writer;
 	private int price;
-	private List<Attachment> attachment;
+	private List<Attachment> attachments;
 	
 	public UsedGoodsBoard() {
 		super();
@@ -94,13 +94,22 @@ public class UsedGoodsBoard implements Serializable {
 		this.price = price;
 	}
 
-	public List<Attachment> getAttachment() {
-		return attachment;
+	public List<Attachment> getAttachments() {
+		return attachments;
 	}
 
-	public void setAttachment(List<Attachment> attachment) {
-		this.attachment = attachment;
+	public void setAttachments(List<Attachment> attachments) {
+		this.attachments = attachments;
 	}
+
+	@Override
+	public String toString() {
+		return "UsedGoodsBoard [no=" + no + ", title=" + title + ", content=" + content + ", orCode=" + orCode
+				+ ", regDate=" + regDate + ", writer=" + writer + ", price=" + price + ", attachments=" + attachments
+				+ "]";
+	}
+
+
 	
 	
 	

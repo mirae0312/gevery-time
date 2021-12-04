@@ -109,9 +109,6 @@
 		})
 		
 		const selectContent = (cPage) => {
-			console.log($("#divSelect").val());
-			console.log($("#selectOnSale").prop("checked"));
-			
 			const selectedDiv = $("#divSelect").val();
 			const selectedOnSale = $("#selectOnSale").prop("checked");
 			

@@ -15,9 +15,29 @@
 	<h1>상품 상세보기</h1>
 	<table>
 		<thead>
-			<th>제목</th>
-			<td><%= board.getTitle() %></td>
+			<tr>
+				<th>제목</th>
+				<td><%= board.getTitle() %></td>
+			</tr>
+			<tr>
+				<th>글 번호</th>
+				<td><%= board.getNo() %></td>
+			</tr>
 		</thead>
+		<tbody>
+			<tr>
+				<th>작성자</th>
+				<td><%= board.getWriter() %></td>
+			</tr>
+			<tr>
+				<th>가격</th>
+				<td><%= board.getPrice() %></td>
+			</tr>
+			<tr>
+				<th>내용</th>
+				<td><%= board.getContent() %></td>
+			</tr>
+		</tbody>
 	</table>
 </body>
 </html>

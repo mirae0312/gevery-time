@@ -58,7 +58,7 @@ public class UsedGoodBoardEnrollServlet extends HttpServlet {
 		}
 		
 		UsedGoodsBoard ugBoard = new UsedGoodsBoard(0, title, content, null, null, writer, price);
-		ugBoard.setAttachment(attachments);
+		ugBoard.setAttachments(attachments);
 		
 		// 게시물 DB 등록
 		int result = ugService.insertUgBoard(ugBoard, attachments);

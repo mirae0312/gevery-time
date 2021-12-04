@@ -21,6 +21,7 @@ public class UsedGoodBoardViewServlet extends HttpServlet {
 
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		int boardNo = Integer.parseInt(request.getParameter("boardNo"));
+		System.out.println("뷰 boardNo : "+boardNo);
 		
 		UsedGoodsBoard board = ugService.getUgGoodsBoard(boardNo);
 		
