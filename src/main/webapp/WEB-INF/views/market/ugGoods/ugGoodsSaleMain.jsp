@@ -78,7 +78,7 @@
 		 					<td class="thumbnailImg"><img src="<%= request.getContextPath() %>/upload/market/UgSale/\${imgSrc}" style="width:100px; height:50px;"/></td>
 							<td>상태</td>
 							<td>분류</td>
-							<td><a href="<%= request.getContextPath() %>/ugGoods/boardView?no=\${e.no}">\${e.title}</a></td>
+							<td><a href="<%= request.getContextPath() %>/ugGoods/boardView?boardNo=\${e.no}">\${e.title}</a></td>
 							<td>\${e.price}원</td>
 							<td>\${e.writer}</td>
 							<td>\${value}</td>

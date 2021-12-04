@@ -1,9 +1,12 @@
+<%@page import="com.zea.geverytime.common.model.vo.Attachment"%>
+<%@page import="java.util.List"%>
 <%@page import="com.zea.geverytime.market.usedgoods.model.vo.UsedGoodsBoard"%>
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
 <%@ include file="/WEB-INF/views/common/header.jsp" %>	
 <%
 	UsedGoodsBoard board = (UsedGoodsBoard) request.getAttribute("board");
+	List<Attachment> attachments = (List<Attachment>) board.getAttachments();
 %>  
 <!DOCTYPE html>
 <html>
@@ -33,6 +36,16 @@
 				<th>가격</th>
 				<td><%= board.getPrice() %></td>
 			</tr>
+		<%
+		for(Attachment attach : attachments) {
+		%>
+			<tr>
+				<td><img src="<%= request.getContextPath() %>/upload/market/UgSale/<%= attach.getRenamedFilename() %>" alt="" /></td>
+			</tr>	
+		<%
+		}
+		%>	
+			
 			<tr>
 				<th>내용</th>
 				<td><%= board.getContent() %></td>
