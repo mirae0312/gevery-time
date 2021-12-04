@@ -201,12 +201,14 @@
 $("#checkButton").click((e) => {
 	$.ajax({
 		url: "<%= request.getContextPath() %>/admin/check",
-		method: "post",
+		method: "POST",
 		data: {
 			code: $("#code").val()
 		},
 		success(data){
-			cosole.log("데이터전송");
+			console.log(data);
+			opener.location.reload();		
+			close();
 		},
 		error:console.log
 	});
