@@ -38,12 +38,12 @@ public class InfoAllListServlet extends HttpServlet {
 //            System.out.println("[InfoAllListServlet] + popList : " + popList);
 
             // 전체 게시물
-            List<Info> list = infoService.selectAllList(board, start, end);
+//            List<Info> list = infoService.selectAllList(board, start, end);
 //            System.out.println("[InfoAllListServlet] + list : " + list);
 
             // 공통사항 list속성, jsp로 보내기
             request.setAttribute("popList", popList);
-            request.setAttribute("list", list);
+//            request.setAttribute("list", list);
 
             // ajax에서 사용할 구분자
             request.setAttribute("check", board);

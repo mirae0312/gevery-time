@@ -42,18 +42,33 @@ public class InfoService {
 		return popList;
 	}
 
-	public List<Info> selectAllList(String board, int start, int end) {
+	public List<Info> selectAllList(String board, int start, int end, String n) {
 		Connection conn = null;
 		List<Info> list = null;
 		List<Attachment> attach = null;
 		try {
 			conn = getConnection();
-			list = infoDao.selectAllList(board, conn, start, end);
+			
+			switch(n) {
+			case "new": 
+				list = infoDao.selectAllList(board, conn, start, end);
+				break;
+			case "old": 
+				list = infoDao.selectAllListAsc(board, conn, start, end);
+				break;
+			case "view": 
+				list = infoDao.selectAllListView(board, conn, start, end);
+				break;
+			case "like": 
+				list = infoDao.selectAllListPop(board, conn, start, end);
+				break;
+			}
+			
 			for(int i = 0; i < list.size(); i++) {
 				String code = list.get(i).getCode();
 				attach = infoDao.selectAllAttach(conn, code);
-				System.out.println("[Service] AllAttach : " + attach);
-				System.out.println("[Service] code : " + code);
+				System.out.println("[infoService] AllAttach : " + attach);
+				System.out.println("[infoService] code : " + code);
 				
 				list.get(i).setAttachments(attach);
 			}
@@ -373,6 +388,57 @@ public class InfoService {
 			close(conn);
 		}
 		return result;
+	}
+
+	public int updateAttachment(List<Attachment> attachments) {
+		Connection conn = null;
+		int result = 0;
+		try {
+			conn = getConnection();
+			if(attachments != null && !attachments.isEmpty()) {
+				for(Attachment attach : attachments) {
+					result = infoDao.updateAttachment(conn, attach);
+				}				
+			}
+			if(result > 0)
+				commit(conn);
+		}catch(Exception e) {
+			rollback(conn);
+			throw e;
+		}finally {
+			close(conn);
+		}
+		return result;
+	}
+
+	public void deleteReview(String rCode) {
+		Connection conn = null;
+		try {
+			conn = getConnection();
+			infoDao.deleteReview(conn, rCode);			
+			commit(conn);
+		}catch(Exception e) {
+			rollback(conn);
+			throw e;
+		}finally {
+			close(conn);
+		}
+		
+	}
+
+	public void deleteAttachment(String code) {
+		Connection conn = null;
+		try {
+			conn = getConnection();
+			infoDao.deleteAttachment(conn, code);
+			commit(conn);
+		}catch(Exception e) {
+			rollback(conn);
+			throw e;
+		}finally {
+			close(conn);
+		}
+		
 	}
 
 
