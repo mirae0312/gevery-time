@@ -21,16 +21,11 @@
 <body>
 <script>
 $(() => {
-
 	<% if(msg != null){ %>	
-
 		alert("<%= msg %>");
 		
 	<% } %>
-
-
 	<% if(loginMember == null){ %>
-
 		/**
 		 * 로그인폼 유효성 검사
 		 */
@@ -51,7 +46,6 @@ $(() => {
 		});
 		
 	<% } %>
-
 	});
 </script>
     <div class="inner_login">
