@@ -339,6 +339,7 @@ $(".info-review").one("click", function(event){
 	});
 });
 <% } %>
+
 // 리뷰등록하기 사진 미리보기
 const previewF1 = () => {
 	const reader = new FileReader();
