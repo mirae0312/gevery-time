@@ -245,8 +245,8 @@
 			<input type="file" name="reviewPic2" accept="image/*" onchange="previewF2();"/>
 			<textarea name="bodyContent" id="writeReview" cols="30" rows="10" required></textarea>
 			<button class="review-enroll-btn btn">등록</button>
-<% } %>
 		</form>
+<% } %>
 	</div>
 </div>
 <script>
@@ -255,11 +255,6 @@ const $frm = $(document.infoBoardReviewFrm);
 const $mFrm = $(document.infoBoardModifyFrm);
 
 //리뷰신고
-<%--
-$(".review-report").click((e) => {
-	if($(e.target) == $(e.target).$(".review-report"))
-		console.log("success");
-});
 const reportReview = () => {
 	const name = "report-review";
 	const spec = "left=500px, top=500px, width=300px, height=250px";
@@ -268,7 +263,6 @@ const reportReview = () => {
 	const $frm = $(document.reviewReportFrm);
 	$frm.find
 };
---%>
 
 // 본문 수정
 const modifyInfoMain = () => {

@@ -5,9 +5,6 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
 <%@ include file="/WEB-INF/views/common/header.jsp" %>
-<%
-	List<Info> list = (List<Info>) request.getAttribute("list");
-%>
 <h2>관리자 페이지</h2>
 <div class="admin-container">
 	<ul class="adminBar">
@@ -18,7 +15,7 @@
 <div class="infoCheck-container">
 	<ul class="infoCheck">
 		<h2>정보게시물 승인여부</h2>
-		<table>
+		<table id="state-business-info">
 			<thead>
 				<tr>
 					<th>게시글코드</th>
@@ -30,28 +27,33 @@
 				</tr>
 			</thead>
 			<tbody>
-<%
-	for(Info info : list) {
-%>	
 				<tr>
-					<td><%= info.getCode() %></td>
-					<td><%= info.getMemberId() %></td>
-					<td><%= info.getBusinessName() %></td>
-					<td>
-						<a href="#"
-							target="_self" onclick="window.open('<%= request.getContextPath() %>/admin/check?code=<%= info.getCode() %>', 
-							'_blank', 'width=500px, height=500px, scrollbars = yes')"><%= info.getHeadContent() %>
-						</a>
-					</td>
-					<td><%= info.getRegDate() %></td>
-					<td><%= info.getRegCheck() %></td>
+					<td></td>
+					<td></td>
+					<td></td>
+					<td></td>
+					<td></td>
+					<td></td>
 				</tr>
-<% } %>
 			</tbody>
 		</table>
 		
 	</ul>
 </div>
 <script>
+$(() => {
+
+});
+
+$.ajax({
+	url: "<%= request.getContextPath() %>/admin/adminList",
+	dataType: "json",
+	success(data){
+		console.log(data);
+		const $tbody = $("#infoCheck-container tbody");
+	},
+	error:console.log	
+});
+
 </script>
 <%@ include file="/WEB-INF/views/common/footer.jsp" %>
