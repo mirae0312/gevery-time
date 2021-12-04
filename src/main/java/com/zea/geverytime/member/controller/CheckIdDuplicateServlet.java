@@ -24,7 +24,6 @@ public class CheckIdDuplicateServlet extends HttpServlet {
 	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse response)
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		System.out.println("memberId ????= ");
 		// 1.인코딩
 		request.setCharacterEncoding("utf-8");
 		

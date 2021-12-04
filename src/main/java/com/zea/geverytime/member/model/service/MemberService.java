@@ -54,13 +54,13 @@ public class MemberService {
 		}
 		return result;
 	}
-	public Member searchId(String memberName, String email, String phone) {
+	public Member searchId(String memberName, String email) {
 		// 1. Connection객체 생성
 		Connection conn = getConnection();
 		
 		// 2.Dao요청
 		MemberDao Dao = new MemberDao();
-		Member m = Dao.searchId(conn, memberName, email, phone);
+		Member m = Dao.searchId(conn, memberName, email);
 		System.out.println("m : " + m);
 		
 		

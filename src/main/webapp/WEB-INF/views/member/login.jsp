@@ -29,30 +29,7 @@ $(() => {
 	<% } %>
 
 
-	<% if(loginMember == null){ %>
 
-		/**
-		 * 로그인폼 유효성 검사
-		 */
-		$(loginFrm).submit((e) => {
-			const $memberId = $(memberId);
-			const $password = $(password);
-			
-			if(!/^\w{4,}$/.test($memberId.val())){
-				alert("유효한 아이디를 입력하세요.");
-				$memberId.select();
-				return false;
-			}
-			if(!/^.{4,}$/.test($password.val())){
-				alert("유효한 비밀번호를 입력하세요.");
-				$password.select();
-				return false;
-			}
-		});
-		
-	<% } %>
-
-	});
 </script>
     <div class="inner_login">
         <div class="login_tistory">
