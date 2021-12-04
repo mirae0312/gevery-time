@@ -11,10 +11,9 @@ public class ReportBoard implements Serializable {
 	private int reportNo;
 	private String title;
 	private String content;
-	private int reportCode;
+	private String reportCode;
 	private String reportCheck;
 	private String memberId;
-	private String businessNo;
 	private Date regDate;
 	
 	
@@ -24,8 +23,8 @@ public class ReportBoard implements Serializable {
 	}
 	
 	
-	public ReportBoard(int reportNo, String title, String content, int reportCode, String reportCheck, String memberId,
-			String businessNo, Date regDate) {
+	public ReportBoard(int reportNo, String title, String content, String reportCode, String reportCheck, String memberId,
+			  Date regDate) {
 		super();
 		this.reportNo = reportNo;
 		this.title = title;
@@ -33,7 +32,6 @@ public class ReportBoard implements Serializable {
 		this.reportCode = reportCode;
 		this.reportCheck = reportCheck;
 		this.memberId = memberId;
-		this.businessNo = businessNo;
 		this.regDate = regDate;
 	}
 
@@ -56,10 +54,10 @@ public class ReportBoard implements Serializable {
 	public void setContent(String content) {
 		this.content = content;
 	}
-	public int getReportCode() {
+	public String getReportCode() {
 		return reportCode;
 	}
-	public void setReportCode(int reportCode) {
+	public void setReportCode(String reportCode) {
 		this.reportCode = reportCode;
 	}
 	public String getReportCheck() {
@@ -74,13 +72,7 @@ public class ReportBoard implements Serializable {
 	public void setMemberId(String memberId) {
 		this.memberId = memberId;
 	}
-	public String getBusinessNo() {
-		return businessNo;
-	}
-	public void setBusinessNo(String businessNo) {
-		this.businessNo = businessNo;
-	}
-	
+ 
 	public Date getRegDate() {
 		return regDate;
 	}
@@ -94,10 +86,12 @@ public class ReportBoard implements Serializable {
 	@Override
 	public String toString() {
 		return "ReportBoard [reportNo=" + reportNo + ", title=" + title + ", content=" + content + ", reportCode="
-				+ reportCode + ", reportCheck=" + reportCheck + ", memberId=" + memberId + ", businessNo=" + businessNo
-				+ ", regDate=" + regDate + "]";
+				+ reportCode + ", reportCheck=" + reportCheck + ", memberId=" + memberId + ", regDate=" + regDate + "]";
 	}
-	
+
+
+	 
+	 
 
  
 

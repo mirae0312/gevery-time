@@ -466,10 +466,9 @@ public class QnaBoardDao {
 			reportBoard.setReportNo(rset.getInt("report_no"));
 			reportBoard.setTitle(rset.getString("title"));
 			reportBoard.setContent(rset.getString("content"));
-			reportBoard.setReportCode(rset.getInt("report_code"));
+			reportBoard.setReportCode(rset.getString("report_code"));
 			reportBoard.setReportCheck(rset.getString("report_check"));
 			reportBoard.setMemberId(rset.getString("member_id"));
-			reportBoard.setBusinessNo(rset.getString("business_no"));
 			reportBoard.setRegDate(rset.getDate("reg_date"));
 			
 			list.add(reportBoard);
@@ -504,10 +503,9 @@ public class QnaBoardDao {
 			reportBoard.setReportNo(rset.getInt("report_no"));
 			reportBoard.setTitle(rset.getString("title"));
 			reportBoard.setContent(rset.getString("content"));
-			reportBoard.setReportCode(rset.getInt("report_code"));
+			reportBoard.setReportCode(rset.getString("report_code"));
 			reportBoard.setReportCheck(rset.getString("report_check"));
 			reportBoard.setMemberId(rset.getString("member_id"));
-			reportBoard.setBusinessNo(rset.getString("business_no"));
 			reportBoard.setRegDate(rset.getDate("reg_date"));
 			 
 		 

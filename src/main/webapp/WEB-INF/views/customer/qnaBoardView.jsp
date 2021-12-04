@@ -48,7 +48,9 @@
             </table>
         </div>     
         
-        <div id="ifReply"></div>
+        <div id="ifReply">
+        
+        </div>
         
         <div class="button">
         <input type="button" value="목록" onclick="showQnaBoardList()"/>
@@ -113,14 +115,17 @@
              },
              success(data){
                  console.log(data);
-                 //여기서 위에 
+               
                  $(data).each((i, {title, writer, content}) => {
                  const reply = 
-                 `<tr>
+                 `<table style="border:solid";>
+                 <tr>
                      <td>\${title}</td>
                      <td>\${writer}</td>
                      <td>\${content}</td>
-                </tr>`;
+                </tr>
+                </table>
+                `;
                  $("#ifReply").append(reply);
                 });
     			},

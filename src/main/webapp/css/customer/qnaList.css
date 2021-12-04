@@ -69,13 +69,11 @@ a {
     text-align: center;
 }
 
-/* .board_list .tit {
-    text-align: left;
-} */
 
 .board_list .tit:hover {
     text-decoration: underline;
 }
+
 
 .board_list_wrap .paging {
     margin-top: 20px;
