@@ -7,6 +7,7 @@
 <%
 	UsedGoodsBoard board = (UsedGoodsBoard) request.getAttribute("board");
 	List<Attachment> attachments = (List<Attachment>) board.getAttachments();
+	String state = (String) request.getAttribute("state");
 %>  
 <!DOCTYPE html>
 <html>
@@ -16,6 +17,11 @@
 </head>
 <body>
 	<h1>상품 상세보기</h1>
+	<!-- 작성자에게만 수정/삭제 버튼이 노출되도록 함 -->
+	<% if(loginMember != null && loginMember.getMemberId().equals(board.getWriter())) { %>
+	<input type="button" value="수정하기" id="boardUpdate"/>
+	<input type="button" value="삭제하기" id="boardDelete"/>
+	<% } %>
 	<table>
 		<thead>
 			<tr><th colspan=2>중고물품 판매 게시글</th></tr>
@@ -41,7 +47,7 @@
 			<!-- 상태 -->
 			<tr>
 				<th>상태</th>
-				<td>----</td>
+				<td><%= state %></td>
 			</tr>
 			
 		<%
@@ -65,6 +71,16 @@
 			</tr>
 		</tbody>
 	</table>
+	
+	<br />
+	<input type="button" value="목록으로 돌아가기" onclick="location.href='<%= request.getContextPath() %>/ugGoods/main'"/>
+	
+	<script>
+		$("#boardUpdate").click((e) => {
+			location.href="<%= request.getContextPath() %>/ugGoods/boardUpdateForm?boardNo=<%= board.getNo() %>";
+		});
+	
+	</script>
 </body>
 </html>
 <%@ include file="/WEB-INF/views/common/footer.jsp" %> 

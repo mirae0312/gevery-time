@@ -202,4 +202,87 @@ public class UsedGoodsDao {
 		}
 		return count;
 	}
+
+	public int insertUgBoardState(Connection conn, int boardNo) {
+		PreparedStatement pstmt = null;
+		String sql = prop.getProperty("insertUgBoardState");
+		int result = 0;
+		
+		try {
+			pstmt = conn.prepareStatement(sql);
+			pstmt.setInt(1, boardNo);
+			
+			result = pstmt.executeUpdate();
+		} catch (SQLException e) {
+			e.printStackTrace();
+		} finally {
+			close(pstmt);
+		}
+		
+		return result;
+	}
+
+	public String getUgGoodsBoardState(Connection conn, int no) {
+		PreparedStatement pstmt = null;
+		String sql = prop.getProperty("getUgGoodsBoardState");
+		ResultSet rset = null;
+		String state = "";
+		
+		try {
+			pstmt = conn.prepareStatement(sql);
+			pstmt.setInt(1, no);
+			
+			rset = pstmt.executeQuery();
+			
+			if(rset.next()) {
+				state = rset.getString(1);
+			}
+		} catch (SQLException e) {
+			e.printStackTrace();
+		} finally {
+			close(pstmt);
+			close(rset);
+		}
+		
+		return state;
+	}
+
+	public int deleteAttachments(Connection conn, String orCode) {
+		PreparedStatement pstmt = null;
+		String sql = prop.getProperty("deleteAttachments");
+		int result = 0;
+		
+		try {
+			pstmt = conn.prepareStatement(sql);
+			pstmt.setString(1, orCode);
+			
+			result = pstmt.executeUpdate();
+		} catch (SQLException e) {
+			e.printStackTrace();
+		} finally {
+			close(pstmt);
+		}
+		return result;
+	}
+
+	public int updateBoard(Connection conn, UsedGoodsBoard ugBoard) {
+		PreparedStatement pstmt = null;
+		String sql = prop.getProperty("updateBoard");
+		int result = 0;
+		
+		try {
+			pstmt = conn.prepareStatement(sql);
+			pstmt.setString(1, ugBoard.getTitle());
+			pstmt.setInt(2, ugBoard.getPrice());
+			pstmt.setString(3, ugBoard.getContent());
+			pstmt.setInt(4, ugBoard.getNo());
+			
+			result = pstmt.executeUpdate();
+		} catch (SQLException e) {
+			e.printStackTrace();
+		} finally {
+			close(pstmt);
+		}
+		return result;
+	}
 }

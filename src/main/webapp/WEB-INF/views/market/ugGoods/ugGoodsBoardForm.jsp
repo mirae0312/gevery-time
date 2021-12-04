@@ -40,7 +40,7 @@
 			<tr>
 				<th>사진 이미지 등록(최대 4장)</th>
 				<td>
-					<input type="file" name="pdtImage1"/><br />
+					<input type="file" name="pdtImage1" required/><br />
 					<input type="file" name="pdtImage2"/><br />
 					<input type="file" name="pdtImage3"/><br />
 					<input type="file" name="pdtImage4"/><br />
