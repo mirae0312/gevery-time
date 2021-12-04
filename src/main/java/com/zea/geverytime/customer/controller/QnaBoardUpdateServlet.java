@@ -43,10 +43,10 @@ public class QnaBoardUpdateServlet extends HttpServlet {
 		String title = request.getParameter("title");
 		String writer = request.getParameter("writer");
 		String content = request.getParameter("content");
-		String password = request.getParameter("password");
+		//String password = request.getParameter("password");
 		String category = request.getParameter("category");
 		
-		QnaBoard qnaBoard = new QnaBoard(no, title, writer, password, content, 0, 0, category, null);
+		QnaBoard qnaBoard = new QnaBoard(no, title, writer,null, content, 0, 0, category, null);
 		
 		int result = qnaBoardService.updateQnaBoard(qnaBoard);
 		System.out.println("[QnaBoardUpdateServlet] result = " + result);
