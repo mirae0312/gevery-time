@@ -23,6 +23,7 @@ public class MyPageMainServlet extends HttpServlet {
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		HttpSession session = request.getSession();
 		System.out.println("[MyPageMain@Servlet session] = " + session);
+		Member loginMember = (Member) session.getAttribute("loginMember"); 
 		Business businessMember  =  (Business)session.getAttribute("businessMember");
 		System.out.println("[MyPageMain@Servlet businessMember] = " + businessMember);
 		request
@@ -33,10 +34,12 @@ public class MyPageMainServlet extends HttpServlet {
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 	       
 		    request.setCharacterEncoding("utf-8");
-		    HttpSession session = request.getSession(true); 
-	        session.setMaxInactiveInterval(10*60);
-	        Member loginMember = (Member) session.getAttribute("loginMember"); 
+		    HttpSession session = request.getSession(); 
+		    
+	        Member loginMember = (Member) session.getAttribute("loginMember");
+	        Business businessMember  =  (Business)session.getAttribute("businessMember");
 	        String businessId = loginMember.getMemberId();
+	        String memberId = loginMember.getMemberId();
 	        Business business = businessService.selectOneMember(businessId);
 	        System.out.println("member@MemberLoginServlet.doPost = " + businessId);
 	        

@@ -86,5 +86,23 @@ public class MyPageService {
 			return result;
 		}
 
+		public int deleteBusiness(String businessId) {
+			Connection conn = null;
+			int result = 0;
+			try {
+				conn = getConnection();
+				result = myPageDao.deleteBusiness(conn, businessId);
+				if(result == 0)
+					throw new MemberException("해당하는 사업자가 없습니다.");
+				commit(conn);
+			} catch(Exception e) {
+				rollback(conn);
+				throw e;
+			} finally {
+				close(conn);
+			}
+			return result;
+		}
+
 		
 }

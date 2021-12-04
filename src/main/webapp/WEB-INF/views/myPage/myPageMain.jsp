@@ -10,10 +10,10 @@
 <div class="myPage-container">
 	<ul class="myPageBar">
 		<% if(loginMember != null && loginMember.getMemberType().equals("N")) { %>
-		<li id="memberInfo"><a href="#">내정보(개인)</a></li>
+		<li id="memberInfo"><a href="<%=request.getContextPath() %>/myPage/myPageMain">내정보(개인)</a></li>
 		<% } %>
 		<% if(loginMember != null && loginMember.getMemberType().equals("B")) { %>
-		<li id="businessInfo"><a href="#">내정보(사업자)</a></li> 
+		<li id="businessInfo"><a href="<%=request.getContextPath() %>/myPage/myPageMain">내정보(사업자)</a></li> 
 		<% } %>
 		<li id="point"><a href="<%=request.getContextPath() %>/myPage/myPagePoint">나의 Point</a></li>
 		<li id="salesList"><a href="<%= request.getContextPath() %>/product/onsaleProduct?sellerId=<%= loginMember.getMemberId() %>">나의 판매내역</a></li>
@@ -131,11 +131,13 @@
 <form id="memberDelFrm" action="<%= request.getContextPath() %>/myPage/memberDelete" method="POST">
 	<input type="hidden" name="memberId" value="<%= loginMember.getMemberId() %>" />
 </form>
-<form id="businessDelFrm" action="<%= request.getContextPath() %>/myPage/memberDelete" method="POST">
-	<input type="hidden" name="memberId" value="<%= businessMember.getMemberId() %>" />
-</form>
-<script>
+<% if(loginMember != null && loginMember.getMemberType().equals("B")) { %>
+<form id="businessDelFrm" action="<%= request.getContextPath() %>/myPage/businessDelete" method="POST">
+	<input type="hidden" name="businessId" value="<%= businessMember.getMemberId() %>" />
+</form> 
+<% } %>
 
+<script>
 // 일반회원 수정
 const updateMember = () => {
 	// 폼의 action값 할당 후 제출
@@ -154,23 +156,23 @@ const updateBusiness = () => {
 };
 
 // 일반회원유효성검사
-$(memberUpdateFrm).submit((e) => {
+$("#memberUpdateFrm").submit((e) => {
 	//phone
 	const $phone = $(phone);
-	if(!/^010[0-9]{8}$/.test($phone.val())){
+	if(!/^010[0-9]{8}$/.test($phone.val())) {
 		alert("유효한 전화번호가 아닙니다.");
 		return false;
-	};
+	}
 	return true;
 });
 //사업자 유효성검사
-$(BusinessUpdateFrm).submit((e) => {
+$("#BusinessUpdateFrm").submit((e) => {
 	//phone
 	const $phone = $(phone);
-	if(!/^010[0-9]{8}$/.test($phone.val())){
+	if(!/^010[0-9]{8}$/.test($phone.val())) {
 		alert("유효한 전화번호가 아닙니다.");
 		return false;
-	};
+	}
 	return true;
 });
 
