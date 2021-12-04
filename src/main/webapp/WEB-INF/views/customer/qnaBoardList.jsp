@@ -41,7 +41,6 @@
 				<%if(MemberService.ADMIN_ROLE.equals(loginMember.getMemberRole()) 
 						)
 				{ %>
-						   
              			<a href="<%= request.getContextPath() %>/customer/qnaBoardView?no=<%= qnaBoard.getNo() %>"><%= qnaBoard.getTitle() %></a>
 				<% }else{%>
                          <a href="<%= request.getContextPath() %>/customer/passwordCheck?no=<%= qnaBoard.getNo() %>"><%= qnaBoard.getTitle() %></a>

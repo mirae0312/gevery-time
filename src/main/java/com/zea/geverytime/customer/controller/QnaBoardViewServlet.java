@@ -25,10 +25,11 @@ public class QnaBoardViewServlet extends HttpServlet {
 	try {
 		//사용자 입력값 처리
 		int no = Integer.parseInt(request.getParameter("no"));
-		 
+		
 		//업무로직 
 		 QnaBoard qnaBoard = qnaBoardService.selectOneQnaBoard(no);
 		 System.out.println("[QnaBoardViewServlet] qnaboard = " + qnaBoard);
+		 
 		 
 //		String content = qnaBoard.getContent().replaceAll("<", "&lt;").replaceAll("<", "&gt;");
 //		content = content.replaceAll("\n","<br/>");
