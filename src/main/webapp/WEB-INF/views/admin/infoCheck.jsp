@@ -196,14 +196,51 @@
 </div>
 	<input type="hidden" id="code" name="code" value="<%= info.getCode() %>" />
 	<button id="checkButton">승인</button>
-	<button onclick="checkFalse();">반려</button>
+	<button id="falseButton">반려</button>
+	<button id="deleteButton">삭제</button>
 <script>
+// 승인
 $("#checkButton").click((e) => {
 	$.ajax({
 		url: "<%= request.getContextPath() %>/admin/check",
 		method: "POST",
 		data: {
-			code: $("#code").val()
+			code: $("#code").val(),
+			output: "I"
+		},
+		success(data){
+			console.log(data);
+			opener.location.reload();		
+			close();
+		},
+		error:console.log
+	});
+});
+// 반려
+$("#falseButton").click((e) => {
+	$.ajax({
+		url: "<%= request.getContextPath() %>/admin/check",
+		method: "POST",
+		data: {
+			code: $("#code").val(),
+			output: "O"
+		},
+		success(data){
+			console.log(data);
+			opener.location.reload();		
+			close();
+		},
+		error:console.log
+	});
+});
+// 삭제
+$("#deleteButton").click((e) => {
+	$.ajax({
+		url: "<%= request.getContextPath() %>/info/deleteMain",
+		method: "POST",
+		data: {
+			code: $("#code").val(),
+			output: "A"
 		},
 		success(data){
 			console.log(data);

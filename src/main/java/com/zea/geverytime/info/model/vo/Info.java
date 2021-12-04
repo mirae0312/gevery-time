@@ -32,11 +32,12 @@ public class Info extends InfoEntity implements Serializable {
 			String businessName, String businessAddress, String businessTel, String location, String headContent,
 			String bodyContents, String serviceContent, String site, String startHour, String endHour,
 			String startLaunch, String endLaunch, String startDinner, String endDinner, String holiday,
-			String roadGuide, int recommend, int attachCount, List<Attachment> attachments, List<Hospital> hospitals,
-			List<CafeRestaurant> cafeRestaurants, List<Pension> pensions, List<Salon> salons, int commentCount) {
+			String roadGuide, String deleteCheck, int recommend, int attachCount, List<Attachment> attachments,
+			List<Hospital> hospitals, List<CafeRestaurant> cafeRestaurants, List<Pension> pensions, List<Salon> salons,
+			int commentCount) {
 		super(code, memberId, viewCount, regCheck, businessNo, regDate, businessName, businessAddress, businessTel,
 				location, headContent, bodyContents, serviceContent, site, startHour, endHour, startLaunch, endLaunch,
-				startDinner, endDinner, holiday, roadGuide);
+				startDinner, endDinner, holiday, roadGuide, deleteCheck);
 		this.recommend = recommend;
 		this.attachCount = attachCount;
 		this.attachments = attachments;
@@ -47,7 +48,7 @@ public class Info extends InfoEntity implements Serializable {
 		this.commentCount = commentCount;
 	}
 
-	
+
 
 	public int getRecommend() {
 		return recommend;
