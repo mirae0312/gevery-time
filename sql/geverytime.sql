@@ -101,3 +101,28 @@ commit;
 select*from board_comment;
 select * from board_comment start with comment_level = 1 connect by prior no = comment_ref order siblings by no;
 insert into board_comment(no, or_code, comment_level, writer, content, board_no, comment_ref, like_count, reg_date) values(seq_board_comment_no.nextval,'bb1c' || '-' || to_char(seq_board_comment_no.currval, 1, 'hyungzin0309', 'gdgd', '649', null, default, default);
+
+
+select * from member;
+select * from info_review;
+
+commit;
+
+where REGEXP_LIKE(or_code,\'bb3b|bb4b|bb5b\')
+
+select * from (select row_number () over (order by like_count desc) rnum, b.* from board b where REGEXP_LIKE(or_code,'bb1b|bb2b') and reg_date between sysdate-7 and sysdate ) where rnum between 1 and 10;
+
+select * from board where reg_date between DATE_SUB(CURDATE(), INTERVAL 3 DAY)  AND CURDATE() );
+
+select sysdate from dual;
+
+select * from (select row_number () over (order by like_count desc) rnum, b.* from board b where REGEXP_LIKE(or_code,'bb1b|bb2b') and reg_date between (sysdate-7) and sysdate) where rnum between 1 and 10;
+select * from (select row_number () over (order by like_count desc) rnum, (select count(*) from attachment where or_no in (select or_code from board where no = b.no)) attach_count, (select count(*) from board_comment where board_no = b.no) comment_count, b.* from board b where REGEXP_LIKE(or_code,'bb1b|bb2b') and reg_date between (sysdate-7) and sysdate) where rnum between 1 and 10;
+
+select count(*) from attachment where or_no = (select or_code from board b where no = 701);
+
+select or_code from board b where no = 200;
+select or_code from board b where no = b.no;
+
+
+from (select row_number() over(order by reg_date desc) rnum, b.* from board b where writer = 'hyungzin0309') where ;

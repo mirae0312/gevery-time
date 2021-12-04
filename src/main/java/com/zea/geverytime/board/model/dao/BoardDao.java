@@ -406,5 +406,102 @@ public class BoardDao {
 		return result;
 	}
 
+	public List<Board> getFreePopularList(Connection conn) {
+		List<Board> list = new ArrayList<>();
+		String sql = prop.getProperty("getFreePopularList");
+		PreparedStatement pstmt = null;
+		ResultSet rset = null;
+		
+		try {
+			pstmt = conn.prepareStatement(sql);
+			rset = pstmt.executeQuery();
+			while(rset.next()) {
+				int no = rset.getInt("no");
+				String orCode = rset.getString("or_code");
+				String title = rset.getString("title");
+				String writer = rset.getString("writer");
+				String content = rset.getString("content");
+				int readCount = rset.getInt("read_count");
+				int likeCount = rset.getInt("like_count");
+				Date regDate = rset.getDate("reg_date");
+				Board board = new Board(no,orCode,title,writer,content,readCount,likeCount,regDate);
+				board.setAttachCount(rset.getInt("attach_count"));
+				board.setCommentCount(rset.getInt("comment_count"));
+				list.add(board);
+			}
+			
+		} catch (SQLException e) {
+			e.printStackTrace();
+			throw new BoardException("게시물 불러오기 오류!");
+		}finally {
+			close(rset);
+			close(pstmt);
+		}
+		
+		return list;
+	}
+
+
+	public List<Board> selectOtherContentList(Connection conn, Map<String, Object> map) {
+		List<Board> list = new ArrayList<>();
+		String sql = prop.getProperty("selectOtherContentList");
+		PreparedStatement pstmt = null;
+		ResultSet rset = null;
+		
+		try {
+			pstmt = conn.prepareStatement(sql);
+			pstmt.setString(1, (String)map.get("writer"));
+			pstmt.setInt(2,(int)map.get("startNum"));
+			pstmt.setInt(3,(int)map.get("endNum"));
+			rset = pstmt.executeQuery();
+			while(rset.next()) {
+				int no = rset.getInt("no");
+				String orCode = rset.getString("or_code");
+				String title = rset.getString("title");
+				String writer = rset.getString("writer");
+				String content = rset.getString("content");
+				int readCount = rset.getInt("read_count");
+				int likeCount = rset.getInt("like_count");
+				Date regDate = rset.getDate("reg_date");
+				Board board = new Board(no,orCode,title,writer,content,readCount,likeCount,regDate);
+				board.setAttachCount(rset.getInt("attach_count"));
+				board.setCommentCount(rset.getInt("comment_count"));
+				list.add(board);
+			}
+			
+		} catch (SQLException e) {
+			e.printStackTrace();
+			throw new BoardException("게시물 불러오기 오류!");
+		}finally {
+			close(rset);
+			close(pstmt);
+		}
+		
+		return list;
+	}
+
+	public int getTotalOtherContentCount(Connection conn, Map<String, Object> map) {
+		int count = 0;
+		String sql = prop.getProperty("getTotalOtherContentCount");
+		System.out.println(sql);
+		PreparedStatement pstmt = null;
+		ResultSet rset = null;
+		
+		try {
+			pstmt = conn.prepareStatement(sql);
+			pstmt.setString(1, (String)map.get("writer"));
+			rset = pstmt.executeQuery();
+			if(rset.next()) {
+				count = rset.getInt(1);
+			}
+		} catch (SQLException e) {
+			throw new BoardException("게시물 총 개수 가져오기 오류");
+		}finally {
+			close(rset);
+			close(pstmt);
+		}
+		
+		return count;
+	}
 
 }

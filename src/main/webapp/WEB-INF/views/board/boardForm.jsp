@@ -1,10 +1,13 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
 <%@ include file="/WEB-INF/views/common/header.jsp" %>
+<script>
+
+</script>
 <form
 	id="boardEnrollFrm"
 	name="boardEnrollFrm"
-	action="<%=request.getContextPath() %>/board/boardEnroll" 
+ 	action="<%=request.getContextPath() %>/board/boardEnroll" 
 	method="post"
 	enctype = "multipart/form-data">
 	<table id="tbl-board-view">
@@ -22,7 +25,7 @@
 	</tr>
 	<tr>
 		<th>제 목</th>
-		<td><input type="text" name="title" required></td>
+		<td><input type="text" name="title"></td>
 	</tr>
 	<tr>
 		<th>작성자</th>
@@ -104,5 +107,26 @@
 			});
 		} 
 
+		
+         function boardValidate(){
+         	const $title = $("[name=title]");
+         	const $content = $("[name=content]");
+         	
+         	//제목작성 필수
+         	if(!/^.+$/.test($title.val())){ 
+         		alert("제목을 입력하세요.");
+         		return false;
+         	}			   
+         	//내용작성 필수
+         	if(!/^(.|\n)+$/.test($content.val())){
+         		alert("내용을 작성하세요.");
+         		return false;
+         	}
+         	
+         	
+         	return true;
+         }
+
+         $(document.boardEnrollFrm).submit(boardValidate);
 </script>
 <%@ include file="/WEB-INF/views/common/footer.jsp" %>
