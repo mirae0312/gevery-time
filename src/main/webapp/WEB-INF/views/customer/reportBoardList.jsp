@@ -38,8 +38,14 @@
 				)
 			){ %>
                     <tr>
+                    <%if(reportBoard.getReportCheck().equals("C")){  %>
+                     <td class="tit" colspan="7">
+                     <a href="<%= request.getContextPath() %>/customer/reportBoardView?no=<%= reportBoard.getReportNo() %>"><span style="color:red";>[처리완료]</span> <%= reportBoard.getTitle() %></a>
+                       </td>
+                       <%}else{ %>
                         <td class="tit" colspan="7">
                           <a href="<%= request.getContextPath() %>/customer/reportBoardView?no=<%= reportBoard.getReportNo() %>"><%= reportBoard.getTitle() %></a>
+                        <%} %>
                         </td>
                         <td><%= reportBoard.getRegDate()%></td>
                     </tr>          
