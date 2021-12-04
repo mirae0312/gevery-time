@@ -51,10 +51,10 @@ public class InfoService {
 			
 			switch(n) {
 			case "new": 
-				list = infoDao.selectAllList(board, conn, start, end);
+				list = infoDao.selectAllListAsc(board, conn, start, end);
 				break;
 			case "old": 
-				list = infoDao.selectAllListAsc(board, conn, start, end);
+				list = infoDao.selectAllList(board, conn, start, end);
 				break;
 			case "view": 
 				list = infoDao.selectAllListView(board, conn, start, end);
@@ -127,6 +127,64 @@ public class InfoService {
 				for(Attachment attach : attachments) {
 					attach.setCode(code);
 					result = infoDao.insertAttachment(conn, attach);
+				}
+			}
+			if(result > 0)
+				commit(conn);
+		} catch(Exception e) {
+			rollback(conn);
+			throw e;
+		} finally{
+			close(conn);
+		}
+		return result;
+	}
+	
+	public int updateInfo(Info info, String codeN) {
+		Connection conn = null;
+		int result = 0;
+		try {
+			conn = getConnection();
+			result = infoDao.updateInfo(conn, info);
+			String code = info.getCode();
+			
+			switch(codeN) {
+			case "1": 
+				List<Hospital> hospitals = info.getHospitals();
+				for(Hospital hospital : hospitals) {
+//					System.out.println("[infoservice] hospitalService : " + hospital.getService());
+					hospital.setCode(code);
+					result = infoDao.updateHospitalService(conn, hospital);
+				}
+				break;
+			case "2": 
+				List<CafeRestaurant> crs = info.getCafeRestaurants();
+				for(CafeRestaurant cr : crs) {
+					cr.setCode(code);
+					result = infoDao.updateCafeRestaurantService(conn, cr);
+				}
+				break;
+			case "3": 
+				List<Pension> pensions = info.getPensions();
+				for(Pension pension : pensions) {
+					pension.setCode(code);
+					result = infoDao.updatePensionService(conn, pension);
+				}
+				break;
+			case "4": 
+				List<Salon> salons = info.getSalons();
+				for(Salon salon : salons) {
+					salon.setCode(code);
+					result = infoDao.updateSalonService(conn, salon);
+				}
+				break;			
+			}
+			
+			List<Attachment> attachments = info.getAttachments();
+			if(attachments != null && !attachments.isEmpty()) {
+				for(Attachment attach : attachments) {
+					attach.setCode(code);
+					result = infoDao.updateAttachment(conn, attach);
 				}
 			}
 			if(result > 0)
@@ -439,6 +497,35 @@ public class InfoService {
 			close(conn);
 		}
 		
+	}
+
+	public void deleteInfoMain(String code) {
+		Connection conn = null;
+		try {
+			conn = getConnection();
+			infoDao.deleteInfoMain(conn, code);
+			commit(conn);
+		}catch(Exception e) {
+			rollback(conn);
+			throw e;
+		}finally {
+			close(conn);
+		}
+		
+	}
+
+	public List<Attachment> selectAttachment(String code) {
+		Connection conn = null;
+		List<Attachment> list = null;
+		try {
+			conn = getConnection();
+			list = infoDao.selectAttachment(conn, code);
+		}catch(Exception e) {
+			throw e;
+		}finally {
+			close(conn);
+		}
+		return list;
 	}
 
 
