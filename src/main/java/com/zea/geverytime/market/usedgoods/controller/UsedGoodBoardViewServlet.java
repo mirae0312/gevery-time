@@ -22,17 +22,17 @@ public class UsedGoodBoardViewServlet extends HttpServlet {
 	private UsedGoodsService ugService = new UsedGoodsService();
 
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		int boardNo = Integer.parseInt(request.getParameter("boardNo"));
-		System.out.println("뷰 boardNo : "+boardNo);
-		
+		int boardNo = Integer.parseInt(request.getParameter("boardNo"));		
 		UsedGoodsBoard board = ugService.getUgGoodsBoard(boardNo);
 		
 		String orCode = board.getOrCode();
 		
 		List<Attachment> attachments = ugService.getUgBoardAttachment(orCode);
+		String state = ugService.getUgGoodsBoardState(board.getNo());
 		
 		board.setAttachments(attachments);
 		
+		request.setAttribute("state", state);
 		request.setAttribute("board", board);
 		request.getRequestDispatcher("/WEB-INF/views/market/ugGoods/ugGoodsBoardView.jsp").forward(request, response);
 	}

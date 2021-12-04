@@ -34,7 +34,6 @@ public class ProductSaleBoardUpdateFormServlet extends HttpServlet {
 			String rfn = attachment.getRenamedFilename();
 			File delFile = new File(getServletContext().getRealPath("/upload/market/productSale"), rfn);
 			boolean removed = delFile.delete();
-			System.out.println("delFileRemove: "+removed);
 		}
 		// 2. db attachment 삭제
 		String orCode = board.getOrCode();

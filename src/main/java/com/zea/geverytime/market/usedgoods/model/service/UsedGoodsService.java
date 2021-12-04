@@ -76,4 +76,93 @@ public class UsedGoodsService {
 		close(conn);
 		return count;
 	}
+
+	public int insertUgBoardState(int boardNo) {
+		Connection conn = getConnection();
+		int result = 0;
+		try {
+			result = ugDao.insertUgBoardState(conn, boardNo);
+			commit(conn);
+		} catch(Exception e) {
+			rollback(conn);
+			e.printStackTrace();
+		} finally {
+			close(conn);
+		}
+		return result;
+	}
+
+	public String getUgGoodsBoardState(int no) {
+		Connection conn = getConnection();
+		String state = ugDao.getUgGoodsBoardState(conn, no);
+		close(conn);
+		return state;
+	}
+
+	public int deleteAttachments(String orCode) {
+		Connection conn = getConnection();
+		int result = 0;
+		
+		try {
+			result = ugDao.deleteAttachments(conn, orCode);
+			commit(conn);
+		} catch(Exception e) {
+			rollback(conn);
+			e.printStackTrace();
+		} finally {
+			close(conn);
+		}
+		return result;
+	}
+
+	public int updateUgBoard(UsedGoodsBoard ugBoard, List<Attachment> attachments) {
+		Connection conn = getConnection();
+		int result = 0;
+		
+		try {
+			result = ugDao.updateBoard(conn, ugBoard);
+			
+			int boardNo = ugBoard.getNo();
+			UsedGoodsBoard board = ugDao.getUgGoodsBoard(conn, boardNo);
+			String orCode = board.getOrCode();
+
+			for(Attachment attach : attachments) {
+				result = ugDao.insertBoardAttachments(conn, attach, orCode);
+				System.out.println("파일등록결과 : "+result);
+			}
+			
+			commit(conn);
+		} catch(Exception e) {
+			rollback(conn);
+			e.printStackTrace();
+		} finally {
+			close(conn);
+		}
+		return result;
+	}
+
+	public int deleteBoard(int boardNo) {
+		Connection conn = getConnection();
+		int result = 0;
+		try {
+			// 삭제 전 orCode 받아오기
+			UsedGoodsBoard board = ugDao.getUgGoodsBoard(conn, boardNo);
+			String orCode = board.getOrCode();
+			
+			// DB에서 board 삭제
+			result = ugDao.deleteBoard(conn, boardNo);
+			
+			// Attachment 삭제
+			if(result > 0) {
+				result = ugDao.deleteAttachments(conn, orCode);				
+			}
+			commit(conn);
+		} catch(Exception e) {
+			rollback(conn);
+			e.printStackTrace();
+		} finally {
+			close(conn);
+		}
+		return result;
+	}
 }

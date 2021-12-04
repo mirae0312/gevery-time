@@ -42,7 +42,6 @@ public class UsedGoodBoardEnrollServlet extends HttpServlet {
 		String writer = multipartRequest.getParameter("writer");
 		int price = Integer.parseInt(multipartRequest.getParameter("price"));
 		String content = multipartRequest.getParameter("summernote");
-
 		
 		// attachment DB 등록
 		Enumeration fileNames = multipartRequest.getFileNames();
@@ -62,20 +61,20 @@ public class UsedGoodBoardEnrollServlet extends HttpServlet {
 		
 		// 게시물 DB 등록
 		int result = ugService.insertUgBoard(ugBoard, attachments);
-		System.out.println("중고거래 게시물 등록 결과 : "+result);
+		
+		// 게시물 상태 등록
+		int boardNo = ugBoard.getNo();
+		int stateResult = ugService.insertUgBoardState(boardNo);
 		
 		String msg = "";
-		if(result > 0) {
+		if(result == 1 && stateResult == 1) {
 			msg = "판매글이 등록되었습니다.";
-		} else {
+		} else if(result != 1 || stateResult != 1){
 			msg = "판매글이 정상적으로 등록되지 않았습니다.";
 		}
 		
-		int boardNo = ugBoard.getNo();
-		
 		request.getSession().setAttribute("msg", msg);
 		response.sendRedirect(request.getContextPath()+"/ugGoods/boardView?boardNo="+boardNo);
-		
 	}
 
 }

@@ -18,6 +18,7 @@ import com.zea.geverytime.info.model.exception.InfoBoardException;
 import com.zea.geverytime.info.model.vo.Info;
 import com.zea.geverytime.info.model.vo.InfoEntity;
 import com.zea.geverytime.member.model.exception.MemberException;
+import com.zea.geverytime.member.model.vo.Business;
 import com.zea.geverytime.member.model.vo.Member;
 
 public class MyPageDao {
@@ -88,6 +89,43 @@ public class MyPageDao {
 			result = pstmt.executeUpdate();
 		} catch (SQLException e) {
 			throw new MemberException("회원 삭제 오류!", e);
+		} finally {
+			close(pstmt);
+		}
+		return result;
+	}
+	public int updateBusiness(Connection conn, Business business) {
+		int result = 0;
+		PreparedStatement pstmt = null;
+		String sql = prop.getProperty("updateBusiness");
+		
+		try {
+			pstmt = conn.prepareStatement(sql);
+			pstmt.setString(1,business.getEmail());
+			pstmt.setString(2,business.getbName());
+			pstmt.setString(3,business.getbAddress());
+			pstmt.setString(4,business.getLocation());
+			pstmt.setString(5,business.getbTel());
+			pstmt.setString(6,business.getMemberId());
+			
+			result = pstmt.executeUpdate();
+		} catch (SQLException e) {
+			e.printStackTrace();
+		} finally {
+			close(pstmt);
+		}
+		return result;
+	}
+	public int deleteBusiness(Connection conn, String businessId) {
+		int result = 0;
+		PreparedStatement pstmt = null;
+		String sql = prop.getProperty("deleteBusiness");
+		try {
+			pstmt = conn.prepareStatement(sql);
+			pstmt.setString(1, businessId);
+			result = pstmt.executeUpdate();
+		} catch (SQLException e) {
+			throw new MemberException("사업자 삭제 오류!", e);
 		} finally {
 			close(pstmt);
 		}
