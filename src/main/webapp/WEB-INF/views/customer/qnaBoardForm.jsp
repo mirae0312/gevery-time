@@ -35,7 +35,7 @@
 	<tr>
 		<th>작성자</th>
 		<td>
-			<input class="inputBox" type="text" name="writer" value=""/>
+			<input class="inputBox" type="text" name="writer" value="<%= loginMember.getMemberId() %>" readonly/>
 		</td>
 	</tr>
 	<tr>
@@ -43,10 +43,11 @@
         <td>
         <label for="category"></label> 
          <select class="inputBox" name="category" id="category"  >
-          <option value="[아이디/비밀번호 관련]">아이디/비밀번호 관련</option>
-          <option value="[회원정보 관련]">회원정보 관련</option>
-          <option value="[포인트 관련]">포인트 관련</option>
-          <option value="[주문/결제관련]">주문/결제관련</option>
+          <option value="[결제문의]">결제문의</option>
+          <option value="[포인트문의]">포인트문의</option>
+          <option value="[회원정보문의]">회원정보문의</option>
+          <option value="[신고문의]">신고문의</option>
+          <option value="[기타문의]">기타문의</option>
           
         </select>
        </td>
@@ -55,10 +56,12 @@
 		<th>내 용</th>
 		<td><textarea name="content" id="summernote" class="summernote"></textarea></td>
 	</tr>
-	<th>비밀번호</th>
+	<tr>
+	  <th>비밀번호</th> 
 		<td>
-			<input class="inputBox" type="password" name="password"   />
+			<input class="inputBox" type="password" name="password"/>
 		</td>
+	 </tr>
 	<tr>
 		<th colspan="2">
 			<div id=box><input class="submit" type="submit" value="등록하기"></div>
