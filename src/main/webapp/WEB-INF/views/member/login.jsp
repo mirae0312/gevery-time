@@ -82,7 +82,7 @@ $(() => {
             </label>
                     </div>
                     <span class="txt_find">
-                    <a href="/member/find/loginId" class="link_find">아이디</a>
+                    <a href="<%=request.getContextPath()%>/member/findId" class="link_find">아이디</a>
                         /
                     <a href="/member/find/password" class="link_find">비밀번호 찾기</a>
                     </span>

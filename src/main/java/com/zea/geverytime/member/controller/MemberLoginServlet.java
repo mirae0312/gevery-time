@@ -31,12 +31,11 @@ public class MemberLoginServlet extends HttpServlet {
         
         
         System.out.println("member@MemberLoginServlet.doPost = " + member);
-        System.out.println(member.getMemberRole());
         
         HttpSession session = request.getSession(true); 
       
         
-        session.setMaxInactiveInterval(10*60);
+        session.setMaxInactiveInterval(10*1800);
     
                 if(member != null && password.equals(member.getPassword())) {
                    
@@ -44,8 +43,8 @@ public class MemberLoginServlet extends HttpServlet {
                     session.setAttribute("msg", "로그인 성공!");
                    
                 }
-                else {
-                    // 로그인 실패
+                else if(member != null && password.equals(member.getPassword())){
+                	
                     session.setAttribute("msg", "로그인 실패!");
                     
                 }
@@ -53,9 +52,7 @@ public class MemberLoginServlet extends HttpServlet {
                 
                 String location = request.getContextPath() + "/";
                 response.sendRedirect(location);
-                
-                
-                businesview.doPost(request,response);
+                               
             }
                 
  
