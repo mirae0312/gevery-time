@@ -35,7 +35,7 @@
                <ul>
                    <!--관리자페이지표시 안 보이게 할 때 아래 한 줄만 처리해야 흐트러지지 않음 -->
                  <%  if(loginMember != null && MemberService.ADMIN_ROLE.equals(loginMember.getMemberRole())){ %>
-                   <li id="admin"><a href="<%= request.getContextPath() %>/admin/adminList" style="color: red">관리자페이지</a></li>
+                   <li id="admin"><a href="<%= request.getContextPath() %>/admin/adminList?board=<%= "info" %>" style="color: red">관리자페이지</a></li>
                	<% } %>
                </ul>
                
@@ -76,8 +76,8 @@
 	            <ul class="market-pagenavs">
 	                <!-- <li class="pagenav3" id="point"><a href="#">내 Point 확인</a></li> -->
 	                <li class="market-pagenav" id="store"><a href="#">일반상점</a></li>
-	                <li class="market-pagenav" id="used"><a href="#">중고 매매</a></li>
-	                <% if(loginMember != null) {%>
+	                <li class="market-pagenav" id="used"><a href="<%= request.getContextPath() %>/ugGoods/main">중고 매매</a></li>
+	                <% if(loginMember != null) { %>
 	                <li class="market-pagenav" id="list"><a href="#">찜 목록</a></li>
 	                <li class="market-pagenav" id="cart"><a href="<%= request.getContextPath() %>/cart/main?memberId=<%= loginMember.getMemberId() %>">장바구니</a></li>
 	                <% } %>

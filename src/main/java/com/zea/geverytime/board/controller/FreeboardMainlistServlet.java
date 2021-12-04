@@ -27,6 +27,11 @@ public class FreeboardMainlistServlet extends HttpServlet {
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		try {
+			// 2. 업무처리
+			List<Board> popularList = boardService.getFreePopularList();
+			
+			
+			request.setAttribute("popularList",popularList);
 			request
 				.getRequestDispatcher("/WEB-INF/views/board/freeBoard.jsp")
 				.forward(request, response);

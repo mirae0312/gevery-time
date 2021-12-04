@@ -89,7 +89,6 @@
 	<script>
 		// 상품 등록하기
 		$("#pdtEnroll").click((e) => {
-			console.log("click");
 			location.href="<%= request.getContextPath() %>/product/productForm";
 		});
 		
@@ -110,9 +109,6 @@
 		})
 		
 		const selectContent = (cPage) => {
-			console.log($("#divSelect").val());
-			console.log($("#selectOnSale").prop("checked"));
-			
 			const selectedDiv = $("#divSelect").val();
 			const selectedOnSale = $("#selectOnSale").prop("checked");
 			

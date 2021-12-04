@@ -35,8 +35,8 @@ public class BoardListServlet extends HttpServlet {
 			
 			// 2. 업무처리
 			// 1) 컨텐츠 부분 - 현재페이지, 페이지당 게시물 수 -> startnum, endnum구하기
-			int numPerPage = 10;
-			int startNum = (cPage-1)*10+1;
+			int numPerPage = 20;
+			int startNum = (cPage-1)*numPerPage+1;
 			int endNum = cPage*numPerPage;
 			
 			Map<String,Object> map = new HashMap<>();
@@ -65,7 +65,5 @@ public class BoardListServlet extends HttpServlet {
 		}catch(Exception e) {
 			throw e;
 		}
-
 	}
-
 }

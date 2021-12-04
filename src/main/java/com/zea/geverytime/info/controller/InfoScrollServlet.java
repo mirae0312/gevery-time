@@ -28,8 +28,9 @@ public class InfoScrollServlet extends HttpServlet {
 
 		try {		
 			// 페이지 체크
-			String board = (String) request.getParameter("pageCheck");
-			
+			String board = request.getParameter("pageCheck");
+			String n = request.getParameter("n");
+			System.out.println("[InfoScrollServlet] + n : " + n);	
 			// 페이징
 			final int numPerPage = 5;
 			int page = Integer.parseInt(request.getParameter("page"));			
@@ -37,8 +38,9 @@ public class InfoScrollServlet extends HttpServlet {
 			int end = page * numPerPage;
 						
 			// 전체 게시물
-			List<Info> list = infoService.selectAllList(board, start, end);
-//			System.out.println("[InfoScrollServlet] + list : " + list);		
+			List<Info> list = infoService.selectAllList(board, start, end, n);
+//			for(Info info : list)
+//				System.out.println("[infoScrollServlet] infoList : " + info);
 			
 			response.setContentType("application/json; charset=utf-8");
 			new Gson().toJson(list, response.getWriter());

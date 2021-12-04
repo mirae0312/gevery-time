@@ -36,9 +36,6 @@ public class ProductSaleMainListServlet extends HttpServlet {
 			state = "%%";
 		}
 		
-		System.out.println("listServ@div, onsale : "+div+", "+state);
-		
-		
 		// 페이지바 처리
 		int cPage = Integer.parseInt(request.getParameter("cPage"));
 		
