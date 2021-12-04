@@ -1,6 +1,7 @@
 package com.zea.geverytime.market.usedgoods.controller;
 
 import java.io.IOException;
+import java.util.List;
 
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
@@ -8,6 +9,7 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
+import com.zea.geverytime.common.model.vo.Attachment;
 import com.zea.geverytime.market.usedgoods.model.service.UsedGoodsService;
 import com.zea.geverytime.market.usedgoods.model.vo.UsedGoodsBoard;
 
@@ -24,6 +26,12 @@ public class UsedGoodBoardViewServlet extends HttpServlet {
 		System.out.println("뷰 boardNo : "+boardNo);
 		
 		UsedGoodsBoard board = ugService.getUgGoodsBoard(boardNo);
+		
+		String orCode = board.getOrCode();
+		
+		List<Attachment> attachments = ugService.getUgBoardAttachment(orCode);
+		
+		board.setAttachments(attachments);
 		
 		request.setAttribute("board", board);
 		request.getRequestDispatcher("/WEB-INF/views/market/ugGoods/ugGoodsBoardView.jsp").forward(request, response);

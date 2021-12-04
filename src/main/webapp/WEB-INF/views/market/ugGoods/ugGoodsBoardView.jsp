@@ -18,6 +18,9 @@
 	<h1>상품 상세보기</h1>
 	<table>
 		<thead>
+			<tr><th colspan=2>중고물품 판매 게시글</th></tr>
+		</thead>
+		<tbody>
 			<tr>
 				<th>제목</th>
 				<td><%= board.getTitle() %></td>
@@ -26,8 +29,6 @@
 				<th>글 번호</th>
 				<td><%= board.getNo() %></td>
 			</tr>
-		</thead>
-		<tbody>
 			<tr>
 				<th>작성자</th>
 				<td><%= board.getWriter() %></td>
@@ -36,16 +37,28 @@
 				<th>가격</th>
 				<td><%= board.getPrice() %></td>
 			</tr>
+			
+			<!-- 상태 -->
+			<tr>
+				<th>상태</th>
+				<td>----</td>
+			</tr>
+			
 		<%
+		int imgNum = 1;
 		for(Attachment attach : attachments) {
+			
 		%>
 			<tr>
-				<td><img src="<%= request.getContextPath() %>/upload/market/UgSale/<%= attach.getRenamedFilename() %>" alt="" /></td>
+				<th>이미지<%= imgNum %></th>
+				<td>
+					<img src="<%= request.getContextPath() %>/upload/market/UgSale/<%= attach.getRenamedFilename() %>" style="width:300px;" alt="" />
+				</td>			
 			</tr>	
 		<%
+		imgNum++;
 		}
 		%>	
-			
 			<tr>
 				<th>내용</th>
 				<td><%= board.getContent() %></td>

@@ -25,7 +25,7 @@
 	 
 	 </script>
 
-	<form action="<%= request.getContextPath() %>/product/boardForm" name="productEnrollFrm" enctype="multipart/form-data" method="POST">
+	<form action="<%= request.getContextPath() %>/product/boardEnroll" name="productEnrollFrm" enctype="multipart/form-data" method="POST">
 		<table>
 			<tr>
 				<th>제목</th>
