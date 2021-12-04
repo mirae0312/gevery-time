@@ -7,6 +7,13 @@
 	border: 1px solid red;
 }
 
+.btn{
+  width: 80px;
+  height: 30px;
+  border: none;
+  border-radius: 10%;
+}
+
 .pop-contents{
 	display: flex;
 	margin: 50px, 0;

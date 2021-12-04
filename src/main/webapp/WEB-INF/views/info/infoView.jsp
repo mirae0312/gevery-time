@@ -31,6 +31,7 @@
 %>
 <%@ page import="java.sql.*" %>
 <%@ include file="/WEB-INF/views/common/header.jsp" %>
+<link rel="stylesheet" href="<%=request.getContextPath() %>/css/info/info.css" />
 <link rel="stylesheet" href="<%=request.getContextPath() %>/css/info/infoView.css" />
 <script type="text/javascript" src="//dapi.kakao.com/v2/maps/sdk.js?appkey=4247f28f0dc06c5cc8486ac837d411ff&libraries=services,clusterer,drawing"></script>
 <div class="info-view-wrapper">
@@ -39,8 +40,8 @@
 		<input type="hidden" name="code" value="<%= info.getCode() %>" />
 		<input type="hidden" name="codeN" value="<%= codeN %>" />
 		<input type="hidden" name="id" value="<%= info.getMemberId() %>" />
-		<input type="button" value="수정" onclick="modifyInfoMain();" />
-		<input type="button" value="삭제" onclick="deleteInfoMain();" />
+		<input type="button" class="btn" value="수정" onclick="modifyInfoMain();" />
+		<input type="button" class="btn" value="삭제" onclick="deleteInfoMain();" />
 	</form>
 <% } %>
 	<input type="button" value="신고" class="reportInfoMain btn" />
@@ -214,10 +215,10 @@
 			<%-- 리뷰 수정: 로그인을 했고 작성자라면 보이도록 --%>
 			</form>
 		</div>
-				<input type="button" value="신고" class="reivew-report review-btn" onclick="reportReview();" />
+				<input type="button" value="신고" class="reivew-report review-btn btn" onclick="reportReview();" />
 			<% if(loginMember != null && loginMember.getMemberId().equals(re.getMemberId())){ %>
-				<input type="button" value="수정" class="modify-review review-btn" onclick="modifyReviewBox();" />
-				<input type="button" value="삭제" class="delete-review review-btn" onclick="deleteReview();" />
+				<%--<input type="button" value="수정" class="modify-review review-btn btn" onclick="modifyReviewBox();" />--%>
+				<input type="button" value="삭제" class="delete-review review-btn btn" onclick="deleteReview();" />
 			<% } %>
 		<% } %>
 	<% } %>
@@ -238,7 +239,7 @@
 			<input type="file" name="reviewPic1" accept="image/*" onchange="previewF1();"/>
 			<input type="file" name="reviewPic2" accept="image/*" onchange="previewF2();"/>
 			<textarea name="bodyContent" id="writeReview" cols="30" rows="10" required></textarea>
-			<button class="review-enroll-btn">등록</button>
+			<button class="review-enroll-btn btn">등록</button>
 <% } %>
 		</form>
 	</div>
@@ -270,8 +271,10 @@ const deleteReview = () => {
 };
 // 리뷰 수정
 const modifyReviewBox = () => {
-	$frm.attr("action", "<%= request.getContextPath() %>/info/reviewModify")
-		.submit();
+	if($(".mHead").val() != null && $(".mBody").val() != null){
+		$frm.attr("action", "<%= request.getContextPath() %>/info/reviewModify")
+			.submit();		
+	}
 };
 <% if(loginMember != null){ %>
 $(".info-review").one("click", function(event){
@@ -289,6 +292,9 @@ $(".info-review").one("click", function(event){
 	<tr>
 	<td><textarea name="mBody" class="mBody" cols="30" rows="10"></textarea></td>
 	</tr>	
+	<tr>
+	<td><input type="button" value="수정" class="modify-review review-btn btn" onclick="modifyReviewBox();" /></td>
+	</tr>
 	`;
 	
 	if($btn == '<%= loginMember.getMemberId() %>'){
