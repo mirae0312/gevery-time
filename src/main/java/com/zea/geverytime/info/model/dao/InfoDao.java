@@ -130,6 +130,7 @@ public class InfoDao {
 				info.setHeadContent(rset.getString("head_content"));
 				info.setViewCount(rset.getInt("view_count"));
 				info.setRecommend(rset.getInt("count"));
+				info.setRegDate(rset.getDate("reg_date"));
 				
 				list.add(info);
 			}
@@ -243,6 +244,7 @@ public class InfoDao {
 				info.setHeadContent(rset.getString("head_content"));
 				info.setViewCount(rset.getInt("view_count"));
 				info.setRecommend(rset.getInt("count"));
+				info.setRegDate(rset.getDate("reg_date"));
 				
 				list.add(info);
 			}
@@ -299,6 +301,7 @@ public class InfoDao {
 				info.setHeadContent(rset.getString("head_content"));
 				info.setViewCount(rset.getInt("view_count"));
 				info.setRecommend(rset.getInt("count"));
+				info.setRegDate(rset.getDate("reg_date"));
 				
 				list.add(info);
 			}
