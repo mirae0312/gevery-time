@@ -32,11 +32,6 @@
             <table class="board_list">
                 <caption>게시판 목록</caption>
                 <thead>
-                    <tr>
-                        <!-- <th>No</th> -->
-                        <!--  <th>분류</th>-->
-                       <!-- <th colspan="5"></th> --> 
-                    </tr>
                 </thead>
                 <tbody>
  <%
@@ -72,7 +67,7 @@
 	}
 		 
 %>
-	<div id='pageBar'><%= request.getAttribute("pagebar") %></div>
  </div> 
+	<div id='pageBar'><%= request.getAttribute("pagebar") %></div>
 </section>
  <%@ include file="/WEB-INF/views/common/footer.jsp" %>
