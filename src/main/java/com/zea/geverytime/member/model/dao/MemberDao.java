@@ -100,12 +100,12 @@ public class MemberDao {
 			try {
 				pstmt = conn.prepareStatement(sql);
 				pstmt.setString(1, memberName);
-				System.out.println("memberName");
+				System.out.println("memberName :" + memberName);
 				pstmt.setString(2, email);
-				System.out.println("email");						
+				System.out.println("email :" + email);						
 				rset = pstmt.executeQuery();
 				while(rset.next()){
-					new Member(rset.getString("member_id"),rset.getString("password"),
+					member= new Member(rset.getString("member_id"),rset.getString("password"),
 							rset.getString("member_name"),rset.getString("phone"),rset.getString("address"),rset.getString("email"),
 							rset.getString("member_role"),rset.getString("member_type")
 							,rset.getDate("birthday"));
