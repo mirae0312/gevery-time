@@ -39,6 +39,7 @@ $("#report-submit").click((e) => {
 			data: $frm,
 			success(data){
 				alert("신고 등록 성공");
+				opener.location.reload();
 				close();
 			},
 			error:console.log
