@@ -24,6 +24,15 @@
 
 </head>
 <body>
+	<div class="go-up-btn btn">TOP</div>
+	<select name="write" id="write-board">
+		<option hidden="" selected disabled>게시글작성</option>
+		<option data-color="red" value="/board/boardForm">자유게시판 글쓰기</option>
+		<% if(loginMember != null && loginMember.getMemberType().equals("B")) { %>
+		<option data-color="green" value="/info/Enroll">정보게시판 글쓰기</option>
+		<option data-color="blue" value="/product/productForm">마켓 글쓰기</option>
+		<% } %>
+	</select>
     <div id="container">
         <section id="header" >
            <div class="wrapper">
@@ -110,5 +119,18 @@
     $("#store").click((e) => {
     	location.href="<%= request.getContextPath() %>/product/main";
     });
+    
+    // 상단 이동
+    $(".go-up-btn").click((e) => {
+    	$('html, body').animate({scrollTop:0}, 300);
+    });
+    
+ 	// 게시물 등록
+ 	$("#write-board").change((e) => {
+ 		const value = $("#write-board").val();
+ 		console.log(value);
+ 		location.href=`<%= request.getContextPath() %>\${value}`;
+ 	});
+ 	
 
 	</script>
