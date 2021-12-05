@@ -219,9 +219,9 @@
 				</div>
 		<% if(loginMember != null){ %>
 			<% if(!loginMember.getMemberId().equals(ir.get(i).getMemberId())){ %>
-					<input type="button" value="삭제" class="delete-review review-btn btn" onclick="deleteReview();" />
-			<% }else{ %>
 					<input type="button" value="신고" class="reivew-report review-btn btn" onclick="reportReview();" />
+			<% }else{ %>
+					<input type="button" value="삭제" class="delete-review review-btn btn" onclick="deleteReview();" />
 			<% } %>
 		<% } %>	
 			</form>
@@ -257,7 +257,7 @@ const $mFrm = $(document.infoBoardModifyFrm);
 //리뷰신고
 const reportReview = () => {
 	const name = "report";
-	const spec = "left=500px, top=500px, width=300px, height=250px";
+	const spec = "left=500px, top=500px, width=450px, height=650px";
 	const popup = open("<%= request.getContextPath() %>/common/report", name, spec);
 	$frm.find
 };
