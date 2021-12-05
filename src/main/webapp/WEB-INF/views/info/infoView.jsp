@@ -31,8 +31,8 @@
 %>
 <%@ page import="java.sql.*" %>
 <%@ include file="/WEB-INF/views/common/header.jsp" %>
-<link rel="stylesheet" href="<%=request.getContextPath() %>/css/info/info.css" />
-<link rel="stylesheet" href="<%=request.getContextPath() %>/css/info/infoView.css" />
+<link rel="stylesheet" href="<%= request.getContextPath() %>/css/info/info.css" />
+<link rel="stylesheet" href="<%= request.getContextPath() %>/css/info/infoView.css" />
 <script type="text/javascript" src="//dapi.kakao.com/v2/maps/sdk.js?appkey=4247f28f0dc06c5cc8486ac837d411ff&libraries=services,clusterer,drawing"></script>
 <div class="info-view-wrapper">
 <% if(loginMember != null && info.getMemberId().equals(loginMember.getMemberId())){ %>
@@ -192,7 +192,7 @@
 	</div>
 	<%-- 좋아요 --%>
 	<input type="checkbox" name="like" id="info-like" <%= "G".equals(recommend) ? "checked" : "" %> />
-	<label for="info-like">좋아요</label><hr />
+	<label for="info-like"></label><hr />
 	<div class="info-review-wrapper">
 <%-- 리뷰 그리고 신고 --%>
 <% if(ir != null && !ir.isEmpty()){ %>
@@ -201,7 +201,7 @@
 			<form action="" class="review" name="infoBoardReviewFrm" method="POST" enctype="multipart/form-data">
 				<div class="info-review">
 					<input type="hidden" name="pCode" value="<%= info.getCode() %>" />
-					<input type="hidden" name="reviewCode" class="reviewCode" value="<%= ir.get(i).getrCode() %>" />
+					<input type="hidden" name="code" class="reviewCode" value="<%= ir.get(i).getrCode() %>" />
 					<div class="review-writer"><%= ir.get(i).getMemberId() %></div>
 					<div class="review-head"><%= ir.get(i).getHeadContent() %></div>
 		<% if(ir.get(i).getAttachments() != null && !ir.get(i).getAttachments().isEmpty()){ %>
@@ -217,7 +217,7 @@
 					<table id= reBox></table>
 				<%-- 리뷰 수정: info-review클릭 --%>
 				</div>
-		<% if(loginMember != null && loginMember.getMemberId().equals(ir.get(i).getMemberId())){ %>
+		<% if(loginMember != null){ %>
 			<% if(!loginMember.getMemberId().equals(ir.get(i).getMemberId())){ %>
 					<input type="button" value="신고" class="reivew-report review-btn btn" onclick="reportReview();" />
 			<% }else{ %>
@@ -256,11 +256,9 @@ const $mFrm = $(document.infoBoardModifyFrm);
 
 //리뷰신고
 const reportReview = () => {
-	const name = "report-review";
-	const spec = "left=500px, top=500px, width=300px, height=250px";
-	const popup = open("", name, spec);
-	
-	const $frm = $(document.reviewReportFrm);
+	const name = "report";
+	const spec = "left=500px, top=500px, width=450px, height=650px";
+	const popup = open("<%= request.getContextPath() %>/common/report", name, spec);
 	$frm.find
 };
 

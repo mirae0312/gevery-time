@@ -46,7 +46,7 @@ public class InfoReviewModifyServlet extends HttpServlet {
 					new MultipartRequest(request, saveDirectory, maxPostSize, encoding, policy);
 								
 			String code = multipartRequest.getParameter("pCode");
-			String rCode = multipartRequest.getParameter("reviewCode");
+			String rCode = multipartRequest.getParameter("code");
 			String headContent = multipartRequest.getParameter("mHead");
 			String bodyContent = multipartRequest.getParameter("mBody");
 			String re1 = multipartRequest.getParameter("attachName0");

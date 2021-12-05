@@ -41,7 +41,7 @@ public class InfoReviewDeleteServlet extends HttpServlet {
 					new MultipartRequest(request, saveDirectory, maxPostSize, encoding, policy);
 			
 			String code = multipartRequest.getParameter("pCode");
-			String rCode = multipartRequest.getParameter("reviewCode");
+			String rCode = multipartRequest.getParameter("code");
 			String attachName0 = multipartRequest.getParameter("attachName0");
 			String attachName1 = multipartRequest.getParameter("attachName1");
 
