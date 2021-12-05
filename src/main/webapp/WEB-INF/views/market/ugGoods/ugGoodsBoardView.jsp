@@ -20,6 +20,7 @@
   <script type="text/javascript" src="https://cdn.iamport.kr/js/iamport.payment-1.1.5.js"></script>
 </head>
 <body>
+	<input type="button" value="신고하기" onclick="window.open('<%= request.getContextPath() %>/common/report?code=<%= (String)board.getOrCode() %>', 'popup', 'width=500, height=600, left=100')"/>
 	<h1>상품 상세보기</h1>
 	<!-- 작성자에게만 수정/삭제 버튼이 노출되도록 함 -->
 	<% if(loginMember != null && loginMember.getMemberId().equals(board.getWriter())) { %>
@@ -55,6 +56,9 @@
 			<tr>
 				<th>상태</th>
 				<td><%= state %></td>
+			</tr>
+			<tr>
+				<td><input type="button" value="찜하기" /></td>
 			</tr>
 			
 			<% if(state.equals("판매중")) {%>
@@ -163,9 +167,9 @@
 					<tr class="getReqContent" style="display:none">
 						<td>
 							<form action="<%= request.getContextPath() %>/ugGoods/tradeReqAccept" name="reqAccetpFrm" method="POST">
-								<input type="button" value="선택하기" class="selectReqUser"/>
-								<input type="hidden" name="thisBoardNo" value="<%= board.getNo() %>" />
+								<input type="submit" value="선택하기" class="selectReqUser"/>
 								<input type="hidden" name="userId" value="<%= user.get("user") %>"/>
+								<input type="hidden" name="thisBoardNo" value="<%= board.getNo() %>" />
 							</form>
 						</td>
 						<td>
@@ -262,11 +266,6 @@
 		$("#responseBtn").click((e) => {
 			$(".getReqContent").css("display", "");
 		})
-		
-		// [판매자] 구매요청 선택하기 클릭 시 폼 제출 > 구매 수락
-		$(".selectReqUser").click((e) => {
-			$(document.reqAccetpFrm).submit();
-		});
 		
 		// [거래상태] 구매요청 수락 시 state 변경
 		const changeState = () => {
@@ -408,6 +407,23 @@
 	    		error: console.log
 	    	});
 	    }
+	    
+	    const addSellerPoint = () => {
+	    	const reqsellerId = <%= board.getWriter() %>;
+	    	const reqpointVal = <%= board.getPrice() %>;
+	    	$.ajax({
+	    		url: "<%= request.getContextPath() %>/ugGoods/addSellerPoint",
+	    		method: "POST",
+	    		data: {
+	    			sellerId: reqsellerId,
+	    			pointVal: reqpointVal
+	    		},
+	    		success(data){
+	    			console.log(data);
+	    		},
+	    		error: console.log
+	    	});
+	    };
 	    
 		const purchaseDone = (a, b, c) => {
 			location.href=`<%= request.getContextPath() %>/purchase/Complete?uid=\${a}&muid=\${b}&amount=\${c}`;

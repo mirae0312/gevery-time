@@ -93,15 +93,15 @@ public class PointDao {
 		return pointNo;
 	}
 
-	public int insertPointHistory(Connection conn, PointHistory ht) {
+	public int insertPointHistory(Connection conn, PointHistory ht, String memberId) {
 		PreparedStatement pstmt = null;
 		String sql = prop.getProperty("insertPointHistory");
 		int result = 0;
 		
 		try {
 			pstmt = conn.prepareStatement(sql);
-			pstmt.setInt(1, ht.getPointNo());
-			if(ht.getDiv().equals("사용")) {
+			pstmt.setString(1, memberId);
+			if(ht.getDiv().equals("O")) {
 				pstmt.setInt(2, ht.getWithdraw());
 				pstmt.setInt(3, 0);
 			} else {

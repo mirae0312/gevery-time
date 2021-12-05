@@ -40,6 +40,7 @@
 <title>상세목록</title>
 </head>
 <body>
+<input type="button" value="신고하기" onclick="window.open('<%= request.getContextPath() %>/common/report?code=<%= (String)board.getOrCode() %>', 'popup', 'width=500, height=600, left=100')"/>
 <script>
 $(() => {
 	const fimg = `<tr>
@@ -74,6 +75,7 @@ $(() => {
 	};
 })
 </script>
+	
 	<table id="board">
 		<thead>
 			<tr>

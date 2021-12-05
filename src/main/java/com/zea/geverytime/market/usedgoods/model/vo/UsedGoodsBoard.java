@@ -20,6 +20,7 @@ public class UsedGoodsBoard implements Serializable {
 	private String writer;
 	private int price;
 	private List<Attachment> attachments;
+	private String state;
 	
 	public UsedGoodsBoard() {
 		super();
@@ -36,6 +37,16 @@ public class UsedGoodsBoard implements Serializable {
 		this.regDate = regDate;
 		this.writer = writer;
 		this.price = price;
+	}
+
+	
+	
+	public String getState() {
+		return state;
+	}
+
+	public void setState(String state) {
+		this.state = state;
 	}
 
 	public int getNo() {

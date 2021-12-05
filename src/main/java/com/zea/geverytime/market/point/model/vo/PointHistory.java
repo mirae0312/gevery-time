@@ -10,7 +10,6 @@ public class PointHistory implements Serializable {
 	private static final long serialVersionUID = 1L;
 	
 	private int no;
-	private int pointNo;
 	private int withdraw;
 	private int deposit;
 	private Date regDate;
@@ -25,11 +24,10 @@ public class PointHistory implements Serializable {
 	
 	
 	
-	public PointHistory(int no, int pointNo, int withdraw, int deposit, Date regDate, String history,
+	public PointHistory(int no, int withdraw, int deposit, Date regDate, String history,
 			String purchaseUid, String div) {
 		super();
 		this.no = no;
-		this.pointNo = pointNo;
 		this.withdraw = withdraw;
 		this.deposit = deposit;
 		this.regDate = regDate;
@@ -43,12 +41,8 @@ public class PointHistory implements Serializable {
 	public void setNo(int no) {
 		this.no = no;
 	}
-	public int getPointNo() {
-		return pointNo;
-	}
-	public void setPointNo(int pointNo) {
-		this.pointNo = pointNo;
-	}
+
+	
 	public int getWithdraw() {
 		return withdraw;
 	}

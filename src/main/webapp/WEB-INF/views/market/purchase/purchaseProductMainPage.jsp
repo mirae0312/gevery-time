@@ -224,10 +224,11 @@
                     	msg += "결제 금액 : " + rsp.paid_amount;
                         // 결제 성공 시 로직,
                         // 포인트 사용처리
-                        if(usePoint > 0){
+<%--                         if(usePoint > 0){
                         	pointHandling("<%= loginMember.getMemberId() %>", usePoint, rsp.imp_uid);
-                        }
+                        } --%>
                         delCart();
+                        addPointHistory('O', usePoint, '일반 상품 결제', rsp.imp_uid);
                         addPurchaseHistory("<%= loginMember.getMemberId() %>", totalPrice, rsp.imp_uid, rsp.merchant_uid);
                         alert(msg);
             			purchaseDone(rsp.imp_uid, rsp.merchant_uid, rsp.paid_amount);
@@ -245,7 +246,7 @@
 		location.href=`<%= request.getContextPath() %>/purchase/Complete?uid=\${a}&muid=\${b}&amount=\${c}`;
 	};
 	
-	const pointHandling = (useMemberId, usePoint, purchase_uid) => {
+<%-- 	const pointHandling = (useMemberId, usePoint, purchase_uid) => {
 		$.ajax({
 			url: "<%= request.getContextPath() %>/point/usePoint",
 			method: "POST",
@@ -258,14 +259,14 @@
 			},
 			error: console.log
 		});
-	};
+	}; --%>
 	
-	const addPointHistory = (reqpointNo, reqdiv, reqpointVal, reqhistory, req_purchase_uid) => {
+	const addPointHistory = (reqdiv, reqpointVal, reqhistory, req_purchase_uid) => {
 		$.ajax({
 			url: "<%= request.getContextPath() %>/point/addPointHistory",
 			method: "POST",
 			data: {
-				pointNo: reqpointNo,
+				memberId: "<%= loginMember.getMemberId() %>",
 				div: reqdiv,
 				pointVal: reqpointVal,
 				history: reqhistory,
