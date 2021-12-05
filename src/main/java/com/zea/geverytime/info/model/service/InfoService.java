@@ -183,7 +183,7 @@ public class InfoService {
 			if(attachments != null && !attachments.isEmpty()) {
 				for(Attachment attach : attachments) {
 					attach.setCode(code);
-					result = infoDao.updateAttachment(conn, attach);
+					result = infoDao.insertAttachment(conn, attach);
 				}
 			}
 			if(result > 0)
@@ -479,11 +479,12 @@ public class InfoService {
 		
 	}
 
-	public void deleteAttachment(String code) {
+	public int deleteAttachment(String code) {
 		Connection conn = null;
+		int result = 0;
 		try {
 			conn = getConnection();
-			infoDao.deleteAttachment(conn, code);
+			result = infoDao.deleteAttachment(conn, code);
 			commit(conn);
 		}catch(Exception e) {
 			rollback(conn);
@@ -491,7 +492,7 @@ public class InfoService {
 		}finally {
 			close(conn);
 		}
-		
+		return result;
 	}
 
 	public int deleteInfoMain(String code) {
@@ -536,6 +537,23 @@ public class InfoService {
 			close(conn);
 		}
 		return info;
+	}
+
+	public int insertAttachment(List<Attachment> attachments) {	
+		Connection conn = null;
+		int result = 0;
+		try {
+			conn = getConnection();
+			for(Attachment attach : attachments) {
+				result = infoDao.insertAttachment(conn, attach);
+			}
+			commit(conn);
+		}catch(Exception e) {
+			rollback(conn);
+		}finally {
+			close(conn);
+		}
+		return result;
 	}
 
 

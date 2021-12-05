@@ -1223,7 +1223,7 @@ public class InfoDao {
 		PreparedStatement pstmt = null;
 		String sql = prop.getProperty("updateAttachment");
 		int result = 0;
-		
+		System.out.println("[infoDao] updateAttachment : " + attach);
 		try {
 			pstmt = conn.prepareStatement(sql);
 			
@@ -1260,7 +1260,7 @@ public class InfoDao {
 		
 	}
 
-	public void deleteAttachment(Connection conn, String code) {
+	public int deleteAttachment(Connection conn, String code) {
 		PreparedStatement pstmt = null;
 		String spl = prop.getProperty("deleteAttachment");
 		int result = 0;
@@ -1276,7 +1276,7 @@ public class InfoDao {
 		}finally {
 			close(pstmt);
 		}
-		
+		return result;
 	}
 
 	public int deleteInfoMain(Connection conn, String code) {
