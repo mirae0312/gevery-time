@@ -25,7 +25,12 @@
 </head>
 <body>
 	<div class="go-up-btn btn">TOP</div>
-	<button class="info-write-btn btn" id="enroll-board">게시글<br />작성</button>
+	<select name="write" id="write-board">
+		<option hidden="" selected disabled>게시글작성</option>
+		<option data-color="red" value="/board/boardForm">자유게시판 글쓰기</option>
+		<option data-color="green" value="/info/Enroll">정보게시판 글쓰기</option>
+		<option data-color="blue" value="">마켓 글쓰기</option>
+	</select>
     <div id="container">
         <section id="header" >
            <div class="wrapper">
@@ -119,12 +124,11 @@
     });
     
  	// 게시물 등록
-    $("#enroll-board").click((e) => {
-    <% if(loginMember != null && MemberService.BUSINESS_TYPE.equals(loginMember.getMemberId())){ %>
-    	location.href="<%= request.getContextPath() %>/info/Enroll";
-    <% }else{ %>
-    	location.href="<%=request.getContextPath()%>/board/boardForm";
-    <% } %>
-    });
+ 	$("#write-board").change((e) => {
+ 		const value = $("#write-board").val();
+ 		console.log(value);
+ 		location.href=`<%= request.getContextPath() %>\${value}`;
+ 	});
+ 	
 
 	</script>

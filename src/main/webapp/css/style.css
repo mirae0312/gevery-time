@@ -1,5 +1,9 @@
 @CHARSET "UTF-8";
- html {
+input:focus, select:focus, option:focus, textarea:focus, button:focus{
+	outline: none;
+}
+
+html {
      height: 100%;
 } 
 #container	{
@@ -176,17 +180,28 @@ footer table tr td{
 section#content{
 	 margin:0 auto;
 }
-     
-     
-.info-write-btn{
+
+#write-board::-ms-expand { 
+	display: none;
+}
+
+
+
+#write-board{
+	-o-appearance: none;
+ 	-webkit-appearance: none;
+    -moz-appearance: none;
+    appearance: none;
 	position: fixed;
+	border: 0;
 	width: 70px;
 	height: 70px;
 	bottom: 80px;
-	right: 180px;	
+	right: 180px;
 	background-color: #ffd700;
 	border-radius: 50%;
 	font-weight: bold;
+	text-align-last: center;
 }
 .go-up-btn{
 	position: fixed;
