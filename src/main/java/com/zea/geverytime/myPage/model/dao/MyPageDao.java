@@ -134,6 +134,7 @@ public class MyPageDao {
 		}
 		return result;
 	}
+
 	public List<Purchase> getPurchase(Connection conn, String memberId) {
 		PurchaseHistory ph = null;
 		PreparedStatement pstmt = null;
