@@ -254,6 +254,10 @@
 const $frm = $(document.infoBoardReviewFrm);
 const $mFrm = $(document.infoBoardModifyFrm);
 
+reportInfoMain
+// 게시글 신고
+const
+
 //리뷰신고
 const reportReview = () => {
 	const name = "report";
