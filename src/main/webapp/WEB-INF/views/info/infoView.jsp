@@ -31,8 +31,8 @@
 %>
 <%@ page import="java.sql.*" %>
 <%@ include file="/WEB-INF/views/common/header.jsp" %>
-<link rel="stylesheet" href="<%=request.getContextPath() %>/css/info/info.css" />
-<link rel="stylesheet" href="<%=request.getContextPath() %>/css/info/infoView.css" />
+<link rel="stylesheet" href="<%= request.getContextPath() %>/css/info/info.css" />
+<link rel="stylesheet" href="<%= request.getContextPath() %>/css/info/infoView.css" />
 <script type="text/javascript" src="//dapi.kakao.com/v2/maps/sdk.js?appkey=4247f28f0dc06c5cc8486ac837d411ff&libraries=services,clusterer,drawing"></script>
 <div class="info-view-wrapper">
 <% if(loginMember != null && info.getMemberId().equals(loginMember.getMemberId())){ %>
@@ -192,7 +192,7 @@
 	</div>
 	<%-- 좋아요 --%>
 	<input type="checkbox" name="like" id="info-like" <%= "G".equals(recommend) ? "checked" : "" %> />
-	<label for="info-like">좋아요</label><hr />
+	<label for="info-like"></label><hr />
 	<div class="info-review-wrapper">
 <%-- 리뷰 그리고 신고 --%>
 <% if(ir != null && !ir.isEmpty()){ %>

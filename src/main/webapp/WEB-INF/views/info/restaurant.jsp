@@ -10,8 +10,9 @@
 <%@ include file="/WEB-INF/views/common/header.jsp" %>	
 <link rel="stylesheet" href="<%=request.getContextPath() %>/css/info/info.css" />
 <div class="info-wrapper">
+	<div class="go-up-btn btn">위로</div>
 <% if(loginMember != null && MemberService.BUSINESS_TYPE.equals(loginMember.getMemberType())){ %>
-	<button class="info-write-btn btn" onclick="infoEnroll()">게시글 작성</button>
+	<button class="info-write-btn btn" onclick="infoEnroll()">게시글<br />작성</button>
 <% } %>
 	<div class="pop-contents">
 <% if(popList != null && !popList.isEmpty()){ %>
@@ -29,16 +30,18 @@
 <% } %>
 	</div>
 	<div class="select-contents">
-		<select name="location" id="location">
-			<option value="">지역</option>
-		</select>
-		<select name="lining" class="lining">
-			<option value="new">정렬</option>
-			<option value="old">등록순</option>
-			<option value="new">최신순</option>
-			<option value="view">방문순</option>
-			<option value="like">추천순</option>
-		</select>
+		<div class="select-wrapper">
+			<select name="location" id="location">
+				<option value="">지역</option>
+			</select>
+			<select name="lining" class="lining">
+				<option value="new">정렬</option>
+				<option value="old">등록순</option>
+				<option value="new">최신순</option>
+				<option value="view">방문순</option>
+				<option value="like">추천순</option>
+			</select>
+		</div>
 	</div>
 	<div class="all-contents">
 		<div class="info-content">
@@ -51,6 +54,10 @@
 // 시작시 ajax실행
 $(() => {
 	scrollPage();
+});
+
+$(".go-up-btn").click((e) => {
+	$('html, body').animate({scrollTop:0}, 300);
 });
 
 // 게시물 상세보기 용
