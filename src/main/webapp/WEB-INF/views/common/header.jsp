@@ -24,6 +24,8 @@
 
 </head>
 <body>
+	<div class="go-up-btn btn">TOP</div>
+	<button class="info-write-btn btn" onclick="infoEnroll()">게시글<br />작성</button>
     <div id="container">
         <section id="header" >
            <div class="wrapper">

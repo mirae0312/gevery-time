@@ -10,10 +10,10 @@
 <%@ include file="/WEB-INF/views/common/header.jsp" %>	
 <link rel="stylesheet" href="<%=request.getContextPath() %>/css/info/info.css" />
 <div class="info-wrapper">
-	<div class="go-up-btn btn">위로</div>
-<% if(loginMember != null && MemberService.BUSINESS_TYPE.equals(loginMember.getMemberType())){ %>
+	<div class="go-up-btn btn">TOP</div>
 	<button class="info-write-btn btn" onclick="infoEnroll()">게시글<br />작성</button>
-<% } %>
+	
+	<%-- 인기 글 --%>
 	<div class="pop-contents">
 <% if(popList != null && !popList.isEmpty()){ %>
 	<% for(Info popInfo : popList){ %>
@@ -29,6 +29,8 @@
 	<% } %>
 <% } %>
 	</div>
+	
+	<%-- 정렬 --%>
 	<div class="select-contents">
 		<div class="select-wrapper">
 			<select name="location" id="location">
@@ -43,13 +45,12 @@
 			</select>
 		</div>
 	</div>
+	
+	<%-- 전체 글 --%>
 	<div class="all-contents">
-		<div class="info-content">
-		</div>
-
+		<div class="info-content"></div>
 	</div>
 </div>
-<form action=""></form>
 <script>
 // 시작시 ajax실행
 $(() => {
@@ -69,10 +70,11 @@ $(".info-wrap").click((e) => {
 });
 
 // 게시물 등록
+<% if(loginMember != null && MemberService.BUSINESS_TYPE.equals(loginMember.getMemberId())){ %>
 const infoEnroll = () => {
 	location.href="<%= request.getContextPath() %>/info/Enroll";
 };
-
+<% } %>
 // ajax data
 var loading = false;
 var page = 1;
@@ -96,7 +98,7 @@ const scrollPage = () => {
 		dataType: "json",
 		success(data){
 			const $data = $(data);
-			console.log(data);
+			//console.log(data);
 			
 			const $div = $(".info-content");
 			
@@ -104,7 +106,7 @@ const scrollPage = () => {
 				
 				let rd = new Date(regDate);
 				let value = `\${rd.getFullYear()}.\${(rd.getMonth() + 1)}.\${(rd.getDate())}`;
-				console.log(value);
+				//console.log(value);
 				const $contents = `<div class="info-wrap">
 				<div class="business-name">\${businessName}</div>
 				<div class="head-content">\${headContent}</div>				
@@ -119,7 +121,7 @@ const scrollPage = () => {
 				$div.append($contents);
 				$(".info-wrap").click((e) => {
 					const $code = $(e.currentTarget).find('div.hidden-code').text();
-					console.log($code);
+					//console.log($code);
 					
 					location.href=`<%= request.getContextPath() %>/info/view?code=\${$code}`;
 				});				
@@ -133,7 +135,7 @@ const scrollPage = () => {
 				loading = true;
 			}
 			console.log("page : " + page);
-			console.log(pageCheck);
+			//console.log(pageCheck);
 		},
 		error: console.log
 	});		
