@@ -27,16 +27,6 @@
     </ul>
 </div>
 <div class="pointPolicy">
-    <table>
-        <thead>
-            <tr>
-                <th>NO</th>
-                <th>내용</th>
-                <th>게시일</th>
-                <th></th>
-            </tr>
-        </thead>
-    </table>
 </div>
 <script>
 
