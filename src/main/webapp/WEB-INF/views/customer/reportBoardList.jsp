@@ -44,7 +44,7 @@
                        </td>
                        <%}else{ %>
                         <td class="tit" colspan="7">
-                          <a href="<%= request.getContextPath() %>/customer/reportBoardView?no=<%= reportBoard.getReportNo() %>"><span style="color:red";>[처리중]</span><%= reportBoard.getTitle() %></a>
+                          <a href="<%= request.getContextPath() %>/customer/reportBoardView?no=<%= reportBoard.getReportNo() %>"><%= reportBoard.getTitle() %></a>
                         <%} %>
                         </td>
                         <td><%= reportBoard.getRegDate()%></td>
