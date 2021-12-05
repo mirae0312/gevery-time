@@ -45,7 +45,11 @@
 	</form>
 <% } %>
 <% if(loginMember != null && !info.getMemberId().equals(loginMember.getMemberId())){ %>
-	<input type="button" value="신고" class="report-btn btn" onclick="reportInfoMain" />
+	
+	<a href="#" target="_self" onclick="window.open('<%= request.getContextPath() %>/common/report?code=<%= info.getCode() %>', 
+							'_blank', 'width=450px, height=650px, scrollbars = yes')" >
+		<input type="button" value="신고" class="report-btn btn" onclick="reportInfoMain" />
+	</a>
 <% } %>
 	<div class="info-head-wrapper">
 		<div class="left-side">
@@ -255,19 +259,14 @@ const $frm = $(document.infoBoardReviewFrm);
 const $mFrm = $(document.infoBoardModifyFrm);
 
 
-// 게시글 신고
-const reportInfoMain = () => {
-	const name = "report";
-	const spec = "left=500px, top=500px, width=450px, height=650px";
-	const popup = open("<%= request.getContextPath() %>/common/report", name, spec);
-	$frm.find
-};
-
 //리뷰신고
 const reportReview = () => {
 	const name = "report";
 	const spec = "left=500px, top=500px, width=450px, height=650px";
-	const popup = open("<%= request.getContextPath() %>/common/report", name, spec);
+	const popup = open("", name, spec);
+	$frm.attr("action", "<%= request.getContextPath() %>/common/report")
+		.attr("target", name)
+		.submit();
 };
 
 // 본문 수정
