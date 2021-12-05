@@ -34,7 +34,6 @@
 			</tr>
 		</thead>
 		<tbody>
-
 			<tr>
 <%
 	List<Purchase> list = (List<Purchase>) request.getAttribute("list");

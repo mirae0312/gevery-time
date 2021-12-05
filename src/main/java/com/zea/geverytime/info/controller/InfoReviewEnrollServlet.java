@@ -53,7 +53,7 @@ public class InfoReviewEnrollServlet extends HttpServlet {
 			String bodyContent = multipartRequest.getParameter("bodyContent");
 
 			InfoReview ir = new InfoReview(0, null, code, memberId, null, headContent, bodyContent, null, null);
-			System.out.println("[inforeviewenrollservlet] review : " + ir);
+			
 			// 리뷰를 쓴적 있는지 확인
 			System.out.println("[inforeviewenrollservlet] code, memberid : " + code + ", " + memberId);
 			InfoReview check = infoService.checkReview(code, memberId);
@@ -61,8 +61,7 @@ public class InfoReviewEnrollServlet extends HttpServlet {
 						
 			File reviewPic1 = multipartRequest.getFile("reviewPic1");
 			File reviewPic2 = multipartRequest.getFile("reviewPic2");
-//			System.out.println("[inforeviewenrollservlet] reviewPic1 : " + reviewPic1);
-//			System.out.println("[inforeviewenrollservlet] reviewPic2 : " + reviewPic2);
+			
 			if(reviewPic1 != null || reviewPic2 != null) {
 				List<Attachment> attachments = new ArrayList<>();
 				

@@ -333,7 +333,6 @@ public class InfoModifyMainServlet extends HttpServlet {
 						File del = new File(saveDirectory, attachList.get(i).getRenamedFilename());
 						boolean removed = del.delete();
 						System.out.println("[infoModifyMainServlet] 첨부파일" + i + " : " + removed);
-						infoService.deleteAttachment(code);
 					}
 				}
 			}
