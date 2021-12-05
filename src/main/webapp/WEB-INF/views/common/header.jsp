@@ -1,5 +1,6 @@
 <%@page import="com.zea.geverytime.member.model.service.MemberService"%>
 <%@page import="com.zea.geverytime.member.model.vo.Member"%>
+<%@page import="com.zea.geverytime.member.model.vo.Business"%>
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8" %>
 <%
@@ -48,7 +49,7 @@
                <li class="nav"><%= loginMember.getMemberName() %>님</li>
                <li class="nav" id="logout"><a href="<%= request.getContextPath() %>/member/logout">로그아웃</a></li>
                <li class="nav" id="mypage"><a href="<%= request.getContextPath() %>/myPage/myPageMain">마이페이지</a></li>	              
-               <%} %>
+               <%}%>
                <li class="nav" id="dm"><a href="<%= request.getContextPath() %>/chat/chatroom">DM</a></li>
 
                <li class="nav"id="qna"><a href="<%= request.getContextPath() %>/customer/qnaBoardList">고객센터</a></li>

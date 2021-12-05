@@ -45,6 +45,7 @@ public class MemberLoginServlet extends HttpServlet {
                     session.setAttribute("loginMember", member);
                     session.setAttribute("msg", "로그인 성공!");
                     Member loginMember = (Member) session.getAttribute("loginMember"); 
+                    System.out.println("member :" + loginMember);
                     String businessId = loginMember.getMemberId();
                     Business business = businessService.selectOneMember(businessId);
                     System.out.println("member@MemberLoginServlet.doPost = " + businessId);
