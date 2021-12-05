@@ -1,5 +1,6 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
+    <%@ include file="/WEB-INF/views/common/header.jsp" %>
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -8,7 +9,11 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Document</title>
 </head>
+
 <body>
+<section>
+<content>
+<center>
 <form action="" ></form>
     <div class="member_split"> 
         <img src="https://pics.auction.co.kr/membership/join_main_title_1.gif" alt="구매회원 가입">
@@ -27,5 +32,8 @@
             </li>
         </ul>
     </div>
+  </center>
+  </content>
+  </section>
 </body>
 </html>
