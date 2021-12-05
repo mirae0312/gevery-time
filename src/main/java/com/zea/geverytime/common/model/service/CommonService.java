@@ -27,4 +27,12 @@ public class CommonService {
 		return result;
 	}
 
+	public int checkReported(String user, String reportCode) {
+		Connection conn = getConnection();
+		int result = commonDao.checkReported(conn, user, reportCode);
+		close(conn);
+		
+		return result;
+	}
+
 }

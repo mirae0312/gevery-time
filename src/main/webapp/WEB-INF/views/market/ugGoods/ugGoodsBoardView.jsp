@@ -20,7 +20,7 @@
   <script type="text/javascript" src="https://cdn.iamport.kr/js/iamport.payment-1.1.5.js"></script>
 </head>
 <body>
-	<input type="button" value="신고하기" onclick="window.open('<%= request.getContextPath() %>/common/report?code=<%= (String)board.getOrCode() %>', 'popup', 'width=500, height=600, left=100')"/>
+	<input type="button" id="reportBtn" value="신고하기" onclick="window.open('<%= request.getContextPath() %>/common/report?code=<%= board.getOrCode() %>', 'popup', 'width=500, height=600, left=100')"/>
 	<h1>상품 상세보기</h1>
 	<!-- 작성자에게만 수정/삭제 버튼이 노출되도록 함 -->
 	<% if(loginMember != null && loginMember.getMemberId().equals(board.getWriter())) { %>
@@ -230,12 +230,8 @@
 		});
 		
 		
-		// request 영역 onload 함수
 		$(() => {
-			if("<%= state %>" == "판매중"){
-				console.log("hi");
-			}
-			
+			// request 영역 onload 함수
 			let checkNum = 0;
 			<%
 			if(!reqUsers.isEmpty()) {
@@ -252,6 +248,22 @@
 				$("#requestBtn").val('구매요청중');
 				$("#requestBtn").prop("disabled", 'disabled');
 			}			
+			
+			// 신고하기 버튼 잠그기
+			$.ajax({
+				url: "<%= request.getContextPath() %>/common/reportCheck",
+				data:{
+					user: "<%= loginMember.getMemberId() %>",
+					reportCode: "<%= board.getOrCode() %>"
+				},
+				success(data){
+					console.log(data);
+					if(data.result == 0){
+						$("#reportBtn").prop("disabled", "disabled");
+					}
+				},
+				error:console.log
+			});
 			
 		});
 		
@@ -450,6 +462,7 @@
 				error: console.log
 			})
 		};
+		
 	</script>
 </body>
 </html>
