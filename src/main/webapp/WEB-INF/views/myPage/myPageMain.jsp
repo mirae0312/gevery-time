@@ -19,7 +19,7 @@
 		<li id="salesList"><a href="<%= request.getContextPath() %>/product/onsaleProduct?sellerId=<%= loginMember.getMemberId() %>">나의 판매내역</a></li>
 		<li id="buyList"><a href="<%=request.getContextPath() %>/myPage/PurchaseHistory?memberId=<%= loginMember.getMemberId() %>">나의 구매내역</a></li>
 		<% if(loginMember != null && loginMember.getMemberType().equals("B")) { %>
-		<li id="InfoPost"><a href="<%=request.getContextPath() %>/myPage/InfoPost">정보게시물 승인</a></li>
+		<li id="InfoPost"><a href="<%=request.getContextPath() %>/myPage/business?id=<%= businessMember.getMemberId() %>">정보게시물 승인</a></li>
 		<% } %>
 	</ul>
 </div>
