@@ -125,4 +125,29 @@ select or_code from board b where no = 200;
 select or_code from board b where no = b.no;
 
 
-from (select row_number() over(order by reg_date desc) rnum, b.* from board b where writer = 'hyungzin0309') where ;
+select * from (select row_number() over(order by reg_date desc) rnum, b.* from board b where writer = 'hyungzin0309') where rnum between 1 and 10;
+select * from (select row_number() over(order by reg_date desc) rnum, (select count(*) from attachment where or_no = (select or_code from board where no = b.no)) attach_count, (select count(*) from board_comment where board_no = b.no) comment_count, b.* from board b where writer = 'hyungzin0309') where rnum between 1 and 10;
+select * from (select row_number() over(order by no desc)  rnum, b.*,(select count(*) from attachment where or_no = b.or_code) attach_count,(select count(*) from board_comment where board_no = b.no) comment_count from board b where writer = ?) where rnum between ? and ?;
+
+create table board_like(
+    no_and_id varchar2(1000),
+    constraints pk_board_like_no_and_id primary key(no_and_id)
+);
+
+insert into comment_like values ('81-hyungzin0309');
+select * from comment_like;
+
+create or replace trigger trig_board_like
+    after
+    insert on board_like
+    for each row
+begin
+    if inserting then
+         update board
+         set like_count = like_count + 1
+         where no = substr(:new.no_and_id,1,instr(:new.no_and_id,'-')-1);
+         
+    end if;
+end;
+/
+commit;
