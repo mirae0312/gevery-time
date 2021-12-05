@@ -1,7 +1,6 @@
 package com.zea.geverytime.info.model.service;
 
 import static com.zea.geverytime.common.JdbcTemplate.*;
-import static com.zea.geverytime.common.JdbcTemplate.getConnection;
 
 import java.sql.Connection;
 import java.util.ArrayList;
@@ -523,6 +522,20 @@ public class InfoService {
 			close(conn);
 		}
 		return list;
+	}
+
+	public Info selectMyBusiness(String memberId) {
+		Connection conn = null;
+		Info info = null;
+		try {
+			conn = getConnection();
+			info = infoDao.selectMyBusiness(conn, memberId);
+		} catch(Exception e) {
+			throw e;
+		} finally {
+			close(conn);
+		}
+		return info;
 	}
 
 

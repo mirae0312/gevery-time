@@ -1,8 +1,8 @@
  <%@page import="com.zea.geverytime.member.model.vo.Member"%>
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
+    
     <%
-    request.setCharacterEncoding("utf-8");
     Member member = (Member)request.getAttribute("member");    
     %>
 <!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
@@ -34,7 +34,7 @@
 		<div class="wrap">
 		<div id="userName">[<%=member.getMemberName()%>]님의 아이디</div><br>
 		<div id="userId">[<%=member.getMemberId() %>] 입니다.</div>
-		<button id="button" class="btn btn-outline-info " onclick="<%=request.getContextPath()%>/member/login.jsp">로그인 하러가기</button>
+		<button id="button" class="btn btn-outline-info " display:block onclick = "window.close()"; >확인</button>
 		</div>
 	</body>
 </html>

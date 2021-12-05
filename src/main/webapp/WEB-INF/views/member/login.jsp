@@ -1,24 +1,12 @@
 <%@page import="com.zea.geverytime.member.model.vo.Member"%>
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
-    <%
-	String msg = (String) session.getAttribute("msg");
-	if(msg != null) session.removeAttribute("msg");
-	
-	Member loginMember = (Member) session.getAttribute("loginMember");
-	
-				
-		
-%>
+<%@ include file="/WEB-INF/views/common/header.jsp" %>
+
 <!DOCTYPE html>
 <html>
 <head>
 <meta charset="UTF-8">
-<title>Insert title here</title>
-</head>
-<script src="<%= request.getContextPath() %>/js/jquery-3.6.0.js"></script>
-<link rel="stylesheet" href="<%=request.getContextPath() %>/css/member/login.css" />
-<body>
 <script>
 $(() => {
 	<% if(msg != null){ %>	
@@ -48,6 +36,13 @@ $(() => {
 	<% } %>
 	});
 </script>
+<title>Insert title here</title>
+</head>
+<script src="<%= request.getContextPath() %>/js/jquery-3.6.0.js"></script>
+<link rel="stylesheet" href="<%=request.getContextPath() %>/css/member/login.css" />
+<body>
+
+<section>
     <div class="inner_login">
         <div class="login_tistory">
     
@@ -87,6 +82,6 @@ $(() => {
             
         </div>
     </div>
-
+</section>
 </body>
 </html>

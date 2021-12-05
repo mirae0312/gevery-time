@@ -1,6 +1,6 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
-
+  <%@ include file="/WEB-INF/views/common/header.jsp" %>
 <!DOCTYPE html>
 
 <html>
@@ -19,12 +19,23 @@ input[type="number"]::-webkit-inner-spin-button
 </style>
 <script>
 
-function handleOnInput(el, maxlength) {
-	  if(el.value.length > maxlength)  {
-	    el.value 
-	      = el.value.substr(0, maxlength);
-	  }
-	}
+
+const checkIdDuplicate = (Id) => {
+		const name = "checkIdDuplicatePopup"; 
+		const spec = "left = 500px, top =500px, width=300px, height=250px";
+		const popup = open("",name, spec); 
+		const $memberId = $(Id);
+		const $frm = $(document.checkIdDuplicateFrm);
+		$frm.find("[name=memberId]").val($memberId.val());
+		$frm.attr("target",name)
+			.submit();
+	
+};
+
+$(Id).change(() => {
+	$(idValid).val(0);
+});
+
 </script>
 <script src="<%= request.getContextPath() %>/js/jquery-3.6.0.js"></script>
 <script src="<%= request.getContextPath() %>/js/Businesslocation/location.js"></script>
@@ -48,6 +59,8 @@ function handleOnInput(el, maxlength) {
    
 	
 <section>
+<content>
+	<center>
    <h3>회원가입</h3>
 	<form  name ="memberEnrollFrm" action="" method="POST">
    <table cellpadding="5" cellspacing="0"
@@ -58,9 +71,9 @@ function handleOnInput(el, maxlength) {
 
         <td>ID:</td>
 
-        <td><input type="text" name="Id" id="Id" value ="dinigo" required>
+        <td><input type="text" name="Id" id="Id"  required>
 
-           <input type="button" value="아이디중복검사" onclick ="checkIdDuplicate();"/>
+           <input type="button" value="아이디중복검사" onclick ="checkIdDuplicate(Id);"/>
           	
           	
             <input type="hidden" id="idValid" value="0" />
@@ -92,10 +105,17 @@ function handleOnInput(el, maxlength) {
         <td><input type="text" name="name" id="_name" > </td>
 
       </tr>
-  		<tr>
+  	    <tr>
       <td>이메일 : </td>
-      
-        <td><input type="text"  name="email" id="_email"> </td>
+      	<td>
+	         <input type="text" name="email01" id="email01" style="width:100px"> @
+			<input type="text" name="email02" id="email02" style="width:100px;" disabled value="naver.com">
+	 	<select style="width:100px;margin-right:10px" name="selectEmail" id="selectEmail" >
+			 <option  name= "email03" value= <%request.getParameter("email02"); %>>직접입력</option>
+			 <option value="naver.com" selected>naver.com</option>
+			 <option value="hanmail.net">hanmail.net</option>
+		</select>
+			</td>
       
       </tr>
      
@@ -164,7 +184,10 @@ function handleOnInput(el, maxlength) {
       </tr>
    </table>
 	</form>
+</center>
+</content>
 </section>
+
 
 
 
@@ -176,7 +199,9 @@ function handleOnInput(el, maxlength) {
 	method="GET">
 	<input type="hidden" name="memberId"/>
 </form>
-	
+
+<script src ="<%= request.getContextPath() %>/js/email/email.js" > </script>
+<script type="text/javascript" src="http://code.jquery.com/jquery-latest.min.js"></script> 
 
 
 

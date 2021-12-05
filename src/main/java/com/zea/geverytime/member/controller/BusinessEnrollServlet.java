@@ -44,10 +44,9 @@ public class BusinessEnrollServlet extends HttpServlet {
 			String location2 = request.getParameter("location2");
 			String location = location1.concat(location2);
 			String btel1 = request.getParameter("tel1");
-			String btel2 = request.getParameter("tel2").concat("-");
+			String btel2 = request.getParameter("tel2");
 			String btel3 = request.getParameter("tel3");
-			String btel4 = btel2.concat(btel3);
-			String btel = btel1.concat(btel4);
+			String btel = btel1.concat("btel2").concat("btel3");
 			String businessNo1 = request.getParameter("businessNo1");
 			String businessNo2 = request.getParameter("businessNo2");
 			String businessNo = businessNo1.concat(businessNo2);

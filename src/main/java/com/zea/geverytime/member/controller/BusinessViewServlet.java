@@ -24,24 +24,13 @@ public class BusinessViewServlet extends HttpServlet {
 	
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 	       
-		    request.setCharacterEncoding("utf-8");
-		    HttpSession session = request.getSession(true); 
-	        session.setMaxInactiveInterval(10*60);
-	        Member loginMember = (Member) session.getAttribute("loginMember"); 
-	        String businessId = loginMember.getMemberId();
-	        Business business = businessService.selectOneMember(businessId);
-	        System.out.println("member@MemberLoginServlet.doPost = " + businessId);
-	        
-	        session.setAttribute("businessMember", business);
-	        System.out.println("businessMember :"  + business);                	                         	          
+	    	                         	          
 	            
 	
 	}
 
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 
-					HttpSession session = request.getSession();
-					Business businessMember  =  (Business)session.getAttribute("businessMember");
 	
 					   request.getRequestDispatcher("/WEB-INF/views/member/BusinessMypage.jsp")
 				        .forward(request, response);
