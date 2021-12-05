@@ -17,9 +17,12 @@ import com.zea.geverytime.common.model.vo.Attachment;
 import com.zea.geverytime.info.model.exception.InfoBoardException;
 import com.zea.geverytime.info.model.vo.Info;
 import com.zea.geverytime.info.model.vo.InfoEntity;
+import com.zea.geverytime.market.productsale.model.vo.Product;
+import com.zea.geverytime.market.purchase.model.vo.PurchaseHistory;
 import com.zea.geverytime.member.model.exception.MemberException;
 import com.zea.geverytime.member.model.vo.Business;
 import com.zea.geverytime.member.model.vo.Member;
+import com.zea.geverytime.myPage.model.vo.Purchase;
 
 public class MyPageDao {
 	
@@ -132,5 +135,36 @@ public class MyPageDao {
 		return result;
 	}
 
+	public List<Purchase> getPurchase(Connection conn, String memberId) {
+		PurchaseHistory ph = null;
+		PreparedStatement pstmt = null;
+		ResultSet rset = null;
+		String sql = prop.getProperty("getPurchase");
+		ArrayList<Purchase> list = new ArrayList<Purchase>();
+		try {
+			pstmt = conn.prepareStatement(sql);
+			pstmt.setString(1, memberId);
+			rset = pstmt.executeQuery();
+			
+			if(rset.next()) {
+				Purchase pd = new Purchase();
+				pd.setUid(rset.getString(1));
+				pd.setMuid(rset.getString(2));
+				pd.setName(rset.getString(3));
+				pd.setPrice(rset.getInt(4));
+				pd.setProductCount(rset.getInt(5));
+				pd.setRegDate(rset.getDate(6));
+					
+				list.add(pd);
+				
+			}
+			
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}
+		
+		return list;
+	}
+	
 	
 }

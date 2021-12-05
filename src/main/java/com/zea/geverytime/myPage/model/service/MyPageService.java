@@ -6,12 +6,16 @@ import static com.zea.geverytime.common.JdbcTemplate.getConnection;
 import static com.zea.geverytime.common.JdbcTemplate.rollback;
 
 import java.sql.Connection;
+import java.util.List;
 
+
+import com.zea.geverytime.market.purchase.model.vo.PurchaseHistory;
 import com.zea.geverytime.info.model.vo.Info;
 import com.zea.geverytime.member.model.exception.MemberException;
 import com.zea.geverytime.member.model.vo.Business;
 import com.zea.geverytime.member.model.vo.Member;
 import com.zea.geverytime.myPage.model.dao.MyPageDao;
+import com.zea.geverytime.myPage.model.vo.Purchase;
 
 public class MyPageService {
 	
@@ -104,5 +108,16 @@ public class MyPageService {
 			}
 			return result;
 		}
-				
+
+
+		public List<Purchase> getPurchase(String memberId) {
+			Connection conn = getConnection();
+			List<Purchase> list = myPageDao.getPurchase(conn, memberId);
+			close(conn);
+			return list;
+		}
+
+		
+
 }
+
