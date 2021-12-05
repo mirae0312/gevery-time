@@ -10,8 +10,6 @@
 <%@ include file="/WEB-INF/views/common/header.jsp" %>	
 <link rel="stylesheet" href="<%=request.getContextPath() %>/css/info/info.css" />
 <div class="info-wrapper">
-	<div class="go-up-btn btn">TOP</div>
-	<button class="info-write-btn btn" onclick="infoEnroll()">게시글<br />작성</button>
 	
 	<%-- 인기 글 --%>
 	<div class="pop-contents">
