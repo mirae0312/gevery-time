@@ -181,12 +181,11 @@ section#content{
 	 margin:0 auto;
 }
 
+
+
 #write-board::-ms-expand { 
 	display: none;
 }
-
-
-
 #write-board{
 	-o-appearance: none;
  	-webkit-appearance: none;
@@ -197,7 +196,7 @@ section#content{
 	width: 70px;
 	height: 70px;
 	bottom: 80px;
-	right: 180px;
+	right: 140px;
 	background-color: #ffd700;
 	border-radius: 50%;
 	font-weight: bold;
@@ -208,7 +207,7 @@ section#content{
 	width: 63px;
 	height: 23px;
 	bottom: 170px;
-	right: 184px;
+	right: 144px;
 	background-color: linen;
 	border-radius: 50%;
 	font-weight: bold;

@@ -14,9 +14,6 @@
 
 
 
-
-
-
 .pop-contents{
 	display: flex;
 	margin: 50px, 0;
@@ -132,10 +129,10 @@
 	position: absolute;
 	right: 5px;
 }
-.select-contents #location{
+.select-contents .location{
 	font-size: 0.95em;
 	height: 30px;
-	width: 80px;
+	width: 100px;
 	border: 0;
 }
 .select-contents .lining{
