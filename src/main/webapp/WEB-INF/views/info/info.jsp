@@ -57,9 +57,7 @@ $(() => {
 	scrollPage();
 });
 
-$(".go-up-btn").click((e) => {
-	$('html, body').animate({scrollTop:0}, 300);
-});
+
 
 // 게시물 상세보기 용
 $(".info-wrap").click((e) => {
@@ -69,12 +67,7 @@ $(".info-wrap").click((e) => {
 	location.href=`<%= request.getContextPath() %>/info/view?code=\${$code}`;
 });
 
-// 게시물 등록
-<% if(loginMember != null && MemberService.BUSINESS_TYPE.equals(loginMember.getMemberId())){ %>
-const infoEnroll = () => {
-	location.href="<%= request.getContextPath() %>/info/Enroll";
-};
-<% } %>
+
 // ajax data
 var loading = false;
 var page = 1;

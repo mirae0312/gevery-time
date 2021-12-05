@@ -25,7 +25,7 @@
 </head>
 <body>
 	<div class="go-up-btn btn">TOP</div>
-	<button class="info-write-btn btn" onclick="infoEnroll()">게시글<br />작성</button>
+	<button class="info-write-btn btn" id="enroll-board">게시글<br />작성</button>
     <div id="container">
         <section id="header" >
            <div class="wrapper">
@@ -111,6 +111,20 @@
     // 일반상점 이동
     $("#store").click((e) => {
     	location.href="<%= request.getContextPath() %>/product/main";
+    });
+    
+    // 상단 이동
+    $(".go-up-btn").click((e) => {
+    	$('html, body').animate({scrollTop:0}, 300);
+    });
+    
+ 	// 게시물 등록
+    $("#enroll-board").click((e) => {
+    <% if(loginMember != null && MemberService.BUSINESS_TYPE.equals(loginMember.getMemberId())){ %>
+    	location.href="<%= request.getContextPath() %>/info/Enroll";
+    <% }else{ %>
+    	location.href="<%=request.getContextPath()%>/board/boardForm";
+    <% } %>
     });
 
 	</script>
