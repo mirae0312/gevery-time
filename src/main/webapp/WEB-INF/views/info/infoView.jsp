@@ -45,7 +45,11 @@
 	</form>
 <% } %>
 <% if(loginMember != null && !info.getMemberId().equals(loginMember.getMemberId())){ %>
-	<input type="button" value="신고" class="report-btn btn" onclick="reportInfoMain" />
+	
+	<a href="#" target="_self" onclick="window.open('<%= request.getContextPath() %>/common/report?code=<%= info.getCode() %>', 
+							'_blank', 'width=450px, height=650px, scrollbars = yes')" >
+		<input type="button" value="신고" class="report-btn btn" onclick="reportInfoMain" />
+	</a>
 <% } %>
 	<div class="info-head-wrapper">
 		<div class="left-side">
@@ -178,22 +182,27 @@
 <% } %>
 		</div>	<br />	
 	</div><br />
+	
 	<%-- 바디 내용 --%>
 	<div class="info-body-wrapper">
 		<img style="width:300px; height:200px;" src="<%= request.getContextPath() %>/upload/info/<%= pic2 %>" alt="" />
 		<p><%= info.getBodyContents() %></p>
+		
 		<%-- 지도 --%>
 		<div id="map" style="width:500px;height:400px;"></div><br />
+		
 		<%-- 길안내 --%>
 		<div class="way-content">
 			<h1>오시는 길</h1>
 			<p><%= info.getRoadGuide() %></p>
 		</div>
 	</div>
+	
 	<%-- 좋아요 --%>
 	<input type="checkbox" name="like" id="info-like" <%= "G".equals(recommend) ? "checked" : "" %> />
 	<label for="info-like"></label><hr />
 	<div class="info-review-wrapper">
+	
 <%-- 리뷰 그리고 신고 --%>
 <% if(ir != null && !ir.isEmpty()){ %>
 	<% for(int i = 0; i < ir.size(); i++){ %>
@@ -204,6 +213,8 @@
 					<input type="hidden" name="code" class="reviewCode" value="<%= ir.get(i).getrCode() %>" />
 					<div class="review-writer"><%= ir.get(i).getMemberId() %></div>
 					<div class="review-head"><%= ir.get(i).getHeadContent() %></div>
+					
+		<%-- 첨부파일 --%>
 		<% if(ir.get(i).getAttachments() != null && !ir.get(i).getAttachments().isEmpty()){ %>
 			<% for(int j = 0; j < ir.get(i).getAttachments().size(); j++){ %>
 				<% if(ir.get(i).getrCode().equals(ir.get(i).getAttachments().get(j).getCode())){ %>
@@ -212,15 +223,18 @@
 				<% } %>
 			<% } %>
 		<% } %>
+		
 					<div class="review-content"><%= ir.get(i).getContent() %></div>
 					<div class="review-reg-date"><%= ir.get(i).getRegDate() %></div>
-					<table id= reBox></table>
-				<%-- 리뷰 수정: info-review클릭 --%>
+					<table class="reBox-<%= ir.get(i).getMemberId() %>"></table>
 				</div>
+				
+		<%-- 리뷰 수정: info-review클릭 --%>
 		<% if(loginMember != null){ %>
 			<% if(!loginMember.getMemberId().equals(ir.get(i).getMemberId())){ %>
 					<input type="button" value="신고" class="reivew-report review-btn btn" onclick="reportReview();" />
 			<% }else{ %>
+					<input type="button" value="수정" class="modify-review review-btn btn" onclick="modifyReviewBox();" />
 					<input type="button" value="삭제" class="delete-review review-btn btn" onclick="deleteReview();" />
 			<% } %>
 		<% } %>	
@@ -244,7 +258,7 @@
 			<input type="file" name="reviewPic1" accept="image/*" onchange="previewF1();"/>
 			<input type="file" name="reviewPic2" accept="image/*" onchange="previewF2();"/>
 			<textarea name="bodyContent" id="writeReview" cols="30" rows="10" required></textarea>
-			<button class="review-enroll-btn btn">등록</button>
+			<input type="button" class="review-enroll-btn btn" value="등록" />
 		</form>
 <% } %>
 	</div>
@@ -255,19 +269,20 @@ const $frm = $(document.infoBoardReviewFrm);
 const $mFrm = $(document.infoBoardModifyFrm);
 
 
-// 게시글 신고
-const reportInfoMain = () => {
-	const name = "report";
-	const spec = "left=500px, top=500px, width=450px, height=650px";
-	const popup = open("<%= request.getContextPath() %>/common/report", name, spec);
-	$frm.find
-};
+// 리뷰 등록
+$(".review-enroll-btn").click((e) => {
+	$(document.reviewEnrollFrm).submit();
+});
+
 
 //리뷰신고
 const reportReview = () => {
 	const name = "report";
 	const spec = "left=500px, top=500px, width=450px, height=650px";
-	const popup = open("<%= request.getContextPath() %>/common/report", name, spec);
+	const popup = open("", name, spec);
+	$frm.attr("action", "<%= request.getContextPath() %>/common/report")
+		.attr("target", name)
+		.submit();
 };
 
 // 본문 수정
@@ -293,6 +308,9 @@ const deleteReview = () => {
 	}	
 };
 // 리뷰 수정
+$(() => {
+	$(".modify-review").hide();
+})
 const modifyReviewBox = () => {
 	if($(".mHead").val() != "" && $(".mBody").val() != ""){
 		$frm.attr("method", "POST")
@@ -304,9 +322,13 @@ const modifyReviewBox = () => {
 };
 <% if(loginMember != null){ %>
 $(".info-review").one("click", function(event){
-	
 	const $btn = $(event.currentTarget).find('div.review-writer').text();
-	const $reBox = $("#reBox");
+	const $checkId = "<%= loginMember.getMemberId() %>";
+	if($btn === $checkId)
+		$(".modify-review").show();
+	console.log($btn);
+	const $reBox = $(".reBox-<%= loginMember.getMemberId() %>");
+	console.log($reBox);
 	const $box = `
 	<tr>
 	<td><input type="file" name="mPic1" accept="image/*" onchange="previewF3();"/></td>
@@ -318,9 +340,6 @@ $(".info-review").one("click", function(event){
 	<tr>
 	<td><textarea name="mBody" class="mBody" cols="30" rows="10"></textarea></td>
 	</tr>	
-	<tr>
-	<td><input type="button" value="수정" class="modify-review review-btn btn" onclick="modifyReviewBox();" /></td>
-	</tr>
 	`;
 	
 	if($btn == '<%= loginMember.getMemberId() %>'){

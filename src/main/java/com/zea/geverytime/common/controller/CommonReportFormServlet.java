@@ -27,7 +27,7 @@ public class CommonReportFormServlet extends HttpServlet {
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 
 		String code = request.getParameter("code");
-		System.out.println("code : " + code);
+		
 		request.setAttribute("code", code);
 		request
 			.getRequestDispatcher("/WEB-INF/views/common/reportForm.jsp")
