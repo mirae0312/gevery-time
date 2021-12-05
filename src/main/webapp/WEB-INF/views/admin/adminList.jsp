@@ -27,7 +27,7 @@
 						<th>승인상태</th>
 					</tr>
 				</thead>
-				<tbody id="">
+				<tbody>
 				</tbody>
 			</table>
 		</li>
@@ -66,8 +66,6 @@ const infoList = () => {
 					state = "보류";
 				if(regCheck === "I" && deleteCheck === "D")
 					state = "게시"					
-				
-				
 				
 				const tr = `<tr>
 				<td>\${code}</td>

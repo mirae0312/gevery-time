@@ -7,6 +7,7 @@ import static com.zea.geverytime.common.JdbcTemplate.rollback;
 
 import java.sql.Connection;
 
+import com.zea.geverytime.info.model.vo.Info;
 import com.zea.geverytime.member.model.exception.MemberException;
 import com.zea.geverytime.member.model.vo.Business;
 import com.zea.geverytime.member.model.vo.Member;
@@ -103,6 +104,5 @@ public class MyPageService {
 			}
 			return result;
 		}
-
-		
+				
 }

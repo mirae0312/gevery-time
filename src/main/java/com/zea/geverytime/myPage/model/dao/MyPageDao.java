@@ -131,5 +131,6 @@ public class MyPageDao {
 		}
 		return result;
 	}
+
 	
 }
