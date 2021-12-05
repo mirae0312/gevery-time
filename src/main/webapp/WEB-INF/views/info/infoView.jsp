@@ -45,7 +45,7 @@
 	</form>
 <% } %>
 <% if(loginMember != null && !info.getMemberId().equals(loginMember.getMemberId())){ %>
-	<input type="button" value="신고" class="reportInfoMain btn" />
+	<input type="button" value="신고" class="report-btn btn" onclick="reportInfoMain" />
 <% } %>
 	<div class="info-head-wrapper">
 		<div class="left-side">
@@ -198,7 +198,7 @@
 <% if(ir != null && !ir.isEmpty()){ %>
 	<% for(int i = 0; i < ir.size(); i++){ %>
 		<div class="view-control-review">
-			<form action="" class="review" name="infoBoardReviewFrm" method="POST" enctype="multipart/form-data">
+			<form action="" class="review" name="infoBoardReviewFrm" enctype="multipart/form-data">
 				<div class="info-review">
 					<input type="hidden" name="pCode" value="<%= info.getCode() %>" />
 					<input type="hidden" name="code" class="reviewCode" value="<%= ir.get(i).getrCode() %>" />
@@ -254,12 +254,20 @@
 const $frm = $(document.infoBoardReviewFrm);
 const $mFrm = $(document.infoBoardModifyFrm);
 
+
+// 게시글 신고
+const reportInfoMain = () => {
+	const name = "report";
+	const spec = "left=500px, top=500px, width=450px, height=650px";
+	const popup = open("<%= request.getContextPath() %>/common/report", name, spec);
+	$frm.find
+};
+
 //리뷰신고
 const reportReview = () => {
 	const name = "report";
 	const spec = "left=500px, top=500px, width=450px, height=650px";
 	const popup = open("<%= request.getContextPath() %>/common/report", name, spec);
-	$frm.find
 };
 
 // 본문 수정
@@ -279,14 +287,16 @@ const deleteInfoMain = () => {
 const deleteReview = () => {
 	const check = confirm("정말 삭제하시나요?");
 	if(check){
-		$frm.attr("action", "<%= request.getContextPath() %>/info/deleteReview")
+		$frm.attr("method", "POST")
+			.attr("action", "<%= request.getContextPath() %>/info/deleteReview")
 			.submit();
 	}	
 };
 // 리뷰 수정
 const modifyReviewBox = () => {
 	if($(".mHead").val() != "" && $(".mBody").val() != ""){
-		$frm.attr("action", "<%= request.getContextPath() %>/info/reviewModify")
+		$frm.attr("method", "POST")
+			.attr("action", "<%= request.getContextPath() %>/info/reviewModify")
 			.submit();		
 	}else{
 		alert("제목과 내용을 입력하세요.");
