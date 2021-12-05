@@ -27,16 +27,16 @@
     </ul>
 </div>
 <div class="pointPolicy">
-    <table>
-        <thead>
-            <tr>
-                <th>게시글</th>
-                <th>댓글</th>
-                <th>리뷰</th>
-                <th></th>
-            </tr>
-        </thead>
-    </table>
+	<table>
+		<thead>
+			<tr>
+				<th>게시글</th>
+				<th>댓글</th>
+				<th>리뷰</th>
+				<th></th>
+			</tr>
+		</thead>
+	</table>
 </div>
 
 <%@ include file="/WEB-INF/views/common/footer.jsp" %>

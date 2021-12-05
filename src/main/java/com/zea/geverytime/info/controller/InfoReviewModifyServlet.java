@@ -58,19 +58,27 @@ public class InfoReviewModifyServlet extends HttpServlet {
 			infoReview.setHeadContent(headContent);
 			infoReview.setContent(bodyContent);
 			
-			System.out.println("[infoReviewModifyServlet] infoReview : " + infoReview);
+//			System.out.println("[infoReviewModifyServlet] infoReview : " + infoReview);
 			
 			
 			File mPic1 = multipartRequest.getFile("mPic1");
 			File mPic2 = multipartRequest.getFile("mPic2");
 			
+//			System.out.println("[infoReviewModifyServlet] mPic1 : " + mPic1);
+//			System.out.println("[infoReviewModifyServlet] mPic2 : " + mPic2);
+			
 			// 새로 가져온 사진이 있다면 서버에서 우선 삭제
 			List<Attachment> attachments = new ArrayList<>();
 			if(mPic1 != null || mPic2 != null) {
+				int result = infoService.deleteAttachment(rCode);
+				String msg = result > 0 ? "true" : "false";
+				System.out.println("[InfoReviewModifyServlet] 기존파일DB 삭제 : " + msg);
 				if(re1 != null) {
+					Attachment del = new Attachment();
 					File delRe = new File(saveDirectory, re1);
 					boolean removed = delRe.delete();
 					System.out.println("[InfoReviewModifyServlet] 기존파일1 삭제 : " + removed);
+					
 				}
 				if(re2 != null) {
 					File delRe = new File(saveDirectory, re2);
@@ -90,10 +98,13 @@ public class InfoReviewModifyServlet extends HttpServlet {
 					attach2.setCode(rCode);
 					attachments.add(attach2);
 				}			
+				result = infoService.insertAttachment(attachments);
+				msg = result > 0 ? "true" : "false";
+				System.out.println("[InfoReviewModifyServlet] 파일DB 등록 : " + msg);
 			}
 			
 			infoService.updateInfoReview(infoReview);
-			infoService.updateAttachment(attachments);
+			System.out.println("[infoReviewModifyServlet] attachments : " + attachments);
 			
 			HttpSession session = request.getSession();
 			session.setAttribute("msg", "리뷰 수정 성공!");
