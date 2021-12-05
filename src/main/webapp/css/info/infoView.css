@@ -14,3 +14,22 @@
 .info-review{
 	border: 1px solid black;
 }
+
+input[type="checkbox"]{
+	display:none;
+}
+input[type="checkbox"] + label{
+	display:inline-block;
+	width:20px;
+	height:20px;
+	vertical-align: middle;
+}
+input[type="checkbox"]:not(:checked) + label{
+	background:url("../../images/info/빈하트.png") center/contain no-repeat;
+}
+input[type="checkbox"]:checked + label{
+	background:url("../../images/info/찬하트.png") center/contain no-repeat;
+}
+input[type="checkbox"]:disabled + label{
+	background:url("../../images/info/회하트.png") center/contain no-repeat;
+}

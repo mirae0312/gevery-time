@@ -4,14 +4,43 @@
 	display: flex;
 	flex-direction: column;
 	align-items: center;
-	border: 1px solid red;
+/*	border: 1px solid red;*/
 }
+
 
 .btn{
   width: 80px;
   height: 30px;
   border: none;
   border-radius: 10%;
+}
+
+
+
+
+
+
+.info-wrapper .info-write-btn{
+	position: fixed;
+	width: 60px;
+	height: 60px;
+	bottom: 160px;
+	right: 180px;
+	background-color: linen;
+	border-radius: 50%;
+	font-weight: bold;
+}
+.info-wrapper .go-up-btn{
+	position: fixed;
+	width: 65px;
+	height: 25px;
+	bottom: 80px;
+	right: 178px;
+	background-color: #ffd700;
+	border-radius: 50%;
+	font-weight: bold;
+	text-align: center;
+	padding: 20px 0px;
 }
 
 .pop-contents{
@@ -25,6 +54,11 @@
 	border: 1px solid black;
 	cursor: pointer;
 	padding: 8px;
+	border-radius: 5px;
+	margin: 0 1px;
+}
+.pop-contents .info-wrap:hover{
+	box-shadow: 0px 0px 5px lightsalmon;
 }
 .pop-contents .business-name{
 	font-size: 1.3em;
@@ -38,6 +72,7 @@
 	width: 200px;
 	height: 200px;
 	object-fit: cover;
+	transform: all 0.2s linear;
 }
 .pop-contents .recommend-count{
 	display:inline;
@@ -70,6 +105,10 @@
 	border: 1px solid black;
 	cursor: pointer;
 	padding: 20px;
+	border-radius: 5px;
+}
+.all-contents .info-wrap:hover{
+	box-shadow: 0px 0px 5px gray;
 }
 .all-contents .business-name{
 	font-size: 1.3em;
@@ -85,6 +124,7 @@
 	height: 170px;
 	object-fit: cover;
 	margin: 8px, 0;
+	overflow: hidden;
 }
 .all-contents .recommend-count{
 	display:inline;
@@ -106,4 +146,27 @@
 
 .hidden-code{
 	display: none;
+}
+
+.select-contents{
+	width: 1024px;
+	height: 10px;
+	position: relative;
+	margin: 50px 0;
+}
+.select-contents .select-wrapper{
+	position: absolute;
+	right: 5px;
+}
+.select-contents #location{
+	font-size: 0.95em;
+	height: 30px;
+	width: 80px;
+	border: 0;
+}
+.select-contents .lining{
+	font-size: 0.95em;
+	height: 30px;
+	width: 80px;
+	border: 0;
 }

@@ -21,7 +21,7 @@ public class MyPageMainServlet extends HttpServlet {
 	private BusinessService businessService = new BusinessService();
 	
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		HttpSession session = request.getSession();
+		HttpSession session = request.getSession();		
 		System.out.println("[MyPageMain@Servlet session] = " + session);
 		Member loginMember = (Member) session.getAttribute("loginMember"); 
 		Business businessMember  =  (Business)session.getAttribute("businessMember");

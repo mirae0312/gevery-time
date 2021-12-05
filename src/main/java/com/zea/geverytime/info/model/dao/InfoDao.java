@@ -1498,6 +1498,36 @@ public class InfoDao {
 		return list;
 	}
 
+	public Info selectMyBusiness(Connection conn, String memberId) {
+		PreparedStatement pstmt = null;
+		String sql = prop.getProperty("selectMyBusiness");
+		ResultSet rset = null;
+		Info info = new Info();
+		try {
+			pstmt = conn.prepareStatement(sql);
+			
+			pstmt.setString(1, memberId);
+			
+			rset = pstmt.executeQuery();
+			if(rset.next()) {
+				info = new Info();
+				info.setCode(rset.getString("code"));
+				info.setMemberId(rset.getString("writer"));
+				info.setRegCheck(rset.getString("reg_check"));
+				info.setHeadContent(rset.getString("head_content"));
+				info.setRegDate(rset.getDate("reg_date"));
+				info.setDeleteCheck(rset.getString("delete_check"));
+				info.setBusinessName(rset.getString("business_name"));
+			}
+		} catch (SQLException e) {
+			throw new InfoBoardException("정보 게시물 승인여부 가져오기 실패!, e");
+		} finally {
+			close(pstmt);
+		}
+		
+		return info;
+	}
+
 
 
 }
