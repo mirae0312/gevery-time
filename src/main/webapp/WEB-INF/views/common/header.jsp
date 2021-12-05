@@ -28,8 +28,10 @@
 	<select name="write" id="write-board">
 		<option hidden="" selected disabled>게시글작성</option>
 		<option data-color="red" value="/board/boardForm">자유게시판 글쓰기</option>
+		<% if(loginMember != null && loginMember.getMemberType().equals("B")) { %>
 		<option data-color="green" value="/info/Enroll">정보게시판 글쓰기</option>
-		<option data-color="blue" value="">마켓 글쓰기</option>
+		<option data-color="blue" value="/product/productForm">마켓 글쓰기</option>
+		<% } %>
 	</select>
     <div id="container">
         <section id="header" >
