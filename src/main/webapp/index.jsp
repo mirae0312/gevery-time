@@ -5,21 +5,54 @@
 <div class="body-wrapper">
 	
 	<%-- 사진영역 --%>
-	<div class="photo-wrapper"></div>
+	<h1>사진</h1>
+	<div class="photo-wrapper">
+		
+	</div><hr />
 	
 	<%-- 게시글영역 --%>
-	<div class="board-wrapper"></div>
+	<h1>게시글</h1>
+	<div class="board-wrapper">
+		<div class="board-left-wrap">
+		
+		</div>
+		<div class="board-right-wrap">
+		
+		</div>
+	</div><hr />
 	
 	<%-- 인포영역 --%>
+	<h1>정보</h1>
 	<div class="info-board-wrapper">
-		<table>
+		<table id="info-board-table">
 			<tr>
+				<td></td>
+				<td></td>
+				<td></td>
+			</tr>
+			<tr>
+				<td></td>
+				<td></td>
 				<td></td>
 			</tr>
 		</table>
-	</div>
+	</div><hr />
 	
 	<%-- 마켓영역 --%>
-	<div class="market-wrapper"></div>
+	<h1>마켓</h1>
+	<div class="market-wrapper">
+		<table id="market-board-table">
+			<tr>
+				<td></td>
+				<td></td>
+				<td></td>
+			</tr>
+			<tr>
+				<td></td>
+				<td></td>
+				<td></td>
+			</tr>
+		</table>
+	</div><br />
 </div>
 <%@ include file="/WEB-INF/views/common/footer.jsp" %>

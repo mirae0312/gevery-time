@@ -36,7 +36,7 @@
     <div id="container">
         <section id="header" >
            <div class="wrapper">
-               <div class="title"><a href="<%=request.getContextPath() %>/">타이틀</a></div>
+               <div class="title"><a href="<%=request.getContextPath() %>/">개브리타임</a></div>
                <ul class="lists" >
                    <li id="info"><a href="<%= request.getContextPath() %>/info/allList?board=<%= "info" %>">정보</a></li>
                    <li id="board"><a href="<%=request.getContextPath() %>/board/freeBoard">게시판</a></li>

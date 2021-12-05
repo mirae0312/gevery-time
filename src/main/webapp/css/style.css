@@ -27,11 +27,10 @@ html {
 #admin{
     display: flex;
     padding-top: 85px;
-    margin-left: -180px;
-    
+    margin-left: -180px;    
 }
 #admin a{
- text-decoration-line: none;
+	text-decoration-line: none;
 }
 .title{
     font-size: 35px;
@@ -65,7 +64,7 @@ html {
     color: black;
 }
 .lists a:hover {
-     color:darkgray;
+    color:darkgray;
 }
 .lists li{
     margin-right: 42px;
@@ -82,37 +81,37 @@ html {
 .nav a:hover {
     color:darkgray;
 }
- section#content {
-     width:1024px; 
-     min-height : 690px; 
-     margin: 0 auto;
+section#content {
+    width:1024px; 
+    min-height : 690px; 
+    margin: 0 auto;
 }
 footer { 
-     clear:both; 
-     width:1024px;
-     margin-left:auto ;
-     margin-right: auto;
-     border-top: solid;
-     align-items: center;
-     border-top-color:rgba(128, 128, 128, 0.432) ;
-     border-top-width: 2px;
+    clear:both; 
+    width:1024px;
+    margin-left:auto ;
+    margin-right: auto;
+    border-top: solid;
+    align-items: center;
+    border-top-color:rgba(128, 128, 128, 0.432) ;
+    border-top-width: 2px;
 }
 footer table{
-     font-size: 13px;
-     margin-left: auto;
-     margin-right: auto;
-     margin-top: 30px;
-     }
+    font-size: 13px;
+    margin-left: auto;
+    margin-right: auto;
+    margin-top: 30px;
+}
    
 footer table tr td{
-     padding-right: 5px;
-     font-size: 13px;
-     }
+    padding-right: 5px;
+    font-size: 13px;
+}
 #footer-inner{
-     height: 50px;
-     margin-top: 3px;
-     margin-bottom: 3px;
-     padding-bottom: 9px;
+    height: 50px;
+    margin-top: 3px;
+    margin-bottom: 3px;
+    padding-bottom: 9px;
 }
  .info-navsbox{
     display: none;
@@ -182,7 +181,7 @@ section#content{
 }
 
 
-
+/* top버튼 게시글 작성 버튼 */
 #write-board::-ms-expand { 
 	display: none;
 }
@@ -213,4 +212,70 @@ section#content{
 	font-weight: bold;
 	text-align: center;
 	padding: 19px 0px;
+}
+
+/* index body */
+.body-wrapper{
+	width: 1024px;
+}
+
+/* 사진 */
+.photo-wrapper{
+	border: 1px solid red;
+	height: 370px;
+}
+
+/* 게시판 */
+.board-wrapper{
+	margin: 50px 0;
+	width: 1024px;
+	height: 400px;
+	display:flex;
+	justify-content: space-around;
+}
+.board-left-wrap{
+	border: 1px solid black;
+	width: 512px;
+}
+.board-right-wrap{
+	border: 1px solid black;
+	width: 512px;
+}
+
+/* 정보 게시판 */
+.info-board-wrapper{
+	width: 1024px;
+	height: 500px;
+	border: 1px solid red;
+}
+#info-board-table{
+	border: 1px solid black;
+	width: 1024px;
+	height: 500px;
+	border-collapse: collapse;
+}
+#info-board-table tr{
+	border: 1px solid black;
+}
+#info-board-table td{
+	border: 1px solid black;
+}
+
+/* 마켓 */
+.market-wrapper{
+	width: 1024px;
+	height: 500px;
+	border: 1px solid red;
+}
+#market-board-table{
+	border: 1px solid black;
+	width: 1024px;
+	height: 500px;
+	border-collapse: collapse;
+}
+#market-board-table tr{
+	border: 1px solid black;
+}
+#market-board-table td{
+	border: 1px solid black;
 }
