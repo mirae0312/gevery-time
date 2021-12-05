@@ -40,12 +40,12 @@ public class PointService {
 		return pointNo;
 	}
 
-	public int insertPointHistory(PointHistory ht) {
+	public int insertPointHistory(PointHistory ht, String memberId) {
 		Connection conn = getConnection();
 		int result = 0;
 		
 		try {
-			result = pointDao.insertPointHistory(conn, ht);
+			result = pointDao.insertPointHistory(conn, ht, memberId);
 			commit(conn);
 		} catch(Exception e) {
 			rollback(conn);

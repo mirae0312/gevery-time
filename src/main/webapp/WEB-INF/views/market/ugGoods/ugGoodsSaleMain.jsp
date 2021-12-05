@@ -13,6 +13,12 @@
 	<% if(loginMember != null) { %>
 	<input type="button" value="등록하기" id="boardEnroll"/>
 	<% } %>
+	<br />
+	<select name="searchSelect" id="searchSelect">
+		<option value="title">제목</option>
+		<option value="content">내용</option>
+	</select>
+	<input type="text" name="searchName" id="searchName" /><input type="button" value="검색" onclick="selectContent(1)"/>
 	<div id="boardList">
 		<table id="boardTable">
 			<thead>
@@ -20,10 +26,9 @@
 					<th colspan=8><span id="sumContent"></span></th>
 				</tr>
 				<tr>
-					<th>게시글 번호</th>
+					<th>게시글번호</th>
 					<th>섬네일</th>
 					<th>상태</th>
-					<th>분류</th>
 					<th>제목</th>
 					<th>가격</th>
 					<th>판매자</th>
@@ -49,35 +54,39 @@
 		$(() => {
 			selectContent(1);
 		});
+ 		$(".pageBar").click((e)=>{
+			selectContent($(e.target).data('page'));
+		});
 		
 		// 날짜 format 함수
 		const f = n => n < 10 ? "0" + n : n;
 		
-		const selectContent = (cPage) => {			
+		const selectContent = (cPage) => {	
+			const searchKeyword = $("#searchName").val();
+			const searchType = $("#searchSelect").val();
 			$.ajax({
 				url:"<%=request.getContextPath()%>/ugGoods/boardList",
 				dataType:"json",
 				data:{
-					cPage
+					cPage,
+					searchKeyword,
+					searchType
 				},
 				success(data){
-					console.log(data);
-					console.log(data.totalContent);
+					$("#boardTable tbody").empty();
 					/* $("#sumContent").html('조회된 게시물 수 : '+ data.totalContent); */
 					
 					//List부분
 					$(data.list).each((i, e)=>{						
-						console.log(e);
 						let day = new Date(e.regDate);
 	                    let value = `\${day.getFullYear()}-\${f(day.getMonth() + 1)}-\${f(day.getDate())}`;
-	             
+
 	                    let imgSrc = e.attachments[0].renamedFilename;
 						
 						const tr = `			<tr>
 		 					<td>\${e.no}</td>
 		 					<td class="thumbnailImg"><img src="<%= request.getContextPath() %>/upload/market/UgSale/\${imgSrc}" style="width:100px; height:50px;"/></td>
-							<td>상태</td>
-							<td>분류</td>
+							<td>\${e.state}</td>
 							<td><a href="<%= request.getContextPath() %>/ugGoods/boardView?boardNo=\${e.no}">\${e.title}</a></td>
 							<td>\${e.price}원</td>
 							<td>\${e.writer}</td>

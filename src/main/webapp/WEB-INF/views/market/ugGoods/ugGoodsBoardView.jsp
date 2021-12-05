@@ -20,6 +20,7 @@
   <script type="text/javascript" src="https://cdn.iamport.kr/js/iamport.payment-1.1.5.js"></script>
 </head>
 <body>
+	<input type="button" value="신고하기" onclick="window.open('<%= request.getContextPath() %>/common/report?code=<%= (String)board.getOrCode() %>', 'popup', 'width=500, height=600, left=100')"/>
 	<h1>상품 상세보기</h1>
 	<!-- 작성자에게만 수정/삭제 버튼이 노출되도록 함 -->
 	<% if(loginMember != null && loginMember.getMemberId().equals(board.getWriter())) { %>
@@ -55,6 +56,9 @@
 			<tr>
 				<th>상태</th>
 				<td><%= state %></td>
+			</tr>
+			<tr>
+				<td><input type="button" value="찜하기" /></td>
 			</tr>
 			
 			<% if(state.equals("판매중")) {%>
@@ -411,8 +415,8 @@
 	    		url: "<%= request.getContextPath() %>/ugGoods/addSellerPoint",
 	    		method: "POST",
 	    		data: {
-	    			sellerId = reqsellerId,
-	    			pointVal = reqpointVal
+	    			sellerId: reqsellerId,
+	    			pointVal: reqpointVal
 	    		},
 	    		success(data){
 	    			console.log(data);

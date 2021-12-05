@@ -270,6 +270,7 @@ public class ProductSaleDao {
 				question.put("writer", rset.getString("writer"));
 				question.put("qaLevel", rset.getInt("qlevel"));
 				question.put("refNo", rset.getInt("ref_no"));
+				question.put("orCode", rset.getString("or_code"));
 				questions.add(question);
 				System.out.println("dao@question : "+question);
 			}

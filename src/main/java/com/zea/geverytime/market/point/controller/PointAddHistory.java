@@ -23,25 +23,25 @@ public class PointAddHistory extends HttpServlet {
 	private PointService pointService = new PointService();
 
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		int pointNo = Integer.parseInt(request.getParameter("pointNo"));
+		String memberId = request.getParameter("memberId");
 		String div = request.getParameter("div");
 		int pointVal = Integer.parseInt(request.getParameter("pointVal"));
 		String history = request.getParameter("history");
 		String uid = request.getParameter("purchaseUid");
-		System.out.println("pointHistory : "+pointNo+div+pointVal+history+uid);
+		System.out.println("pointHistory : "+div+pointVal+history+uid);
 		
 		PointHistory ht = new PointHistory();
-		if(div.equals("사용")) {
-			ht = new PointHistory(0, pointNo, pointVal, 0, null, history, uid, div);			
+		if(div.equals("O")) {
+			ht = new PointHistory(0, pointVal, 0, null, history, uid, div);			
 		} else {
-			ht = new PointHistory(0, pointNo, 0, pointVal, null, history, uid, div);
+			ht = new PointHistory(0, 0, pointVal, null, history, uid, div);
 		}
 		
-		int result = pointService.insertPointHistory(ht);
+		int result = pointService.insertPointHistory(ht, memberId);
 		System.out.println("pointHistory result : "+result);
 		
 		String msg = "";
-		if(div.equals("사용")) {
+		if(div.equals("O")) {
 			if(result > 0) {
 				msg = "포인트가 사용 되었습니다.";
 			} else {
