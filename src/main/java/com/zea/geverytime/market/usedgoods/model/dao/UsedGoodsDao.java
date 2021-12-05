@@ -120,7 +120,7 @@ public class UsedGoodsDao {
 		return board;
 	}
 
-	public List<UsedGoodsBoard> getProductSaleBoardAll(Connection conn, int startNum, int endNum) {
+	public List<UsedGoodsBoard> getProductSaleBoardAll(Connection conn, int startNum, int endNum, String keyword, String type) {
 		PreparedStatement pstmt = null;
 		ResultSet rset= null;
 		String sql = prop.getProperty("getProductSaleBoardAll");
@@ -130,6 +130,13 @@ public class UsedGoodsDao {
 			pstmt = conn.prepareStatement(sql);
 			pstmt.setInt(1, startNum);
 			pstmt.setInt(2, endNum);
+			if(type.equals("title")) {
+				pstmt.setString(3, "%"+keyword+"%");
+				pstmt.setString(4, "%%");
+			} else {
+				pstmt.setString(3, "%%");
+				pstmt.setString(4, "%"+keyword+"%");
+			}
 			
 			rset = pstmt.executeQuery();
 			
@@ -142,6 +149,7 @@ public class UsedGoodsDao {
 				board.setWriter(rset.getString("writer"));
 				board.setContent(rset.getString("content"));
 				board.setRegDate(rset.getDate("reg_date"));
+				board.setState(rset.getString("state"));
 				list.add(board);
 			}
 		} catch (SQLException e) {
