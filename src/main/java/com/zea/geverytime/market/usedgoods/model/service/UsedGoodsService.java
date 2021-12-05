@@ -221,4 +221,5 @@ public class UsedGoodsService {
 		}
 		return result;
 	}
+
 }

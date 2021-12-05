@@ -163,9 +163,9 @@
 					<tr class="getReqContent" style="display:none">
 						<td>
 							<form action="<%= request.getContextPath() %>/ugGoods/tradeReqAccept" name="reqAccetpFrm" method="POST">
-								<input type="button" value="선택하기" class="selectReqUser"/>
-								<input type="hidden" name="thisBoardNo" value="<%= board.getNo() %>" />
+								<input type="submit" value="선택하기" class="selectReqUser"/>
 								<input type="hidden" name="userId" value="<%= user.get("user") %>"/>
+								<input type="hidden" name="thisBoardNo" value="<%= board.getNo() %>" />
 							</form>
 						</td>
 						<td>
@@ -262,11 +262,6 @@
 		$("#responseBtn").click((e) => {
 			$(".getReqContent").css("display", "");
 		})
-		
-		// [판매자] 구매요청 선택하기 클릭 시 폼 제출 > 구매 수락
-		$(".selectReqUser").click((e) => {
-			$(document.reqAccetpFrm).submit();
-		});
 		
 		// [거래상태] 구매요청 수락 시 state 변경
 		const changeState = () => {
@@ -408,6 +403,23 @@
 	    		error: console.log
 	    	});
 	    }
+	    
+	    const addSellerPoint = () => {
+	    	const reqsellerId = <%= board.getWriter() %>;
+	    	const reqpointVal = <%= board.getPrice() %>;
+	    	$.ajax({
+	    		url: "<%= request.getContextPath() %>/ugGoods/addSellerPoint",
+	    		method: "POST",
+	    		data: {
+	    			sellerId = reqsellerId,
+	    			pointVal = reqpointVal
+	    		},
+	    		success(data){
+	    			console.log(data);
+	    		},
+	    		error: console.log
+	    	});
+	    };
 	    
 		const purchaseDone = (a, b, c) => {
 			location.href=`<%= request.getContextPath() %>/purchase/Complete?uid=\${a}&muid=\${b}&amount=\${c}`;
