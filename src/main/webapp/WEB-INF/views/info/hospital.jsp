@@ -11,7 +11,7 @@
 <link rel="stylesheet" href="<%=request.getContextPath() %>/css/info/info.css" />
 <div class="info-wrapper">
 <% if(loginMember != null && MemberService.BUSINESS_TYPE.equals(loginMember.getMemberType())){ %>
-	<button class="info-write-btn" onclick="infoEnroll()">게시글 작성</button>
+	<button class="info-write-btn btn" onclick="infoEnroll()">작성하기</button>
 <% } %>
 	<div class="pop-contents">
 <% if(popList != null && !popList.isEmpty()){ %>
@@ -19,9 +19,10 @@
 		<div class="info-wrap">
 			<div class="business-name"><%= popInfo.getBusinessName() %></div>
 			<img class="list-thumbnail" src="<%= request.getContextPath() %>/upload/info/<%= popInfo.getAttachments().get(0).getRenamedFilename() %>" alt="" />
-			<div class="head-content"><%= popInfo.getHeadContent() %></div>
+			<div class="head-content"><%= popInfo.getHeadContent() %></div><br />
 			<div class="recommend-count">추천수 : <%= popInfo.getRecommend() %></div>
 			<div class="view-count">조회수 : <%= popInfo.getViewCount() %></div>	
+			<div class="popInfo-comment">리뷰 : <%= popInfo.getCommentCount() %></div>
 			<div class="hidden-code"><%= popInfo.getCode() %></div>	
 		</div>
 	<% } %>
@@ -92,7 +93,7 @@ const scrollPage = () => {
 			
 			const $div = $(".info-content");
 			
-			$data.each((i, {code, businessName, headContent, attachments, recommend, viewCount, regDate}) => {
+			$data.each((i, {code, businessName, headContent, attachments, recommend, viewCount, regDate, commentCount}) => {
 				
 				let rd = new Date(regDate);
 				let value = `\${rd.getFullYear()}.\${(rd.getMonth() + 1)}.\${(rd.getDate())}`;
@@ -100,10 +101,11 @@ const scrollPage = () => {
 				const $contents = `<div class="info-wrap">
 				<div class="business-name">\${businessName}</div>
 				<div class="head-content">\${headContent}</div>				
-				<img class="list-thumbnail" src="<%= request.getContextPath() %>/upload/info/\${attachments[0].renamedFilename}" alt="" />
+				<img class="list-thumbnail" src="<%= request.getContextPath() %>/upload/info/\${attachments[0].renamedFilename}" alt="" /><br />
 				<div class="recommend-count">추천수 : \${recommend}</div>
 				<div class="view-count">조회수 : \${viewCount}</div>	
-				<div class="reg-date">\${value}</div>
+				<div class="info-comment-count">리뷰 : \${commentCount}</div>
+				<div class="info-reg-date">\${value}</div>
 				<div class="hidden-code">\${code}</div>
 				</div><hr />
 				`;

@@ -19,15 +19,27 @@ input[type="number"]::-webkit-inner-spin-button
 </style>
 <script>
 
-function handleOnInput(el, maxlength) {
-	  if(el.value.length > maxlength)  {
-	    el.value 
-	      = el.value.substr(0, maxlength);
-	  }
-	}
+
+const checkIdDuplicate = (Id) => {
+		const name = "checkIdDuplicatePopup"; 
+		const spec = "left = 500px, top =500px, width=300px, height=250px";
+		const popup = open("",name, spec); 
+		const $memberId = $(Id);
+		const $frm = $(document.checkIdDuplicateFrm);
+		$frm.find("[name=memberId]").val($memberId.val());
+		$frm.attr("target",name)
+			.submit();
+	
+};
+
+$(Id).change(() => {
+	$(idValid).val(0);
+});
+
 </script>
 <script src="<%= request.getContextPath() %>/js/jquery-3.6.0.js"></script>
 <script src="<%= request.getContextPath() %>/js/Businesslocation/location.js"></script>
+<script src ="<%= request.getContextPath() %>/js/checkDuplicate/checkDuplicate.js" > </script>
 <title>회원가입</title>
 <script>
 
@@ -57,9 +69,9 @@ function handleOnInput(el, maxlength) {
 
         <td>ID:</td>
 
-        <td><input type="text" name="Id" id="_Id">
+        <td><input type="text" name="Id" id="Id"  required>
 
-            <input type="button" value="중복확인" onclick="checkIdDuplicate();" />
+           <input type="button" value="아이디중복검사" onclick ="checkIdDuplicate(Id);"/>
           	
           	
             <input type="hidden" id="idValid" value="0" />
@@ -91,10 +103,17 @@ function handleOnInput(el, maxlength) {
         <td><input type="text" name="name" id="_name" > </td>
 
       </tr>
-  		<tr>
+  	    <tr>
       <td>이메일 : </td>
-      
-        <td><input type="text"  name="email" id="_email"> </td>
+      	<td>
+	         <input type="text" name="email01" id="email01" style="width:100px"> @
+			<input type="text" name="email02" id="email02" style="width:100px;" disabled value="naver.com">
+	 	<select style="width:100px;margin-right:10px" name="selectEmail" id="selectEmail" >
+			 <option  name= "email03" value= <%request.getParameter("email02"); %>>직접입력</option>
+			 <option value="naver.com" selected>naver.com</option>
+			 <option value="hanmail.net">hanmail.net</option>
+		</select>
+			</td>
       
       </tr>
      
@@ -169,20 +188,16 @@ function handleOnInput(el, maxlength) {
 
 
 </body>
-<form 
+<form
 	name="checkIdDuplicateFrm" 
-	action="<%= request.getContextPath() %>/member/checkIdDuplicate" 
+	action="<%= request.getContextPath() %>/member/checkDuplicate" 
 	method="GET">
-	<input type="hidden" name="memberId" />
+	<input type="hidden" name="memberId"/>
 </form>
-<script>
-$("checkIdDuplicate").on("click",function(){
-	var id = $("#Id").val();
-  //window.open:  새창 띄우기.
-  //idDuplCheck.jsp?  : idDuplCheck.jsp페이지로 이동할건데, key값(name)=id , value=id 를 전송
-    window.open("chekcIdDuplicate.jsp?Id="+Id,"",width=400px,height=300px,top=300px,left=200px)
-})
+
+<script src ="<%= request.getContextPath() %>/js/email/email.js" > </script>
+<script type="text/javascript" src="http://code.jquery.com/jquery-latest.min.js"></script> 
 
 
-</script>
+
 </html>

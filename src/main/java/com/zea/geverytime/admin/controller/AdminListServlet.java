@@ -9,6 +9,7 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
+import com.google.gson.Gson;
 import com.zea.geverytime.admin.model.service.AdminService;
 import com.zea.geverytime.info.model.vo.Info;
 
@@ -21,27 +22,42 @@ public class AdminListServlet extends HttpServlet {
 	private AdminService adminService = new AdminService();
 
 	/**
-	 * select * from info_common order by reg_date desc
+	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse response)
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+
 		try {
-//            String board = (String) request.getParameter("board");
-//            int start = 1;
-//            int end = 5;
-
-            String location = "";
-            // 전체 게시물
-            List<Info> list = adminService.selectInfoBoard();
-            System.out.println("[AdminListServlet] list : " + list);
-
-            request.setAttribute("list", list);
-            request
-                .getRequestDispatcher("/WEB-INF/views/admin/adminList.jsp")
-                .forward(request, response);
-
-		 	} catch(Exception e) {
-	            e.printStackTrace();
-	            throw e;
-	        }
+			
+			request
+				.getRequestDispatcher("/WEB-INF/views/admin/adminList.jsp")
+				.forward(request, response);
+			
+		}catch(Exception e) {
+			e.printStackTrace();
+			throw e;
+		}
+		
 	}
+
+	/**
+	 * @see HttpServlet#doPost(HttpServletRequest request, HttpServletResponse response)
+	 */
+	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+		
+		try {
+			
+			List<Info> list = adminService.selectInfoBoard();
+			System.out.println("[AdminListServlet] selectInfoBoard : " + list);
+			
+			response.setContentType("application/json; charset=utf-8");
+			new Gson().toJson(list, response.getWriter());	
+			
+		}catch(Exception e) {
+			e.printStackTrace();
+			throw e;
+		}
+		
+		
+	}
+
 }

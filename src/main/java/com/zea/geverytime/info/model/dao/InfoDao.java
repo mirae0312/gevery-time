@@ -1279,7 +1279,7 @@ public class InfoDao {
 		
 	}
 
-	public void deleteInfoMain(Connection conn, String code) {
+	public int deleteInfoMain(Connection conn, String code) {
 		PreparedStatement pstmt = null;
 		String sql = prop.getProperty("deleteInfoMain");
 		int result = 0;
@@ -1295,7 +1295,7 @@ public class InfoDao {
 		}finally {
 			close(pstmt);
 		}
-		
+		return result;
 	}
 
 	public List<Attachment> selectAttachment(Connection conn, String code) {

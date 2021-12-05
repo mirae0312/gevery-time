@@ -57,14 +57,16 @@
 %>
   					<tr>
                         <td><%= qnaBoard.getNo() %></td>
-                        <td style="font-size:12px;color:red"><%= qnaBoard.getCategory() %></td>
-                        <td class="tit" colspan="5">
+                        <td></td>
+                     <!-- <td style="font-size:12px;"><%= qnaBoard.getCategory() %></td> -->   
                   <%if(MemberService.ADMIN_ROLE.equals(loginMember.getMemberRole()) 
 						)
 				{ %>
+                        <td class="tit" colspan="5">
                     <a href="<%= request.getContextPath() %>/customer/qnaBoardView?no=<%= qnaBoard.getNo() %>">↳RE: <%= qnaBoard.getTitle() %></a>
  				<% }else{%>
- 					 <a href="<%= request.getContextPath() %>/customer/passwordCheck?no=<%= qnaBoard.getNo() %>">↳RE: <%= qnaBoard.getTitle() %></a>
+ 					 <td class="tit" colspan="5" style="text-decoration:none";>
+ 					  ↳RE: <%= qnaBoard.getTitle() %> 
                         <%} %>
                         </td>
                         <td><%= qnaBoard.getWriter() %></td>

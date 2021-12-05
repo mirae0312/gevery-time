@@ -423,12 +423,15 @@ public class InfoService {
 		return result;
 	}
 
-	public int checkInfoTrue(String code, String in) {
+	public int checkInfoTrue(String code, String output) {
 		Connection conn = null;
 		int result = 0;
 		try {
 			conn = getConnection();
-			result = infoDao.checkInfoTrue(conn, code, in);
+			if(!"A".equals(output))
+				result = infoDao.checkInfoTrue(conn, code, output);
+			else
+				result = infoDao.deleteInfoMain(conn, code);
 //			System.out.println("[InfoServiceCheckInfoTrue] Admin서비스 : " + result);
 			if(result > 0)
 				commit(conn);
@@ -492,11 +495,12 @@ public class InfoService {
 		
 	}
 
-	public void deleteInfoMain(String code) {
+	public int deleteInfoMain(String code) {
 		Connection conn = null;
+		int result = 0;
 		try {
 			conn = getConnection();
-			infoDao.deleteInfoMain(conn, code);
+			result = infoDao.deleteInfoMain(conn, code);
 			commit(conn);
 		}catch(Exception e) {
 			rollback(conn);
@@ -504,7 +508,7 @@ public class InfoService {
 		}finally {
 			close(conn);
 		}
-		
+		return result;
 	}
 
 	public List<Attachment> selectAttachment(String code) {

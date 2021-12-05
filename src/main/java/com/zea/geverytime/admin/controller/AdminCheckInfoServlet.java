@@ -70,10 +70,11 @@ public class AdminCheckInfoServlet extends HttpServlet {
 		int result = 0;
 		try {
 			String code = request.getParameter("code");
+			String output = request.getParameter("output");
 			System.out.println("[AdminCheckInfo@Servlet] code = " + code);
-			String in = "I";
-			result = infoService.checkInfoTrue(code, in);
-			System.out.println("[AdminCheckInfo@Servlet] in = " + in);
+			
+			result = infoService.checkInfoTrue(code, output);
+			System.out.println("[AdminCheckInfo@Servlet] in = " + output);
 			
 			msg = (result > 0) ?
 					"정보승인성공" : "정보승인실패";
