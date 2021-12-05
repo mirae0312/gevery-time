@@ -42,6 +42,7 @@
 	</ul>
 </div>
 <script>
+
 $(() => {
 	reportList();
 });
@@ -68,10 +69,11 @@ const reportList = () => {
 				if(reportCheck === "U" && deleteCheck === "d")
 					state = "처리중" 
 				
-				
 				const tr = `<tr>
 				<td>\${reportCode}</td>
-				<td>\${title}</td>
+				<td><a href="#" target="_self", onclick="window.open('<%= request.getContextPath() %>/admin/reportCheck?code=\${reportCode}', 
+					'_blank', 'width=500px, height=200px, scrollbars = yes')" >\${title}</a>
+				</td>
 				<td>\${memberId}</td>
 				<td>\${content}</td>
 				<td>\${value}</td>

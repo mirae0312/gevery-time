@@ -2,6 +2,7 @@
     pageEncoding="UTF-8"%>
 <%
 	String id = (String) request.getAttribute("memberId");
+	Business businessMember  =  (Business)session.getAttribute("businessMember");
 %>
 <%@ page import="java.sql.*" %>
 <%@ include file="/WEB-INF/views/common/header.jsp" %>
@@ -16,15 +17,21 @@
         vertical-align: center;
     }
 </style>
-<h2>관리자 페이지</h2>
-<div class="admin-container">
-	<ul class="adminBar">
-		<li><a href="<%= request.getContextPath() %>/admin/adminList">정보게시물 승인</a></li>
-		<li><a href="<%= request.getContextPath() %>/admin/reportList">신고사항</a></li>
+<div class="myPage-container">
+	<ul class="myPageBar">
+		<% if(loginMember != null && loginMember.getMemberType().equals("N")) { %>
+		<li id="memberInfo"><a href="<%=request.getContextPath() %>/myPage/myPageMain">내정보(개인)</a></li>
+		<% } %>
+		<% if(loginMember != null && loginMember.getMemberType().equals("B")) { %>
+		<li id="businessInfo"><a href="<%=request.getContextPath() %>/myPage/myPageMain">내정보(사업자)</a></li> 
+		<% } %>
+		<li id="buyList"><a href="<%=request.getContextPath() %>/myPage/PurchaseHistory?memberId=<%= loginMember.getMemberId() %>">나의 구매내역</a></li>
+		<% if(loginMember != null && loginMember.getMemberType().equals("B")) { %>
+		<li id="InfoPost"><a href="<%=request.getContextPath() %>/myPage/business?id=<%= businessMember.getMemberId() %>">정보게시물 승인</a></li>
+		<% } %>
 	</ul>
 </div>
-
-<h3>정보게시물 승인</h3>
+<h3>정보게시물</h3>
 <table id="myPageBusinessInfo">
 	<thead>
 		<tr>

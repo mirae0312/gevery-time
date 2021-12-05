@@ -49,4 +49,25 @@ public class AdminService {
 		return list;
 	}
 
+	public int checkReport(String code, String delCode, String output) {
+		Connection conn = null;
+		int result = 0;
+		try {
+			conn = getConnection();
+			if(!"d".equals(delCode))
+				result = adminDao.checkReport(conn, code, output);
+			else	
+				result = adminDao.deleteReport(conn, code, output);
+
+			if(result > 0)
+				commit(conn);
+		}catch(Exception e) {
+			rollback(conn);
+			throw e;
+		}finally {
+			close(conn);
+		}
+		return result;
+	}
+
 }
