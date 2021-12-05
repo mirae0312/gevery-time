@@ -182,10 +182,43 @@ public class UsedGoodsService {
 		return result;
 	}
 
-	public Map<String, Object> getUgBoardReqUsers(int boardNo) {
+	public List<Map<String, Object>> getUgBoardReqUsers(int boardNo) {
 		Connection conn = getConnection();
-		Map<String, Object> reqUsers = ugDao.getUgBoardReqUsers(conn, boardNo);
+		List<Map<String, Object>> reqUsers = ugDao.getUgBoardReqUsers(conn, boardNo);
 		close(conn);
 		return reqUsers;
+	}
+
+	public int tradeRequestAccept(String userId, int boardNo) {
+		Connection conn = getConnection();
+		int result = 0;
+		
+		try {
+			result = ugDao.tradeRequestAccept(conn, userId, boardNo);
+			commit(conn);
+		} catch(Exception e) {
+			rollback(conn);
+			e.printStackTrace();
+		} finally {
+			close(conn);
+		}
+		
+		return result;
+	}
+
+	public int changeUgBoardState(int boardNo, String state) {
+		Connection conn = getConnection();
+		int result = 0;
+		
+		try {
+			result = ugDao.changeUgBoardState(conn, boardNo, state);
+			commit(conn);
+		} catch(Exception e) {
+			rollback(conn);
+			e.printStackTrace();
+		} finally {
+			close(conn);
+		}
+		return result;
 	}
 }

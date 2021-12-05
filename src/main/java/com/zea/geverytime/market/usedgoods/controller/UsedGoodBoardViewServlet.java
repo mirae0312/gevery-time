@@ -33,7 +33,7 @@ public class UsedGoodBoardViewServlet extends HttpServlet {
 		
 		board.setAttachments(attachments);
 		
-		Map<String, Object> reqUsers = ugService.getUgBoardReqUsers(boardNo);
+		List<Map<String, Object>> reqUsers = ugService.getUgBoardReqUsers(boardNo);
 		System.out.println("reqU : "+reqUsers);
 		
 		request.setAttribute("state", state);

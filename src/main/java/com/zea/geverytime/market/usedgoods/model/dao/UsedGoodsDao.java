@@ -326,10 +326,10 @@ public class UsedGoodsDao {
 		return result;
 	}
 
-	public Map<String, Object> getUgBoardReqUsers(Connection conn, int boardNo) {
+	public List<Map<String, Object>> getUgBoardReqUsers(Connection conn, int boardNo) {
 		PreparedStatement pstmt = null;
 		String sql = prop.getProperty("getUgBoardReqUsers");
-		Map<String, Object> reqUsers = new HashMap<>();
+		List<Map<String, Object>> reqUsers = new ArrayList<>();
 		ResultSet rset = null;
 		
 		try {
@@ -340,8 +340,14 @@ public class UsedGoodsDao {
 			while(rset.next()) {
 				String user = rset.getString("request_user");
 				String content = rset.getString("content");
-				reqUsers.put("user", user);
-				reqUsers.put("content", content);
+				String selected = rset.getString("selected");
+				
+				Map<String, Object> map = new HashMap<>();
+				map.put("user", user);
+				map.put("content", content);
+				map.put("selected", selected);
+				
+				reqUsers.add(map);
 			}
 		} catch (SQLException e) {
 			e.printStackTrace();
@@ -349,5 +355,42 @@ public class UsedGoodsDao {
 			close(pstmt);
 		}
 		return reqUsers;
+	}
+
+	public int tradeRequestAccept(Connection conn, String userId, int boardNo) {
+		PreparedStatement pstmt = null;
+		String sql = prop.getProperty("tradeRequestAccept");
+		int result = 0;
+		
+		try {
+			pstmt = conn.prepareStatement(sql);
+			pstmt.setString(1, userId);
+			pstmt.setInt(2, boardNo);
+			
+			result = pstmt.executeUpdate();
+		} catch (SQLException e) {
+			e.printStackTrace();
+		} finally {
+			close(pstmt);
+		}
+		return result;
+	}
+
+	public int changeUgBoardState(Connection conn, int boardNo, String state) {
+		PreparedStatement pstmt = null;
+		String sql = prop.getProperty("changeUgBoardState");
+		int result = 0;
+		try {
+			pstmt = conn.prepareStatement(sql);
+			pstmt.setString(1, state);
+			pstmt.setInt(2, boardNo);
+			
+			result = pstmt.executeUpdate();
+		} catch (SQLException e) {
+			e.printStackTrace();
+		} finally {
+			close(pstmt);
+		}
+		return result;
 	}
 }
