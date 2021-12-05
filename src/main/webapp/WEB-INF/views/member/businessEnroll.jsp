@@ -1,6 +1,6 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
-
+  <%@ include file="/WEB-INF/views/common/header.jsp" %>
 <!DOCTYPE html>
 
 <html>
@@ -59,6 +59,8 @@ function handleOnInput(el, maxlength) {
    
 	
 <section>
+<content>
+	<center>
    <h3>회원가입</h3>
 	<form  name ="memberEnrollFrm" action="" method="POST">
    <table cellpadding="5" cellspacing="0"
@@ -182,7 +184,10 @@ function handleOnInput(el, maxlength) {
       </tr>
    </table>
 	</form>
+</center>
+</content>
 </section>
+
 
 
 
