@@ -1,6 +1,6 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
-  
+  <%@ include file="/WEB-INF/views/common/header.jsp" %>
 <!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
 <html>
 <head>
@@ -34,9 +34,17 @@
 			<td><input type="text" name="email" id="email"class="form-control" placeholder="이메일을 입력하세요"></td>
 		</tr>
 		<br>	
-	</table>
-	<button type="button" id="searchBtn" class= "btn btn-outline-info btn sm" onclick="searchId()">검색</button>
 
+	<tr>
+	<td>
+	<button type="button" id="searchBtn" class= "btn btn-outline-info btn sm" onclick="searchId()">검색</button>
+	<button id="button2" class="btn2" onclick ="location.href='<%=request.getContextPath()%>/member/login'">로그인하러가기</button>
+	</td>
+	</tr>
+	
+	</table>
+	
+	
 	</div>
 	</section>
 	

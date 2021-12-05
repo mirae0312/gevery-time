@@ -1,14 +1,9 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
  <%@page import="com.zea.geverytime.member.model.vo.Member"%>
-<%
-	String msg = (String) session.getAttribute("msg");
-	if(msg != null) session.removeAttribute("msg");
-	
-	Member loginMember = (Member) session.getAttribute("loginMember");
-	
-	
-	%>
+   <%@ include file="/WEB-INF/views/common/header.jsp" %>
+
+
 <!DOCTYPE html>
 
 <html>
@@ -62,6 +57,8 @@ function handleOnInput(el, maxlength) {
 </head>
 <body>
 <section id =enroll-container>
+<content>
+<center>
    <h3>회원가입</h3>
 	<form  name ="memberEnrollFrm" action="" method="POST">
    <table cellpadding="5" cellspacing="0"
@@ -161,6 +158,8 @@ function handleOnInput(el, maxlength) {
       </tr>
    </table>
 	</form>
+	</center>
+	</content>
 </section>
 
 <form
