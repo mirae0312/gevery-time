@@ -9,7 +9,9 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 import java.util.Properties;
 
 import com.zea.geverytime.common.model.vo.Attachment;
@@ -302,5 +304,50 @@ public class UsedGoodsDao {
 			close(pstmt);
 		}
 		return result;
+	}
+
+	public int addBoardRequest(Connection conn, int boardNo, String memberId, String content) {
+		PreparedStatement pstmt = null;
+		String sql = prop.getProperty("addBoardRequest");
+		int result = 0;
+		
+		try {
+			pstmt = conn.prepareStatement(sql);
+			pstmt.setInt(1, boardNo);
+			pstmt.setString(2, memberId);
+			pstmt.setString(3, content);
+			
+			result = pstmt.executeUpdate();
+		} catch (SQLException e) {
+			e.printStackTrace();
+		} finally {
+			close(pstmt);
+		}
+		return result;
+	}
+
+	public Map<String, Object> getUgBoardReqUsers(Connection conn, int boardNo) {
+		PreparedStatement pstmt = null;
+		String sql = prop.getProperty("getUgBoardReqUsers");
+		Map<String, Object> reqUsers = new HashMap<>();
+		ResultSet rset = null;
+		
+		try {
+			pstmt = conn.prepareStatement(sql);
+			pstmt.setInt(1, boardNo);
+			
+			rset = pstmt.executeQuery();
+			while(rset.next()) {
+				String user = rset.getString("request_user");
+				String content = rset.getString("content");
+				reqUsers.put("user", user);
+				reqUsers.put("content", content);
+			}
+		} catch (SQLException e) {
+			e.printStackTrace();
+		} finally {
+			close(pstmt);
+		}
+		return reqUsers;
 	}
 }

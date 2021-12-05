@@ -8,6 +8,7 @@
 	UsedGoodsBoard board = (UsedGoodsBoard) request.getAttribute("board");
 	List<Attachment> attachments = (List<Attachment>) board.getAttachments();
 	String state = (String) request.getAttribute("state");
+	List<String> reqUsers = (List<String>) request.getAttribute("reqUsers");
 %>  
 <!DOCTYPE html>
 <html>
@@ -56,21 +57,44 @@
 			<!-- 구매자 > 구매요청 : value는 비동기로 처리 -->
 			<% if(loginMember != null && !loginMember.getMemberId().equals(board.getWriter())) { %>
 			<tr>
-				<td colspan=2><input type="button" value="구매요청" id="requestBtn"/></td>
+				<td colspan=2>
+					<div id="requestArea">
+					<%
+					for(String user : reqUsers) {
+						if(!user.equals(loginMember.getMemberId()) && state.equals("판매중")){
+					%>
+						<input type="button" value="구매요청" id="requestBtn"/>
+						<span id="userReq" style="display:none">
+							<label for="reqContent">내용 입력 : </label><input type="text" id="reqContent" />
+							<input type="button" value="보내기" id="requestSubmit"/>
+						</span>						
+					<%
+						} else if(user.equals(loginMember.getMemberId()) && state.equals("판매중")){
+					%>
+						<input type="button" value="구매요청중" id="requestBtn" disabled='disabled'/>
+					<%		
+						}
+					}
+					%>
+					</div>
+				</td>
 			</tr>
 			<% } %>
+			
+			
+			
+			
 			
 			<!-- 판매자 > 요청확인 : 비동기로 처리  -->
 			<% if(loginMember != null && loginMember.getMemberId().equals(board.getWriter())) { %>
 			<tr>
-				<td colspan=2><input type="button" value="요청확인" id="requestBtn"/></td>
+				<td colspan=2><input type="button" id="responseBtn"/></td>
 			</tr>
 			<% } %>
 			
 		<%
 		int imgNum = 1;
 		for(Attachment attach : attachments) {
-			
 		%>
 			<tr>
 				<th>이미지<%= imgNum %></th>
@@ -99,6 +123,42 @@
 		$("#boardDelete").click((e) => {
 			$(document.boardDeleteFrm).submit();
 		});
+		
+		
+		// request 영역 onload 함수
+		$(() => {
+			if("<%= state %>" == "판매중"){
+				console.log("hi");
+				/* $("#requestBtn").val('구매중'); */
+			}
+		});
+		
+		$("#requestBtn").click((e) => {
+			if("<%= state %>" == "판매중"){
+				$("#userReq").css("display", "");
+			}
+		});
+		
+		$("#requestSubmit").click((e) =>{
+			$.ajax({
+				url: "<%= request.getContextPath() %>/ugGoods/requestAdd",
+				method: "POST",
+				data:{
+					boardNo: "<%= board.getNo() %>",
+					memberId: "<%= loginMember.getMemberId() %>",
+					content: $("#reqContent").val()
+				},
+				success(data){
+					alert(data.msg);
+					$("#userReq").css("display", "none");
+					$("#requestBtn").val('구매요청중');
+					$("#requestBtn").prop("disabled", 'disabled');
+				},
+				error:console.log
+			});
+		});
+		
+
 	</script>
 </body>
 </html>
