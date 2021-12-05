@@ -36,7 +36,7 @@
  
                     <tr>
                         <td><%= qnaBoard.getNo() %></td>
-                        <td style="font-size:12px";><%= qnaBoard.getCategory() %></td>
+                        <td style="font-size:13px";><%= qnaBoard.getCategory() %></td>
                         <td class="tit" colspan="5">
 				<%if(MemberService.ADMIN_ROLE.equals(loginMember.getMemberRole()) 
 						)
