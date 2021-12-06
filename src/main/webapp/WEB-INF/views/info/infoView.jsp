@@ -393,6 +393,9 @@ $("#info-like").change((e) => {
 			error: console.log
 		});
 	}		
+<% }else if(loginMember != null && MemberService.ADMIN_ROLE.equals(loginMember.getMemberRole())){ %>
+	alert("유저만 좋아요를 누를 수 있어요!!!");
+	$("#info-like").attr("disabled", "disabled");
 <% }else{ %>
 	alert("로그인 후 이용해 주세요");
 	$("#info-like").attr("disabled", "disabled");
