@@ -1,6 +1,8 @@
 @charset "UTF-8";
 
-
+input[type="file"]{
+	display: none;
+}
 .reviewPictures{
 	width: 200px;
 	height: 200px;
@@ -12,7 +14,14 @@
 }
 
 .info-review{
-	border: 1px solid black;
+	border: 1px solid linen;
+	width: 800px;
+	margin: 20px;
+	padding: 10px;
+	cursor: pointer;
+}
+.info-review:hover{
+	box-shadow: 0 0 10px linen;
 }
 
 input[type="checkbox"]{
@@ -56,4 +65,43 @@ input[type="checkbox"]:disabled + label{
 .info-body-wrapper{
 }
 .info-review-wrapper{
+}
+
+.reviewPreviewBox{
+	margin: 5px;
+}
+
+.input-file-button{
+	cursor: pointer;
+	padding: 6px 25px;
+	background-color: lightsalmon;
+	border-radius: 5px;
+	color: white;
+}
+.input-file-button:hover{
+	box-shadow: 0 0 5px gray;
+}
+
+
+input[name="headContent"]{
+	width: 500px;
+	height: 35px;
+	font-size: 1.3em;
+	font-weight: bold;
+	margin: 10px 0;
+}
+
+.review-enroll-btn{
+	margin: 10px 0;
+}
+.review-enroll-btn:hover{
+	background-color: lightsalmon;
+}
+
+.report-btn:hover{
+	background-color: red;
+}
+
+.delete-btn:hover{
+	background-color: blue;
 }

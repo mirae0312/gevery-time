@@ -212,6 +212,10 @@ section#content{
 	border-radius: 50%;
 	font-weight: bold;
 	text-align-last: center;
+	cursor: pointer;
+}
+#write-board:hover{
+	box-shadow: 0 0 5px gray;
 }
 .go-up-btn{
 	position: fixed;
@@ -224,6 +228,10 @@ section#content{
 	font-weight: bold;
 	text-align: center;
 	padding: 22px 0px;
+	cursor: pointer;
+}
+.go-up-btn:hover{
+	box-shadow: 0 0 5px gray;
 }
 .btn{
 	border: 0;
@@ -232,6 +240,10 @@ section#content{
 	border-radius: 5px;
 	font-weight: bold;
 	text-align: center;
+	cursor: pointer;
+}
+.btn:hover{
+	box-shadow: 0 0 5px gray;
 }
 
 /* index body */
@@ -296,12 +308,10 @@ section#content{
 .content{
 	width: 300px;
 	overflow:hidden;
+	cursor: pointer;
 }
 .content:hover img{
 	transform: scale(1.05);
-}
-.info-bname{
-	
 }
 .info-img{
 	transition: all 0.1s linear;
