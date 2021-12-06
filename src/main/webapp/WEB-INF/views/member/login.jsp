@@ -35,6 +35,27 @@ $(() => {
 		
 	<% } %>
 	});
+	
+</script>
+<script>
+function check_input() {
+    if (!document.authForm.id_val.value)
+    // login_form 이름을 가진 form 안의 id_val 의 value가 없으면
+    {
+        alert("아이디를 입력하세요!");
+        document.login_form.id_val.focus();
+        // 화면 커서 이동
+        return;
+    }
+    if (!document.login_form.pw_val.value)
+    {
+        alert("비밀번호를 입력하세요!");
+        // 화면 커서 이동
+        return;
+    }
+    document.authForm.submit();
+    // 모두 확인 후 submit()
+ }
 </script>
 <title>Insert title here</title>
 </head>
@@ -73,7 +94,7 @@ $(() => {
                     <span class="txt_find">
                     <a href="<%=request.getContextPath()%>/member/findId" class="link_find">아이디</a>
                         /
-                    <a href="/member/find/password" class="link_find">비밀번호 찾기</a>
+                    <a href="<%=request.getContextPath()%>/member/FindPwServletView">비밀번호 찾기</a>
                     </span>
                 </div>
                 

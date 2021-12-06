@@ -36,10 +36,10 @@ public class IdFindGetServlet extends HttpServlet {
 			request.setAttribute("member", member);
 			RequestDispatcher rd = request.getRequestDispatcher("/WEB-INF/views/member/findIdSecond.jsp");
 			rd.forward(request, response);
-		}else {
+			}else {
 			request.setAttribute("msg", "정확한 정보를 입력해 주세요!");
 			RequestDispatcher rd = request.getRequestDispatcher("/WEB-INF/views/common/msg.jsp");
-			rd.forward(request, response);		
+			rd.forward(request, response);	
 		}
 		
 	}	

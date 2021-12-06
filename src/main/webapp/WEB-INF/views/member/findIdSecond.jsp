@@ -3,6 +3,8 @@
     pageEncoding="UTF-8"%>
     
     <%
+    String msg = (String) session.getAttribute("msg");
+	if(msg != null) session.removeAttribute("msg");
     Member member = (Member)request.getAttribute("member");    
     %>
 <!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
@@ -32,9 +34,16 @@
 </head>
 	<body>
 		<div class="wrap">
+		<%if(member==null) { %>
+			$(() => {
+			<% if(msg != null){ %>	
+				alert("<%= msg %>");
+					<% } %>
+							<%}else{ %>
 		<div id="userName">[<%=member.getMemberName()%>]님의 아이디</div><br>
 		<div id="userId">[<%=member.getMemberId() %>] 입니다.</div>
 		<button id="button" class="btn btn-outline-info " display:block onclick = "window.close()"; >확인</button>
+			<%} %>
 		</div>
 	</body>
 </html>

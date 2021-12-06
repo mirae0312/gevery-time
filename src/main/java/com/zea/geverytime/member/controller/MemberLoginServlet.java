@@ -51,8 +51,8 @@ public class MemberLoginServlet extends HttpServlet {
                     System.out.println("member@MemberLoginServlet.doPost = " + businessId);
                     session.setAttribute("businessMember", business);
                     System.out.println("businessMember :"  + business);            
-                   
                 }
+                
                 else if(member != null && password.equals(member.getPassword())){
                 	
                     session.setAttribute("msg", "로그인 실패!");

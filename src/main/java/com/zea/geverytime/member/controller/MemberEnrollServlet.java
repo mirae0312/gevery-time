@@ -39,15 +39,15 @@ public class MemberEnrollServlet extends HttpServlet {
 			String memberId = request.getParameter("Id");
 			String password = request.getParameter("password");
 			String memberName = request.getParameter("name");
-			String email01= request.getParameter("email01");
-			String email03 = request.getParameter("email03");
-			String selectEmail = request.getParameter("selectEmail");
-			String email = selectEmail != null ? email01.concat("@"+selectEmail): email01.concat("@"+email03);	
 			String phone1 = request.getParameter("phone1");
 			String phone2 = request.getParameter("phone2");
 			String phone3= request.getParameter("phone3");
 			String phone = phone1.concat(phone2).concat(phone3);
 			String address = request.getParameter("address");
+			String email01= request.getParameter("email01");
+			String email03 = request.getParameter("email03");
+			String selectEmail = request.getParameter("selectEmail");
+			String email = selectEmail != null ? email01.concat("@"+selectEmail): email01.concat("@"+email03);	
 			String _birthday = request.getParameter("birthday"); 
 						
 			System.out.println("email = " + email);
@@ -58,7 +58,7 @@ public class MemberEnrollServlet extends HttpServlet {
 			Date birthday = "".equals(_birthday) ?  null : Date.valueOf(_birthday);
 			
 			
-			Member member = new Member(memberId, password, memberName, phone, address,email,MemberService.USER_ROLE,MemberService.USER_TYPE, birthday );
+			Member member = new Member(memberId, password, memberName,phone,address, email, MemberService.USER_ROLE,MemberService.USER_TYPE, birthday );
 			System.out.println("member@servlet = " + member);
 			
 			// 3.업무로직 service객체의 insertMember호출 & 생성한 member객체 전달

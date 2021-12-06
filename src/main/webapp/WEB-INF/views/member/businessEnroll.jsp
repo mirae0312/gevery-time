@@ -20,7 +20,7 @@ input[type="number"]::-webkit-inner-spin-button
 <script>
 
 
-const checkIdDuplicate = (Id) => {
+const checkIdDuplicate = () => {
 		const name = "checkIdDuplicatePopup"; 
 		const spec = "left = 500px, top =500px, width=300px, height=250px";
 		const popup = open("",name, spec); 
@@ -32,7 +32,7 @@ const checkIdDuplicate = (Id) => {
 	
 };
 
-$(Id).change(() => {
+$().change(() => {
 	$(idValid).val(0);
 });
 
@@ -73,7 +73,7 @@ function handleOnInput(el, maxlength) {
 
         <td><input type="text" name="Id" id="Id"  required>
 
-           <input type="button" value="아이디중복검사" onclick ="checkIdDuplicate(Id);"/>
+           <input type="button" value="아이디중복검사" onclick ="checkIdDuplicate();"/>
           	
           	
             <input type="hidden" id="idValid" value="0" />
@@ -103,15 +103,15 @@ function handleOnInput(el, maxlength) {
         <td>이 름:</td>
 
         <td><input type="text" name="name" id="_name" > </td>
-
+				
       </tr>
   	    <tr>
       <td>이메일 : </td>
       	<td>
 	         <input type="text" name="email01" id="email01" style="width:100px"> @
 			<input type="text" name="email02" id="email02" style="width:100px;" disabled value="naver.com">
-	 	<select style="width:100px;margin-right:10px" name="selectEmail" id="selectEmail" >
-			 <option  name= "email03" value= <%request.getParameter("email02"); %>>직접입력</option>
+	 <select style="width:100px;margin-right:10px" name="selectEmail" id="selectEmail" >
+			<%-- <option value= <%request.getParameter("email02"); %>>직접입력</option>--%> 
 			 <option value="naver.com" selected>naver.com</option>
 			 <option value="hanmail.net">hanmail.net</option>
 		</select>
@@ -122,8 +122,8 @@ function handleOnInput(el, maxlength) {
 
       <tr>
       <td>사업자번호 : </td>
-  		<td ><input type="number"  name="businessNo1" id="_businessNo" oninput='handleOnInput(this, 9)'/>   
-      	<select name="businessNo2" id="_businessNo" onchange= this.value>
+  		<td ><input type="number"  name="businessNo1" id="businessNo1" oninput='handleOnInput(this, 9)'/>   
+      	<select name="businessNo2" id="businessNo2" onchange= this.value>
       	<option value="1">1.병원</option>
       	<option value="2">2.카페</option>
       	<option value="3">3.음식점</option>
@@ -179,7 +179,7 @@ function handleOnInput(el, maxlength) {
       <tr align="center">
         <td colspan="2">
            <input type="submit" value="등록">
-           <input type="reset" value="취소">
+          <input type="reset"   onclick="history.back()"  value="취소"/>
         </td>       
       </tr>
    </table>

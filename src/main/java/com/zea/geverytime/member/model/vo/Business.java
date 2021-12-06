@@ -27,9 +27,9 @@ public class Business extends CommonData implements Serializable{
 			String password,
 			String name,
 			String email, 
-			String businessNo ,
 			String bName, 
 			String bAddress,
+			String businessNo,
 			String bTel,
 			String location,
 			String businessType  ) {
