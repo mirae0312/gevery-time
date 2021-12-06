@@ -46,14 +46,15 @@
                     </tr>
                 </tbody>
             </table>
-        </div>     
+            <br> 
+        </div>             
         
-        <div id="ifReply">
-        
-        </div>
-        
+        <div id="ifReply"></div> 
+     
+</div>
+         
         <div class="button">
-        <input type="button" value="목록" onclick="showQnaBoardList()"/>
+        <input type="button" class="buttonlist" value="목록" onclick="showQnaBoardList()"/>
         
 	<% 	if(
 				loginMember != null && 
@@ -62,18 +63,19 @@
 				  || MemberService.ADMIN_ROLE.equals(loginMember.getMemberRole())
 				)
 			){ %>
-        <input type="button" value="수정" onclick="updateQnaBoard()"/>
-        <input type="button" value="삭제" onclick="deleteQnaBoard()"/>
+        <input type="button"  class="buttonlist" value="수정" onclick="updateQnaBoard()"/>
+        <input type="button" class="buttonlist" value="삭제" onclick="deleteQnaBoard()"/>
          <% 	} %>
         <% 	if(
 				loginMember != null && 
 				( MemberService.ADMIN_ROLE.equals(loginMember.getMemberRole()))
 			){ %>
-        <input type="button" value="답변" onclick="replyQnaBoard()"/>
+        <input type="button" class="buttonlist" value="답변" onclick="replyQnaBoard()"/>
         </div>
   <% 	} %>
- </div>
+ 		</div>
  </section>
+ 	 
 <!--  게시글 삭제-->
 <form
 	name="boardDelFrm"
@@ -118,13 +120,24 @@
                
                  $(data).each((i, {title, writer, content}) => {
                  const reply = 
-                 `<table style="border:solid";>
+                	
+                 `
+                 <div class="board_list_wrap1">
+                 <table class="board_list";>
+                 <br>
+                 <span style="font-size:20px; margin-left:50px; "> ↳답변입니다.  </span>
+                  <br><br>
+                
                  <tr>
-                     <td>\${title}</td>
+                 	<th class="header">작성자</th>
                      <td>\${writer}</td>
+                 </tr>
+                  <tr>
+                     <td class="header">내용</td>
                      <td>\${content}</td>
                 </tr>
                 </table>
+                </div>
                 `;
                  $("#ifReply").append(reply);
                 });

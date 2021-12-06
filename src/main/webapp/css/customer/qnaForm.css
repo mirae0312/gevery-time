@@ -1,12 +1,12 @@
 @charset "UTF-8";
  h3{
  	font-family: 'Franklin Gothic Medium', 'Arial Narrow', Arial, sans-serif;
- 	 color: gray;
+ 	 color:black;
  	 margin-left:10px;
  }
  th {
      font-family: 'Franklin Gothic Medium', 'Arial Narrow', Arial, sans-serif;
-     color: gray;
+     color:black;
     }
 .inputBox{
     border-radius: 5px;
