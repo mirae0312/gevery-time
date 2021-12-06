@@ -104,8 +104,12 @@
     <script>
     // alert msg
     $(()=>{
-    	<% if(msg != null) {%>
-    	        alert("<%= msg %>");
+    	<% if(msg != null && "로그인후 이용하세요".equals(msg)) {%>
+				if(confirm("로그인이 필요한 서비스입니다. 로그인 페이지로 이동하시겠습니까?")){
+					location.href="<%= request.getContextPath() %>/member/login";
+				}
+    	<% } else if(msg != null && !"로그인후 이용하세요".equals(msg)) { %>
+    	        alert("<%= msg %>");    	
     	<% } %>
     });
 
