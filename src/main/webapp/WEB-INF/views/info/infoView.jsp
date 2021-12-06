@@ -260,7 +260,6 @@ const reportInfoMain = () => {
 	const name = "report";
 	const spec = "left=500px, top=500px, width=450px, height=650px";
 	const popup = open("<%= request.getContextPath() %>/common/report", name, spec);
-	$frm.find
 };
 
 //리뷰신고
