@@ -29,9 +29,11 @@ input[type="checkbox"]{
 }
 input[type="checkbox"] + label{
 	display:inline-block;
+	position: fixed;
 	width:20px;
 	height:20px;
-	vertical-align: middle;
+	right: 165px;
+	bottom: 250px;
 }
 input[type="checkbox"]:not(:checked) + label{
 	background:url("../../images/info/빈하트.png") center/contain no-repeat;
@@ -42,6 +44,7 @@ input[type="checkbox"]:checked + label{
 input[type="checkbox"]:disabled + label{
 	background:url("../../images/info/회하트.png") center/contain no-repeat;
 }
+
 
 .info-view-wrapper{
 	display: flex;
@@ -59,12 +62,19 @@ input[type="checkbox"]:disabled + label{
 }
 .right-side{
 	position: absolute;
-	left: 350px;
-	top: 89px;
+	left: 410px;
+	top: 70px;
 }
 .info-body-wrapper{
 }
 .info-review-wrapper{
+}
+
+.review-reg-date{
+	font-size: 0.8em;
+	opacity: 0.7;
+	font-weight: bold;	
+	margin: 5px 0;
 }
 
 .reviewPreviewBox{
@@ -104,6 +114,14 @@ input[name="headContent"]{
 
 .delete-btn:hover{
 	background-color: blue;
+}
+
+input[name="mHead"]{
+	width: 500px;
+	height: 35px;
+	font-size: 1.3em;
+	font-weight: bold;
+	margin:10px 0;
 }
 
 

@@ -52,7 +52,7 @@
 	<div class="info-head-wrapper">
 		<div class="left-side">
 			<h1><%= info.getBusinessName() %></h1>
-			<img style="width:300px; height:300px;" src="<%= request.getContextPath() %>/upload/info/<%= pic1 %>" alt="" />
+			<img style="width:380px; height:380px;" src="<%= request.getContextPath() %>/upload/info/<%= pic1 %>" alt="" />
 			<p><%= info.getHeadContent() %></p>
 		</div><br />
 		<div class="right-side">
@@ -83,13 +83,17 @@
 			<p>진료과목</p>
 	<% if(info.getHospitals() != null && !info.getHospitals().isEmpty()){ %>
 		<% for(Hospital h : info.getHospitals()){ %>
-			<p><%= h.getService() %></p>		
+			<p>#<%= h.getService() %></p>		
 		<% } %>
 	<% } %>
 <% }else if("2".equals(codeN) || "3".equals(codeN)){ %>
 			<table>
 				
 	<% if(info.getCafeRestaurants() != null && !info.getCafeRestaurants().isEmpty()){ %>
+				<tr>
+					<th>메뉴</th>
+					<th>(단위:천원)가격</th>
+				</tr>
 		<% for(CafeRestaurant cr : info.getCafeRestaurants()){ %>
 				<tr>
 					<td><%= cr.getService() %></td>
@@ -100,6 +104,9 @@
 			</table>
 <% }else if("4".equals(codeN)){ %>
 			<table>
+				<tr>
+					<th colspan="6">단위 만원</th>
+				</tr>
 				<tr>
 					<th rowspan="2">방</th>
 					<th colspan="2">비수기</th>
@@ -130,6 +137,9 @@
 			</table>
 <% }else if("5".equals(codeN)){ %>
 			<table>
+				<tr>
+					<th colspan="15">단위 천원</th>
+				</tr>
 				<tr>
 					<th rowspan="5">무게 별 차등</th>
 					<th colspan="3">목욕</th>
@@ -182,7 +192,7 @@
 	</div><br />
 	<%-- 바디 내용 --%>
 	<div class="info-body-wrapper">
-		<img style="width:600px; height:300px;" src="<%= request.getContextPath() %>/upload/info/<%= pic2 %>" alt="" />
+		<img style="width:600px;" src="<%= request.getContextPath() %>/upload/info/<%= pic2 %>" alt="" />
 		<p><%= info.getBodyContents() %></p>
 		<%-- 지도 --%>
 		<div id="map" style="width:500px;"></div><br />
@@ -264,8 +274,8 @@ const reportInfoMain = () => {
 	const name = "report";
 	const spec = "left=500px, top=500px, width=450px, height=650px";
 	const popup = open("<%= request.getContextPath() %>/common/report?code=<%= info.getCode() %>", name, spec);
-	
 };
+	
 
 //리뷰신고
 const reportReview = () => {
@@ -313,8 +323,10 @@ $(".info-review").one("click", function(event){
 	const $btn = $(event.currentTarget).find('div.review-writer').text();
 
 	const box = `<tr>
-	<td><input type="file" name="mPic1" accept="image/*" onchange="previewF3();"/></td>
-	<td><input type="file" name="mPic2" accept="image/*" onchange="previewF4();"/></td>
+	<td><label class="input-file-button" for="mPic1">업로드1</label></td
+	<td><label class="input-file-button" for="mPic2">업로드2</label></td><br />
+	<td><input type="file" id="mPic1" name="mPic1" accept="image/*" onchange="previewF3();"/></td>
+	<td><input type="file" id="mPic2" name="mPic2" accept="image/*" onchange="previewF4();"/></td>
 	</tr>
 	<tr>
 	<td colspan="2"><input type="text" class="mHead" name="mHead" /></td>
