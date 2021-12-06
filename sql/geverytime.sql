@@ -137,17 +137,72 @@ create table board_like(
 insert into comment_like values ('81-hyungzin0309');
 select * from comment_like;
 
-create or replace trigger trig_board_like
+create or replace trigger trig_board_point
     after
-    insert on board_like
+    insert on board
     for each row
 begin
     if inserting then
-         update board
-         set like_count = like_count + 1
-         where no = substr(:new.no_and_id,1,instr(:new.no_and_id,'-')-1);
-         
+         insert into pointhistory values(seq_pointhistory_no.nextval,:new.writer,null,5,default,:new.or_code,null,'I');
+    end if;
+end;
+/
+create or replace trigger trig_point_in
+    after
+    insert on pointhistory
+    for each row
+    when (new.div='I')
+begin
+    if inserting then
+         update point set balance = balance + :new.deposit where member_id = :new.member_id;
+    end if;
+end;
+/
+create or replace trigger trig_point_out
+    after
+    insert on pointhistory
+    for each row
+    when (new.div='O')
+begin
+    if inserting then
+         update point set balance = balance + :new.deposit where member_id = :new.member_id;
+    end if;
+end;
+/
+create or replace trigger trig_point_list
+    after
+    insert on member
+    for each row
+begin
+    if inserting then
+         insert into point values(0,:new.member_id);
     end if;
 end;
 /
 commit;
+
+select count(*) from board where where or_code like 'bb1b%';
+select count(*) from board where or_code like 'bb1b%';
+select * from (select row_number () over (order by like_count desc) rnum, (select count(*) from attachment where or_no = (select or_code from board where no = b.no)) attach_count, (select count(*) from board_comment where board_no = b.no) comment_count, b.* from board b where REGEXP_LIKE(or_code,'bb3b|bb4b|bb5b') and reg_date between (sysdate-7) and sysdate) where rnum between 1 and 10;
+
+select*from pointhistory;
+
+SELECT * 
+
+FROM ALL_TAB_COLUMNS
+
+WHERE TABLE_NAME = 'POINTHISTORY';
+--drop table pointhistory;
+create table pointhistory(
+ no number not null,
+ member_id varchar2(100),
+ withdraw number,
+ deposit number,
+ reg_date date default sysdate,
+ history varchar2(200),
+ purchase_uid varchar2(300),
+ div varchar2(1),
+ constraint uq_pointhistory_no unique(no),
+ constraint ck_pointhistory_div check (div in ('I', 'O')),
+ constraint pk_pointhistory_user foreign key(member_id)  references member(member_id) on delete set null
+);
