@@ -30,7 +30,7 @@ public class UsedGoodsBoardListServlet extends HttpServlet {
 		
 		// 검색 조건
 		String keyword = request.getParameter("searchKeyword");
-		if(keyword == null) {
+		if(keyword == null || keyword.equals("")) {
 			keyword = "%%";
 		}
 		String type = request.getParameter("searchType");
@@ -44,7 +44,7 @@ public class UsedGoodsBoardListServlet extends HttpServlet {
 		map.put("endNum", endNum);
 		
 		List<UsedGoodsBoard> list = ugService.getProductSaleBoardAll(startNum, endNum, keyword, type);
-		
+		System.out.println("LIST : "+list);
 		// board에 attachment 첨부
 		for(UsedGoodsBoard board : list) {
 			String orCode = board.getOrCode();

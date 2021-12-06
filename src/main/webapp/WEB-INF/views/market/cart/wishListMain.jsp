@@ -14,6 +14,10 @@
 </head>
 <body>
 <h1>찜 목록</h1>
+	<% if(list.isEmpty()) { %>
+	<h2>텅 비었습니다. </h2>
+	<input type="button" value="중고상품 보러가기" onclick="location.href='<%= request.getContextPath() %>/ugGoods/main'"/>
+	<% } else { %>
 	<table id="wishTable">
 		<thead>
 			<tr>
@@ -29,6 +33,8 @@
 		<tbody>
 		</tbody>
 	</table>
+	
+	<% } %>
 
 </body>
 
