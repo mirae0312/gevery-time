@@ -225,6 +225,14 @@ section#content{
 	text-align: center;
 	padding: 19px 0px;
 }
+.btn{
+	border: 0;
+	width: 80px;
+	height: 30px;
+	border-radius: 5px;
+	font-weight: bold;
+	text-align: center;
+}
 
 /* index body */
 .body-wrapper{
