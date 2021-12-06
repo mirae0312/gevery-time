@@ -30,7 +30,8 @@
 		<option data-color="red" value="/board/boardForm">자유게시판 글쓰기</option>
 		<% if(loginMember != null && loginMember.getMemberType().equals("B")) { %>
 		<option data-color="green" value="/info/Enroll">정보게시판 글쓰기</option>
-		<option data-color="blue" value="/product/productForm">마켓 글쓰기</option>
+		<option data-color="blue" value="/product/boardForm">마켓 글쓰기</option>
+		<option data-color="blue" value="/ugGoods/boardForm">중고거래 글쓰기</option>
 		<% } %>
 	</select>
     <div id="container">
