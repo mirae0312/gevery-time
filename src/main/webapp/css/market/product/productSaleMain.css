@@ -1,40 +1,22 @@
 @charset "UTF-8";
 
-#pdtList {
-	width: 100%;
-	border : 1px solid black;
-}
-#pdtTable{
-	width : 100%;
-	border : 1px solid black;
-	border-collapse : collapse;
-}
-#pdtTable tr{
-	border : 1px solid black;
-	height : 50px;
-}
-#pdtTable th{
-	border : 1px solid black;
-	height : 50px;
-}
-#pdtTable td{
-	border : 1px solid black;
-	height : 30px;
-}
-.thumbnailImg{
-	width:100px;
-}
-
 /* 조회 영역 */
 #pdtSearchOption {
-	width: 50%;
-	height: 80px;
+	text-align: center;
+}
+
+#pdtSearchTable{
 	border : 1px solid white;
 	border-radius: 30px;
+	width: 55%;
+	height: 120px;
 	padding: 10px;
 	margin-bottom: 10px;
 	background-color: #dfebed;
-	text-align: center;
+	text-align:center;
+	margin:auto;
+	display: none;
+	position:fix;
 }
 
 #optionBtn {
@@ -43,11 +25,37 @@
 	border : 1px solid #dfebed;
 	height: 70px;
 	width : 70px;
-}
-#tdSecond {
-	width: 200px;
+	cursor : pointer;
 }
 
 #pdtSearchTable td {
-	width:200px;
+	width:140px;
 }
+
+#divSelect{
+	float:left;
+}
+#selectOnSale{
+	float:left;
+}
+
+#searchOptionBtn {
+	background-color: #e3e3e3;
+	border:none;
+}
+
+
+
+/* 리스트 영역 */
+
+#pdtTable {
+	border: 1px solid black;
+	border-radius: 15%;
+	border-collapse: collapse;
+	width:100%;
+	margin-top: 10px;
+}
+#pdtTable td, th{
+	border: 1px solid black;
+}
+

@@ -16,11 +16,12 @@
 <body>
 	<h1>일반 상점</h1>
 	<div id="pdtSearchOption">
+		<input type="button" value="검색 옵션 사용하기" id="searchOptionBtn" />
 		<table id="pdtSearchTable">
 			<tbody>
 				<tr>
 					<td><span>선택 분류만 보기</span></td>
-					<td id="tdSecond">
+					<td>
 						<select name="" id="divSelect">
 							<option value="%%" selected>선택하기</option>
 							<option value="dog">강아지</option>
@@ -134,7 +135,11 @@
 				},
 				error:console.log
 			});	
-		};	
+		};
+		
+		$("#searchOptionBtn").click((e) => {
+			$("#pdtSearchTable").toggle();
+		})
 	</script>
 </body>
 </html>
