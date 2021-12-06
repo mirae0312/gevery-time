@@ -45,9 +45,9 @@
 				<td><%= pdt.getPdtPrice() %></td>
 				<td>
 					<select class="optionChange" data-pdtno="<%= pdt.getPdtNo() %>" data-colname="div" name="div">
-						<option value="div1" <%= pdt.getPdtDiv().equals("div1") ? "selected" : "" %> >대분류1</option>
-						<option value="div2" <%= pdt.getPdtDiv().equals("div2") ? "selected" : "" %> >대분류2</option>
-						<option value="div3" <%= pdt.getPdtDiv().equals("div3") ? "selected" : "" %> >대분류3</option>
+						<option value="dog" <%= pdt.getPdtDiv().equals("dog") ? "selected" : "" %> >강아지</option>
+						<option value="cat" <%= pdt.getPdtDiv().equals("cat") ? "selected" : "" %> >고양이</option>
+						<option value="duck" <%= pdt.getPdtDiv().equals("duck") ? "selected" : "" %> >거위</option>
 					</select>
 				</td>
 				<td>

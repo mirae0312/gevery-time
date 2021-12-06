@@ -59,17 +59,22 @@ public class MemberLoginServlet extends HttpServlet {
                     
                 }
                 
+//                String location = request.getContextPath() + "/";
+//                response.sendRedirect(location);
                 
-                String location = request.getContextPath() + "/";
-                response.sendRedirect(location);
+                String referer = request.getParameter("referer");
+                response.sendRedirect(referer);
                                
 			    
     }
 
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
         
-        HttpSession session = request.getSession();
+        String referer = request.getHeader("referer");
         
+        request.setAttribute("referer", referer);
+        
+
         request.getRequestDispatcher("/WEB-INF/views/member/login.jsp")
         .forward(request, response);
     }
