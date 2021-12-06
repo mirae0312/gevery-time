@@ -46,7 +46,7 @@
 			<tr>
 				<th>전화번호</th>
 				<td>	
-					<input type="tel" placeholder="(-제외)01012345678" name="phone" id="phone" maxlength="11" value="<%= loginMember.getPhone() %>" required><br>
+					<input type="tel" oninput="autoTel(thisvalue = this)" placeholder="(-제외)01012345678" name="phone" id="phone" maxlength="13" value="<%= loginMember.getPhone() %>" required><br>
 				</td>
 			</tr>
 			<tr>
@@ -91,7 +91,7 @@
 			<tr>
 				<th>사업자 번호</th>
 				<td>	
-				<input type="text"  name="businessNo" id="businessNo" value="<%= businessMember.getBusinessNo() %>" readonly><br>
+				<input type="text"  name="businessNo" id="businessNo" oninput="autoBNo(this);" maxlength="12" value="<%= businessMember.getBusinessNo() %>" ><br>
 				</td>
 			</tr>
 			<tr>
@@ -115,7 +115,7 @@
 			<tr>
 				<th>전화번호</th>
 				<td>	
-					<input type="tel" placeholder="(-제외)01012345678" name="bTel" id="bTel" maxlength="11" value="<%= businessMember.getbTel() %>" required><br>
+					<input type="tel" oninput="autoTel(this)" placeholder="(-제외)01012345678" name="bTel" id="bTel" maxlength="13" value="<%= businessMember.getbTel() %>" required><br>
 				</td>
 			</tr>
 		</table>
@@ -152,25 +152,35 @@ const updateBusiness = () => {
 		.attr("action", "<%= request.getContextPath() %>/myPage/businessUpdate")
 		.submit();
 };
-
+// 전화번호 -(하이픈)자동입력
+const autoTel = (target) => {
+	 target.value = target.value
+	   .replace(/[^0-9]/, '')
+	   .replace(/^(\d{2,3})(\d{3,4})(\d{4})$/, `$1-$2-$3`);
+};
+var numCheck = /^(01[016789]{1}|02|0[0-9]{1}[0-9]{1})-?[0-9]{3,4}-?[0-9]{4}$/;
 // 일반회원유효성검사
 $("#memberUpdateFrm").submit((e) => {
 	//phone
 	const $phone = $(phone);
-	if(!/^010[0-9]{8}$/.test($phone.val())) {
+	if(!numCheck.test($phone.val())){
 		alert("유효한 전화번호가 아닙니다.");
+		$phone.focus();
 		return false;
 	}
+	alert("수정완료!");
 	return true;
 });
 //사업자 유효성검사
 $("#BusinessUpdateFrm").submit((e) => {
 	//phone
-	const $phone = $(phone);
-	if(!/^010[0-9]{8}$/.test($phone.val())) {
+	const $bTel = $(bTel);
+	if(!numCheck.test($bTel.val())){
 		alert("유효한 전화번호가 아닙니다.");
+		$bTel.focus();
 		return false;
 	}
+	alert("수정완료!");
 	return true;
 });
 
