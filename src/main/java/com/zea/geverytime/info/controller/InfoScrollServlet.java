@@ -37,7 +37,7 @@ public class InfoScrollServlet extends HttpServlet {
 			System.out.println("[InfoScrollServlet] + sido : " + sido);	
 						
 			// 페이징
-			final int numPerPage = 5;
+			final int numPerPage = 4;
 			int page = Integer.parseInt(request.getParameter("page"));			
 			int start = (page - 1) * numPerPage + 1;
 			int end = page * numPerPage;
