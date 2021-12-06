@@ -22,6 +22,7 @@ public class BoardCommentLikeServlet extends HttpServlet {
     private BoardService boardService = new BoardService();
 
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+		try {
 		// 1. 입력값 처리
 		String id = request.getParameter("id");
 		int no = Integer.parseInt(request.getParameter("no"));
@@ -38,7 +39,10 @@ public class BoardCommentLikeServlet extends HttpServlet {
 		
 		
 		// 3. 응답처리
-		
+		}
+		catch(Exception e) {
+			throw e;
+		}
 		
 	
 	

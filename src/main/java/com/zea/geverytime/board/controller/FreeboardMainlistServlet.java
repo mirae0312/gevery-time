@@ -28,7 +28,8 @@ public class FreeboardMainlistServlet extends HttpServlet {
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		try {
 			// 2. 업무처리
-			List<Board> popularList = boardService.getFreePopularList();
+			int count =8;
+			List<Board> popularList = boardService.getFreePopularList(count);
 			
 			
 			request.setAttribute("popularList",popularList);

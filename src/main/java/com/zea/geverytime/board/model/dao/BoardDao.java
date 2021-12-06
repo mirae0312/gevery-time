@@ -407,7 +407,7 @@ public class BoardDao {
 		return result;
 	}
 
-	public List<Board> getFreePopularList(Connection conn) {
+	public List<Board> getFreePopularList(Connection conn, int count) {
 		List<Board> list = new ArrayList<>();
 		String sql = prop.getProperty("getFreePopularList");
 		PreparedStatement pstmt = null;
@@ -415,6 +415,7 @@ public class BoardDao {
 		
 		try {
 			pstmt = conn.prepareStatement(sql);
+			pstmt.setInt(1, count);
 			rset = pstmt.executeQuery();
 			while(rset.next()) {
 				int no = rset.getInt("no");
@@ -441,7 +442,7 @@ public class BoardDao {
 		
 		return list;
 	}
-	public List<Board> getReviewPopularList(Connection conn) {
+	public List<Board> getReviewPopularList(Connection conn, int count) {
 		List<Board> list = new ArrayList<>();
 		String sql = prop.getProperty("getReviewPopularList");
 		System.out.println("sql= "+sql);
@@ -450,6 +451,7 @@ public class BoardDao {
 		
 		try {
 			pstmt = conn.prepareStatement(sql);
+			pstmt.setInt(1, count);
 			rset = pstmt.executeQuery();
 			while(rset.next()) {
 				int no = rset.getInt("no");
