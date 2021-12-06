@@ -203,6 +203,14 @@
 						</td>
 					</tr>
 			<%		
+				} else {
+			%>
+					<tr>
+						<td colspan=2>
+							<span>판매가 완료 되었습니다! 배송 스팟에 상품을 놓아주세요.</span>
+						</td>
+					</tr>
+			<%					
 				}
 			}
 			%>
@@ -435,21 +443,23 @@
 	    };
 	    
 	    const tradeDone = () => {
-	    	const reqboardNo = <%= board.getNo() %>;
-	    	$.ajax({
-	    		url: "<%= request.getContextPath() %>/ugGoods/boardStateChange",
-	    		method: "POST",
-	    		data: {
-	    			boardNo: reqboardNo,
-	    			state: "판매완료"
-	    		},
-	    		success(data){
-	    			console.log(data);
-	    			location.reload();
-	    		},
-	    		error: console.log
-	    	});
-	    }
+	    	if(confirm("판매완료 처리하시겠습니까?")){
+		    	const reqboardNo = <%= board.getNo() %>;
+		    	$.ajax({
+		    		url: "<%= request.getContextPath() %>/ugGoods/boardStateChange",
+		    		method: "POST",
+		    		data: {
+		    			boardNo: reqboardNo,
+		    			state: "판매완료"
+		    		},
+		    		success(data){
+		    			console.log(data);
+		    			location.reload();
+		    		},
+		    		error: console.log
+		    	});	    		
+	    	};
+	    };
 	    
 	    const addSellerPoint = (reqDiv, reqHistory, reqUid) => {
 	    	const reqsellerId = "<%= board.getWriter() %>";

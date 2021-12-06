@@ -1,0 +1,53 @@
+@charset "UTF-8";
+
+#pdtList {
+	width: 100%;
+	border : 1px solid black;
+}
+#pdtTable{
+	width : 100%;
+	border : 1px solid black;
+	border-collapse : collapse;
+}
+#pdtTable tr{
+	border : 1px solid black;
+	height : 50px;
+}
+#pdtTable th{
+	border : 1px solid black;
+	height : 50px;
+}
+#pdtTable td{
+	border : 1px solid black;
+	height : 30px;
+}
+.thumbnailImg{
+	width:100px;
+}
+
+/* 조회 영역 */
+#pdtSearchOption {
+	width: 50%;
+	height: 80px;
+	border : 1px solid white;
+	border-radius: 30px;
+	padding: 10px;
+	margin-bottom: 10px;
+	background-color: #dfebed;
+	text-align: center;
+}
+
+#optionBtn {
+	background-color: white;
+	border-radius: 50%;
+	border : 1px solid #dfebed;
+	height: 70px;
+	width : 70px;
+}
+#tdSecond {
+	width: 200px;
+}
+
+#pdtSearchTable td {
+	width:200px;
+}
