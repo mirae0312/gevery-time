@@ -16,10 +16,12 @@
 <head>
 <meta charset="UTF-8">
 <title>index</title>
+<link rel="stylesheet" type="text/css" href="//cdn.jsdelivr.net/npm/slick-carousel@1.8.1/slick/slick.css"/>
 <link rel="stylesheet" href="<%=request.getContextPath() %>/css/style.css" />
 <link rel="stylesheet" href="<%=request.getContextPath() %>/css/board.css" />
 <link rel="stylesheet" href="<%=request.getContextPath() %>/css/summernote/summernote-lite.css">
 <script src="<%= request.getContextPath() %>/js/jquery-3.6.0.js"></script>
+<script type="text/javascript" src="//cdn.jsdelivr.net/npm/slick-carousel@1.8.1/slick/slick.min.js"></script>
 <script src="<%= request.getContextPath() %>/js/summernote/summernote-lite.js"></script>
 <script src="<%= request.getContextPath() %>/js/summernote/lang/summernote-ko-KR.js"></script>
 

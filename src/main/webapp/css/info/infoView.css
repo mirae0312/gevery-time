@@ -113,7 +113,7 @@ input[name="headContent"]{
 }
 
 .delete-btn:hover{
-	background-color: blue;
+	background-color: lightblue;
 }
 
 input[name="mHead"]{

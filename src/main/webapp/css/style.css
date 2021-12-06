@@ -252,11 +252,7 @@ section#content{
 	width: 1024px;
 }
 
-/* 사진 */
-.photo-wrapper{
-	border: 1px solid red;
-	height: 370px;
-}
+
 
 /* 게시판 */
 .board-wrapper{
@@ -290,7 +286,7 @@ section#content{
 }
 .board-wrapper table td.title{
 	  white-space:nowrap;
-	width:350px;
+	width:300px;
 	font-size:100%;	
 }
 /* 정보 게시판 */
@@ -379,5 +375,9 @@ section#content{
 	font-size:30px;
 	text-decoration:none;
 }
+
+
+
+
 
 

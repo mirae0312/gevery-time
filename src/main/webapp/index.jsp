@@ -2,12 +2,17 @@
     pageEncoding="UTF-8"%>
 <%@ page import="java.sql.*" %>
 <%@ include file="/WEB-INF/views/common/header.jsp" %>
+<link rel="stylesheet" href="<%=request.getContextPath() %>/css/slide.css" />
 <div class="body-wrapper">
 	
 	<%-- 사진영역 --%>
 	<h1>사진</h1>
 	<div class="photo-wrapper">
-		
+		<div class="slide">
+			<div class="pics"><img src="<%= request.getContextPath() %>/images/info/고양이.jpg" alt="" /></div>
+			<div class="pics"><img src="<%= request.getContextPath() %>/images/info/강아지.png" alt="" /></div>
+			<div class="pics"><img src="<%= request.getContextPath() %>/images/info/고양이.jpg" alt="" /></div>
+		</div>
 	</div><hr />
 	
 	<%-- 게시글영역 --%>
@@ -59,7 +64,14 @@
 	</div><br />
 </div>
 <script>
-$(()=>{
+$('.slide').slick({
+	infinite: true,
+	slidesToShow: 1,
+	arrow: true,
+	autoplay: true,
+	autoplaySpeed:3000
+});
+$(()=>{	
 	getBoardPopularList();
 	console.log("hi");
 	mainInfoLists();

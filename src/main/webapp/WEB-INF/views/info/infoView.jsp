@@ -47,7 +47,7 @@
 	</form>
 <% } %>
 <% if(loginMember != null && !info.getMemberId().equals(loginMember.getMemberId()) && !MemberService.ADMIN_ROLE.equals(loginMember.getMemberRole())){ %>
-	<input type="button" value="신고" class="report-btn btn" onclick="reportInfoMain();" />
+	<input type="button" name="viewReport" value="신고" class="report-btn btn" onclick="reportInfoMain();" />
 <% } %>
 	<div class="info-head-wrapper">
 		<div class="left-side">
