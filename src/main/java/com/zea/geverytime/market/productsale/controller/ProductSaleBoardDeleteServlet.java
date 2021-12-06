@@ -50,7 +50,7 @@ public class ProductSaleBoardDeleteServlet extends HttpServlet {
 		}
 		
 		request.getSession().setAttribute("msg", msg);
-		response.sendRedirect(request.getContextPath()+"/product/main");
+		response.sendRedirect(request.getContextPath()+"/product/main?div=all");
 	}
 
 }

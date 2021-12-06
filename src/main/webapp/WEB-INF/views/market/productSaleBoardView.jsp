@@ -38,6 +38,7 @@
 <head>
 <meta charset="UTF-8">
 <title>상세목록</title>
+<link rel="stylesheet" href="<%=request.getContextPath() %>/css/market/product/productSaleView.css" />
 </head>
 <body>
 <% if(loginMember != null && !loginMember.getMemberId().equals(board.getSellerId())) { %>
@@ -77,19 +78,14 @@ $(() => {
 	};
 })
 </script>
-	
-	<table id="board">
-		<thead>
-			<tr>
-				<th>판매게시글</th>
-			</tr>
-		</thead>
+	<h1>판매 게시글</h1>
+	<table id="seller-area">
 		<tbody>
 		
 		<!-- 수정하기 / 삭제하기 : 작성자 로그인 시에만 보여짐 -->
 		<% if(loginMember != null && loginMember.getMemberId().equals(board.getSellerId())) { %>
 			<tr>
-				<td><input type="button" value="수정하기" id="boardEdit" onclick="updateBoard();"/></td>
+				<td colspan=2><input type="button" value="수정하기" id="boardEdit" onclick="updateBoard();"/></td>
 				<td>
 					<form action="<%= request.getContextPath() %>/product/productBoardDelete" method="POST">
 						<input type="hidden" name="boardNo" value="<%= board.getBoardNo() %>" />
@@ -99,13 +95,25 @@ $(() => {
 				</td>
 			</tr>
 		<% } %>
+		</tbody>
+	</table>
+	<table id="board-keyArea">
+		<tbody>
 			<tr>
 				<th>섬네일</th>
-				<td><img src="<%= request.getContextPath() %>/upload/market/productSale/<%= thumbnailImg %>" style="width:300px;"></td>
+				<td><img src="<%= request.getContextPath() %>/upload/market/productSale/<%= thumbnailImg %>" style="width:450px; height:300px"></td>
 			</tr>
+		</tbody>
+	</table>
+	
+	<table id="info-<%= board.getProduct().getPdtDiv() %>" class="board-infoArea">
+		<thead>
 			<tr>
-				<th>제목</th>
+				<th>상품명</th>
 				<td><%= board.getTitle() %></td>
+			</tr>		
+		</thead>
+		<tbody>
 			<tr>
 				<th>작성자</th>
 				<td><%= board.getSellerId() %></td>
@@ -162,6 +170,11 @@ $(() => {
 				<td colspan=2><input type="button" value="장바구니 담기" class="purchaseNeedLogin" /></td>
 			</tr>
 			<% } %>
+		</tbody>
+	</table>
+	
+	<table>
+		<tbody>
 			<tr>
 				<th colspan=2>내용</th>
 			</tr>
@@ -280,7 +293,7 @@ $(() => {
 	</table>
 	
 	<br />
-	<input type="button" value="목록으로 돌아가기" onclick="location.href='<%= request.getContextPath() %>/product/main'"/>
+	<input type="button" value="목록으로 돌아가기" onclick="location.href='<%= request.getContextPath() %>/product/main?div=all'"/>
 	
 	<script>
 		// 답글달기

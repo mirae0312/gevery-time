@@ -1,1 +1,53 @@
 @charset "UTF-8";
+
+/* 신고하기 버튼 */
+#reportBtn {
+	background-color: #fff7f7;
+	border:none;
+	float:right;
+	cursor: pointer;
+}
+
+
+/* 키비쥬얼영역 */
+h1{
+	margin-bottom: 25px;
+}
+#board-keyArea{
+	display: inline-block;
+}
+#board-keyArea img{
+	margin-left: 20px;
+}
+
+/* 인포영역 */
+#info-cat{
+	background-color: powderblue;
+}
+#info-dog{
+	background-color: powderblue;
+}
+#info-goose{
+	background-color: yellow;
+}
+
+.board-infoArea {
+	width: 400px;
+	height: 300px;
+	float:right;
+	margin-top: 10px;
+	margin-right: 20px;
+	border: 1px solid black;
+	border-radius: 20px;
+}
+
+
+
+.board-infoArea th,td{
+	padding: 10px;
+}
+
+.board-infoArea thead {
+	font-size: 25px;
+	margin-bottom: 20px;
+}
