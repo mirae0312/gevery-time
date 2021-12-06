@@ -9,12 +9,28 @@
 
 
 
+.pop-contents-banner::-webkit-scrollbar{
+	width: 100px;
+}
+.pop-contents-banner::-webkit-scrollbar-thumb{
+	background-color: linen;
+	border-radius: 30%;
+	
+}
+.pop-contents-banner::-webkit-scrollbar-track{
+	background-color: #fff;
+	border-radius: 1px;
+}
 
-
-
-
+.pop-contents-banner{
+	position:relative;
+	width: 1100px;
+	height: 340px;
+	overflow-x: scroll;
+}
 
 .pop-contents{
+	position: absolute;
 	display: flex;
 	margin: 50px, 0;
 }

@@ -54,7 +54,7 @@ public class LoginFilter implements Filter {
 			session.setAttribute("msg", "로그인후 이용하세요");
 //			httpResponse.sendRedirect(httpRequest.getHeader("Referer"));
 			String referrer = httpRequest.getHeader("Referrer");
-			System.out.println(referrer);
+			System.out.println("referrer : " + referrer);
 			httpResponse.sendRedirect(httpRequest.getContextPath()+"/");
 			return;
 		}
