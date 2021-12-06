@@ -50,7 +50,7 @@
 	<div class="info-head-wrapper">
 		<div class="left-side">
 			<h1><%= info.getBusinessName() %></h1>
-			<img style="width:150px; height:150px;" src="<%= request.getContextPath() %>/upload/info/<%= pic1 %>" alt="" />
+			<img style="width:300px; height:300px;" src="<%= request.getContextPath() %>/upload/info/<%= pic1 %>" alt="" />
 			<p><%= info.getHeadContent() %></p>
 		</div><br />
 		<div class="right-side">
@@ -180,7 +180,7 @@
 	</div><br />
 	<%-- 바디 내용 --%>
 	<div class="info-body-wrapper">
-		<img style="width:300px; height:200px;" src="<%= request.getContextPath() %>/upload/info/<%= pic2 %>" alt="" />
+		<img style="width:600px; height:300px;" src="<%= request.getContextPath() %>/upload/info/<%= pic2 %>" alt="" />
 		<p><%= info.getBodyContents() %></p>
 		<%-- 지도 --%>
 		<div id="map" style="width:500px;height:400px;"></div><br />
@@ -393,6 +393,9 @@ $("#info-like").change((e) => {
 			error: console.log
 		});
 	}		
+<% }else if(loginMember != null && MemberService.ADMIN_ROLE.equals(loginMember.getMemberRole())){ %>
+	alert("유저만 좋아요를 누를 수 있어요!!!");
+	$("#info-like").attr("disabled", "disabled");
 <% }else{ %>
 	alert("로그인 후 이용해 주세요");
 	$("#info-like").attr("disabled", "disabled");
