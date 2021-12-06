@@ -32,7 +32,7 @@
 	<div class="info-board-wrapper">
 		<table id="info-board-table">
 			<tr>
-				<td></td>
+				<td><h1>한 주간의 인기 SPOT</h1></td>
 				<td></td>
 				<td></td>
 			</tr>

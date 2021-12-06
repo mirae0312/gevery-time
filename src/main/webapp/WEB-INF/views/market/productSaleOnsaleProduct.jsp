@@ -17,6 +17,13 @@
 	<h1><%= MemberId %>님의 판매중인 상품 목록</h1>
 	<button id="pdtEnroll">상품 등록하기</button>
 	
+	<%
+	if(list.isEmpty() || list == null) {
+	%>
+		<h2>텅 비었어요. 등록해주세요</h2>
+	<%
+	} else {
+	%>
 	<table>
 		<thead>
 			<tr>
@@ -57,6 +64,7 @@
 		</tbody>
 	</table>
 	
+	<% } %>
 	<script>
 		$("#searchDiv").change((e) => {
 			

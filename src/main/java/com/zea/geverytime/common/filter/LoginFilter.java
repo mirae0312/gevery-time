@@ -20,7 +20,8 @@ import com.zea.geverytime.member.model.vo.Member;
  */
 @WebFilter(urlPatterns = 
 {"/member/memberlogin", "/board/boardForm","/board/boardCommentEnroll","/board/boardCommentEnroll",
-"/myPage/myPageMain", "/board/boardView", "/customer/qnaBoardList", "/info/Enroll"})
+"/myPage/myPageMain", "/board/boardView", "/customer/qnaBoardList", "/info/Enroll", "/product/boardForm", "/productSale/getProduct", "/common/report", "/ugGoods/boardForm",
+"/wishList/main", "/cart/main", "/product/onsaleProduct"})
 
 public class LoginFilter implements Filter {
 
@@ -51,7 +52,10 @@ public class LoginFilter implements Filter {
 		
 		if(loginMember == null) {
 			session.setAttribute("msg", "로그인후 이용하세요");
-			httpResponse.sendRedirect(httpRequest.getHeader("Referer"));
+//			httpResponse.sendRedirect(httpRequest.getHeader("Referer"));
+			String referrer = httpRequest.getHeader("Referrer");
+			System.out.println("referrer : " + referrer);
+			httpResponse.sendRedirect(httpRequest.getContextPath()+"/");
 			return;
 		}
 		

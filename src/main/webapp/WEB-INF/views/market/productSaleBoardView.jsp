@@ -311,7 +311,7 @@ $(() => {
 		$(".purchaseNeedLogin").click((e) => {
 			alert("로그인 후 이용 가능합니다.");
 		});
-		
+		<% if(loginMember != null) { %>
 		// 장바구니 담기 비동기 처리
 		$(document.addCartFrm).submit((e) =>{
 			e.preventDefault();
@@ -376,6 +376,7 @@ $(() => {
 				error:console.log
 			});
 		})
+		<% } %>
 	</script>
 </body>
 </html>
