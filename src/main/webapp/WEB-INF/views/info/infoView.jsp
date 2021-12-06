@@ -214,7 +214,7 @@
 		<% } %>
 					<div class="review-content"><%= ir.get(i).getContent() %></div>
 					<div class="review-reg-date"><%= ir.get(i).getRegDate() %></div>
-					<table class= "reBox<%= i %>"></table>
+					<table class="rebox"></table>
 				</div>
 		<%-- 리뷰 수정: info-review클릭 --%>
 		<% if(loginMember != null){ %>
@@ -305,11 +305,10 @@ const modifyReviewBox = () => {
 };
 <% if(loginMember != null){ %>
 $(".info-review").one("click", function(event){
-	
+	// 선택한 아이디
 	const $btn = $(event.currentTarget).find('div.review-writer').text();
-	const $reBox = $("#reBox");
-	const $box = `
-	<tr>
+
+	const box = `<tr>
 	<td><input type="file" name="mPic1" accept="image/*" onchange="previewF3();"/></td>
 	<td><input type="file" name="mPic2" accept="image/*" onchange="previewF4();"/></td>
 	</tr>
@@ -321,11 +320,11 @@ $(".info-review").one("click", function(event){
 	</tr>	
 	<tr>
 	<td><input type="button" value="수정" class="modify-review review-btn btn" onclick="modifyReviewBox();" /></td>
-	</tr>
-	`;
+	</tr>`;
 	
-	if($btn == '<%= loginMember.getMemberId() %>'){
-		$reBox.append($box);		
+	// 로그인 아이디와 선택한 div값이 같다면 .rebox에 box를 append
+	if($btn === '<%= loginMember.getMemberId() %>'){
+		$(event.currentTarget).find('table.rebox').append(box);	
 	}
 	$('.mBody').summernote({
 		height: 300,
@@ -339,7 +338,7 @@ $(".info-review").one("click", function(event){
 			['para', ['ul', 'ol', 'paragraph']],
 			['height', ['height']],
 		]
-	});
+	});	
 });
 <% } %>
 
