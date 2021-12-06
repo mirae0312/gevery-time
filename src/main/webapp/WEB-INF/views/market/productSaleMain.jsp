@@ -6,10 +6,7 @@
 <%
 	List<ProductBoard> list = (List<ProductBoard>) request.getAttribute("list");
 %>
-<!DOCTYPE html>
-<html>
-<head>
-<meta charset="UTF-8">
+
 <title>일반 상점</title>
 <link rel="stylesheet" href="<%=request.getContextPath() %>/css/market/product/productSaleMain.css" />
 </head>

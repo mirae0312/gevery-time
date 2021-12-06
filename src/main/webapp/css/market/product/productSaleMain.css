@@ -8,7 +8,7 @@
 #pdtSearchTable{
 	border : 1px solid white;
 	border-radius: 30px;
-	width: 55%;
+	width: 40%;
 	height: 120px;
 	padding: 10px;
 	margin-bottom: 10px;
@@ -32,6 +32,13 @@
 	width:140px;
 }
 
+#pdtSearchTable td:nth-child(2){
+	width:50px;
+}
+#pdtSearchTable td:nth-child(3){
+	width:50px;
+}
+
 #divSelect{
 	float:left;
 }
@@ -49,13 +56,47 @@
 /* 리스트 영역 */
 
 #pdtTable {
-	border: 1px solid black;
-	border-radius: 15%;
-	border-collapse: collapse;
+	border: white;
+	border-radius: 5%;
 	width:100%;
 	margin-top: 10px;
 }
+#pdtTable th{
+	height: 30px;
+	background-color: #efefec;	
+}
+#pdtTable th:nth-child(1){
+	background-color: white;
+}
+#pdtTable td{
+	height: 50px;
+	text-align:center;
+}
 #pdtTable td, th{
-	border: 1px solid black;
+	border-bottom: 1px solid #ebebe6;
+}
+#pdtTable a, a:visited{
+	text-decoration:none;
+	color:black;
+}
+#pdtTable a:hover{
+	background-color: #d4d7ab;
+}
+
+
+/* 페이지바 */
+.pageBar{
+	margin-top:15px;
+	margin-bottom: 20px;
+	text-align:center;
+	width:100%;
+}
+.pageBar a {
+	padding:10px;
+	cursor: pointer;
+}
+.cPage {
+	text-decoration: underline;
+	background-color: #f7fbc6;
 }
 
