@@ -47,9 +47,9 @@
 		<span>선택 분류만 보기</span>
 		<select name="" id="divSelect">
 			<option value="%%" selected>선택하기</option>
-			<option value="div1">대분류1</option>
-			<option value="div2">대분류2</option>
-			<option value="div3">대분류3</option>
+			<option value="dog">강아지</option>
+			<option value="cat">고양이</option>
+			<option value="duck">거위</option>
 		</select>
 		<br />
 		<label for="selectOnSale">판매중인 상품만 보기</label><input type="checkbox" name="" id="selectOnSale" />

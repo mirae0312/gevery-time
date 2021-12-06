@@ -61,7 +61,7 @@
 			</tr>
 			
 			<!-- 찜하기 -->
-			<% if(loginMember != null ) { %>
+			<% if(loginMember != null && !loginMember.getMemberId().equals(board.getWriter())) { %>
 			<tr>
 				<td>
 					<input type="hidden" id="wishListId" name="memberId" value="<%= loginMember.getMemberId() %>" />
