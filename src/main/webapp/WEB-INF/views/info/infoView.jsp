@@ -50,7 +50,7 @@
 	<div class="info-head-wrapper">
 		<div class="left-side">
 			<h1><%= info.getBusinessName() %></h1>
-			<img style="width:150px; height:150px;" src="<%= request.getContextPath() %>/upload/info/<%= pic1 %>" alt="" />
+			<img style="width:300px; height:300px;" src="<%= request.getContextPath() %>/upload/info/<%= pic1 %>" alt="" />
 			<p><%= info.getHeadContent() %></p>
 		</div><br />
 		<div class="right-side">
@@ -180,7 +180,7 @@
 	</div><br />
 	<%-- 바디 내용 --%>
 	<div class="info-body-wrapper">
-		<img style="width:300px; height:200px;" src="<%= request.getContextPath() %>/upload/info/<%= pic2 %>" alt="" />
+		<img style="width:600px; height:300px;" src="<%= request.getContextPath() %>/upload/info/<%= pic2 %>" alt="" />
 		<p><%= info.getBodyContents() %></p>
 		<%-- 지도 --%>
 		<div id="map" style="width:500px;height:400px;"></div><br />
