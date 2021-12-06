@@ -324,19 +324,19 @@ section#content{
 	width:340px;
 	background-image:url('../images/market/dog.png');
 	background-size:100% 100%;
-	opacity:.6;
+	opacity:.7;
 }
 #market-board-table td:nth-child(2){
 	width:340px;
 	background-image:url('../images/market/cat.png');
 	background-size:100% 100%;
-	opacity:.6;
+	opacity:.8;
 }
 #market-board-table td:nth-child(3){
 	width:340px;
 	background-image:url('../images/market/goose.png');
 	background-size:100% 100%;
-	opacity:.6;
+	opacity:.7;
 }
 #market-board-table td:nth-child(1):hover{
 	opacity:1;
