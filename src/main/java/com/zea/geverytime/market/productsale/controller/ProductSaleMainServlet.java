@@ -15,6 +15,12 @@ public class ProductSaleMainServlet extends HttpServlet {
 	private static final long serialVersionUID = 1L;
 
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+		String div = request.getParameter("div");
+		if(div.equals("all")){
+			div = "%%";
+		}
+		System.out.println("div= "+div);
+		request.setAttribute("div", div);
 		request.getRequestDispatcher("/WEB-INF/views/market/productSaleMain.jsp").forward(request, response);
 	}
 
