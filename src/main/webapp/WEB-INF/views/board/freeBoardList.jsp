@@ -13,7 +13,7 @@ List<Board> popularList = (List<Board>)request.getAttribute("popularList");
 </head>
 <body>
 		<%if(popularList != null && !popularList.isEmpty()){%>
-<h2>인기게시물</h2>
+<h2>한 주의 인기게시물</h2>
 <table id="popularBoardList">
 		<thead>
 			<tr>
@@ -49,17 +49,19 @@ List<Board> popularList = (List<Board>)request.getAttribute("popularList");
 		</tbody>
 	</table>
 	<%} %>
-	<input type="button" value="글쓰기" id="btn-add" onclick="location.href='<%=request.getContextPath()%>/board/boardForm'" />
-	<select name="animal" id="animal">
-		<option value="Free">선택</option>
-		<option value="Dog">강아지</option>
-		<option value="Cat">고양이</option>
-	</select>
-	<select name="sort" id="sort">
-		<option value="No">최신순</option>
-		<option value="Like">추천순</option>
-		<option value="Read">조회순</option>
-	</select>
+	<%-- <input type="button" value="글쓰기" id="btn-add" onclick="location.href='<%=request.getContextPath()%>/board/boardForm'" /> --%>
+	<div class="select-container">
+		<select name="animal" id="animal">
+			<option value="Free">선택</option>
+			<option value="Dog">강아지</option>
+			<option value="Cat">고양이</option>
+		</select>
+		<select name="sort" id="sort">
+			<option value="No">최신순</option>
+			<option value="Like">추천순</option>
+			<option value="Read">조회순</option>
+		</select>	
+	</div>
 	<table id="boardList">
 		<thead>
 			<tr>
