@@ -7,9 +7,10 @@ import static com.zea.geverytime.common.JdbcTemplate.rollback;
 
 import java.sql.Connection;
 import java.util.List;
-
+import java.util.Map;
 
 import com.zea.geverytime.market.purchase.model.vo.PurchaseHistory;
+import com.zea.geverytime.board.model.vo.Board;
 import com.zea.geverytime.info.model.vo.Info;
 import com.zea.geverytime.member.model.exception.MemberException;
 import com.zea.geverytime.member.model.vo.Business;
@@ -111,10 +112,45 @@ public class MyPageService {
 
 
 		public List<Purchase> getPurchase(String memberId) {
-			Connection conn = getConnection();
-			List<Purchase> list = myPageDao.getPurchase(conn, memberId);
-			close(conn);
+			Connection conn = null;
+			List<Purchase> list = null;
+			try {
+				conn = getConnection();
+				list = myPageDao.getPurchase(conn, memberId);
+			} catch (Exception e) {
+				e.printStackTrace();
+			} finally {
+				close(conn);			
+			}
 			return list;
+		}
+
+		public List<Info> selectInfoList(Map<String, Object> param) {
+			Connection conn = null;
+			List<Info> list = null; 
+			try {
+				conn = getConnection();
+				list = myPageDao.selectInfoList(conn, param);	
+			} catch (Exception e) {
+				e.printStackTrace();
+			} finally {
+				close(conn);	
+			}
+			return list;
+		}
+
+		public int myPageinfoListCount(Map<String, Object> param) {
+			Connection conn = null;
+			int totalCount = 0;
+			try {
+				conn = getConnection();
+				totalCount = myPageDao.myPageinfoListCount(conn, param);
+			} catch (Exception e) {
+				e.printStackTrace();
+			} finally {
+				close(conn);	
+			}
+			return totalCount;
 		}
 
 		

@@ -20,7 +20,7 @@ import com.zea.geverytime.admin.model.service.AdminService;
  * Servlet implementation class AdminInfoList
  */
 @WebServlet("/admin/adminInfoList")
-public class AdminInfoList extends HttpServlet {
+public class AdminInfoListServlet extends HttpServlet {
 	private static final long serialVersionUID = 1L;
 	private AdminService adminService = new AdminService();
 	/**
@@ -31,7 +31,8 @@ public class AdminInfoList extends HttpServlet {
 		try {
 			// 사용자입력값
 			cPage = Integer.parseInt(request.getParameter("cPage"));
-		} catch (NumberFormatException e) {}
+			} catch (NumberFormatException e) {}
+		
 			System.out.println("[AdminList@Servlet] cPage = " + cPage);
 			int numPerPage = 5;
 			int start = (cPage - 1) * numPerPage + 1;

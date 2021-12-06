@@ -1,11 +1,11 @@
 @CHARSET "UTF-8";
 
 @font-face {
-    src: url("./font/Cafe24SsurroundAir.ttf");
+    src: url("./fonts/Cafe24SsurroundAir.ttf");
     font-family: "CafeAir";
 }
 @font-face {
-    src: url("./font/Cafe24Ssurround.ttf");
+    src: url("./fonts/Cafe24Ssurround.ttf");
     font-family: "CafeBold";
 }
 * {
