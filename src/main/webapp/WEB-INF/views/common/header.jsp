@@ -28,11 +28,11 @@
 	<div class="go-up-btn">TOP</div>
 	<select name="write" id="write-board">
 		<option hidden="" selected disabled>게시글작성</option>
-		<option data-color="red" value="/board/boardForm">자유게시판 글쓰기</option>
+		<option value="/board/boardForm">자유게시판 글쓰기</option>
 		<% if(loginMember != null && loginMember.getMemberType().equals("B")) { %>
-		<option data-color="green" value="/info/Enroll">정보게시판 글쓰기</option>
-		<option data-color="blue" value="/product/boardForm">마켓 글쓰기</option>
-		<option data-color="blue" value="/ugGoods/boardForm">중고거래 글쓰기</option>
+		<option value="/info/Enroll">정보게시판 글쓰기</option>
+		<option value="/product/boardForm">마켓 글쓰기</option>
+		<option value="/ugGoods/boardForm">중고거래 글쓰기</option>
 		<% } %>
 	</select>
     <div id="container">
