@@ -59,7 +59,6 @@ public class MemberLoginServlet extends HttpServlet {
                     
                 }
                 
-                
                 String location = request.getContextPath() + "/";
                 response.sendRedirect(location);
                                
@@ -69,7 +68,7 @@ public class MemberLoginServlet extends HttpServlet {
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
         
         HttpSession session = request.getSession();
-        
+
         request.getRequestDispatcher("/WEB-INF/views/member/login.jsp")
         .forward(request, response);
     }

@@ -21,7 +21,7 @@ import com.zea.geverytime.member.model.vo.Member;
 @WebFilter(urlPatterns = 
 {"/member/memberlogin", "/board/boardForm","/board/boardCommentEnroll","/board/boardCommentEnroll",
 "/myPage/myPageMain", "/board/boardView", "/customer/qnaBoardList", "/info/Enroll", "/product/boardForm", "/productSale/getProduct", "/common/report", "/ugGoods/boardForm",
-"/wishList/main", "/cart/main", "/product/onsaleProduct"})
+"/wishList/main", "/cart/main", "/product/onsaleProduct", "/product/productForm"})
 
 public class LoginFilter implements Filter {
 
