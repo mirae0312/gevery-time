@@ -125,7 +125,7 @@
                  <div class="board_list_wrap1">
                  <table class="board_list";>
                  <br>
-                 <span style="font-size:20px; margin-left:50px; "> ↳답변입니다.  </span>
+                 <span style="font-size:20px; margin-left:50px; "> [↳답변입니다.]  </span>
                   <br><br>
                 
                  <tr>
@@ -133,7 +133,7 @@
                      <td>\${writer}</td>
                  </tr>
                   <tr>
-                     <td class="header">내용</td>
+                     <td class="header" id="replycontent">내용</td>
                      <td>\${content}</td>
                 </tr>
                 </table>

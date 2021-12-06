@@ -104,10 +104,11 @@ a {
  #btn-add{
     background-color: rgba(211, 211, 211, 0.479);
     border-style: none;
-    font-size: 15px;
+    font-size: 12px;
     padding: 10px 16px;
     border-radius: 10px;
     cursor: pointer;
+    margin-left: 35px;
 }
 #inputBox{
    margin-top: 30px;

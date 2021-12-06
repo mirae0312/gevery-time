@@ -10,6 +10,7 @@
     margin-right: 30px;
 }
 .buttonlist{
+	marign-top:100px;
     border-style: none;
     border-radius: 5px;
     padding:7px 9px;
@@ -74,6 +75,8 @@ a {
     border-top: 2px solid rgba(128, 128, 128, 0.616);
     border-bottom : 2px solid rgba(128, 128, 128, 0.616);
     margin: auto;
+    background-color: #f8f8ff54;
+    
 }
 
 .board_list tr {
