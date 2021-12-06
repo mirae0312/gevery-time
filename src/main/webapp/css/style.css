@@ -216,14 +216,14 @@ section#content{
 .go-up-btn{
 	position: fixed;
 	width: 63px;
-	height: 23px;
+	height: 17px;
 	bottom: 170px;
 	right: 144px;
 	background-color: linen;
 	border-radius: 50%;
 	font-weight: bold;
 	text-align: center;
-	padding: 19px 0px;
+	padding: 22px 0px;
 }
 .btn{
 	border: 0;
