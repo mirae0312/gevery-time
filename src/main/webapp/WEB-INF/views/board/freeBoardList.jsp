@@ -13,8 +13,8 @@ List<Board> popularList = (List<Board>)request.getAttribute("popularList");
 </head>
 <body>
 		<%if(popularList != null && !popularList.isEmpty()){%>
-<h2>인기게시물</h2>
-<table id="popularBoardList">
+<h2 id="popularList">한 주의 인기게시물</h2>
+<table id="popularBoardList" class="board-list-table">
 		<thead>
 			<tr>
 				<th>번호</th>
@@ -32,7 +32,7 @@ List<Board> popularList = (List<Board>)request.getAttribute("popularList");
 				<td><%=board.getNo()%></td>
 				<td>
 					<a href="<%= request.getContextPath()%>/board/boardView?no=<%=board.getNo()%>">
-						<%=board.getTitle()%> <%=board.getCommentCount()>0? "("+board.getCommentCount()+")":""%>
+						<%=board.getTitle()%> <%=board.getCommentCount()>0? "<span class='comment-count'>("+board.getCommentCount()+")</span>":""%>
 					</a>
 				</td>
 				<td><%=board.getWriter()%></td>
@@ -49,18 +49,20 @@ List<Board> popularList = (List<Board>)request.getAttribute("popularList");
 		</tbody>
 	</table>
 	<%} %>
-	<input type="button" value="글쓰기" id="btn-add" onclick="location.href='<%=request.getContextPath()%>/board/boardForm'" />
-	<select name="animal" id="animal">
-		<option value="Free">선택</option>
-		<option value="Dog">강아지</option>
-		<option value="Cat">고양이</option>
-	</select>
-	<select name="sort" id="sort">
-		<option value="No">최신순</option>
-		<option value="Like">추천순</option>
-		<option value="Read">조회순</option>
-	</select>
-	<table id="boardList">
+	<%-- <input type="button" value="글쓰기" id="btn-add" onclick="location.href='<%=request.getContextPath()%>/board/boardForm'" /> --%>
+	<div class="select-container">
+		<select name="animal" id="animal">
+			<option value="Free">선택</option>
+			<option value="Dog">강아지</option>
+			<option value="Cat">고양이</option>
+		</select>
+		<select name="sort" id="sort">
+			<option value="No">최신순</option>
+			<option value="Like">추천순</option>
+			<option value="Read">조회순</option>
+		</select>	
+	</div>
+	<table id="boardList" class="board-list-table">
 		<thead>
 			<tr>
 				<th>번호</th>
@@ -75,7 +77,7 @@ List<Board> popularList = (List<Board>)request.getAttribute("popularList");
 		<tbody>
 		</tbody>
 	</table>
-	<div class="pageBar">
+	<div class="board-pageBar">
 </div>
 <script>
 const f = function(n){
@@ -85,14 +87,14 @@ $(()=>{
 	selectContent(1);
 });
 $(animal).change((e)=>{
-	const cPage = $(".pageBar .cPage").html();
+	const cPage = $(".board-pageBar .cPage").html();
 	selectContent(cPage);
 });
 $(sort).change((e)=>{
-	const cPage = $(".pageBar .cPage").html();
+	const cPage = $(".board-pageBar .cPage").html();
 	selectContent(cPage);
 });
-$(".pageBar").click((e)=>{
+$(".board-pageBar").click((e)=>{
 	selectContent($(e.target).data('page'));
 })
 const selectContent = (cPage) => {
@@ -123,7 +125,7 @@ const selectContent = (cPage) => {
 				}
 				if(e.commentCount>0){
 					console.log(e.commentCount);
-					commentCount = '('+e.commentCount+')';
+					commentCount = "<span class='comment-count'>("+e.commentCount+")</span>";
 					console.log(commentCount);
 				}
 				const tr = `			<tr>
@@ -143,8 +145,8 @@ const selectContent = (cPage) => {
 			})
 			//pagebar부분
 			console.log(data.pagebar);
-			$(".pageBar").empty();
-			$(".pageBar").append(data.pagebar);
+			$(".board-pageBar").empty();
+			$(".board-pageBar").append(data.pagebar);
 		},
 		error:console.log
 	});	
