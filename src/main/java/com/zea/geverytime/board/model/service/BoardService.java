@@ -205,6 +205,12 @@ public class BoardService {
 		close(conn);
 		return list;
 	} 
+	public List<Board> getReviewPopularList() {
+		Connection conn = getConnection();
+		List<Board> list = boardDao.getReviewPopularList(conn);
+		close(conn);
+		return list;
+	}
 
 	public List<Board> selectOtherContentList(Map<String, Object> map) {
 		Connection conn = getConnection();
@@ -219,4 +225,49 @@ public class BoardService {
 		close(conn);
 		return count;
 	}
+
+	public int upCommentLike(Map<String, Object> map) {
+		Connection conn = null;
+		int count = -1;
+		
+		try {
+			conn = getConnection();
+			int check = boardDao.checkCommentLike(conn, map);
+			if(check == 0) {
+				int result = boardDao.upCommentLike(conn, map);
+				count = boardDao.getCommentLike(conn, (int)map.get("no"));
+			}
+			commit(conn);
+		}catch(Exception e) {
+			rollback(conn);
+			throw e;
+		}finally {
+			close(conn);
+		}
+		
+		return count;
+	}
+	public int upBoardLike(Map<String, Object> map) {
+		Connection conn = null;
+		int count = -1;
+		
+		try {
+			conn = getConnection();
+			int check = boardDao.checkBoardLike(conn, map);
+			if(check == 0) {
+				int result = boardDao.upBoardLike(conn, map);
+				count = boardDao.getBoardLike(conn, (int)map.get("no"));
+			}
+			commit(conn);
+		}catch(Exception e) {
+			rollback(conn);
+			throw e;
+		}finally {
+			close(conn);
+		}
+		
+		return count;
+	}
+
+
 }

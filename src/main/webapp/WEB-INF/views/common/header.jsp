@@ -39,7 +39,7 @@
                <div class="title"><a href="<%=request.getContextPath() %>/">개브리타임</a></div>
                <ul class="lists" >
                    <li id="info"><a href="<%= request.getContextPath() %>/info/allList?board=<%= "info" %>">정보</a></li>
-                   <li id="board"><a href="<%=request.getContextPath() %>/board/freeBoard">게시판</a></li>
+                   <li id="board"><a href="<%=request.getContextPath() %>/board/freeBoardList">게시판</a></li>
                    <li id="market"><a href="#">마켓</a></li>
                </ul>
                <ul>
@@ -78,8 +78,8 @@
 	        </div> 
 	        <div class="board-navsbox">
 	            <ul class="board-pagenavs">
-	                <li class="board-pagenav" id="board"><a href="<%=request.getContextPath() %>/board/freeBoard">자유게시판</a></li>
-	                <li class="board-pagenav" id="review"><a href="#">후기</a></li>
+	                <li class="board-pagenav" id="board"><a href="<%=request.getContextPath() %>/board/freeBoardList">자유게시판</a></li>
+	                <li class="board-pagenav" id="review"><a href="<%=request.getContextPath() %>/board/reviewBoardList">후기</a></li>
 	            </ul>
 	        </div> 
 	        <div class="market-navsbox">
