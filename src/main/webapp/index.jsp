@@ -28,11 +28,10 @@
 	</div><hr />
 	
 	<%-- 인포영역 --%>
-	<h1>정보</h1>
+	<h1>한 주간의 인기 SPOT</h1>
 	<div class="info-board-wrapper">
-		<h1>한 주간의 인기 SPOT</h1>
-		
-			
+		<div id="info-board-table">			
+		</div>			
 	</div><hr />
 	
 	<%-- 마켓영역 --%>
@@ -56,6 +55,7 @@
 $(()=>{
 	getBoardPopularList();
 	console.log("hi");
+	mainInfoLists();
 });
 const f = function(n){
     return n<10 ? `0\${n}`:n; 
@@ -64,8 +64,8 @@ const getBoardPopularList = () => {
 	$.ajax({
 		url:"<%=request.getContextPath()%>/common/mainBoardPopularList",
 		success(data){
-			//console.log(data);
-			//console.log(data.freeList);
+			console.log(data);
+			console.log(data.freeList);
 			$(".board-left-wrap table tbody").empty();
 			$(".board-right-wrap table tbody").empty();
 			$(data.freeList).each((i,e)=>{
@@ -73,9 +73,9 @@ const getBoardPopularList = () => {
 				const date = `\${d.getFullYear()}-\${f(d.getMonth())}-\${f(d.getDate())}`
 				let commentCount = "";
 				if(e.commentCount>0){
-					//console.log(e.commentCount);
+					console.log(e.commentCount);
 					commentCount = '('+e.commentCount+')';
-					//console.log(commentCount);
+					console.log(commentCount);
 				}
 				const tr = `			<tr>
  					<td><a href="<%=request.getContextPath()%>/board/boardView?no=\${e.no}">\${e.title}</a> \${commentCount}</td>
@@ -89,9 +89,9 @@ const getBoardPopularList = () => {
 				const date = `\${d.getFullYear()}-\${f(d.getMonth())}-\${f(d.getDate())}`
 				let commentCount = "";
 				if(e.commentCount>0){
-					//console.log(e.commentCount);
+					console.log(e.commentCount);
 					commentCount = '('+e.commentCount+')';
-					//console.log(commentCount);
+					console.log(commentCount);
 				}
 				const tr = `			<tr>
  					<td><a href="<%=request.getContextPath()%>/board/boardView?no=\${e.no}">\${e.title}</a> \${commentCount}</td>
@@ -104,13 +104,37 @@ const getBoardPopularList = () => {
 		},
 		error:console.log
 	});
-	
+};
+
+const mainInfoLists = () => {
 	$.ajax({
 		url:"<%= request.getContextPath() %>/main/infoList",
 		data:{"board":"info"},
 		dataType:"json",
 		success(data){
-			console.log(data);
+			//console.log(data);
+			
+			const $box = $("#info-board-table");
+			$box.empty();
+			$(data).each((i, e) => {
+				console.log(e.businessName);
+				const contents = `
+				<div class="content">
+				<img class="info-img" src="<%= request.getContextPath() %>/upload/info/\${e.attachments[0].renamedFilename}" alt="" />
+				<div class="info-bname">\${e.businessName}</div>
+				<div class="hidden-code">\${e.code}</div>	
+				</div>
+				`;
+				$box.append(contents);
+			});
+			
+			$(".content").click((e) => {
+				const $code = $(e.currentTarget).find('div.hidden-code').text();
+				console.log($code);
+				
+				location.href=`<%= request.getContextPath() %>/info/view?code=\${$code}`;
+			});
+			
 		},
 		error:console.log
 	});
