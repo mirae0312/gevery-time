@@ -26,7 +26,7 @@
 	<div class="info-board-wrapper">
 		<table id="info-board-table">
 			<tr>
-				<td></td>
+				<td><div class="info-banner"><h1>한 주간의 인기 SPOT</h1></div></td>
 				<td></td>
 				<td></td>
 			</tr>
