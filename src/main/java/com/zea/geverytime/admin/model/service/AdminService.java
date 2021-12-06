@@ -3,7 +3,8 @@ import static com.zea.geverytime.common.JdbcTemplate.*;
 
 import java.sql.Connection;
 import java.util.List;
-
+import java.util.Map;
+import java.util.concurrent.ConcurrentNavigableMap;
 
 import com.zea.geverytime.admin.model.dao.AdminDao;
 import com.zea.geverytime.common.model.vo.Attachment;
@@ -19,12 +20,12 @@ public class AdminService {
 //		close(conn);
 //		return list;
 //	}
-	public List<Info> selectInfoBoard() {
+	public List<Info> selectInfoBoard(Map<String, Object> param) {
 		Connection conn = null;
 		List<Info> list = null;
 		try {
 			conn = getConnection();
-			list = adminDao.selectInfoBoard(conn);
+			list = adminDao.selectInfoBoard(conn, param);
 			
 		}catch(Exception e) {
 			throw e;
@@ -69,5 +70,14 @@ public class AdminService {
 		}
 		return result;
 	}
+
+	public int adminTotalCount(Map<String, Object> param) {
+		Connection conn = getConnection();
+		int totalCount = adminDao.adminTotalCount(conn, param);
+		close(conn);
+		return totalCount;
+	}
+
+
 
 }
