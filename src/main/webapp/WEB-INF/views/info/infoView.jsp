@@ -45,7 +45,7 @@
 	</form>
 <% } %>
 <% if(loginMember != null && !info.getMemberId().equals(loginMember.getMemberId())){ %>
-	<input type="button" value="신고" class="report-btn btn" onclick="reportInfoMain" />
+	<input type="button" value="신고" class="report-btn btn" onclick="reportInfoMain();" />
 <% } %>
 	<div class="info-head-wrapper">
 		<div class="left-side">
@@ -214,9 +214,9 @@
 		<% } %>
 					<div class="review-content"><%= ir.get(i).getContent() %></div>
 					<div class="review-reg-date"><%= ir.get(i).getRegDate() %></div>
-					<table id= reBox></table>
-				<%-- 리뷰 수정: info-review클릭 --%>
+					<table class="rebox"></table>
 				</div>
+		<%-- 리뷰 수정: info-review클릭 --%>
 		<% if(loginMember != null){ %>
 			<% if(!loginMember.getMemberId().equals(ir.get(i).getMemberId())){ %>
 					<input type="button" value="신고" class="reivew-report review-btn btn" onclick="reportReview();" />
@@ -259,15 +259,16 @@ const $mFrm = $(document.infoBoardModifyFrm);
 const reportInfoMain = () => {
 	const name = "report";
 	const spec = "left=500px, top=500px, width=450px, height=650px";
-	const popup = open("<%= request.getContextPath() %>/common/report", name, spec);
-	$frm.find
+	const popup = open("<%= request.getContextPath() %>/common/report?code=<%= info.getCode() %>", name, spec);
+	
 };
 
 //리뷰신고
 const reportReview = () => {
+	const code = $(".reviewCode").val();
 	const name = "report";
 	const spec = "left=500px, top=500px, width=450px, height=650px";
-	const popup = open("<%= request.getContextPath() %>/common/report", name, spec);
+	const popup = open(`<%= request.getContextPath() %>/common/report?code=\${code}`, name, spec);
 };
 
 // 본문 수정
@@ -304,11 +305,10 @@ const modifyReviewBox = () => {
 };
 <% if(loginMember != null){ %>
 $(".info-review").one("click", function(event){
-	
+	// 선택한 아이디
 	const $btn = $(event.currentTarget).find('div.review-writer').text();
-	const $reBox = $("#reBox");
-	const $box = `
-	<tr>
+
+	const box = `<tr>
 	<td><input type="file" name="mPic1" accept="image/*" onchange="previewF3();"/></td>
 	<td><input type="file" name="mPic2" accept="image/*" onchange="previewF4();"/></td>
 	</tr>
@@ -320,11 +320,11 @@ $(".info-review").one("click", function(event){
 	</tr>	
 	<tr>
 	<td><input type="button" value="수정" class="modify-review review-btn btn" onclick="modifyReviewBox();" /></td>
-	</tr>
-	`;
+	</tr>`;
 	
-	if($btn == '<%= loginMember.getMemberId() %>'){
-		$reBox.append($box);		
+	// 로그인 아이디와 선택한 div값이 같다면 .rebox에 box를 append
+	if($btn === '<%= loginMember.getMemberId() %>'){
+		$(event.currentTarget).find('table.rebox').append(box);	
 	}
 	$('.mBody').summernote({
 		height: 300,
@@ -338,7 +338,7 @@ $(".info-review").one("click", function(event){
 			['para', ['ul', 'ol', 'paragraph']],
 			['height', ['height']],
 		]
-	});
+	});	
 });
 <% } %>
 
