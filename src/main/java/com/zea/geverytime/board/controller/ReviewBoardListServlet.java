@@ -25,7 +25,8 @@ public class ReviewBoardListServlet extends HttpServlet {
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		try {
 			// 2. 업무처리
-			List<Board> popularList = boardService.getReviewPopularList();
+			int count = 8;
+			List<Board> popularList = boardService.getReviewPopularList(count);
 			System.out.println("popularList = "+popularList);
 			
 			request.setAttribute("popularList",popularList);
