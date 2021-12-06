@@ -30,18 +30,9 @@
 	<%-- 인포영역 --%>
 	<h1>정보</h1>
 	<div class="info-board-wrapper">
-		<table id="info-board-table">
-			<tr>
-				<td><h1>한 주간의 인기 SPOT</h1></td>
-				<td></td>
-				<td></td>
-			</tr>
-			<tr>
-				<td></td>
-				<td></td>
-				<td></td>
-			</tr>
-		</table>
+		<h1>한 주간의 인기 SPOT</h1>
+		
+			
 	</div><hr />
 	
 	<%-- 마켓영역 --%>
@@ -73,8 +64,8 @@ const getBoardPopularList = () => {
 	$.ajax({
 		url:"<%=request.getContextPath()%>/common/mainBoardPopularList",
 		success(data){
-			console.log(data);
-			console.log(data.freeList);
+			//console.log(data);
+			//console.log(data.freeList);
 			$(".board-left-wrap table tbody").empty();
 			$(".board-right-wrap table tbody").empty();
 			$(data.freeList).each((i,e)=>{
@@ -82,9 +73,9 @@ const getBoardPopularList = () => {
 				const date = `\${d.getFullYear()}-\${f(d.getMonth())}-\${f(d.getDate())}`
 				let commentCount = "";
 				if(e.commentCount>0){
-					console.log(e.commentCount);
+					//console.log(e.commentCount);
 					commentCount = '('+e.commentCount+')';
-					console.log(commentCount);
+					//console.log(commentCount);
 				}
 				const tr = `			<tr>
  					<td><a href="<%=request.getContextPath()%>/board/boardView?no=\${e.no}">\${e.title}</a> \${commentCount}</td>
@@ -98,9 +89,9 @@ const getBoardPopularList = () => {
 				const date = `\${d.getFullYear()}-\${f(d.getMonth())}-\${f(d.getDate())}`
 				let commentCount = "";
 				if(e.commentCount>0){
-					console.log(e.commentCount);
+					//console.log(e.commentCount);
 					commentCount = '('+e.commentCount+')';
-					console.log(commentCount);
+					//console.log(commentCount);
 				}
 				const tr = `			<tr>
  					<td><a href="<%=request.getContextPath()%>/board/boardView?no=\${e.no}">\${e.title}</a> \${commentCount}</td>
@@ -110,6 +101,16 @@ const getBoardPopularList = () => {
 				
 			})
 
+		},
+		error:console.log
+	});
+	
+	$.ajax({
+		url:"<%= request.getContextPath() %>/main/infoList",
+		data:{"board":"info"},
+		dataType:"json",
+		success(data){
+			console.log(data);
 		},
 		error:console.log
 	});
