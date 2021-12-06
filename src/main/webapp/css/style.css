@@ -1,10 +1,22 @@
 @CHARSET "UTF-8";
+
+@font-face {
+    src: url("./font/Cafe24SsurroundAir.ttf");
+    font-family: "CafeAir";
+}
+@font-face {
+    src: url("./font/Cafe24Ssurround.ttf");
+    font-family: "CafeBold";
+}
+* {
+	font-family: "CafeAir";
+}
 input:focus, select:focus, option:focus, textarea:focus, button:focus{
 	outline: none;
 }
 
 html {
-     height: 100%;
+    height: 100%;
 } 
 #container	{
      width:1024px;
