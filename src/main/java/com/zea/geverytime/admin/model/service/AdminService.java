@@ -35,12 +35,12 @@ public class AdminService {
 		return list;
 	}
 
-	public List<ReportBoard> selectReportList() {
+	public List<ReportBoard> selectReportList(Map<String, Object> param) {
 		Connection conn = null;
 		List<ReportBoard> list = null;
 		try {
 			conn = getConnection();
-			list = adminDao.selectReportList(conn);
+			list = adminDao.selectReportList(conn, param);
 			
 		}catch(Exception e) {
 			throw e;
@@ -62,19 +62,42 @@ public class AdminService {
 
 			if(result > 0)
 				commit(conn);
-		}catch(Exception e) {
+		} catch(Exception e) {
 			rollback(conn);
 			throw e;
-		}finally {
+		} finally {
 			close(conn);
 		}
 		return result;
 	}
 
 	public int adminTotalCount(Map<String, Object> param) {
-		Connection conn = getConnection();
-		int totalCount = adminDao.adminTotalCount(conn, param);
-		close(conn);
+		Connection conn = null;
+		int totalCount = 0;
+		try {
+			conn = getConnection();
+			totalCount = adminDao.adminTotalCount(conn, param);
+		} catch (Exception e) {
+			e.printStackTrace();
+			throw e;
+		} finally {
+			close(conn);
+		}		
+		return totalCount;
+	}
+
+	public int reportTotalCount(Map<String, Object> param) {
+		Connection conn = null;
+		int totalCount = 0;
+		try {
+			conn = getConnection();
+			totalCount = adminDao.reportTotalCount(conn, param);
+		} catch (Exception e) {
+			e.printStackTrace();
+			throw e;
+		} finally {
+			close(conn);
+		}		
 		return totalCount;
 	}
 

@@ -99,7 +99,7 @@ public class AdminDao {
 			
 			return list;
 		}
-	public List<ReportBoard> selectReportList(Connection conn) {
+	public List<ReportBoard> selectReportList(Connection conn, Map<String, Object> param) {
 		PreparedStatement pstmt = null;
 		String sql = prop.getProperty("selectReportList");	
 		ResultSet rset = null;
@@ -107,11 +107,10 @@ public class AdminDao {
 		
 		try {
 			pstmt = conn.prepareStatement(sql);
-			
-//			pstmt.setInt(1, start);
-//			pstmt.setInt(2, end);
-			
+			pstmt.setInt(1, (int)param.get("start"));
+			pstmt.setInt(2, (int)param.get("end"));
 			rset = pstmt.executeQuery();
+			
 			while(rset.next()) {
 				ReportBoard report = new ReportBoard();
 				report.setReportCode(rset.getString("report_code"));
@@ -190,6 +189,28 @@ public class AdminDao {
 		}	
 		return totalCount;
 		
+	}
+	public int reportTotalCount(Connection conn, Map<String, Object> param) {
+		PreparedStatement pstmt = null;
+		String sql = prop.getProperty("reportTotalCount");	
+		ResultSet rset = null;
+		int totalCount = 0;
+		
+		try {
+			pstmt = conn.prepareStatement(sql);
+			rset = pstmt.executeQuery();
+			if(rset.next()) {
+				totalCount = rset.getInt(1);			
+			}
+		} catch (SQLException e) {
+			e.printStackTrace();
+			throw new InfoBoardException("정보게시물 받아오기 실패!", e);
+		} finally {
+			close(rset);
+			close(pstmt);
+			
+		}	
+		return totalCount;
 	}
 
 }
