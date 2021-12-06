@@ -311,6 +311,14 @@ section#content{
 	overflow:hidden;
 	cursor: pointer;
 }
+.content:hover .info-bname {
+	font-weight: bold;
+}
+.info-img-wrap{
+	overflow:hidden;
+	width: 300px;
+	height: 210px;
+}
 .content:hover img{
 	transform: scale(1.05);
 }

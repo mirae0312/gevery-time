@@ -124,10 +124,12 @@ const mainInfoLists = () => {
 			const $box = $("#info-board-table");
 			$box.empty();
 			$(data).each((i, e) => {
-				console.log(e.businessName);
+				//console.log(e.businessName);
 				const contents = `
 				<div class="content">
+				<div class="info-img-wrap">
 				<img class="info-img" src="<%= request.getContextPath() %>/upload/info/\${e.attachments[0].renamedFilename}" alt="" />
+				</div>
 				<div class="info-bname">\${e.businessName}</div>
 				<div class="hidden-code">\${e.code}</div>	
 				</div>
@@ -137,7 +139,7 @@ const mainInfoLists = () => {
 			
 			$(".content").click((e) => {
 				const $code = $(e.currentTarget).find('div.hidden-code').text();
-				console.log($code);
+				//console.log($code);
 				
 				location.href=`<%= request.getContextPath() %>/info/view?code=\${$code}`;
 			});
