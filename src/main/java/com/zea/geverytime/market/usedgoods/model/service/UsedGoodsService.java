@@ -57,9 +57,9 @@ public class UsedGoodsService {
 		return board;
 	}
 
-	public List<UsedGoodsBoard> getProductSaleBoardAll(int startNum, int endNum) {
+	public List<UsedGoodsBoard> getProductSaleBoardAll(int startNum, int endNum, String keyword, String type) {
 		Connection conn = getConnection();
-		List<UsedGoodsBoard> list = ugDao.getProductSaleBoardAll(conn, startNum, endNum);
+		List<UsedGoodsBoard> list = ugDao.getProductSaleBoardAll(conn, startNum, endNum, keyword, type);
 		close(conn);
 		return list;
 	}
@@ -221,4 +221,5 @@ public class UsedGoodsService {
 		}
 		return result;
 	}
+
 }

@@ -8,40 +8,11 @@
 }
 
 
-.btn{
-  width: 80px;
-  height: 30px;
-  border: none;
-  border-radius: 10%;
-}
 
 
 
 
 
-
-.info-wrapper .info-write-btn{
-	position: fixed;
-	width: 60px;
-	height: 60px;
-	bottom: 160px;
-	right: 180px;
-	background-color: linen;
-	border-radius: 50%;
-	font-weight: bold;
-}
-.info-wrapper .go-up-btn{
-	position: fixed;
-	width: 65px;
-	height: 25px;
-	bottom: 80px;
-	right: 178px;
-	background-color: #ffd700;
-	border-radius: 50%;
-	font-weight: bold;
-	text-align: center;
-	padding: 20px 0px;
-}
 
 .pop-contents{
 	display: flex;
@@ -158,10 +129,10 @@
 	position: absolute;
 	right: 5px;
 }
-.select-contents #location{
+.select-contents .location{
 	font-size: 0.95em;
 	height: 30px;
-	width: 80px;
+	width: 100px;
 	border: 0;
 }
 .select-contents .lining{

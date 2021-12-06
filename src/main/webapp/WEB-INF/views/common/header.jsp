@@ -24,10 +24,19 @@
 
 </head>
 <body>
+	<div class="go-up-btn btn">TOP</div>
+	<select name="write" id="write-board">
+		<option hidden="" selected disabled>게시글작성</option>
+		<option data-color="red" value="/board/boardForm">자유게시판 글쓰기</option>
+		<% if(loginMember != null && loginMember.getMemberType().equals("B")) { %>
+		<option data-color="green" value="/info/Enroll">정보게시판 글쓰기</option>
+		<option data-color="blue" value="/product/productForm">마켓 글쓰기</option>
+		<% } %>
+	</select>
     <div id="container">
         <section id="header" >
            <div class="wrapper">
-               <div class="title"><a href="<%=request.getContextPath() %>/">타이틀</a></div>
+               <div class="title"><a href="<%=request.getContextPath() %>/">개브리타임</a></div>
                <ul class="lists" >
                    <li id="info"><a href="<%= request.getContextPath() %>/info/allList?board=<%= "info" %>">정보</a></li>
                    <li id="board"><a href="<%=request.getContextPath() %>/board/freeBoardList">게시판</a></li>
@@ -79,7 +88,7 @@
 	                <li class="market-pagenav" id="store"><a href="#">일반상점</a></li>
 	                <li class="market-pagenav" id="used"><a href="<%= request.getContextPath() %>/ugGoods/main">중고 매매</a></li>
 	                <% if(loginMember != null) { %>
-	                <li class="market-pagenav" id="list"><a href="#">찜 목록</a></li>
+	                <li class="market-pagenav" id="list"><a href="<%= request.getContextPath() %>/wishList/main?memberId=<%= loginMember.getMemberId() %>">찜 목록</a></li>
 	                <li class="market-pagenav" id="cart"><a href="<%= request.getContextPath() %>/cart/main?memberId=<%= loginMember.getMemberId() %>">장바구니</a></li>
 	                <% } %>
 	                <% if(loginMember != null && loginMember.getMemberType().equals("B")) { %>
@@ -110,5 +119,18 @@
     $("#store").click((e) => {
     	location.href="<%= request.getContextPath() %>/product/main";
     });
+    
+    // 상단 이동
+    $(".go-up-btn").click((e) => {
+    	$('html, body').animate({scrollTop:0}, 300);
+    });
+    
+ 	// 게시물 등록
+ 	$("#write-board").change((e) => {
+ 		const value = $("#write-board").val();
+ 		console.log(value);
+ 		location.href=`<%= request.getContextPath() %>\${value}`;
+ 	});
+ 	
 
 	</script>

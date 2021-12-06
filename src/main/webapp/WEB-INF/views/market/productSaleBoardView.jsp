@@ -40,6 +40,9 @@
 <title>상세목록</title>
 </head>
 <body>
+<% if(loginMember != null && !loginMember.getMemberId().equals(board.getSellerId())) { %>
+<input type="button" id="reportBtn" value="신고하기" onclick="window.open('<%= request.getContextPath() %>/common/report?code=<%= (String)board.getOrCode() %>', 'popup', 'width=500, height=600, left=100')"/>
+<% } %>
 <script>
 $(() => {
 	const fimg = `<tr>
@@ -74,6 +77,7 @@ $(() => {
 	};
 })
 </script>
+	
 	<table id="board">
 		<thead>
 			<tr>
@@ -354,6 +358,23 @@ $(() => {
 			}
 			$(e.target).unbind();
 			$(e.target).submit();
+		})
+		
+		$(() => {
+			// 신고 버튼 잠그기
+			$.ajax({
+				url: "<%= request.getContextPath() %>/common/reportCheck",
+				data:{
+					user: "<%= loginMember.getMemberId() %>",
+					reportCode: "<%= board.getOrCode() %>"
+				},
+				success(data){
+					if(data.result == 0){
+						$("#reportBtn").prop("disabled", "disabled");
+					}
+				},
+				error:console.log
+			});
 		})
 	</script>
 </body>

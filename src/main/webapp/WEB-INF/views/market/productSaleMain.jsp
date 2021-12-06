@@ -122,7 +122,6 @@
 				},
 				success(data){
 					$("#pdtTable tbody").empty();
-					console.log(data.totalContent);
 					$("#sumContent").html('조회된 게시물 수 : '+ data.totalContent);
 					
 					//List부분

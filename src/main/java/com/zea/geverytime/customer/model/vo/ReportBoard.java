@@ -15,6 +15,7 @@ public class ReportBoard implements Serializable {
 	private String reportCheck;
 	private String memberId;
 	private Date regDate;
+	private String deleteCheck;
 	
 	
 	public ReportBoard() {
@@ -82,20 +83,23 @@ public class ReportBoard implements Serializable {
 		this.regDate = regDate;
 	}
 
+	
+
+	public String getDeleteCheck() {
+		return deleteCheck;
+	}
+
+
+	public void setDeleteCheck(String deleteCheck) {
+		this.deleteCheck = deleteCheck;
+	}
+
 
 	@Override
 	public String toString() {
 		return "ReportBoard [reportNo=" + reportNo + ", title=" + title + ", content=" + content + ", reportCode="
-				+ reportCode + ", reportCheck=" + reportCheck + ", memberId=" + memberId + ", regDate=" + regDate + "]";
+				+ reportCode + ", reportCheck=" + reportCheck + ", memberId=" + memberId + ", regDate=" + regDate
+				+ ", deleteCheck=" + deleteCheck + "]";
 	}
-
-
-	 
-	 
-
- 
-
-	 
-	
 
 }

@@ -7,6 +7,17 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
 <%@ include file="/WEB-INF/views/common/header.jsp" %>	
+<style>
+    table {
+        border: 1px solid #000;
+        border-collapse: collapse;
+    }
+    th, td {
+        border: 1px solid #000;
+        text-align: center;
+        vertical-align: center;
+    }
+</style>
 <%
 	Map<String, Object> delCartMap = (Map<String, Object>) new HashMap<String, Object>();
 %>
@@ -23,7 +34,6 @@
 			</tr>
 		</thead>
 		<tbody>
-
 			<tr>
 <%
 	List<Purchase> list = (List<Purchase>) request.getAttribute("list");

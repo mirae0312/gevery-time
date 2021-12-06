@@ -13,6 +13,7 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Properties;
 
+import com.zea.geverytime.customer.model.vo.ReportBoard;
 import com.zea.geverytime.info.model.exception.InfoBoardException;
 import com.zea.geverytime.info.model.vo.Info;
 import com.zea.geverytime.info.model.vo.InfoEntity;
@@ -96,5 +97,74 @@ public class AdminDao {
 			
 			return list;
 		}
+	public List<ReportBoard> selectReportList(Connection conn) {
+		PreparedStatement pstmt = null;
+		String sql = prop.getProperty("selectReportList");	
+		ResultSet rset = null;
+		List<ReportBoard> list = new ArrayList<>();
+		
+		try {
+			pstmt = conn.prepareStatement(sql);
+			
+//			pstmt.setInt(1, start);
+//			pstmt.setInt(2, end);
+			
+			rset = pstmt.executeQuery();
+			while(rset.next()) {
+				ReportBoard report = new ReportBoard();
+				report.setReportCode(rset.getString("report_code"));
+				report.setTitle(rset.getString("title"));
+				report.setMemberId(rset.getString("member_id"));
+				report.setContent(rset.getString("content"));
+				report.setRegDate(rset.getDate("reg_date"));
+				report.setReportCheck(rset.getString("report_check"));
+				report.setDeleteCheck(rset.getString("delete_check"));
+				
+				list.add(report);
+			}
+		} catch (SQLException e) {
+			throw new InfoBoardException("신고사항 불러오기 실패!", e);
+		} finally {
+			close(rset);
+			close(pstmt);
+		}
+		
+		return list;
+	}
+	public int checkReport(Connection conn, String code, String output) {
+		PreparedStatement pstmt = null;
+		String sql = prop.getProperty("checkReport");
+		int result = 0;
+		
+		try {
+			pstmt = conn.prepareStatement(sql);
+			pstmt.setString(1, code);
+			result = pstmt.executeUpdate();
+			System.out.println("checkReport 반려 = " + result);
+		} catch (SQLException e) {
+			throw new InfoBoardException("신고사항 반려 실패!", e);
+		}finally {
+			close(pstmt);
+		}
+		
+		return result;
+	}
+	public int deleteReport(Connection conn, String code, String output) {
+		PreparedStatement pstmt = null;
+		String sql = prop.getProperty("deleteCheckReport");
+		int result = 0;
+		
+		try {
+			pstmt = conn.prepareStatement(sql);
+			pstmt.setString(1, code);
+			result = pstmt.executeUpdate();
+			System.out.println("checkReport 삭제 = " + result);
+		} catch (SQLException e) {
+			throw new InfoBoardException("신고사항 삭제 실패!", e);
+		}finally {
+			close(pstmt);
+		}
+		return result;
+	}
 
 }
