@@ -54,15 +54,6 @@
 	</div>
 </div>
 <script>
-// 게시물 상세보기 용
-$(".info-wrap").click((e) => {
-	const $code = $(e.currentTarget).find('div.hidden-code').text();
-	console.log($code);
-	
-	location.href=`<%= request.getContextPath() %>/info/view?code=\${$code}`;
-});
-
-
 // ajax data
 var loading = false;
 var page = 1;
@@ -115,14 +106,23 @@ const scrollPage = () => {
 				<div class="hidden-code">\${code}</div>
 				</div><hr />
 				`;
+								
 				$div.append($contents);
+				
+				// 게시판 상세보기
 				$(".info-wrap").click((e) => {
 					const $code = $(e.currentTarget).find('div.hidden-code').text();
-					//console.log($code);
-					
+					//console.log($code);					
 					location.href=`<%= request.getContextPath() %>/info/view?code=\${$code}`;
 				});				
 				
+			});
+			
+			$(".info-wrap").click((e) => {
+				const $code = $(e.currentTarget).find('div.hidden-code').text();
+				console.log($code);
+				
+				location.href=`<%= request.getContextPath() %>/info/view?code=\${$code}`;
 			});
 			
 			page++;
