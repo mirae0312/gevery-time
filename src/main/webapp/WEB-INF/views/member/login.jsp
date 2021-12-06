@@ -2,6 +2,9 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
 <%@ include file="/WEB-INF/views/common/header.jsp" %>
+<%
+	String referer = (String) request.getAttribute("referer");
+%>
 
 <!DOCTYPE html>
 <html>
@@ -78,6 +81,9 @@ $(() => {
                 </div>
                 
                 </fieldset>
+                
+                <!-- referer set -->
+                <input type="hidden" name="referer" value="<%= referer %>" />
             </form>
             
         </div>
