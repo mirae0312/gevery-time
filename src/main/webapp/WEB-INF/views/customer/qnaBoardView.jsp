@@ -4,7 +4,7 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
 <%@ include file="/WEB-INF/views/common/header.jsp" %>
-<link rel="stylesheet" href="<%=request.getContextPath()%>/css/customer/faqView.css" />
+<link rel="stylesheet" href="<%=request.getContextPath()%>/css/customer/qnaView.css" />
 <%
 		QnaBoard qnaBoard = (QnaBoard) request.getAttribute("qnaBoard");
 %>
@@ -40,7 +40,7 @@
                         <th class="header">분류</th>
                         <th><%= qnaBoard.getCategory() %></th>
                     </tr>
-                    <tr id="content">
+                    <tr id="contents">
                         <th class="header">내용</th>
                         <th><%=qnaBoard.getContent() %></th>
                     </tr>
@@ -48,7 +48,7 @@
             </table>
             <br> 
         </div>             
-        
+        <br><br><br><br><br>
         <div id="ifReply"></div> 
      
 </div>

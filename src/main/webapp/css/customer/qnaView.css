@@ -1,13 +1,15 @@
 @charset "UTF-8";
  
-#content{
-    height: 220px;
+#contents{
+    height: 230px;
+}
+.content{
+	height: 1600px;
 }
 .button{
     text-align: right;
     padding : 2px 20px;
-    margin-top: -90px;
-     
+    margin-top: -97px;
     margin-right: 20px;
 }
 .buttonlist{
@@ -61,12 +63,13 @@ a {
     width:  880px;
     margin: auto;
     padding-left: 150px;
+    margin-top:100px;
    
 }
 .board_list_wrap1 {
-    width:  850px;
+    width:  880px;
     margin: auto;
-    padding-left: 150px;
+    padding-left: 130px;
    
 }
 
@@ -83,7 +86,7 @@ a {
 
 .board_list th,
 .board_list td {
-    padding: 10px;
+    padding: 7px;
     font-size: 15px;
     font-weight: inherit;
    
@@ -107,3 +110,6 @@ thead{
 	margin-left:30px;
 	
 } 
+footer{
+	margin-top:280px;
+}
