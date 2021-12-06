@@ -11,13 +11,13 @@
  
 <section id="board-container">
 <div id="total">
-       <div id="leftbox">
-            <span>Q&A</span>
+    <div id="leftbox">
+            <span><a href="<%= request.getContextPath() %>/customer/qnaBoardList">Q&A</a></span>
             <br><br>
             <span><a href="<%= request.getContextPath() %>/customer/faqBoardList">FAQ</a></span>
             <br><br>
-            <span>신고내역</span>
-        </div>
+            <span><a href="<%= request.getContextPath() %>/customer/reportBoardList">신고내역</a></span>
+ </div>
         <div class="board_list_wrap">
             <table class="board_list">
                 <caption>게시판 상세보기</caption>

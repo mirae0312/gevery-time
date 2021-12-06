@@ -23,9 +23,10 @@ body{
    
 }
 #leftbox{
-    width: 110px;
-    height: 370px;
+    width: 155px;
+    height: 380px;
     border: solid;
+    border-radius:10px;
     float: left;
     /* margin-left: 150px; */
     text-align:right;
@@ -33,7 +34,7 @@ body{
     padding-top:10px;
     /* size: 100px; */
     border: none;
-    background-color: rgba(128, 128, 128, 0.185);
+    background-color: rgb(128 128 128 / 12%);
  
 }
 #leftbox span{
