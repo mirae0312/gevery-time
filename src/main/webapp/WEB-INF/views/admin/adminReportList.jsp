@@ -38,25 +38,29 @@
 				<tbody>
 				</tbody>
 			</table>
+			<div id="pageBar"></div>
 		</li>
 	</ul>
 </div>
 <script>
 
 $(() => {
-	reportList();
+	reportList(1);
 });
-
-const reportList = () => {
+$("#pageBar").click((e) => {
+	reportList($(e.target).data('page'));
+});
+const reportList = (cPage) => {
+	console.log(cPage);
 	$.ajax({
-		url: "<%= request.getContextPath() %>/admin/reportList",
+		url: "<%= request.getContextPath() %>/admin/reportCheckList",
 		dataType: "json",
-		method: "post",
 		success(data){
-			const $tbody = $("#refort-container tbody");
+			console.log(data);
+			$("#refort-container tbody").empty();
 			
-			$(data).each((i, {reportCode, title, memberId, content, regDate, reportCheck, deleteCheck}) => {
-				console.log(reportCode, title, memberId, content, regDate, reportCheck);
+			$(data.list).each((i, e) => {
+				console.log(e);
 				let rd = new Date(regDate);
 				let value = `\${rd.getFullYear()}.\${(rd.getMonth() + 1)}.\${(rd.getDate())}`;
 				
@@ -70,18 +74,21 @@ const reportList = () => {
 					state = "처리중" 
 				
 				const tr = `<tr>
-				<td>\${reportCode}</td>
-				<td><a href="#" target="_self", onclick="window.open('<%= request.getContextPath() %>/admin/reportCheck?code=\${reportCode}', 
+				<td>\${e.reportCode}</td>
+				<td><a href="#" target="_self", onclick="window.open('<%= request.getContextPath() %>/admin/reportCheck?code=\${e.reportCode}', 
 					'_blank', 'width=500px, height=200px, scrollbars = yes')" >\${title}</a>
 				</td>
-				<td>\${memberId}</td>
-				<td>\${content}</td>
+				<td>\${e.memberId}</td>
+				<td>\${e.content}</td>
 				<td>\${value}</td>
 				<td>\${state}</td>
 				</tr>`;
 					
-				$tbody.append(tr);
-			});
+				$("#refort-container tbody").append(tr);
+			}),
+			console.log(data.pagebar);
+            $("#pageBar").empty();
+            $("#pageBar").append(data.pagebar);
 		},
 		error:console.log
 		

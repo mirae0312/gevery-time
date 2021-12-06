@@ -23,29 +23,8 @@ public class AdminReportServlet extends HttpServlet {
 	private AdminService adminService = new AdminService();   
 
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		try {
-			System.out.println("[AdminReport@Servlet] doGet");
-			request
-			.getRequestDispatcher("/WEB-INF/views/admin/adminReportList.jsp")
-			.forward(request, response);
-		} catch(Exception e) {
-			e.printStackTrace();
-			throw e;
-		}
-	}
-
-	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		try {
-			
-			List<ReportBoard> list = adminService.selectReportList();
-			System.out.println("[AdminReport@Servlet] reportList : " + list);
-			
-			response.setContentType("application/json; charset=utf-8");
-			new Gson().toJson(list, response.getWriter());	
-			
-		}	catch(Exception e) {
-			e.printStackTrace();
-			throw e;
-		}
+		request
+		.getRequestDispatcher("/WEB-INF/views/admin/adminList.jsp")
+		.forward(request, response);
 	}
 }
