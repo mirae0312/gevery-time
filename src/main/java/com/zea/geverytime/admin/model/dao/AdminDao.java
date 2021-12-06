@@ -131,5 +131,40 @@ public class AdminDao {
 		
 		return list;
 	}
+	public int checkReport(Connection conn, String code, String output) {
+		PreparedStatement pstmt = null;
+		String sql = prop.getProperty("checkReport");
+		int result = 0;
+		
+		try {
+			pstmt = conn.prepareStatement(sql);
+			pstmt.setString(1, code);
+			result = pstmt.executeUpdate();
+			System.out.println("checkReport 반려 = " + result);
+		} catch (SQLException e) {
+			throw new InfoBoardException("신고사항 반려 실패!", e);
+		}finally {
+			close(pstmt);
+		}
+		
+		return result;
+	}
+	public int deleteReport(Connection conn, String code, String output) {
+		PreparedStatement pstmt = null;
+		String sql = prop.getProperty("deleteCheckReport");
+		int result = 0;
+		
+		try {
+			pstmt = conn.prepareStatement(sql);
+			pstmt.setString(1, code);
+			result = pstmt.executeUpdate();
+			System.out.println("checkReport 삭제 = " + result);
+		} catch (SQLException e) {
+			throw new InfoBoardException("신고사항 삭제 실패!", e);
+		}finally {
+			close(pstmt);
+		}
+		return result;
+	}
 
 }

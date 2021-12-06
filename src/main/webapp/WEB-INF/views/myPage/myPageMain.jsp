@@ -15,7 +15,6 @@
 		<% if(loginMember != null && loginMember.getMemberType().equals("B")) { %>
 		<li id="businessInfo"><a href="<%=request.getContextPath() %>/myPage/myPageMain">내정보(사업자)</a></li> 
 		<% } %>
-		<li id="point"><a href="<%=request.getContextPath() %>/myPage/myPagePoint">나의 Point</a></li>
 		<li id="buyList"><a href="<%=request.getContextPath() %>/myPage/PurchaseHistory?memberId=<%= loginMember.getMemberId() %>">나의 구매내역</a></li>
 		<% if(loginMember != null && loginMember.getMemberType().equals("B")) { %>
 		<li id="InfoPost"><a href="<%=request.getContextPath() %>/myPage/business?id=<%= businessMember.getMemberId() %>">정보게시물 승인</a></li>

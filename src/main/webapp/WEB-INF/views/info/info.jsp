@@ -9,11 +9,10 @@
 %>
 <%@ include file="/WEB-INF/views/common/header.jsp" %>	
 <link rel="stylesheet" href="<%=request.getContextPath() %>/css/info/info.css" />
+<script src="<%= request.getContextPath() %>/js/info/infoList.js"></script>
 <div class="info-wrapper">
-	<div class="go-up-btn btn">위로</div>
-<% if(loginMember != null && MemberService.BUSINESS_TYPE.equals(loginMember.getMemberType())){ %>
-	<button class="info-write-btn btn" onclick="infoEnroll()">게시글<br />작성</button>
-<% } %>
+	
+	<%-- 인기 글 --%>
 	<div class="pop-contents">
 <% if(popList != null && !popList.isEmpty()){ %>
 	<% for(Info popInfo : popList){ %>
@@ -29,13 +28,18 @@
 	<% } %>
 <% } %>
 	</div>
+	
+	<%-- 정렬 --%>
 	<div class="select-contents">
 		<div class="select-wrapper">
-			<select name="location" id="location">
-				<option value="">지역</option>
+			<select name="location1" class="location" id="sido">
+				<option hidden="" selected disabled>시도</option>
+			</select>
+			<select name="location2" class="location" id="sido-detail">
+				<option hidden="" selected disabled>지역</option>
 			</select>
 			<select name="lining" class="lining">
-				<option value="new">정렬</option>
+				<option hidden="" selected disabled>정렬</option>
 				<option value="old">등록순</option>
 				<option value="new">최신순</option>
 				<option value="view">방문순</option>
@@ -43,23 +47,13 @@
 			</select>
 		</div>
 	</div>
+	
+	<%-- 전체 글 --%>
 	<div class="all-contents">
-		<div class="info-content">
-		</div>
-
+		<div class="info-content"></div>
 	</div>
 </div>
-<form action=""></form>
 <script>
-// 시작시 ajax실행
-$(() => {
-	scrollPage();
-});
-
-$(".go-up-btn").click((e) => {
-	$('html, body').animate({scrollTop:0}, 300);
-});
-
 // 게시물 상세보기 용
 $(".info-wrap").click((e) => {
 	const $code = $(e.currentTarget).find('div.hidden-code').text();
@@ -68,16 +62,13 @@ $(".info-wrap").click((e) => {
 	location.href=`<%= request.getContextPath() %>/info/view?code=\${$code}`;
 });
 
-// 게시물 등록
-const infoEnroll = () => {
-	location.href="<%= request.getContextPath() %>/info/Enroll";
-};
 
 // ajax data
 var loading = false;
 var page = 1;
 var pageCheck = "<%= check %>";
 var n = "new";
+var sido = "all";
 
 // select 값이 변하면 페이지 비우고 ajax 재시작
 $(".lining").change((e) => {
@@ -87,12 +78,20 @@ $(".lining").change((e) => {
 	scrollPage();
 });
 
+// 시도 부분을 선택할 시 시군구 부분을 한번 비우고 각 시군구를 추가 페이지를 비우고 ajax 재시작
+$("#sido-detail").change((e) => {
+	sido = $("#sido option:checked").text() + "/" + $("#sido-detail option:checked").text();
+	$(".info-content").empty();		
+	page = 1;
+	scrollPage();
+});
+
 
 const scrollPage = () => {	
-	
+	console.log(n, sido);
 	$.ajax({
 		url: "<%= request.getContextPath() %>/info/scrollList",
-		data: {'page':page, 'pageCheck':pageCheck, 'n':n},
+		data: {'page':page, 'pageCheck':pageCheck, 'n':n, 'sido':sido},
 		dataType: "json",
 		success(data){
 			const $data = $(data);
@@ -100,11 +99,11 @@ const scrollPage = () => {
 			
 			const $div = $(".info-content");
 			
-			$data.each((i, {code, businessName, headContent, attachments, recommend, viewCount, regDate, commentCount}) => {
+			$data.each((i, {code, businessName, headContent, attachments, recommend, viewCount, regDate, commentCount, location}) => {
 				
 				let rd = new Date(regDate);
 				let value = `\${rd.getFullYear()}.\${(rd.getMonth() + 1)}.\${(rd.getDate())}`;
-				//console.log(value);
+				
 				const $contents = `<div class="info-wrap">
 				<div class="business-name">\${businessName}</div>
 				<div class="head-content">\${headContent}</div>				
@@ -149,7 +148,5 @@ $(window).scroll(function(){
 		}
 	}
 });
-
-
 </script>
 <%@ include file="/WEB-INF/views/common/footer.jsp" %> 
