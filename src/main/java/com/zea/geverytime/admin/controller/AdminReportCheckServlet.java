@@ -62,9 +62,7 @@ public class AdminReportCheckServlet extends HttpServlet {
 						
 			// 응답처리
 			response.setContentType("application/json; charset=utf-8");
-			new Gson().toJson(jMap, response.getWriter());
-					
-						
+			new Gson().toJson(jMap, response.getWriter());			
 					
 			} catch(Exception e) {
 				e.printStackTrace();

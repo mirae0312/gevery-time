@@ -4,7 +4,7 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
 <%@ include file="/WEB-INF/views/common/header.jsp" %>
-<link rel="stylesheet" href="<%=request.getContextPath()%>/css/customer/qnaView.css" />
+<link rel="stylesheet" href="<%=request.getContextPath()%>/css/customer/faqView.css" />
 <%
 		ReportBoard reportBoard = (ReportBoard) request.getAttribute("reportBoard");
 %>
@@ -28,19 +28,19 @@
                     </tr>
                 </thead>
                 <tbody>
-                    <tr id="content">
-                        <th>내용</th>
-                        <th><%=reportBoard.getContent() %></th>
-                    </tr>
                     <tr>
                         <th>날짜</th>
                         <th><%=reportBoard.getRegDate() %></th>
                     </tr>
+                    <tr id="content">
+                        <th>내용</th>
+                        <th><%=reportBoard.getContent() %></th>
+                    </tr>
                 </tbody>
             </table>
         </div>
-        <div class="button">
-        <input type="button" class="button" value="목록" onclick="showFaqBoardList()"/>  
+        <div class="button2">
+        <input type="button" class="buttonlist" value="목록" onclick="showFaqBoardList()"/>  
         </div>
  </div>
  </section>

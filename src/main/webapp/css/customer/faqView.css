@@ -1,14 +1,13 @@
 @charset "UTF-8";
  
 #content{
-    height: 220px;
+    height: 280px;
 }
-.button{
+.button2{
     text-align: right;
     padding : 2px 20px;
-    margin-top: -90px;
-     
-    margin-right: 20px;
+    margin-top: 60px;
+    margin-right: 30px;
 }
 .buttonlist{
     border-style: none;
@@ -16,6 +15,7 @@
     padding:7px 9px;
     font-size: 14px;
     cursor:pointer;
+   
 }
 body{
     width: 1024px;
@@ -28,7 +28,6 @@ body{
     border: solid;
     border-radius:10px;
     float: left;
-    /* margin-left: 150px; */
     text-align:right;
     padding-right:10px;
     padding-top:10px;
@@ -58,10 +57,10 @@ a {
 }
 
 .board_list_wrap {
-    width:  880px;
+    width:  830px;
     margin: auto;
     padding-left: 150px;
-   
+    margin-left: 50px;
 }
 .board_list_wrap1 {
     width:  850px;
@@ -96,7 +95,7 @@ thead{
     background-color: rgba(128, 128, 128, 0.103);
 }
 #total{
-       margin-top: 40px;
+       margin-top: 100px;
         height:480px;
     
     }  
