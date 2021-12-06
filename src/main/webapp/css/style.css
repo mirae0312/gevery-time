@@ -312,18 +312,49 @@ section#content{
 /* 마켓 */
 .market-wrapper{
 	width: 1024px;
-	height: 500px;
-	border: 1px solid red;
+	height: 250px;
 }
 #market-board-table{
-	border: 1px solid black;
 	width: 1024px;
-	height: 500px;
-	border-collapse: collapse;
+	height: 250px;
+	border-collapse: collapse;	
 }
-#market-board-table tr{
-	border: 1px solid black;
+
+#market-board-table td:nth-child(1){
+	width:340px;
+	background-image:url('../images/market/dog.png');
+	background-size:100% 100%;
+	opacity:.6;
 }
-#market-board-table td{
-	border: 1px solid black;
+#market-board-table td:nth-child(2){
+	width:340px;
+	background-image:url('../images/market/cat.png');
+	background-size:100% 100%;
+	opacity:.6;
 }
+#market-board-table td:nth-child(3){
+	width:340px;
+	background-image:url('../images/market/goose.png');
+	background-size:100% 100%;
+	opacity:.6;
+}
+#market-board-table td:nth-child(1):hover{
+	opacity:1;
+}
+#market-board-table td:nth-child(2):hover{
+	opacity:1;
+}
+#market-board-table td:nth-child(3):hover{
+	opacity:1;
+}
+
+#market-board-table a {
+	transform: translateY(-100px);
+	position: absolute;
+	padding-left:20px;
+	color:white;
+	font-size:30px;
+	text-decoration:none;
+}
+
+
