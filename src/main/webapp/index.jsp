@@ -67,7 +67,7 @@ $(()=>{
 	console.log("hi");
 });
 const f = function(n){
-    return n<10 ? `0\${n}`:n;
+    return n<10 ? `0\${n}`:n; 
 }
 const getBoardPopularList = () => {
 	$.ajax({
