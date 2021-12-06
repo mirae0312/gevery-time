@@ -87,7 +87,7 @@
 	        <div class="market-navsbox">
 	            <ul class="market-pagenavs">
 	                <!-- <li class="pagenav3" id="point"><a href="#">내 Point 확인</a></li> -->
-	                <li class="market-pagenav" id="store"><a href="#">일반상점</a></li>
+	                <li class="market-pagenav" id="store"><a href="<%= request.getContextPath() %>/product/main?div=all">일반상점</a></li>
 	                <li class="market-pagenav" id="used"><a href="<%= request.getContextPath() %>/ugGoods/main">중고 매매</a></li>
 	                <% if(loginMember != null) { %>
 	                <li class="market-pagenav" id="list"><a href="<%= request.getContextPath() %>/wishList/main?memberId=<%= loginMember.getMemberId() %>">찜 목록</a></li>
@@ -123,7 +123,7 @@
     
     // 일반상점 이동
     $("#store").click((e) => {
-    	location.href="<%= request.getContextPath() %>/product/main";
+    	location.href="<%= request.getContextPath() %>/product/main?div=%%";
     });
     
     // 상단 이동

@@ -39,14 +39,9 @@
 	<div class="market-wrapper">
 		<table id="market-board-table">
 			<tr>
-				<td></td>
-				<td></td>
-				<td></td>
-			</tr>
-			<tr>
-				<td></td>
-				<td></td>
-				<td></td>
+				<td><a href="<%= request.getContextPath() %>/product/main?div=dog">강아지 상품 보러가기</a></td>
+				<td><a href="<%= request.getContextPath() %>/product/main?div=cat">고양이 상품 보러가기</a></td>
+				<td><a href="<%= request.getContextPath() %>/product/main?div=goose">거위 상품 보러가기</a></td>
 			</tr>
 		</table>
 	</div><br />

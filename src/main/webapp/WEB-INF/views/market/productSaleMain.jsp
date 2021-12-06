@@ -4,7 +4,7 @@
     pageEncoding="UTF-8"%>
 <%@ include file="/WEB-INF/views/common/header.jsp" %>	
 <%
-	List<ProductBoard> list = (List<ProductBoard>) request.getAttribute("list");
+	String div = (String) request.getAttribute("div");
 %>
 
 <title>일반 상점</title>
@@ -20,10 +20,10 @@
 					<td><span>선택 분류만 보기</span></td>
 					<td>
 						<select name="" id="divSelect">
-							<option value="%%" selected>선택하기</option>
-							<option value="dog">강아지</option>
-							<option value="cat">고양이</option>
-							<option value="duck">거위</option>
+							<option value="%%" <%= div.equals("%%") ? "selected" : "" %>>선택하기</option>
+							<option value="dog" <%= div.equals("dog") ? "selected" : "" %>>강아지</option>
+							<option value="cat" <%= div.equals("cat") ? "selected" : "" %>>고양이</option>
+							<option value="duck" <%= div.equals("goose") ? "selected" : "" %>>거위</option>
 						</select>		
 					</td>
 					<td rowspan=2>
