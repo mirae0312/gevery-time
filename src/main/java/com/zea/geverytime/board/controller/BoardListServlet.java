@@ -37,7 +37,7 @@ public class BoardListServlet extends HttpServlet {
 			System.out.println(boardSelect);
 			// 2. 업무처리
 			// 1) 컨텐츠 부분 - 현재페이지, 페이지당 게시물 수 -> startnum, endnum구하기
-			int numPerPage = 20;
+			int numPerPage = 15;
 			int startNum = (cPage-1)*numPerPage+1;
 			int endNum = cPage*numPerPage;
 			

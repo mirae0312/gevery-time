@@ -114,14 +114,14 @@
 					<%= bc.getContent() %>
 				</td>
 				<td>
-				<button class="btn-comment-like" value="<%= bc.getNo() %>">좋아요 <%=bc.getLikeCount()%></button>
-					<button class="btn-reply" value="<%= bc.getNo() %>">답글</button>
-					<button class="report" value="<%= bc.getOrCode() %>">신고</button>					
+				<button class="btn-comment-like btn" value="<%= bc.getNo() %>">좋아요 <%=bc.getLikeCount()%></button>
+					<button class="btn-reply btn" value="<%= bc.getNo() %>">답글</button>
+					<button class="report btn" value="<%= bc.getOrCode() %>">신고</button>					
 					<% if(loginMember!= null){	
 						if(loginMember.getMemberId().equals(bc.getWriter())
 								|| loginMember.getMemberRole().equals(MemberService.ADMIN_ROLE)){
 					%>
-					<button class="btn-deleteComment" value="<%= bc.getNo() %>" style ="float:right"> 삭제</button>
+					<button class="btn-deleteComment btn" value="<%= bc.getNo() %>" style ="float:right"> 삭제</button>
 					<%}} %>				</td>
 			</tr>
 <%
@@ -134,13 +134,13 @@
 					<br />
 					<%-- 대댓글내용 --%>
 					<%= bc.getContent() %>
-					<button class="btn-comment-like" value="<%= bc.getNo() %>">좋아요 <%=bc.getLikeCount()%></button>
-					<button class="report" value="<%= bc.getOrCode() %>">신고</button>
+					<button class="btn-comment-like btn" value="<%= bc.getNo() %>">좋아요 <%=bc.getLikeCount()%></button>
+					<button class="report btn" value="<%= bc.getOrCode() %>">신고</button>
 					<% if(loginMember!= null){	
 						if(loginMember.getMemberId().equals(bc.getWriter())
 								|| loginMember.getMemberRole().equals(MemberService.ADMIN_ROLE)){
 					%>
-					<button class="btn-deleteComment" value="<%= bc.getNo() %>" style ="float:right"> 삭제</button>
+					<button class="btn-deleteComment btn" value="<%= bc.getNo() %>" style ="float:right"> 삭제</button>
 					<%}} %>
 				</td>
 				<td></td>
@@ -157,8 +157,8 @@
 	</div>
 </section>
 <section class="sameWriterOtherBoardList">
-<h4><%=board.getWriter() %>님의 다른 게시물</h4>
-<table id="otherBoardList">
+<h4 id="otherList"><%=board.getWriter() %>님의 다른 게시물</h4>
+<table id="otherBoardList" class="board-list-table">
 		<thead>
 			<tr>
 				<th>번호</th>
@@ -173,7 +173,7 @@
 		<tbody>
 		</tbody>
 	</table>
-	<div class="pageBar"></div>
+	<div class="board-pageBar"></div>
 </section>
 
 <form
@@ -353,7 +353,7 @@ $(".report").click((e) => {
 	$(()=>{
 		selectContent(1);
 	});
-	$(".pageBar").click((e)=>{
+	$(".board-pageBar").click((e)=>{
 		selectContent($(e.target).data('page'));
 	})
 	const selectContent = (cPage) => {
@@ -397,10 +397,10 @@ $(".report").click((e) => {
 					$("#otherBoardList tbody").append(tr);
 					
 				})
-				//pagebar부분
+				//pageBar부분
 				console.log(data.pagebar);
-				$(".pageBar").empty();
-				$(".pageBar").append(data.pagebar);
+				$(".board-pageBar").empty();
+				$(".board-pageBar").append(data.pagebar);
 			},
 			error:console.log
 		});	

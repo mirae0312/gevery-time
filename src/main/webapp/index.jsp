@@ -28,20 +28,10 @@
 	</div><hr />
 	
 	<%-- 인포영역 --%>
-	<h1>정보</h1>
+	<h1>한 주간의 인기 SPOT</h1>
 	<div class="info-board-wrapper">
-		<table id="info-board-table">
-			<tr>
-				<td><h1>한 주간의 인기 SPOT</h1></td>
-				<td></td>
-				<td></td>
-			</tr>
-			<tr>
-				<td></td>
-				<td></td>
-				<td></td>
-			</tr>
-		</table>
+		<div id="info-board-table">			
+		</div>			
 	</div><hr />
 	
 	<%-- 마켓영역 --%>
@@ -65,6 +55,7 @@
 $(()=>{
 	getBoardPopularList();
 	console.log("hi");
+	mainInfoLists();
 });
 const f = function(n){
     return n<10 ? `0\${n}`:n; 
@@ -110,6 +101,40 @@ const getBoardPopularList = () => {
 				
 			})
 
+		},
+		error:console.log
+	});
+};
+
+const mainInfoLists = () => {
+	$.ajax({
+		url:"<%= request.getContextPath() %>/main/infoList",
+		data:{"board":"info"},
+		dataType:"json",
+		success(data){
+			//console.log(data);
+			
+			const $box = $("#info-board-table");
+			$box.empty();
+			$(data).each((i, e) => {
+				console.log(e.businessName);
+				const contents = `
+				<div class="content">
+				<img class="info-img" src="<%= request.getContextPath() %>/upload/info/\${e.attachments[0].renamedFilename}" alt="" />
+				<div class="info-bname">\${e.businessName}</div>
+				<div class="hidden-code">\${e.code}</div>	
+				</div>
+				`;
+				$box.append(contents);
+			});
+			
+			$(".content").click((e) => {
+				const $code = $(e.currentTarget).find('div.hidden-code').text();
+				console.log($code);
+				
+				location.href=`<%= request.getContextPath() %>/info/view?code=\${$code}`;
+			});
+			
 		},
 		error:console.log
 	});
