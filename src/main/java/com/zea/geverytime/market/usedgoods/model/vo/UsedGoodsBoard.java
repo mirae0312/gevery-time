@@ -117,8 +117,10 @@ public class UsedGoodsBoard implements Serializable {
 	public String toString() {
 		return "UsedGoodsBoard [no=" + no + ", title=" + title + ", content=" + content + ", orCode=" + orCode
 				+ ", regDate=" + regDate + ", writer=" + writer + ", price=" + price + ", attachments=" + attachments
-				+ "]";
+				+ ", state=" + state + "]";
 	}
+
+
 
 
 	

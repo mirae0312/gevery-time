@@ -88,7 +88,7 @@
 	                <li class="market-pagenav" id="store"><a href="#">일반상점</a></li>
 	                <li class="market-pagenav" id="used"><a href="<%= request.getContextPath() %>/ugGoods/main">중고 매매</a></li>
 	                <% if(loginMember != null) { %>
-	                <li class="market-pagenav" id="list"><a href="#">찜 목록</a></li>
+	                <li class="market-pagenav" id="list"><a href="<%= request.getContextPath() %>/wishList/main?memberId=<%= loginMember.getMemberId() %>">찜 목록</a></li>
 	                <li class="market-pagenav" id="cart"><a href="<%= request.getContextPath() %>/cart/main?memberId=<%= loginMember.getMemberId() %>">장바구니</a></li>
 	                <% } %>
 	                <% if(loginMember != null && loginMember.getMemberType().equals("B")) { %>
