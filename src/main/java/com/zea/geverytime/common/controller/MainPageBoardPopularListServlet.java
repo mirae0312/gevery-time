@@ -24,8 +24,9 @@ public class MainPageBoardPopularListServlet extends HttpServlet {
 	private BoardService boardService = new BoardService();
 	
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		List<Board> freeList = boardService.getFreePopularList();
-		List<Board> reviewList = boardService.getReviewPopularList();
+		int count = 15;
+		List<Board> freeList = boardService.getFreePopularList(count);
+		List<Board> reviewList = boardService.getReviewPopularList(count);
 		Map<String, Object> map = new HashMap<>();
 		map.put("freeList", freeList);
 		map.put("reviewList", reviewList);

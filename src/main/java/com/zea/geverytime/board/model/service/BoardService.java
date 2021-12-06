@@ -199,15 +199,15 @@ public class BoardService {
 		return result;
 	}
 
-	public List<Board> getFreePopularList() {
+	public List<Board> getFreePopularList(int count) {
 		Connection conn = getConnection();
-		List<Board> list = boardDao.getFreePopularList(conn);
+		List<Board> list = boardDao.getFreePopularList(conn,count);
 		close(conn);
 		return list;
 	} 
-	public List<Board> getReviewPopularList() {
+	public List<Board> getReviewPopularList(int count) {
 		Connection conn = getConnection();
-		List<Board> list = boardDao.getReviewPopularList(conn);
+		List<Board> list = boardDao.getReviewPopularList(conn,count);
 		close(conn);
 		return list;
 	}

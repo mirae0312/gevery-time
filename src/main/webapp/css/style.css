@@ -247,21 +247,39 @@ section#content{
 
 /* 게시판 */
 .board-wrapper{
-	margin: 50px 0;
+	border:1px solid black;
+	margin-left:auto;
+	margin-right:auto;
 	width: 1024px;
-	height: 400px;
+	height: 570px;
 	display:flex;
 	justify-content: space-around;
 }
 .board-left-wrap{
-	border: 1px solid black;
-	width: 512px;
+	padding:50px;
+	border-right: 1px solid black;
+	width: 50%;
 }
 .board-right-wrap{
-	border: 1px solid black;
-	width: 512px;
+	padding:50px;
+	width: 50%;
 }
-
+.board-wrapper table {
+/* 	border:1px solid black;
+ */	margin-left:auto;
+	margin-right:auto;
+}
+.board-wrapper table th {
+	padding-bottom:30px;
+}
+.board-wrapper table td {
+	padding-bottom:6px;
+}
+.board-wrapper table td.title{
+	  white-space:nowrap;
+	width:350px;
+	font-size:100%;	
+}
 /* 정보 게시판 */
 .info-board-wrapper{
 	width: 1024px;
@@ -294,18 +312,49 @@ section#content{
 /* 마켓 */
 .market-wrapper{
 	width: 1024px;
-	height: 500px;
-	border: 1px solid red;
+	height: 250px;
 }
 #market-board-table{
-	border: 1px solid black;
 	width: 1024px;
-	height: 500px;
-	border-collapse: collapse;
+	height: 250px;
+	border-collapse: collapse;	
 }
-#market-board-table tr{
-	border: 1px solid black;
+
+#market-board-table td:nth-child(1){
+	width:340px;
+	background-image:url('../images/market/dog.png');
+	background-size:100% 100%;
+	opacity:.6;
 }
-#market-board-table td{
-	border: 1px solid black;
+#market-board-table td:nth-child(2){
+	width:340px;
+	background-image:url('../images/market/cat.png');
+	background-size:100% 100%;
+	opacity:.6;
 }
+#market-board-table td:nth-child(3){
+	width:340px;
+	background-image:url('../images/market/goose.png');
+	background-size:100% 100%;
+	opacity:.6;
+}
+#market-board-table td:nth-child(1):hover{
+	opacity:1;
+}
+#market-board-table td:nth-child(2):hover{
+	opacity:1;
+}
+#market-board-table td:nth-child(3):hover{
+	opacity:1;
+}
+
+#market-board-table a {
+	transform: translateY(-100px);
+	position: absolute;
+	padding-left:20px;
+	color:white;
+	font-size:30px;
+	text-decoration:none;
+}
+
+
