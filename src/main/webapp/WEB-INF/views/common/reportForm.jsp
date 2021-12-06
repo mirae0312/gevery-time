@@ -24,6 +24,7 @@
 		<p>작성자 : <%= loginMember.getMemberId() %></p>
 		<textarea name="body" id="report-body" cols="30" rows="10"></textarea>
 		<input type="hidden" name="code" value="<%=code%>" />
+		<input type="hidden" name="code" value="<%= code %>" />
 		<input type="hidden" name="writer" value="<%= loginMember.getMemberId() %>" /><br />
 		<input type="button" id="report-submit" value="등록" />
 	</form>

@@ -17,6 +17,7 @@ import com.zea.geverytime.member.model.vo.Member;
 public class IdFindGetServlet extends HttpServlet {
 	private static final long serialVersionUID = 1L;
        
+	MemberService memberService = new MemberService();
     
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		//1.인코딩
@@ -26,7 +27,6 @@ public class IdFindGetServlet extends HttpServlet {
 		System.out.println(memberName);
 		String email = request.getParameter("email");
 		//3.비지니스로직
-		MemberService memberService = new MemberService();
 		Member member = memberService.searchId(memberName,email);
 		
 		System.out.println("member : " + member);

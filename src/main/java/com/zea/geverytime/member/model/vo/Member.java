@@ -16,8 +16,8 @@ public class Member extends CommonData implements Serializable {
 	
 	
 	public Member(String Id, String password,
-			String name,String phone,
-			String address,String email, 	
+			String name,String phone,String address,	
+			String email, 
 			String memberRole,String memberType,
 			Date birthday) {
 		super(Id,password,name,email);
