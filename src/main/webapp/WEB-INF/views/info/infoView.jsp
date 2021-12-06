@@ -265,9 +265,10 @@ const reportInfoMain = () => {
 
 //리뷰신고
 const reportReview = () => {
+	const code = $(".reviewCode").val();
 	const name = "report";
 	const spec = "left=500px, top=500px, width=450px, height=650px";
-	const popup = open("<%= request.getContextPath() %>/common/report", name, spec);
+	const popup = open(`<%= request.getContextPath() %>/common/report?code=\${code}`, name, spec);
 };
 
 // 본문 수정
