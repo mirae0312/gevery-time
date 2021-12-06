@@ -1,3 +1,4 @@
+<%@page import="com.zea.geverytime.common.model.vo.Attachment"%>
 <%@page import="com.zea.geverytime.market.cart.model.vo.Cart"%>
 <%@page import="java.util.List"%>
 <%@ page language="java" contentType="text/html; charset=UTF-8"
@@ -22,14 +23,15 @@
 		<thead>
 			<tr>
 				<th>선택</th>
-				<th>상품 번호</th>
-				<th>게시글 번호</th>
+				<th>상품번호</th>
+				<th>게시글번호</th>
+				<th>섬네일</th>
 				<th>상품명</th>
 				<th>제목</th>				
 				<th>가격</th>
-				<th>상품 상태</th>
-				<th>선택 수량</th>
-				<th>상품 총 가격</th>
+				<th>상품상태</th>
+				<th>선택수량</th>
+				<th>상품총가격</th>
 			</tr>
 		</thead>
 
@@ -49,6 +51,17 @@
 				<td>
 					<%= cart.getProductboardNo() %>
 					<input type="hidden" id="pdtBoardNo<%= countNum %>" value="<%= cart.getProductboardNo() %>" />
+				</td>
+				<td>
+					<%
+					List<Attachment> list = cart.getPdtBoard().getAttachments();
+					String rfn = "";
+					for(Attachment attach : list){
+						rfn = attach.getRenamedFilename();
+						break;
+					}
+					%>
+					<img src="<%= request.getContextPath() %>/upload/market/productSale/<%= rfn %>" alt="" style="width:100px"/>
 				</td>
 				<td>
 					<%= cart.getPdtBoard().getProduct().getPdtName() %>

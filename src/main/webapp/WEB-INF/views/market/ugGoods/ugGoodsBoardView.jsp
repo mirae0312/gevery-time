@@ -20,7 +20,9 @@
   <script type="text/javascript" src="https://cdn.iamport.kr/js/iamport.payment-1.1.5.js"></script>
 </head>
 <body>
+<% if(loginMember != null && !loginMember.getMemberId().equals(board.getWriter())) { %>
 	<input type="button" id="reportBtn" value="신고하기" onclick="window.open('<%= request.getContextPath() %>/common/report?code=<%= board.getOrCode() %>', 'popup', 'width=500, height=600, left=100')"/>
+<% } %>
 	<h1>상품 상세보기</h1>
 	<!-- 작성자에게만 수정/삭제 버튼이 노출되도록 함 -->
 	<% if(loginMember != null && loginMember.getMemberId().equals(board.getWriter())) { %>
@@ -57,8 +59,14 @@
 				<th>상태</th>
 				<td><%= state %></td>
 			</tr>
+			
+			<!-- 찜하기 -->
 			<tr>
-				<td><input type="button" value="찜하기" /></td>
+				<td>
+					<input type="hidden" id="wishListId" name="memberId" value="<%= loginMember.getMemberId() %>" />
+					<input type="hidden" id="wishListNo" name="boardNo" value="<%= board.getNo() %>" />
+					<input type="button" id="wishListAdd" value="찜하기" />
+				</td>
 			</tr>
 			
 			<% if(state.equals("판매중")) {%>
@@ -265,6 +273,23 @@
 				error:console.log
 			});
 			
+			// 찜하기 버튼 잠그기
+			$.ajax({
+				url: "<%= request.getContextPath() %>/wishList/check",
+				data:{
+					memberId: "<%= loginMember.getMemberId() %>",
+					boardNo: "<%= board.getNo() %>"
+				},
+				success(data){
+					console.log(data);
+					console.log(data.result);
+					if(data.result == 0){
+						$("#wishListAdd").prop("disabled", "disabled");
+						$("#wishListAdd").css("background-color", "green");
+					}
+				},
+				error: console.log
+			});
 		});
 		
 		// [구매자] 요청 클릭 시 폼 노출
@@ -463,6 +488,26 @@
 			})
 		};
 		
+		const wishListAdd = () => {
+			const memberId = $("#wishListId").val();
+			const boardNo = $("#wishListNo").val();
+			$.ajax({
+				url: "<%= request.getContextPath() %>/wishList/add",
+				data:{
+					memberId,
+					boardNo
+				},
+				success(data){
+					if(data.result == 1)
+						location.reload();
+				},
+				error: console.log
+			})
+		}		
+		
+		$("#wishListAdd").click((e) => {
+			wishListAdd();
+		});
 	</script>
 </body>
 </html>

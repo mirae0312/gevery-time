@@ -13,6 +13,7 @@ import java.util.List;
 import java.util.Properties;
 
 import com.zea.geverytime.market.cart.model.vo.Cart;
+import com.zea.geverytime.market.cart.model.vo.WishList;
 import com.zea.geverytime.market.productsale.model.dao.ProductSaleDao;
 import com.zea.geverytime.market.productsale.model.vo.Product;
 import com.zea.geverytime.market.productsale.model.vo.ProductBoard;
@@ -92,6 +93,7 @@ public class CartDao {
 				ProductBoard board = new ProductBoard();
 				board.setTitle(rset.getString("title"));
 				board.setSellerId(rset.getString("seller_id"));
+				board.setOrCode(rset.getString("or_code"));
 				
 				Product pdt = new Product();
 				pdt.setPdtName(rset.getString("name"));
@@ -123,6 +125,94 @@ public class CartDao {
 			pstmt = conn.prepareStatement(sql);
 			pstmt.setInt(1, num);
 			pstmt.setString(2, memberId);
+			
+			result = pstmt.executeUpdate();
+		} catch (SQLException e) {
+			e.printStackTrace();
+		} finally {
+			close(pstmt);
+		}
+		return result;
+	}
+
+	public int addWishList(Connection conn, int boardNo, String memberId) {
+		PreparedStatement pstmt = null;
+		String sql = prop.getProperty("addWishList");
+		int result = 0;
+		
+		try {
+			pstmt = conn.prepareStatement(sql);
+			pstmt.setString(1, memberId);
+			pstmt.setInt(2, boardNo);
+			
+			result = pstmt.executeUpdate();
+		} catch (SQLException e) {
+			e.printStackTrace();
+		} finally {
+			close(pstmt);
+		}
+		return result;
+	}
+
+	public int wishListCheck(Connection conn, String memberId, int boardNo) {
+		PreparedStatement pstmt = null;
+		String sql = prop.getProperty("checkWishList");
+		ResultSet rset = null;
+		int result = 0;
+		
+		try {
+			pstmt = conn.prepareStatement(sql);
+			pstmt.setString(1, memberId);
+			pstmt.setInt(2, boardNo);
+			
+			rset = pstmt.executeQuery();
+			
+			if(!rset.next()) {
+				result = 1;
+			}
+		} catch (SQLException e) {
+			e.printStackTrace();
+		} finally {
+			close(pstmt);
+		}
+		return result;
+	}
+
+	public List<WishList> getWishList(Connection conn, String memberId) {
+		PreparedStatement pstmt = null;
+		String sql = prop.getProperty("getWishList");
+		ResultSet rset = null;
+		List<WishList> list = new ArrayList<>();
+		
+		try {
+			pstmt = conn.prepareStatement(sql);
+			pstmt.setString(1, memberId);
+			
+			rset = pstmt.executeQuery();
+			
+			while(rset.next()) {
+				WishList wish = new WishList();
+				wish.setBoardNo(rset.getInt("board_no"));
+				wish.setMemberId(rset.getString("member_id"));
+				list.add(wish);
+			}
+		} catch (SQLException e) {
+			e.printStackTrace();
+		} finally {
+			close(pstmt);
+		}
+		return list;
+	}
+
+	public int deleteWishList(Connection conn, String memberId, int boardNo) {
+		PreparedStatement pstmt = null;
+		String sql = prop.getProperty("deleteWishList");
+		int result = 0;
+		
+		try {
+			pstmt = conn.prepareStatement(sql);
+			pstmt.setString(1, memberId);
+			pstmt.setInt(2, boardNo);
 			
 			result = pstmt.executeUpdate();
 		} catch (SQLException e) {
