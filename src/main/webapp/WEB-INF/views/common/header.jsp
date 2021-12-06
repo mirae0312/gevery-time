@@ -25,7 +25,7 @@
 
 </head>
 <body>
-	<div class="go-up-btn btn">TOP</div>
+	<div class="go-up-btn">TOP</div>
 	<select name="write" id="write-board">
 		<option hidden="" selected disabled>게시글작성</option>
 		<option data-color="red" value="/board/boardForm">자유게시판 글쓰기</option>
