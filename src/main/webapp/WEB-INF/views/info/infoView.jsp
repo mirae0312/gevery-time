@@ -44,7 +44,7 @@
 		<input type="button" class="btn" value="삭제" onclick="deleteInfoMain();" />
 	</form>
 <% } %>
-<% if(loginMember != null && !info.getMemberId().equals(loginMember.getMemberId())){ %>
+<% if(loginMember != null && !info.getMemberId().equals(loginMember.getMemberId()) && !MemberService.ADMIN_ROLE.equals(loginMember.getMemberRole())){ %>
 	<input type="button" value="신고" class="report-btn btn" onclick="reportInfoMain();" />
 <% } %>
 	<div class="info-head-wrapper">
