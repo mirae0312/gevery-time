@@ -1,7 +1,6 @@
 package com.zea.geverytime.common.filter;
 
 import java.io.IOException;
-
 import javax.servlet.Filter;
 import javax.servlet.FilterChain;
 import javax.servlet.FilterConfig;
@@ -16,19 +15,15 @@ import javax.servlet.http.HttpSession;
 import com.zea.geverytime.member.model.vo.Member;
 
 /**
- * Servlet Filter implementation class LoginFilter
+ * Servlet Filter implementation class AdminFilter
  */
-@WebFilter(urlPatterns = 
-{"/member/memberlogin", "/board/boardForm","/board/boardCommentEnroll","/board/boardCommentEnroll",
-"/myPage/myPageMain", "/board/boardView", "/customer/qnaBoardList", "/info/Enroll", "/product/boardForm", "/productSale/getProduct", "/common/report", "/ugGoods/boardForm",
-"/wishList/main", "/cart/main", "/product/onsaleProduct", "/product/productForm", "/common/report"})
-
-public class LoginFilter implements Filter {
+@WebFilter("/admin/*")
+public class AdminFilter implements Filter {
 
     /**
      * Default constructor. 
      */
-    public LoginFilter() {
+    public AdminFilter() {
         // TODO Auto-generated constructor stub
     }
 
@@ -43,24 +38,22 @@ public class LoginFilter implements Filter {
 	 * @see Filter#doFilter(ServletRequest, ServletResponse, FilterChain)
 	 */
 	public void doFilter(ServletRequest request, ServletResponse response, FilterChain chain) throws IOException, ServletException {
-		//로그인 여부를 검사
-		HttpServletRequest httpRequest = (HttpServletRequest) request;
-		HttpServletResponse httpResponse = (HttpServletResponse) response;
+		HttpServletRequest httpRequest = (HttpServletRequest)request;
+		HttpServletResponse httpResponse = (HttpServletResponse)response;
+		HttpSession session = httpRequest.getSession();
 		
-		HttpSession session  = httpRequest.getSession();
-		Member loginMember = (Member)session.getAttribute("loginMember");
-		
-		if(loginMember == null) {
-			session.setAttribute("msg", "로그인후 이용하세요");
-//			httpResponse.sendRedirect(httpRequest.getHeader("Referer"));
-			String referrer = httpRequest.getHeader("Referrer");
-			System.out.println("referrer : " + referrer);
+		if(session.getAttribute("loginMember")==null) {	
+			session.setAttribute("msg", "로그인 후 이용하세요");
+			String location = httpRequest.getContextPath()+"/";
+			httpResponse.sendRedirect(location);
+			return;
+		}
+		else if("U".equals(((Member)session.getAttribute("loginMember")).getMemberRole())) {
+			session.setAttribute("msg","접근 권한이 없습니다.");
 			httpResponse.sendRedirect(httpRequest.getContextPath()+"/");
 			return;
 		}
-		
-		
-		chain.doFilter(request, response);
+		chain.doFilter(request,response);
 	}
 
 	/**
