@@ -1,4 +1,33 @@
 @charset "UTF-8";
+ #leftbox{
+ 	margin-top:98px;
+ 	margin-right:100px;
+    width: 155px;
+    height: 380px;
+    border: solid;
+    border-radius:10px;
+    float: left;
+    /* margin-left: 150px; */
+    text-align:right;
+    padding-right:10px;
+    padding-top:10px;
+    /* size: 100px; */
+    border: none;
+    background-color: rgb(128 128 128 / 12%);
+ 
+}
+#leftbox span{
+    font-size:17px;
+    font-weight: 600;
+}
+#leftbox span :hover {
+    text-decoration: underline;
+}
+a {
+    text-decoration: none;
+    color: inherit;
+} 
+ 
  h3{
  	font-family: 'Franklin Gothic Medium', 'Arial Narrow', Arial, sans-serif;
  	 color:black;

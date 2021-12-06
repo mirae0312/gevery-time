@@ -24,8 +24,16 @@
   </script>
 
 <section id="board-container">
-<br><br> 
-<h3>문의글 작성</h3>
+ <div id="leftbox">
+            <span><a href="<%= request.getContextPath() %>/customer/qnaBoardList">Q&A</a></span>
+            <br><br>
+            <span><a href="<%= request.getContextPath() %>/customer/faqBoardList">FAQ</a></span>
+            <br><br>
+            <span><a href="<%= request.getContextPath() %>/customer/reportBoardList">신고내역</a></span>
+ </div>
+<br><br>
+<span style="margin-left:5px;">문의글 작성하기</span> 
+<br><br>
 <form
 	name="boardEnrollFrm"
 	action="<%=request.getContextPath() %>/customer/qnaBoardEnroll" 
@@ -33,17 +41,17 @@
 	
 	<table id="tbl-board-view">
 	<tr>
-		<th>제 목</th>
+		<td>제 목</td>
 		<td><input class="inputBox" type="text" name="title" ></td>
 	</tr>
 	<tr>
-		<th>작성자</th>
+		<td>작성자</td>
 		<td>
 			<input class="inputBox" type="text" name="writer" value="<%= loginMember.getMemberId() %>" readonly/>
 		</td>
 	</tr>
 	<tr>
-    	<th>분류</th>
+    	<td>분류</td>
         <td>
         <label for="category"></label> 
          <select class="inputBox" name="category" id="category"  >
@@ -57,11 +65,11 @@
        </td>
     </tr>              
 	<tr>
-		<th>내 용</th>
+		<td>내 용</td>
 		<td><textarea name="content" id="summernote" class="summernote"></textarea></td>
 	</tr>
 	<tr>
-	  <th>비밀번호</th> 
+	  <td>비밀번호</td>
 		<td>
 			<input class="inputBox" type="password" name="password" maxlength="20"/>
 		</td>
