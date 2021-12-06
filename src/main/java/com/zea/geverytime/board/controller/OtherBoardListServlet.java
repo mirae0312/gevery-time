@@ -20,7 +20,7 @@ import com.zea.geverytime.common.MvcUtils;
  * Servlet implementation class otherBoardListServlet
  */
 @WebServlet("/board/otherBoardList")
-public class otherBoardListServlet extends HttpServlet {
+public class OtherBoardListServlet extends HttpServlet {
 	private static final long serialVersionUID = 1L;
 	private BoardService boardService = new BoardService();
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
