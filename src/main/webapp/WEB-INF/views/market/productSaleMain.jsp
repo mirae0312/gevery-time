@@ -6,55 +6,36 @@
 <%
 	List<ProductBoard> list = (List<ProductBoard>) request.getAttribute("list");
 %>
-<!DOCTYPE html>
-<html>
-<head>
-<meta charset="UTF-8">
+
 <title>일반 상점</title>
-<style>
-	#pdtSearchOption {
-		width : 500px;
-		border : 1px solid black;
-		margin : 10px;
-	}
-	#pdtList {
-		margin : 10px
-	}
-	#pdtTable{
-		width : 1000px;
-		border : 1px solid black;
-		border-collapse : collapse;
-	}
-	#pdtTable tr{
-		border : 1px solid black;
-		height : 50px;
-	}
-	#pdtTable th{
-		border : 1px solid black;
-		height : 50px;
-	}
-	#pdtTable td{
-		border : 1px solid black;
-		height : 50px;
-	}
-	.thumbnailImg{
-		width:100px;
-	}
-</style>
+<link rel="stylesheet" href="<%=request.getContextPath() %>/css/market/product/productSaleMain.css" />
 </head>
 <body>
+	<h1>일반 상점</h1>
 	<div id="pdtSearchOption">
-		<span>선택 분류만 보기</span>
-		<select name="" id="divSelect">
-			<option value="%%" selected>선택하기</option>
-			<option value="div1">대분류1</option>
-			<option value="div2">대분류2</option>
-			<option value="div3">대분류3</option>
-		</select>
-		<br />
-		<label for="selectOnSale">판매중인 상품만 보기</label><input type="checkbox" name="" id="selectOnSale" />
-		<br />
-		<button onclick="selectContent(1);">조회하기</button>
+		<input type="button" value="검색 옵션 사용하기" id="searchOptionBtn" />
+		<table id="pdtSearchTable">
+			<tbody>
+				<tr>
+					<td><span>선택 분류만 보기</span></td>
+					<td>
+						<select name="" id="divSelect">
+							<option value="%%" selected>선택하기</option>
+							<option value="dog">강아지</option>
+							<option value="cat">고양이</option>
+							<option value="duck">거위</option>
+						</select>		
+					</td>
+					<td rowspan=2>
+						<button onclick="selectContent(1);" id="optionBtn">조회하기</button>					
+					</td>
+				</tr>
+				<tr>
+					<td><span>판매중인 상품만 보기</span></td>
+					<td><input type="checkbox" name="" id="selectOnSale" /></td>
+				</tr>
+			</tbody>
+		</table>
 	</div>
 	
 	<% if(loginMember != null && loginMember.getMemberType().equals("B")) { %>
@@ -151,7 +132,11 @@
 				},
 				error:console.log
 			});	
-		};	
+		};
+		
+		$("#searchOptionBtn").click((e) => {
+			$("#pdtSearchTable").toggle();
+		})
 	</script>
 </body>
 </html>

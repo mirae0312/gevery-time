@@ -13,20 +13,22 @@
 <div class="info-wrapper">
 	
 	<%-- 인기 글 --%>
-	<div class="pop-contents">
+	<div class="pop-contents-banner">
+		<div class="pop-contents">
 <% if(popList != null && !popList.isEmpty()){ %>
 	<% for(Info popInfo : popList){ %>
-		<div class="info-wrap">
-			<div class="business-name"><%= popInfo.getBusinessName() %></div>
-			<img class="list-thumbnail" src="<%= request.getContextPath() %>/upload/info/<%= popInfo.getAttachments().get(0).getRenamedFilename() %>" alt="" />
-			<div class="head-content"><%= popInfo.getHeadContent() %></div><br />
-			<div class="recommend-count">추천수 : <%= popInfo.getRecommend() %></div>
-			<div class="view-count">조회수 : <%= popInfo.getViewCount() %></div>	
-			<div class="popInfo-comment">리뷰 : <%= popInfo.getCommentCount() %></div>
-			<div class="hidden-code"><%= popInfo.getCode() %></div>	
-		</div>
+			<div class="info-wrap">
+				<div class="business-name"><%= popInfo.getBusinessName() %></div>
+				<img class="list-thumbnail" src="<%= request.getContextPath() %>/upload/info/<%= popInfo.getAttachments().get(0).getRenamedFilename() %>" alt="" />
+				<div class="head-content"><%= popInfo.getHeadContent() %></div><br />
+				<div class="recommend-count">추천수 : <%= popInfo.getRecommend() %></div>
+				<div class="view-count">조회수 : <%= popInfo.getViewCount() %></div>	
+				<div class="popInfo-comment">리뷰 : <%= popInfo.getCommentCount() %></div>
+				<div class="hidden-code"><%= popInfo.getCode() %></div>	
+			</div>
 	<% } %>
 <% } %>
+		</div>	
 	</div>
 	
 	<%-- 정렬 --%>
@@ -54,15 +56,6 @@
 	</div>
 </div>
 <script>
-// 게시물 상세보기 용
-$(".info-wrap").click((e) => {
-	const $code = $(e.currentTarget).find('div.hidden-code').text();
-	console.log($code);
-	
-	location.href=`<%= request.getContextPath() %>/info/view?code=\${$code}`;
-});
-
-
 // ajax data
 var loading = false;
 var page = 1;
@@ -115,14 +108,23 @@ const scrollPage = () => {
 				<div class="hidden-code">\${code}</div>
 				</div><hr />
 				`;
+								
 				$div.append($contents);
+				
+				// 게시판 상세보기
 				$(".info-wrap").click((e) => {
 					const $code = $(e.currentTarget).find('div.hidden-code').text();
-					//console.log($code);
-					
+					//console.log($code);					
 					location.href=`<%= request.getContextPath() %>/info/view?code=\${$code}`;
 				});				
 				
+			});
+			
+			$(".info-wrap").click((e) => {
+				const $code = $(e.currentTarget).find('div.hidden-code').text();
+				console.log($code);
+				
+				location.href=`<%= request.getContextPath() %>/info/view?code=\${$code}`;
 			});
 			
 			page++;

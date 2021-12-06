@@ -1,8 +1,10 @@
+<%@page import="com.zea.geverytime.member.model.vo.Member"%>
 <%@page import="com.zea.geverytime.market.productsale.model.vo.Product"%>
 <%@page import="java.util.List"%>
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
 <%
+	Member loginMember = (Member) session.getAttribute("loginMember");
 	List<Product> list = (List<Product>) request.getAttribute("list");
 	String sellerId = (String) request.getAttribute("sellerId");
 %>
@@ -16,6 +18,11 @@
 <body>
 	<h1>[<%= sellerId %> ]님이 판매중인 상품 목록입니다.</h1>
 	<br/>
+	
+	<% if(list.isEmpty())  {%>
+		<h2>텅 비었어요. 상품을 먼저 등록해주세요</h2>
+		<input type="button" value="상품 등록하러가기" onclick="landingProductEnroll();"/>
+	<% } else { %>
 	<table>
 		<thead>
 			<tr>
@@ -54,6 +61,7 @@
 	<input type="button" value="선택하기" onclick="popUpClose();" />
 	<input type="button" value="다시선택" onclick="reSelect();" />
 	
+	<% } %>
 	<script>
 		let selectNo = 0;
 		let selectName = "";
@@ -84,6 +92,11 @@
 			$frm.find("[name=pdtDiv]").val(selectDiv);
 			close();			
 		};
+		
+		const landingProductEnroll = () => {
+			window.opener.location.href="<%= request.getContextPath() %>/product/onsaleProduct?sellerId=<%= loginMember.getMemberId() %>";
+			close();
+		}
 	</script>
 	
 </body>

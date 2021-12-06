@@ -123,7 +123,7 @@ $(() => {
 				<td><input type="number" id="countOption" value="1"/></td>
 			</tr>
 			<!-- 구매 관련 영역 -->
-			<% if(loginMember != null) {%>
+			<% if(loginMember != null && !loginMember.getMemberId().equals(board.getSellerId())) {%>
 			<tr>
 				<td colspan=2>
 					<!-- 바로 구매하기 form -->
@@ -149,6 +149,10 @@ $(() => {
 						<input type="submit" value="장바구니 담기"/>
 					</form>
 				</td>
+			</tr>
+			<% } else if(loginMember != null && loginMember.getMemberId().equals(board.getSellerId())) { %>
+			<tr>
+				<td colspan=2>본인의 판매 상품은 구매할 수 없습니다.</td>
 			</tr>
 			<% } else { %>
 			<tr>
@@ -311,7 +315,7 @@ $(() => {
 		$(".purchaseNeedLogin").click((e) => {
 			alert("로그인 후 이용 가능합니다.");
 		});
-		
+		<% if(loginMember != null) { %>
 		// 장바구니 담기 비동기 처리
 		$(document.addCartFrm).submit((e) =>{
 			e.preventDefault();
@@ -376,6 +380,7 @@ $(() => {
 				error:console.log
 			});
 		})
+		<% } %>
 	</script>
 </body>
 </html>

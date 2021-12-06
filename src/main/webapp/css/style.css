@@ -1,10 +1,22 @@
 @CHARSET "UTF-8";
+
+@font-face {
+    src: url("./font/Cafe24SsurroundAir.ttf");
+    font-family: "CafeAir";
+}
+@font-face {
+    src: url("./font/Cafe24Ssurround.ttf");
+    font-family: "CafeBold";
+}
+* {
+	font-family: "CafeAir";
+}
 input:focus, select:focus, option:focus, textarea:focus, button:focus{
 	outline: none;
 }
 
 html {
-     height: 100%;
+    height: 100%;
 } 
 #container	{
      width:1024px;
@@ -204,14 +216,22 @@ section#content{
 .go-up-btn{
 	position: fixed;
 	width: 63px;
-	height: 23px;
+	height: 17px;
 	bottom: 170px;
 	right: 144px;
 	background-color: linen;
 	border-radius: 50%;
 	font-weight: bold;
 	text-align: center;
-	padding: 19px 0px;
+	padding: 22px 0px;
+}
+.btn{
+	border: 0;
+	width: 80px;
+	height: 30px;
+	border-radius: 5px;
+	font-weight: bold;
+	text-align: center;
 }
 
 /* index body */
@@ -246,20 +266,30 @@ section#content{
 .info-board-wrapper{
 	width: 1024px;
 	height: 500px;
-	border: 1px solid red;
 }
 #info-board-table{
-	border: 1px solid black;
+	display: flex;
+	flex-wrap: wrap;
+	justify-content: space-evenly;
+	align-items: center;
 	width: 1024px;
 	height: 500px;
-	border-collapse: collapse;
 }
-#info-board-table tr{
-	border: 1px solid black;
+.content{
+	border: 1px solid #000;
+	padding: 2px;
 }
-#info-board-table td{
-	border: 1px solid black;
+.info-bname{
+	
 }
+.info-img{
+	width:300px;
+	height:210px;
+}
+.info_content{
+	
+}
+
 
 /* 마켓 */
 .market-wrapper{

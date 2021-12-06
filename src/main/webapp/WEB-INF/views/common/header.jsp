@@ -17,6 +17,7 @@
 <meta charset="UTF-8">
 <title>index</title>
 <link rel="stylesheet" href="<%=request.getContextPath() %>/css/style.css" />
+<link rel="stylesheet" href="<%=request.getContextPath() %>/css/board.css" />
 <link rel="stylesheet" href="<%=request.getContextPath() %>/css/summernote/summernote-lite.css">
 <script src="<%= request.getContextPath() %>/js/jquery-3.6.0.js"></script>
 <script src="<%= request.getContextPath() %>/js/summernote/summernote-lite.js"></script>
@@ -24,13 +25,14 @@
 
 </head>
 <body>
-	<div class="go-up-btn btn">TOP</div>
+	<div class="go-up-btn">TOP</div>
 	<select name="write" id="write-board">
 		<option hidden="" selected disabled>게시글작성</option>
 		<option data-color="red" value="/board/boardForm">자유게시판 글쓰기</option>
 		<% if(loginMember != null && loginMember.getMemberType().equals("B")) { %>
 		<option data-color="green" value="/info/Enroll">정보게시판 글쓰기</option>
-		<option data-color="blue" value="/product/productForm">마켓 글쓰기</option>
+		<option data-color="blue" value="/product/boardForm">마켓 글쓰기</option>
+		<option data-color="blue" value="/ugGoods/boardForm">중고거래 글쓰기</option>
 		<% } %>
 	</select>
     <div id="container">
@@ -39,7 +41,7 @@
                <div class="title"><a href="<%=request.getContextPath() %>/">개브리타임</a></div>
                <ul class="lists" >
                    <li id="info"><a href="<%= request.getContextPath() %>/info/allList?board=<%= "info" %>">정보</a></li>
-                   <li id="board"><a href="<%=request.getContextPath() %>/board/freeBoard">게시판</a></li>
+                   <li id="board"><a href="<%=request.getContextPath() %>/board/freeBoardList">게시판</a></li>
                    <li id="market"><a href="#">마켓</a></li>
                </ul>
                <ul>
@@ -78,8 +80,8 @@
 	        </div> 
 	        <div class="board-navsbox">
 	            <ul class="board-pagenavs">
-	                <li class="board-pagenav" id="board"><a href="<%=request.getContextPath() %>/board/freeBoard">자유게시판</a></li>
-	                <li class="board-pagenav" id="review"><a href="#">후기</a></li>
+	                <li class="board-pagenav" id="board"><a href="<%=request.getContextPath() %>/board/freeBoardList">자유게시판</a></li>
+	                <li class="board-pagenav" id="review"><a href="<%=request.getContextPath() %>/board/reviewBoardList">후기</a></li>
 	            </ul>
 	        </div> 
 	        <div class="market-navsbox">
@@ -103,8 +105,12 @@
     <script>
     // alert msg
     $(()=>{
-    	<% if(msg != null) {%>
-    	        alert("<%= msg %>");
+    	<% if(msg != null && "로그인후 이용하세요".equals(msg)) {%>
+				if(confirm("로그인이 필요한 서비스입니다. 로그인 페이지로 이동하시겠습니까?")){
+					location.href="<%= request.getContextPath() %>/member/login";
+				}
+    	<% } else if(msg != null && !"로그인후 이용하세요".equals(msg)) { %>
+    	        alert("<%= msg %>");    	
     	<% } %>
     });
 

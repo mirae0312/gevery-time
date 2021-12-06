@@ -133,7 +133,7 @@ public class UsedGoodsDao {
 			if(type.equals("title")) {
 				pstmt.setString(3, "%"+keyword+"%");
 				pstmt.setString(4, "%%");
-			} else {
+			} else if(type.equals("content")){
 				pstmt.setString(3, "%%");
 				pstmt.setString(4, "%"+keyword+"%");
 			}

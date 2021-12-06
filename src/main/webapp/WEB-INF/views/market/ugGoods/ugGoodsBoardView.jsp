@@ -61,6 +61,7 @@
 			</tr>
 			
 			<!-- 찜하기 -->
+			<% if(loginMember != null && !loginMember.getMemberId().equals(board.getWriter())) { %>
 			<tr>
 				<td>
 					<input type="hidden" id="wishListId" name="memberId" value="<%= loginMember.getMemberId() %>" />
@@ -68,6 +69,7 @@
 					<input type="button" id="wishListAdd" value="찜하기" />
 				</td>
 			</tr>
+			<% } %>
 			
 			<% if(state.equals("판매중")) {%>
 			<!-- 구매자 > 구매요청 : value는 비동기로 처리 -->
@@ -201,6 +203,14 @@
 						</td>
 					</tr>
 			<%		
+				} else {
+			%>
+					<tr>
+						<td colspan=2>
+							<span>판매가 완료 되었습니다! 배송 스팟에 상품을 놓아주세요.</span>
+						</td>
+					</tr>
+			<%					
 				}
 			}
 			%>
@@ -237,7 +247,7 @@
 			$(document.boardDeleteFrm).submit();
 		});
 		
-		
+		<% if(loginMember != null) { %>		
 		$(() => {
 			// request 영역 onload 함수
 			let checkNum = 0;
@@ -257,6 +267,7 @@
 				$("#requestBtn").prop("disabled", 'disabled');
 			}			
 			
+			<% if(loginMember != null) { %>
 			// 신고하기 버튼 잠그기
 			$.ajax({
 				url: "<%= request.getContextPath() %>/common/reportCheck",
@@ -290,6 +301,7 @@
 				},
 				error: console.log
 			});
+			<% } %>
 		});
 		
 		// [구매자] 요청 클릭 시 폼 노출
@@ -319,7 +331,7 @@
 			});
 		};
 		
-		
+
 		// [구매자] 구매요청 등록
 		$("#requestSubmit").click((e) =>{
 			$.ajax({
@@ -339,6 +351,7 @@
 				error:console.log
 			});
 		});
+
 		
 		// [구매자] 결제 후 처리
 		const ugGoodsPurchase = () => {
@@ -400,6 +413,7 @@
 	                        // 결제 성공 시 로직,
 	                        addPurchaseHistory("<%= loginMember.getMemberId() %>", totalPrice, rsp.imp_uid, rsp.merchant_uid);
 	                        deliverState();
+	                        addSellerPoint('I', "<%= board.getOrCode() %>", rsp.imp_uid);
 	                        alert(msg);
 	            			purchaseDone(rsp.imp_uid, rsp.merchant_uid, rsp.paid_amount);
 	            		},
@@ -429,31 +443,36 @@
 	    };
 	    
 	    const tradeDone = () => {
-	    	const reqboardNo = <%= board.getNo() %>;
-	    	$.ajax({
-	    		url: "<%= request.getContextPath() %>/ugGoods/boardStateChange",
-	    		method: "POST",
-	    		data: {
-	    			boardNo: reqboardNo,
-	    			state: "판매완료"
-	    		},
-	    		success(data){
-	    			console.log(data);
-	    			location.reload();
-	    		},
-	    		error: console.log
-	    	});
-	    }
+	    	if(confirm("판매완료 처리하시겠습니까?")){
+		    	const reqboardNo = <%= board.getNo() %>;
+		    	$.ajax({
+		    		url: "<%= request.getContextPath() %>/ugGoods/boardStateChange",
+		    		method: "POST",
+		    		data: {
+		    			boardNo: reqboardNo,
+		    			state: "판매완료"
+		    		},
+		    		success(data){
+		    			console.log(data);
+		    			location.reload();
+		    		},
+		    		error: console.log
+		    	});	    		
+	    	};
+	    };
 	    
-	    const addSellerPoint = () => {
-	    	const reqsellerId = <%= board.getWriter() %>;
-	    	const reqpointVal = <%= board.getPrice() %>;
+	    const addSellerPoint = (reqDiv, reqHistory, reqUid) => {
+	    	const reqsellerId = "<%= board.getWriter() %>";
+	    	const reqpointVal = "<%= board.getPrice() %>";
 	    	$.ajax({
-	    		url: "<%= request.getContextPath() %>/ugGoods/addSellerPoint",
+	    		url: "<%= request.getContextPath() %>/point/addPointHistory",
 	    		method: "POST",
 	    		data: {
-	    			sellerId: reqsellerId,
-	    			pointVal: reqpointVal
+	    			memberId: reqsellerId,
+	    			pointVal: reqpointVal,
+	    			div : reqDiv,
+	    			history : reqHistory,
+	    			purchaseUid : reqUid
 	    		},
 	    		success(data){
 	    			console.log(data);
@@ -472,14 +491,14 @@
 				url: "<%= request.getContextPath() %>/purchase/addHistory",
 				method: "POST",
 				data:{
-						pdtNo1: "1",
-						pdtCount1: "0",
-						memberId: reqMemberId,
-						totalPrice: reqTotPrice,
-						uid: reqUid,
-						muid: reqMuid,
-						countNum: "2",
-						state: "결제"
+					pdtNo1: "1",
+					pdtCount1: "0",
+					memberId: reqMemberId,
+					totalPrice: reqTotPrice,
+					uid: reqUid,
+					muid: reqMuid,
+					countNum: "2",
+					state: "결제"
 				},
 				success(data){
 					console.log(data);
@@ -508,6 +527,7 @@
 		$("#wishListAdd").click((e) => {
 			wishListAdd();
 		});
+		<% } %>
 	</script>
 </body>
 </html>

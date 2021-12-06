@@ -18,7 +18,7 @@ import com.zea.geverytime.common.MvcUtils;
 /**
  * Servlet implementation class FreeboardMainlistServlet
  */
-@WebServlet("/board/freeBoard")
+@WebServlet("/board/freeBoardList")
 public class FreeboardMainlistServlet extends HttpServlet {
 	private static final long serialVersionUID = 1L;
     private BoardService boardService = new BoardService();
@@ -33,7 +33,7 @@ public class FreeboardMainlistServlet extends HttpServlet {
 			
 			request.setAttribute("popularList",popularList);
 			request
-				.getRequestDispatcher("/WEB-INF/views/board/freeBoard.jsp")
+				.getRequestDispatcher("/WEB-INF/views/board/freeBoardList.jsp")
 				.forward(request, response);
 			}catch(Exception e) {
 			throw e;
