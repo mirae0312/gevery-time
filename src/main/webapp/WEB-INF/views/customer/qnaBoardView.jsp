@@ -4,7 +4,7 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
 <%@ include file="/WEB-INF/views/common/header.jsp" %>
-<link rel="stylesheet" href="<%=request.getContextPath()%>/css/customer/qnaView.css" />
+<link rel="stylesheet" href="<%=request.getContextPath()%>/css/customer/faqView.css" />
 <%
 		QnaBoard qnaBoard = (QnaBoard) request.getAttribute("qnaBoard");
 %>

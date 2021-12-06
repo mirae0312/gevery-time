@@ -4,7 +4,7 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
  <%@ include file="/WEB-INF/views/common/header.jsp" %>
-  <link rel="stylesheet" href="<%=request.getContextPath()%>/css/customer/qnaList.css" /> 
+  <link rel="stylesheet" href="<%=request.getContextPath()%>/css/customer/reportList.css" /> 
  <section id="qnaBoard-container">
  
         <h3>신고내역</h3>

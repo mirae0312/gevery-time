@@ -8,7 +8,6 @@
   $(document).ready(function() {
 		$('#summernote').summernote({
 			toolbar: [
-			    // [groupName, [list of button]]b 
 			    ['style', ['bold', 'italic', 'underline', 'clear']],
 			    ['font', ['strikethrough']],
 			    ['fontsize', ['fontsize']],
@@ -17,7 +16,8 @@
 			    ['height', ['height']]
 			  ],
 			  disableResizeEditor: true,
-			  height: 300
+			  height: 300,
+			  width:650
 			});
 	});
  

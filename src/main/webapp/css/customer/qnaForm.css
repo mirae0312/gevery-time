@@ -1,4 +1,5 @@
 @charset "UTF-8";
+ 
  #leftbox{
  	margin-top:98px;
  	margin-right:100px;
@@ -29,14 +30,10 @@ a {
 } 
  
  h3{
- 	font-family: 'Franklin Gothic Medium', 'Arial Narrow', Arial, sans-serif;
  	 color:black;
  	 margin-left:10px;
  }
- th {
-     font-family: 'Franklin Gothic Medium', 'Arial Narrow', Arial, sans-serif;
-     color:black;
-    }
+
 .inputBox{
     border-radius: 5px;
     width: 300px;
@@ -47,13 +44,18 @@ a {
 .submit{
     background-color: rgba(211, 211, 211, 0.479);
     border-style: none;
-    font-size: 15px;
+    font-size: 13px;
     padding: 10px 16px;
     border-radius: 10px;
     cursor: pointer;
+    margin-right:180px;
     
 }
 #box{
-   margin-top: 20px;
+   margin-top: 30px;
    margin-bottom :150px;
+   margin-left: 300px;
 } 
+#tbl-board-view{
+	margin: auto;
+}

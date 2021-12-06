@@ -1,8 +1,7 @@
 @charset "UTF-8";
 h3{
-  
-   padding-left: 520px;
-
+   padding-left: 190px;
+   margin-top:60px;
    }
  body{
     width: 1024px;
@@ -31,6 +30,7 @@ h3{
 #leftbox span :hover {
     text-decoration: underline;
 }
+ 
 table {
     border-collapse: collapse;
 }
@@ -45,12 +45,14 @@ a {
 }
 
 .board_list_wrap {
+    /* padding: 50px; */
+    width: 950px;
     margin: auto;
     padding-left: 120px;
 }
 
 .board_list {
-    width: 80%;
+    width: 90%;
     border-top: 2px solid gray;
     margin: auto;
 }
@@ -61,16 +63,19 @@ a {
 
 .board_list th,
 .board_list td {
-    padding: 6px;
-    font-size: 17px;
+    padding: 10px;
+    font-size: 16px;
 }
-.board_list th{
-	text-align:left;
+
+.board_list td {
+    text-align: center;
 }
- 
+
+
 .board_list .tit:hover {
     text-decoration: underline;
 }
+
 
 .board_list_wrap .paging {
     margin-top: 20px;
@@ -110,23 +115,9 @@ a {
     cursor: pointer;
 }
 #inputBox{
-   margin-top: 30px;
-   margin-left: 850px;
-}   
-#search{
-        text-align: center;
-        margin-bottom: 13px;
-        margin-top:10px;
-    }
-#radioSubmit{
-        margin-left: 20px;
-        border-style: none;
-        border-radius: 5px;
-        padding: 10px 9px;
-        font-size: 16px;
-        cursor:pointer;
-        font-weight:800;
-    }
+   margin-top: 20px;
+   margin-left: 960px;
+}     
 /*페이지바*/
 div#pageBar{margin-top:14px; text-align:center; font-size:19px; }
 div#pageBar span.cPage{color: gray; margin-right: 5px;}
