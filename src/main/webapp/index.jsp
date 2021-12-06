@@ -15,12 +15,24 @@
 	<div class="board-wrapper">
 		<div class="board-left-wrap">
 		  <table>
+		  <thead>
+		  	<tr>
+		  		<th colspan="2">자유게시판</th>
+		  	</tr>
+		  	<tr></tr>
+		  </thead>
 		  <tbody>
 		  </tbody>
 		  </table>
 		</div>
 		<div class="board-right-wrap">
 		<table>
+		<thead>
+		  	<tr>
+		  		<th colspan="2">리뷰게시판</th>
+		  	</tr>
+		  	<tr></tr>
+		  </thead>
 		  <tbody>
 		  </tbody>
 		  </table>
@@ -65,15 +77,15 @@ const getBoardPopularList = () => {
 			$(".board-right-wrap table tbody").empty();
 			$(data.freeList).each((i,e)=>{
 				const d = new Date(e.regDate);
-				const date = `\${d.getFullYear()}-\${f(d.getMonth())}-\${f(d.getDate())}`
+				const date = `\${f(d.getMonth())}-\${f(d.getDate())}`
 				let commentCount = "";
 				if(e.commentCount>0){
 					console.log(e.commentCount);
-					commentCount = '('+e.commentCount+')';
+					commentCount = "<span class='comment-count'>("+e.commentCount+')</span>';
 					console.log(commentCount);
 				}
 				const tr = `			<tr>
- 					<td><a href="<%=request.getContextPath()%>/board/boardView?no=\${e.no}">\${e.title}</a> \${commentCount}</td>
+ 					<td class='title'><a href="<%=request.getContextPath()%>/board/boardView?no=\${e.no}">\${e.title}</a> \${commentCount}</td>
 					<td>\${date}</td>
 				</tr>`
 				$(".board-left-wrap table tbody").append(tr);
@@ -81,15 +93,15 @@ const getBoardPopularList = () => {
 			})
 			$(data.reviewList).each((i,e)=>{
 				const d = new Date(e.regDate);
-				const date = `\${d.getFullYear()}-\${f(d.getMonth())}-\${f(d.getDate())}`
+				const date = `\${f(d.getMonth())}-\${f(d.getDate())}`
 				let commentCount = "";
 				if(e.commentCount>0){
 					console.log(e.commentCount);
-					commentCount = '('+e.commentCount+')';
+					commentCount = "<span class='comment-count'>("+e.commentCount+')</span>';
 					console.log(commentCount);
 				}
 				const tr = `			<tr>
- 					<td><a href="<%=request.getContextPath()%>/board/boardView?no=\${e.no}">\${e.title}</a> \${commentCount}</td>
+ 					<td class='title'><a href="<%=request.getContextPath()%>/board/boardView?no=\${e.no}">\${e.title}</a> \${commentCount}</td>
 					<td>\${date}</td>
 				</tr>`
 				$(".board-right-wrap table tbody").append(tr);

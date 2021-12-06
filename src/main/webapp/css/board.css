@@ -43,6 +43,7 @@
 .btn:disabled {
   opacity: 0.5;
 } */
+
 /* 댓글 개수 색깔 */
 	.comment-count {
 	color:#ff9800;

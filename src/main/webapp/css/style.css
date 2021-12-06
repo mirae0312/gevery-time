@@ -1,11 +1,11 @@
 @CHARSET "UTF-8";
 
 @font-face {
-    src: url("./font/Cafe24SsurroundAir.ttf");
+    src: url("./fonts/Cafe24SsurroundAir.ttf");
     font-family: "CafeAir";
 }
 @font-face {
-    src: url("./font/Cafe24Ssurround.ttf");
+    src: url("./fonts/Cafe24Ssurround.ttf");
     font-family: "CafeBold";
 }
 * {
@@ -247,21 +247,39 @@ section#content{
 
 /* 게시판 */
 .board-wrapper{
-	margin: 50px 0;
+	border:1px solid black;
+	margin-left:auto;
+	margin-right:auto;
 	width: 1024px;
-	height: 400px;
+	height: 570px;
 	display:flex;
 	justify-content: space-around;
 }
 .board-left-wrap{
-	border: 1px solid black;
-	width: 512px;
+	padding:50px;
+	border-right: 1px solid black;
+	width: 50%;
 }
 .board-right-wrap{
-	border: 1px solid black;
-	width: 512px;
+	padding:50px;
+	width: 50%;
 }
-
+.board-wrapper table {
+/* 	border:1px solid black;
+ */	margin-left:auto;
+	margin-right:auto;
+}
+.board-wrapper table th {
+	padding-bottom:30px;
+}
+.board-wrapper table td {
+	padding-bottom:6px;
+}
+.board-wrapper table td.title{
+	  white-space:nowrap;
+	width:350px;
+	font-size:100%;	
+}
 /* 정보 게시판 */
 .info-board-wrapper{
 	width: 1024px;

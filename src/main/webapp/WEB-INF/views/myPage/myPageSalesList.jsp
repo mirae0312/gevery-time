@@ -20,7 +20,22 @@
 </style>
 <%
 	Map<String, Object> delCartMap = (Map<String, Object>) new HashMap<String, Object>();
+	Business businessMember  =  (Business)session.getAttribute("businessMember");
 %>
+<div class="myPage-container">
+	<ul class="myPageBar">
+		<% if(loginMember != null && loginMember.getMemberType().equals("N")) { %>
+		<li id="memberInfo"><a href="<%=request.getContextPath() %>/myPage/myPageMain">내정보(개인)</a></li>
+		<% } %>
+		<% if(loginMember != null && loginMember.getMemberType().equals("B")) { %>
+		<li id="businessInfo"><a href="<%=request.getContextPath() %>/myPage/myPageMain">내정보(사업자)</a></li> 
+		<% } %>
+		<li id="buyList"><a href="<%=request.getContextPath() %>/myPage/PurchaseHistory?memberId=<%= loginMember.getMemberId() %>">나의 구매내역</a></li>
+		<% if(loginMember != null && loginMember.getMemberType().equals("B")) { %>
+		<li id="InfoPost"><a href="<%=request.getContextPath() %>/myPage/business?id=<%= businessMember.getMemberId() %>">정보게시물 승인</a></li>
+		<% } %>
+	</ul>
+</div>
 	<h1>구매한 상품목록</h1>	
 	<table>
 		<thead>

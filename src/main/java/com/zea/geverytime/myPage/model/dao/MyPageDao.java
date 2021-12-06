@@ -2,9 +2,11 @@ package com.zea.geverytime.myPage.model.dao;
 
 import static com.zea.geverytime.common.JdbcTemplate.close;
 
+import java.awt.Stroke;
 import java.io.FileReader;
 import java.io.IOException;
 import java.sql.Connection;
+import java.sql.Date;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
@@ -13,6 +15,8 @@ import java.util.List;
 import java.util.Map;
 import java.util.Properties;
 
+import com.zea.geverytime.board.model.exception.BoardException;
+import com.zea.geverytime.board.model.vo.Board;
 import com.zea.geverytime.common.model.vo.Attachment;
 import com.zea.geverytime.info.model.exception.InfoBoardException;
 import com.zea.geverytime.info.model.vo.Info;
@@ -165,6 +169,61 @@ public class MyPageDao {
 		
 		return list;
 	}
+	public List<Info> selectInfoList(Connection conn, Map<String, Object> param) {
+		PreparedStatement pstmt = null;
+		ResultSet rset = null;
+		String sql = prop.getProperty("selectInfoList");
+		List<Info> list = new ArrayList<>();
+		try {
+			pstmt = conn.prepareStatement(sql);
+			pstmt.setInt(1,(int)param.get("start"));
+			pstmt.setInt(2,(int)param.get("end"));
+			pstmt.setString(3,(String)param.get("memberId"));
+			rset = pstmt.executeQuery();
+			
+			while(rset.next()) {
+				Info info = new Info();
+				info.setCode(rset.getString("code"));
+				info.setMemberId(rset.getString("writer"));
+				info.setBusinessName(rset.getString("business_name"));
+				info.setHeadContent(rset.getString("head_content"));
+				info.setRegCheck(rset.getString("reg_check"));
+				info.setRegDate(rset.getDate("reg_date"));
+				info.setDeleteCheck(rset.getString("delete_check"));
+				list.add(info);
+			}
+			
+		} catch (SQLException e) {
+			e.printStackTrace();
+			throw new InfoBoardException("myPage 정보 게시물 불러오기 오류!");
+		}finally {
+			close(rset);
+			close(pstmt);
+		}
+		
+		return list;
+	}
+	public int myPageinfoListCount(Connection conn, Map<String, Object> param) {
+		PreparedStatement pstmt = null;
+		String sql = prop.getProperty("myPageinfoListCount");	
+		ResultSet rset = null;
+		int totalCount = 0;
+		
+		try {
+			pstmt = conn.prepareStatement(sql);
+			pstmt.setString(1, (String)param.get("memberId"));
+			rset = pstmt.executeQuery();
+			if(rset.next()) {
+				totalCount = rset.getInt(1);			
+			}
+		} catch (SQLException e) {
+			e.printStackTrace();
+			throw new InfoBoardException("myPage 정보게시물 받아오기 실패!", e);
+		} finally {
+			close(rset);
+			close(pstmt);
+		}	
+		return totalCount;
 	
-	
+	}
 }
