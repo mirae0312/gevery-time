@@ -1,0 +1,31 @@
+@charset "UTF-8";
+.info-view-wrapper{
+	display: flex;
+	flex-direction: column;
+	align-items: center;
+}
+.info-head-wrapper{
+	position: relative;
+	width: 1024px;
+	height: 500px;
+}
+.left-side{
+	position: absolute;
+	
+}
+.right-side{
+	position: absolute;
+	left: 410px;
+	top: 70px;
+}
+
+
+.approve-btn:hover{
+	box-shadow: 0 0 5px gray;
+}
+.reject-btn:hover{
+	box-shadow: 0 0 5px gray;
+}
+.delete-btn:hover{
+	box-shadow: 0 0 5px gray;
+}
