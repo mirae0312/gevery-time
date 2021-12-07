@@ -45,7 +45,7 @@ input[type="checkbox"] + label:hover{
 	transition: background 1s steps(28);
 }
 input[type="checkbox"]:not(:checked) + label{
-	transition: background 1s steps(28);
+	transition: background .8s steps(28);
 	background-position: 0 0;
 }
 input[type="checkbox"]:checked + label{
