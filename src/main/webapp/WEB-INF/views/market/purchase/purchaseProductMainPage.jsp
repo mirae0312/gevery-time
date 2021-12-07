@@ -124,8 +124,6 @@
 	<input type="hidden" id="defaultTotalPrice" value="" />
 
 
-
-	<input type="button" value="테스트버튼" onclick="addSellerPoint();" />
 <script>
 	// point 사용 시 잔액과 비교
 	$("#pointSet").click((e) => {
