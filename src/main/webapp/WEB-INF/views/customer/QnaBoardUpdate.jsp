@@ -57,18 +57,18 @@
         <td>
         <label for="category"></label> 
          <select class="inputBox" name="category" id="category" >
-          <option id="member" value="[회원정보 관련]" <%="[회원정보 관련]".equals(qnaBoard.getCategory())? "selected":"" %>>회원정보 관련</option>
-          <option id="point" value="[포인트 관련]" <%="[포인트 관련]".equals(qnaBoard.getCategory())? "selected":"" %>>포인트 관련</option>
-          <option id="order" value="[주문/결제관련]" <%="[주문/결제관련]".equals(qnaBoard.getCategory())? "selected":"" %>>주문/결제관련</option>
-          <option id="board" value="[게시글 관련]" <%="[게시글 관련]".equals(qnaBoard.getCategory())? "selected":"" %>>게시글 관련</option>
-          <option id="report" value="[신고 관련]" <%="[신고 관련]".equals(qnaBoard.getCategory())? "selected":"" %>>게시글 관련</option>
+          <option id="member" value="[결제문의]" <%="[결제문의]".equals(qnaBoard.getCategory())? "selected":"" %>>결제문의</option>
+          <option id="point" value="[포인트문의]" <%="[포인트문의]".equals(qnaBoard.getCategory())? "selected":"" %>>포인트문의</option>
+          <option id="order" value="[회원정보문의]" <%="[회원정보문의]".equals(qnaBoard.getCategory())? "selected":"" %>>회원정보문의</option>
+          <option id="board" value="[신고문의]" <%="[신고문의]".equals(qnaBoard.getCategory())? "selected":"" %>>신고문의</option>
+          <option id="report" value="[기타문의]" <%="[기타문의]".equals(qnaBoard.getCategory())? "selected":"" %>>기타문의</option>
         </select>
        </td>
     </tr>              
 	<tr>
 		<td>내 용</td>
 		 
-		<td><textarea type ="text" name="content" id="summernote" class="summernote" value="<%=qnaBoard.getContent() %>"></textarea></td>
+		<td><textarea name="content" id="summernote" class="summernote"><%=qnaBoard.getContent() %></textarea></td>
 	<tr>
 		<th colspan="2">
 			<input type="submit" class="submit" value="수정하기">
