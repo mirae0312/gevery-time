@@ -1,8 +1,42 @@
 @charset "UTF-8";
 
 /*게시물부분*/
+#tbl-board-view {
+	width:100%;
+	
+}
+.board-view-writer {
+	float:right;
+}
+.board-view-writer td {
+	padding-bottom:50px;
+}
+.board-view-title{
+	text-align:center;	
+}
+.board-view-title td{
+	padding-top:50px;
+	padding-bottom:50px;
+	font-size:200%;
+}
 .delete-or-update {
-	transform:translateX(500px);
+	float:right;
+}
+.board-view-attachment {
+	float:left;
+} 
+.board-view-attachment a {
+	text-decoration:none;
+	color:black;
+}
+.board-view-content {
+	text-align:center;
+	width:50%;
+}
+.board-view-content td {
+	border-top:1px solid #b3b3b3;
+	padding-top:50px;
+	padding-bottom:50px;
 }
 
 :root {
@@ -12,18 +46,19 @@
   --delete-button-bg-color: gray;
   --button-hover-bg-color: #e0a800;
 } 
-
- .board-comment-btn, .board-btn {
+ .board-btn {
   background: var(--button-bg-color);
   color: var(--button-color);
  }
-
-.delete-or-update-btn{
+ .board-comment-btn{
+background:#fff7cc;
+ }
+ .delete-or-update-btn{
 	background: white;
   color: black;
 }
 
- .board-comment-btn, .board-btn {
+ .board-comment-btn, .board-btn,.btn-comment-enroll2 {
   -webkit-appearance: none;
   -moz-appearance: none;
   appearance: none;
@@ -73,6 +108,12 @@
 .board-btn:disabled,
 .board-comment-btn:disabled  {
   opacity: 0.5;
+}
+.comment-submit ,.btn-comment-enroll2{
+	
+	transform:translateY(-22px);
+	  background: var(--button-bg-color);
+  color: var(--button-color);
 }
 /* 댓글 개수 색깔 */
 	.comment-count {
@@ -146,13 +187,24 @@
   	transform: translateX(90px);
   }
   .level2, .level1 {
-
 	height : 50px;	
+}
+.comment-content, .comment-btns{
+	border-bottom:1px solid black;
+}
+.comment-writer{
+	padding-right:10px;
+	font-size:110%;
+	font-weight:bold;
 }
   
   /*작성자의 다른 게시글*/
   #otherList {
  	margin-top:170px;
+  }
+  
+  .board-select {
+  width:200px;
   }
   
 /* 조건 선택 기능 */
