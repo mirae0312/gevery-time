@@ -14,7 +14,7 @@
 	<tr>
 		<th>게시판 선택</th>
 		<td>
-			<select name="boardCode" id="boardCode">
+			<select name="boardCode" id="boardCode" class="board-select">
 				<option value="bb1b">자유게시판 - 강아지</option>
 				<option value="bb2b">자유게시판 - 고양이</option>
 				<option value="bb3b">후기게시판 - 가는거</option>
@@ -63,8 +63,9 @@
 			  maxHeight: null,             // 최대 높이
 			  focus: true,                  // 에디터 로딩후 포커스를 맞출지 여부
 			  lang: "ko-KR",					// 한글 설정
-			  placeholder: '최대 2048자까지 쓸 수 있습니다'	//placeholder 설정
-	          
+			  placeholder: '최대 2048자까지 쓸 수 있습니다',	//placeholder 설정
+		      disableResizeEditor: true
+
 		});
 			//이미지 업로드 세팅
 		let setting = {
@@ -74,6 +75,7 @@
             focus : true,
             lang : 'ko-KR',
             toolbar : toolbar,
+            disableResizeEditor: true,
             //콜백 함수
             callbacks : { 
             	onImageUpload : function(files, editor, welEditable) { // onImageUpload : 이미지를 업로드했을 때 동작되는 함수
