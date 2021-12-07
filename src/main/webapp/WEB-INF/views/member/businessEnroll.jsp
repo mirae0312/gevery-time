@@ -20,7 +20,7 @@ input[type="number"]::-webkit-inner-spin-button
 <script>
 
 
-const checkIdDuplicate = (Id) => {
+const checkIdDuplicate = () => {
 		const name = "checkIdDuplicatePopup"; 
 		const spec = "left = 500px, top =500px, width=300px, height=250px";
 		const popup = open("",name, spec); 
@@ -32,7 +32,7 @@ const checkIdDuplicate = (Id) => {
 	
 };
 
-$(Id).change(() => {
+$().change(() => {
 	$(idValid).val(0);
 });
 
@@ -73,7 +73,7 @@ function handleOnInput(el, maxlength) {
 
         <td><input type="text" name="Id" id="Id"  required>
 
-           <input type="button" value="아이디중복검사" onclick ="checkIdDuplicate(Id);"/>
+           <input type="button" value="아이디중복검사" onclick ="checkIdDuplicate();"/>
           	
           	
             <input type="hidden" id="idValid" value="0" />
@@ -84,7 +84,7 @@ function handleOnInput(el, maxlength) {
 
       <tr>
 
-        <td>비 번:</td>
+        <td>비밀번호:</td>
 
         <td><input type="password" name="password" id="_password"> </td>
 
@@ -92,7 +92,7 @@ function handleOnInput(el, maxlength) {
 
       <tr>
 
-        <td>비번확인:</td>
+        <td>비밀번호확인:</td>
 
         <td><input type="password"  name="passwordCheck" id="_passwordCheck"> </td>
 
@@ -103,17 +103,18 @@ function handleOnInput(el, maxlength) {
         <td>이 름:</td>
 
         <td><input type="text" name="name" id="_name" > </td>
-
+				
       </tr>
   	    <tr>
       <td>이메일 : </td>
       	<td>
 	         <input type="text" name="email01" id="email01" style="width:100px"> @
 			<input type="text" name="email02" id="email02" style="width:100px;" disabled value="naver.com">
-	 	<select style="width:100px;margin-right:10px" name="selectEmail" id="selectEmail" >
-			 <option  name= "email03" value= <%request.getParameter("email02"); %>>직접입력</option>
+	 <select style="width:100px;margin-right:10px" name="selectEmail" id="selectEmail" >
+			<%-- <option value= <%request.getParameter("email02"); %>>직접입력</option>--%> 
 			 <option value="naver.com" selected>naver.com</option>
 			 <option value="hanmail.net">hanmail.net</option>
+			 <option value="gmail.com">gmail.com</option>
 		</select>
 			</td>
       
@@ -122,17 +123,20 @@ function handleOnInput(el, maxlength) {
 
       <tr>
       <td>사업자번호 : </td>
-  		<td ><input type="number"  name="businessNo1" id="_businessNo" oninput='handleOnInput(this, 9)'/>   
-      	<select name="businessNo2" id="_businessNo" onchange= this.value>
-      	<option value="1">1.병원</option>
-      	<option value="2">2.카페</option>
-      	<option value="3">3.음식점</option>
-      	<option value="4">4.펜션</option>
-      	<option value="5">5.미용실</option>
-      	<option value="6">6.마켓</option>
-      	
-      	</select></td>
+  		<td><input type="number"  name="businessNo1" id="businessNo1" oninput='handleOnInput(this, 2)'style="width:4em" placeholder="2자리" /> 
+  			<input type="number"  name="businessNo2" id="businessNo2" oninput='handleOnInput(this, 3)'style="width:4em" placeholder="3자리"/>   
+  			<input type="number"  name="businessNo3" id="businessNo3" oninput='handleOnInput(this, 4)'style="width:4em" placeholder="4자리"/>   
+      		<select name="businessNo4" id="businessNo4" onchange= this.value>
+      		<option value="1">1.병원</option>
+      		<option value="2">2.카페</option>
+	      	<option value="3">3.음식점</option>
+	      	<option value="4">4.펜션</option>
+	      	<option value="5">5.미용실</option>
+	      	<option value="6">6.마켓</option>
+	      	</select>
+      	</td>
       </tr>
+      	
 		
 		<tr>
 		<td>상호명 : </td>
@@ -179,7 +183,7 @@ function handleOnInput(el, maxlength) {
       <tr align="center">
         <td colspan="2">
            <input type="submit" value="등록">
-           <input type="reset" value="취소">
+          <input type="reset"   onclick="history.back()"  value="취소"/>
         </td>       
       </tr>
    </table>
@@ -203,6 +207,6 @@ function handleOnInput(el, maxlength) {
 <script src ="<%= request.getContextPath() %>/js/email/email.js" > </script>
 <script type="text/javascript" src="http://code.jquery.com/jquery-latest.min.js"></script> 
 
-
+<%@ include file="/WEB-INF/views/common/footer.jsp" %>
 
 </html>
