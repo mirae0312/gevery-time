@@ -23,7 +23,7 @@
 							<option value="%%" <%= div.equals("%%") ? "selected" : "" %>>선택하기</option>
 							<option value="dog" <%= div.equals("dog") ? "selected" : "" %>>강아지</option>
 							<option value="cat" <%= div.equals("cat") ? "selected" : "" %>>고양이</option>
-							<option value="duck" <%= div.equals("goose") ? "selected" : "" %>>거위</option>
+							<option value="goose" <%= div.equals("goose") ? "selected" : "" %>>거위</option>
 						</select>		
 					</td>
 					<td rowspan=2>

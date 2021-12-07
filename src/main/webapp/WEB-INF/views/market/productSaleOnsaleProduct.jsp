@@ -47,7 +47,7 @@
 					<select class="optionChange" data-pdtno="<%= pdt.getPdtNo() %>" data-colname="div" name="div">
 						<option value="dog" <%= pdt.getPdtDiv().equals("dog") ? "selected" : "" %> >강아지</option>
 						<option value="cat" <%= pdt.getPdtDiv().equals("cat") ? "selected" : "" %> >고양이</option>
-						<option value="duck" <%= pdt.getPdtDiv().equals("duck") ? "selected" : "" %> >거위</option>
+						<option value="goose" <%= pdt.getPdtDiv().equals("goose") ? "selected" : "" %> >거위</option>
 					</select>
 				</td>
 				<td>
