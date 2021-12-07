@@ -4,11 +4,17 @@ h1 {
 	padding-top: 20px;
 }
 #purchase-container {
+	list-style: none;
 	padding-top: 20px;
-	display: flex;
 	background-image: url("../../images/myPage/paint.png");
 	background-position: center;
  	background-color: #cccccc;
+}
+#purchase-container li {
+	padding-left: 10px;
+    padding-right: 10px;
+	display: grid;
+    list-style: none;
 }
 
 table {
