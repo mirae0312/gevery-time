@@ -45,7 +45,7 @@ public class AdminInfoListServlet extends HttpServlet {
 			List<Info> list = adminService.selectInfoBoard(param);
 			
 			// 페이지바 호출 MvcUtils.getPagebar(cPage, numPerPage, pageBarSize, totalContentCount, url);
-			final int pageBarSize = 10;
+			final int pageBarSize = 5;
 			int totalContentCount = adminService.adminTotalCount(param);
 			String url = request.getRequestURI();
 			

@@ -45,7 +45,7 @@ public class AdminReportCheckServlet extends HttpServlet {
 			List<ReportBoard> list = adminService.selectReportList(param);
 			
 			// 페이지바 호출 MvcUtils.getPagebar(cPage, numPerPage, pageBarSize, totalContentCount, url);
-			final int pageBarSize = 10;
+			final int pageBarSize = 5;
 			int totalContentCount = adminService.reportTotalCount(param);
 			String url = request.getRequestURI();
 			
