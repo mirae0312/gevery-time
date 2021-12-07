@@ -32,6 +32,9 @@ thead {
     border-top: 1px solid #444444;
     background-color: #fab90126;
 }
+#state-business-info a {
+	text-decoration-line: none;
+}
 #state-business-info tr, th, td {
 	border-bottom: 1px solid #444444;
     text-align: center;

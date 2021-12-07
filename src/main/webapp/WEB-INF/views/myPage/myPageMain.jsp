@@ -67,7 +67,7 @@
 		</table>
 	</form>
 	<div id="form-button">
-        <input type="button" onclick="updateMember();" value="수정"/>
+        <input type="button" id="button"onclick="updateMember();" value="수정"/>
         <input type="button" onclick="location.href='<%=request.getContextPath()%>/myPage/updatePassword'" value="비밀번호변경"/>
         <input type="button" onclick="deleteMember();" value="탈퇴"/>
 	</div>
@@ -129,9 +129,9 @@
 		</table>
 	</form>
 	<div id="form-button">
-        <input type="button" onclick="updateBusiness();" value="수정"/>
-        <input type="button" onclick="location.href='<%=request.getContextPath()%>/myPage/updatePassword'" value="비밀번호수정"/>
-        <input type="button" onclick="deleteBusiness();" value="탈퇴"/>
+        <input type="button" id="send" onclick="updateBusiness();" value="수정"/>
+        <input type="button" id="send" onclick="location.href='<%=request.getContextPath()%>/myPage/updatePassword'" value="비밀번호수정"/>
+        <input type="button" id="send" onclick="deleteBusiness();" value="탈퇴"/>
 	<% } %>
 	</div>
  </div>

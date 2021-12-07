@@ -8,17 +8,18 @@
 <head>
 <meta charset="UTF-8">
 <link rel="stylesheet" href="<%=request.getContextPath() %>/css/style.css" />
+<link rel="stylesheet" href="<%=request.getContextPath() %>/css/admin/adminReportCheck.css" />
 <script src="<%= request.getContextPath() %>/js/jquery-3.6.0.js"></script>
 </head>
 <body>
 <div class="reportCheck-container">
-	<h1>신 고</h1>
+	<h3>신고 처리</h3>
 	<div>
 	<ul>
 		<li>
  			<input type="hidden" id="code" name="code" value="" /> 
-			<button id="falseButton">반려</button>
-			<button id="deleteButton">삭제</button>
+			<button class="send" id="falseButton">반려</button>
+			<button class="send" id="deleteButton">삭제</button>
 		</li>
 	</ul>
 </div>
