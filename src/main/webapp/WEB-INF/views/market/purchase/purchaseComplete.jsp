@@ -41,7 +41,7 @@
 		</tbody>
 	</table>
 	
-	<button onclick="location.href='<%= request.getContextPath() %>/product/main'">쇼핑 계속하기</button>
+	<button onclick="location.href='<%= request.getContextPath() %>/product/main?div=all'">쇼핑 계속하기</button>
 	
 </body>
 </html>
