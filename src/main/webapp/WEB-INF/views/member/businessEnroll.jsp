@@ -62,7 +62,7 @@ function handleOnInput(el, maxlength) {
 <content>
 	<center>
    <h3>회원가입</h3>
-	<form  name ="memberEnrollFrm" action="" method="POST">
+	<form  Id ="memberEnrollFrm" action="" method="POST">
    <table cellpadding="5" cellspacing="0"
 
           bgcolor="eeeeee">
@@ -86,7 +86,7 @@ function handleOnInput(el, maxlength) {
 
         <td>비밀번호:</td>
 
-        <td><input type="password" name="password" id="_password"> </td>
+        <td><input type="password" name="password" id="password" required> </td>
 
       </tr>
 
@@ -94,7 +94,7 @@ function handleOnInput(el, maxlength) {
 
         <td>비밀번호확인:</td>
 
-        <td><input type="password"  name="passwordCheck" id="_passwordCheck"> </td>
+        <td><input type="password"  name="passwordCheck" id="passwordCheck" required> </td>
 
       </tr>
 
@@ -102,13 +102,13 @@ function handleOnInput(el, maxlength) {
 
         <td>이 름:</td>
 
-        <td><input type="text" name="name" id="_name" > </td>
+        <td><input type="text" name="name" id="name" required > </td>
 				
       </tr>
   	    <tr>
       <td>이메일 : </td>
       	<td>
-	         <input type="text" name="email01" id="email01" style="width:100px"> @
+	         <input type="text" name="email01" id="email01" style="width:100px" required> @
 			<input type="text" name="email02" id="email02" style="width:100px;" disabled value="naver.com">
 	 <select style="width:100px;margin-right:10px" name="selectEmail" id="selectEmail" >
 			<%-- <option value= <%request.getParameter("email02"); %>>직접입력</option>--%> 
@@ -140,12 +140,12 @@ function handleOnInput(el, maxlength) {
 		
 		<tr>
 		<td>상호명 : </td>
-		<td><input type="text"  name="businessName" id="_businessName"></td>
+		<td><input type="text"  name="businessName" id="businessName" required></td>
 		</tr>
 		
 		<tr>
             <td>사업장주소 : </td>
-        <td><input type="text"  name="baddress" id="baddress"> </td>
+        <td><input type="text"  name="baddress" id="baddress" required> </td>
       </tr>
       
       <tr>
@@ -193,7 +193,65 @@ function handleOnInput(el, maxlength) {
 </section>
 
 
+<script>
+/**
+ * 중복검사이후 아이디를 변경한 경우, 다시 중복검사해야 한다.
+ */
+ console.log("Id");
+ 
+$("#Id").change(() => {
+	$(idValid).val(1);
+});
 
+
+/**
+ * name=memberEnrollFrm 유효성검사
+ * - id/비번 영문자/숫자 4글자이상
+ * - 이름 한글 2글자 이상
+ * - 전화번호 숫자확인
+ */
+ 
+$("#memberEnrollFrm").submit((e) => {
+	console.log("Id");
+	//memberId
+	const $memberId = $("#Id");
+	//아이디는 영문자/숫자  4글자이상만 허용 
+	if(!/^\w{4,}$/.test($memberId.val())){
+		alert("아이디는 최소 4자리이상이어야 합니다.");
+		return false;
+	}
+	
+	//memberId 중복검사
+	const $idValid = $("#idValid");
+	if($idValid.val() == 0){
+		alert("아이디 중복 검사해주세요.");
+		return false;
+	}
+	
+	//password
+	const $password = $("#password");
+	const $passwordCheck = $("#passwordCheck");
+	
+	if(!/^[a-zA-Z0-9!@#$]{4,}$/.test($password.val())){
+		alert("유효한 패스워드를 입력하세요.");
+		return false;
+	}
+	if($password.val() != $passwordCheck.val()){
+		alert("패스워드가 일치하지 않습니다.");
+		return false;
+	}
+	
+	//memberName
+	const $memberName = $("#name");
+	if(!/^[가-힣]{2,}$/.test($memberName.val())){
+		alert("이름은 한글 2글자 이상이어야 합니다.");
+		return false;
+	}
+	
+	return true;
+});
+
+</script>
 
 
 </body>

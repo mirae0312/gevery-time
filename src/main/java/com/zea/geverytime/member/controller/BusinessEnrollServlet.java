@@ -35,7 +35,7 @@ public class BusinessEnrollServlet extends HttpServlet {
 			request.setCharacterEncoding("utf-8");
 			
 			String Id = request.getParameter("Id");
-			String password = request.getParameter("password");
+			String password =request.getParameter("password");
 			String name = request.getParameter("name");
 			
 			String email01 = request.getParameter("email01");
