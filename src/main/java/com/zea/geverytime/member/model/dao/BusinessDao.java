@@ -39,17 +39,27 @@ public class BusinessDao {
 			rset = pstmt.executeQuery();
 			while(rset.next()) {
 				System.out.println("business:" + businessId);
-				business = new Business(
-						rset.getString("business_id"),
-						rset.getString("password"),
-						rset.getString("name"),
-						rset.getString("email"),
-						rset.getString("business_no"),
-						rset.getString("business_name"),
-						rset.getString("business_address"),
-						rset.getString("business_tel"),
-						rset.getString("location"),
-						rset.getString("business_type"));
+//				business = new Business(
+//						rset.getString("business_id"),
+//						rset.getString("password"),
+//						rset.getString("name"),
+//						rset.getString("email"),
+//						rset.getString("business_name"),
+//						rset.getString("business_address"),
+//						rset.getString("business_no"),
+//						rset.getString("business_tel"),
+//						rset.getString("location"),
+//						rset.getString("business_type"));
+				business = new Business();
+				business.setMemberId(rset.getString("business_id"));
+				business.setPassword(rset.getString("password"));
+				business.setMemberName(rset.getString("name"));
+				business.setbName(rset.getString("business_name"));
+				business.setbAddress(rset.getString("business_address"));
+				business.setBusinessNo(rset.getString("business_no"));
+				business.setbTel(rset.getString("business_tel"));
+				business.setLocation(rset.getString("location"));
+				business.setBusinessType(rset.getString("business_type"));
 			
 			}
 			

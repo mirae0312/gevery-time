@@ -30,19 +30,38 @@ input[type="checkbox"]{
 input[type="checkbox"] + label{
 	display:inline-block;
 	position: fixed;
-	width:20px;
-	height:20px;
-	right: 165px;
-	bottom: 250px;
+	width: 97px;
+	height: 104px;
+	right: 80px;
+	bottom: 170px;
+	transform: translate(-50%, -50%);
+	background: url(https://cssanimation.rocks/images/posts/steps/heart.png) no-repeat;
+	background-position: 0 0;
+	cursor: pointer;
+	animation: fave-heart 1s steps(28);
+	
+}
+input[type="checkbox"] + label:hover{
+	transition: background 1s steps(28);
 }
 input[type="checkbox"]:not(:checked) + label{
-	background:url("../../images/info/빈하트.png") center/contain no-repeat;
+	transition: background 1s steps(28);
+	background-position: 0 0;
 }
 input[type="checkbox"]:checked + label{
-	background:url("../../images/info/찬하트.png") center/contain no-repeat;
+	transition: background 1s steps(28);
+	background-position: -2800px 0;
 }
 input[type="checkbox"]:disabled + label{
-	background:url("../../images/info/회하트.png") center/contain no-repeat;
+	background-position: 0 0;
+}
+@keyframes fave-heart {
+  0% {
+    background-position: 0 0;
+  }
+  100% {
+    background-position: -2800px 0;
+  }
 }
 
 
