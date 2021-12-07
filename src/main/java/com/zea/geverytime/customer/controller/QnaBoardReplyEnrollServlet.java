@@ -38,7 +38,7 @@ public class QnaBoardReplyEnrollServlet extends HttpServlet {
 				
 				// 2.업무로직
 				int result = qnaBoardService.insertQnaBoardReply(qnaBoard);
-				String msg = result > 0 ? " 등록 성공!" : " 등록 실패!";
+				String msg = result > 0 ? " 답변글이 등록되었습니다." : "답변글 등록에 실패했습니다.";
 				request.getSession().setAttribute("msg", msg);
 				
 				// 답변완료 시 원글 [답변완료] 추가

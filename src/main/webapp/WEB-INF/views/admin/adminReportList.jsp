@@ -18,9 +18,9 @@
 			<table id="reportList">
 				<thead>
 					<tr>
-						<th>신고글 코드</th>
-						<th>신고글 제목</th>
+						<th>고유코드</th>
 						<th>신고자</th>
+						<th>신고글 제목</th>
 						<th>신고 내용</th>
 						<th>작성일자</th>
 						<th>처리상태</th>
@@ -67,10 +67,10 @@ const reportList = (cPage) => {
 				
 				const tr = `<tr>
 				<td>\${e.reportCode}</td>
-				<td><a href="#" target="_self", onclick="window.open('<%= request.getContextPath() %>/admin/reportCheck?code=\${e.reportCode}', 
-					'_blank', 'width=500px, height=200px, scrollbars = yes')" >\${e.title}</a>
-				</td>
 				<td>\${e.memberId}</td>
+				<td><a href="#" target="_self", onclick="window.open('<%= request.getContextPath() %>/admin/reportCheck?code=\${e.reportCode}', 
+					'_blank', 'width=200px, height=200px, scrollbars = yes')" >\${e.title}</a>
+				</td>
 				<td>\${e.content}</td>
 				<td>\${value}</td>
 				<td>\${state}</td>

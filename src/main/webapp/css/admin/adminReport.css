@@ -28,9 +28,13 @@ thead {
     border-top: 1px solid #444444;
     background-color: #fab90126;
 }
+#reportList a {
+	text-decoration-line: none;
+}
+
 #reportList tr, th {
 	border-bottom: 1px solid #444444;
-    padding: 10px;
+    padding: 9px;
     text-align: center;
     background-color: #fde85300;
 }
@@ -38,4 +42,6 @@ thead {
 	border-bottom: 1px solid #444444;
     text-align: center;
     background-color: #fde85300;
+    text-decoration-line: none;
+    padding: 7px;
 }

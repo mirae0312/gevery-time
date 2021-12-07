@@ -8,15 +8,15 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
+
 import com.zea.geverytime.member.model.service.BusinessService;
 import com.zea.geverytime.member.model.service.MemberService;
-import com.zea.geverytime.member.model.vo.Member;
 import com.zea.geverytime.member.model.vo.Business;
+import com.zea.geverytime.member.model.vo.Member;
 @WebServlet("/member/login")
 public class MemberLoginServlet extends HttpServlet {
     private static final long serialVersionUID = 1L;
     private MemberService memberService = new MemberService();
-    public BusinessViewServlet businesview = new BusinessViewServlet();
     private BusinessService businessService = new BusinessService();
     /**
      *  @see HttpServlet#doPost(HttpServletRequest request, HttpServletResponse response)
@@ -26,7 +26,7 @@ public class MemberLoginServlet extends HttpServlet {
     	request.setCharacterEncoding("utf-8");
        
     	String memberId = request.getParameter("memberId");
-        String password = request.getParameter("password");
+        String password =request.getParameter("password");
         System.out.println("memberId = " + memberId + ", password = " + password);
     
         
@@ -63,7 +63,12 @@ public class MemberLoginServlet extends HttpServlet {
 //                String location = request.getContextPath() + "/";
 //                response.sendRedirect(location);
                 
+
+            
+
+
                 String referer = request.getParameter("referer");
+
                 response.sendRedirect(referer);
                                
 			    
