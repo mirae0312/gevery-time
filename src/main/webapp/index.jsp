@@ -16,7 +16,7 @@
 	</div><hr />
 	
 	<%-- 게시글영역 --%>
-	<h1>게시글</h1>
+	<h1>한 주간의 인기 게시글</h1>
 	<div class="board-wrapper">
 		<div class="board-left-wrap">
 		  <table>
