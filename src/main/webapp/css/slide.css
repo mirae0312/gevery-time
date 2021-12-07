@@ -1,11 +1,14 @@
 @charset "UTF-8";
 /* slick */
 .slick-arrow{
-	position: absolute;
+	position:absolute;
+	top: 0px;
+	border: 0;
+	pointer-events: none;
+	background-color: #fff;
 	text-indent:-9999px;
 	overflow:hidden;
-	right: -9999px;
-	transition: all 0.2s linear;
+	z-index: -1;
 }
 
 /* 사진 */
