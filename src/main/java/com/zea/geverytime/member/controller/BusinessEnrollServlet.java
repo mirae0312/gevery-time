@@ -48,12 +48,12 @@ public class BusinessEnrollServlet extends HttpServlet {
 			String btel1 = request.getParameter("tel1");
 			String btel2 = request.getParameter("tel2");
 			String btel3 = request.getParameter("tel3");
-			String btel = btel1.concat(btel2).concat(btel3);
+			String btel = btel1.concat(btel2).concat("-"+btel3);
 			String businessNo1 = request.getParameter("businessNo1");
 			String businessNo2 = request.getParameter("businessNo2");
 			String businessNo3 = request.getParameter("businessNo3");
 			String businessNo4 = request.getParameter("businessNo4");
-			String businessNo = businessNo1.concat("-"+businessNo2).concat("-"+businessNo3).concat("-"+businessNo4);
+			String businessNo = businessNo1.concat("-"+businessNo2).concat("-"+businessNo3).concat(businessNo4);
 			System.out.println(email02);
 	Business business = new Business
 			(Id,
