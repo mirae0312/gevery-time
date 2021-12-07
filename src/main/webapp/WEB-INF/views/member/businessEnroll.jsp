@@ -84,7 +84,7 @@ function handleOnInput(el, maxlength) {
 
       <tr>
 
-        <td>비 번:</td>
+        <td>비밀번호:</td>
 
         <td><input type="password" name="password" id="_password"> </td>
 
@@ -92,7 +92,7 @@ function handleOnInput(el, maxlength) {
 
       <tr>
 
-        <td>비번확인:</td>
+        <td>비밀번호확인:</td>
 
         <td><input type="password"  name="passwordCheck" id="_passwordCheck"> </td>
 
@@ -114,6 +114,7 @@ function handleOnInput(el, maxlength) {
 			<%-- <option value= <%request.getParameter("email02"); %>>직접입력</option>--%> 
 			 <option value="naver.com" selected>naver.com</option>
 			 <option value="hanmail.net">hanmail.net</option>
+			 <option value="gmail.com">gmail.com</option>
 		</select>
 			</td>
       
@@ -122,17 +123,20 @@ function handleOnInput(el, maxlength) {
 
       <tr>
       <td>사업자번호 : </td>
-  		<td ><input type="number"  name="businessNo1" id="businessNo1" oninput='handleOnInput(this, 9)'/>   
-      	<select name="businessNo2" id="businessNo2" onchange= this.value>
-      	<option value="1">1.병원</option>
-      	<option value="2">2.카페</option>
-      	<option value="3">3.음식점</option>
-      	<option value="4">4.펜션</option>
-      	<option value="5">5.미용실</option>
-      	<option value="6">6.마켓</option>
-      	
-      	</select></td>
+  		<td><input type="number"  name="businessNo1" id="businessNo1" oninput='handleOnInput(this, 2)'style="width:4em" placeholder="2자리" /> 
+  			<input type="number"  name="businessNo2" id="businessNo2" oninput='handleOnInput(this, 3)'style="width:4em" placeholder="3자리"/>   
+  			<input type="number"  name="businessNo3" id="businessNo3" oninput='handleOnInput(this, 4)'style="width:4em" placeholder="4자리"/>   
+      		<select name="businessNo4" id="businessNo4" onchange= this.value>
+      		<option value="1">1.병원</option>
+      		<option value="2">2.카페</option>
+	      	<option value="3">3.음식점</option>
+	      	<option value="4">4.펜션</option>
+	      	<option value="5">5.미용실</option>
+	      	<option value="6">6.마켓</option>
+	      	</select>
+      	</td>
       </tr>
+      	
 		
 		<tr>
 		<td>상호명 : </td>
@@ -203,6 +207,6 @@ function handleOnInput(el, maxlength) {
 <script src ="<%= request.getContextPath() %>/js/email/email.js" > </script>
 <script type="text/javascript" src="http://code.jquery.com/jquery-latest.min.js"></script> 
 
-
+<%@ include file="/WEB-INF/views/common/footer.jsp" %>
 
 </html>

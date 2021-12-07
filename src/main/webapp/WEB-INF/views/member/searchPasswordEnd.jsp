@@ -8,10 +8,21 @@
 </head>
 <body>
 	<form action="">
-인증번호입력<input type="text" />
-변경할비밀번호<input type="text" />
-비밀번호확인<input type="text" />
-확인<button type="submit"> </button>
+	<table>
+	
+	<tr>
+	<td>인증번호입력<input type="text" /></td>
+	</tr>
+	<tr>
+	<td>변경할비밀번호<input type="text" /></td>
+	</tr>
+	<tr>
+	<td>비밀번호확인<input type="text" /></td>
+	</tr>
+	<tr>
+	<td><button> 확인 </button></td>
+	</tr>
+</table>
 </form>
 
 </body>

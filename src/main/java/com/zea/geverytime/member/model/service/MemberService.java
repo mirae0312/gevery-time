@@ -81,6 +81,26 @@ public class MemberService {
 		return member;
 	}
 		
-	
+	public int insertPassword(Member m) {
+		Connection conn = null;
+		int result = 0;
+		try {
+			// 1.Connection객체 생성
+			conn = getConnection();
+			
+			// 2.Dao요청
+			result = memberDao.insertPassword(conn, m);
+			
+			// 3.트랜잭션처리
+			commit(conn);
+		} catch (Exception e) {
+			rollback(conn);
+			throw e;
+		} finally {
+			// 4.Connection 자원반납
+			close(conn);
+		}
+		return result ;
+	}
 
 }

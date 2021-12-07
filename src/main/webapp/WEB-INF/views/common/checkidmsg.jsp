@@ -18,7 +18,7 @@ function add(){
        
       
 			<script>
-		        alert("아이디나 이메일이 정확하지않습니다.")
+		        alert("정확한정보를입력해주세요!")
 		    </script>
 		
 		

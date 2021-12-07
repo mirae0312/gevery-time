@@ -18,7 +18,7 @@ function add(){
        
       
 			<script>
-		        alert("아이디나 이메일이 정확하지않습니다.")
+		        alert("이메일발송 성공!!.")
 		    </script>
 		
 		

@@ -8,6 +8,7 @@ import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
 
 import com.zea.geverytime.member.model.service.MemberService;
 import com.zea.geverytime.member.model.vo.Member;
@@ -30,7 +31,9 @@ public class IdFindGetServlet extends HttpServlet {
 		Member member = memberService.searchId(memberName,email);
 		
 		System.out.println("member : " + member);
-
+		 HttpSession session = request.getSession(true); 
+		  session.setAttribute("loginMember", member);
+          Member loginMember = (Member) session.getAttribute("loginMember"); 
 	
 		if(member != null) {
 			request.setAttribute("member", member);
@@ -38,7 +41,7 @@ public class IdFindGetServlet extends HttpServlet {
 			rd.forward(request, response);
 			}else {
 			request.setAttribute("msg", "정확한 정보를 입력해 주세요!");
-			RequestDispatcher rd = request.getRequestDispatcher("/WEB-INF/views/common/msg.jsp");
+			RequestDispatcher rd = request.getRequestDispatcher("/WEB-INF/views/common/checkidmsg.jsp");
 			rd.forward(request, response);	
 		}
 		

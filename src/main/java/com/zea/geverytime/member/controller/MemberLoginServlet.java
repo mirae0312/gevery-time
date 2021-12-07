@@ -45,7 +45,8 @@ public class MemberLoginServlet extends HttpServlet {
                     session.setAttribute("loginMember", member);
                     session.setAttribute("msg", "로그인 성공!");
                     Member loginMember = (Member) session.getAttribute("loginMember"); 
-                    System.out.println("member :" + loginMember);
+                   
+                    
                     String businessId = loginMember.getMemberId();
                     Business business = businessService.selectOneMember(businessId);
                     System.out.println("member@MemberLoginServlet.doPost = " + businessId);
@@ -53,9 +54,9 @@ public class MemberLoginServlet extends HttpServlet {
                     System.out.println("businessMember :"  + business);            
                 }
                 
-                else if(member != null && password.equals(member.getPassword())){
+                else if(member  ==  null || !password.equals(member.getPassword())){
                 	
-                    session.setAttribute("msg", "로그인 실패!");
+                    session.setAttribute("msg", "아이디 또는 패스워드가 틀립니다.!");
                     
                 }
                 

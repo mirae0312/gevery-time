@@ -124,4 +124,29 @@ public class MemberDao {
 		
 			return member;
 		}
+		public int insertPassword(Connection conn, Member m) {
+			int result = 0;
+			PreparedStatement pstmt = null;
+			String sql = prop.getProperty("clearPassword");
+			
+			try {
+				// 미완성 쿼리문 객체생성
+				pstmt = conn.prepareStatement(sql);
+				// 쿼리문 미완성
+				pstmt.setString(1, m.getPassword());
+				pstmt.setString(2, m.getMemberId());
+				//쿼리문실행 : 완성된 쿼리를 가지고 있는 pstmt실행(파라미터 없음)
+				//DML은 executeUpdate()
+				result = pstmt.executeUpdate();
+			} catch (SQLException e) {
+				throw new MemberException("비밀번호 수정 오류!", e);
+			} finally {
+				close(pstmt);
+			}
+			return result;
+		}
+			
+
+
+
 }

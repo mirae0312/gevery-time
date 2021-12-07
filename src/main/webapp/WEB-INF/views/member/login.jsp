@@ -13,41 +13,21 @@ $(() => {
 		alert("<%= msg %>");
 		
 	<% } %>
-	<% if(loginMember == null){ %>
-		/**
-		 * 로그인폼 유효성 검사
-		 */
-		$(loginFrm).submit((e) => {
-			const $memberId = $(memberId);
-			const $password = $(password);
-			
-			if(!/^\w{4,}$/.test($memberId.val())){
-				alert("유효한 아이디를 입력하세요.");
-				$memberId.select();
-				return false;
-			}
-			if(!/^.{4,}$/.test($password.val())){
-				alert("유효한 비밀번호를 입력하세요.");
-				$password.select();
-				return false;
-			}
-		});
-		
-	<% } %>
-	});
 	
-</script>
-<script>
+	
+	});
+
+
 function check_input() {
-    if (!document.authForm.id_val.value)
+    if (!document.authForm.memberId.value)
     // login_form 이름을 가진 form 안의 id_val 의 value가 없으면
     {
         alert("아이디를 입력하세요!");
-        document.login_form.id_val.focus();
+        document.authForm.memberId.focus();
         // 화면 커서 이동
         return;
     }
-    if (!document.login_form.pw_val.value)
+    if (!document.authForm.password.value)
     {
         alert("비밀번호를 입력하세요!");
         // 화면 커서 이동
@@ -67,7 +47,7 @@ function check_input() {
     <div class="inner_login">
         <div class="login_tistory">
     
-            <form method="post" id="authForm" action="<%= request.getContextPath() %>/member/login">
+            <form method="post" id="authForm" name="authForm" action="<%= request.getContextPath() %>/member/login">
                 <input type="hidden" name="redirectUrl" value="">
                 <fieldset>
                 <legend class="screen_out">로그인 정보 입력폼</legend>
@@ -104,5 +84,6 @@ function check_input() {
         </div>
     </div>
 </section>
+<%@ include file="/WEB-INF/views/common/footer.jsp" %>
 </body>
 </html>

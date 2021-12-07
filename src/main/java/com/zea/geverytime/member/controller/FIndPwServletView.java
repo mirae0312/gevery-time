@@ -3,8 +3,7 @@ package com.zea.geverytime.member.controller;
 import java.io.IOException;
 import java.util.Properties;
 import java.util.Random;
-import javax.mail.*;
-import javax.mail.Address;
+
 import javax.mail.Message;
 import javax.mail.PasswordAuthentication;
 import javax.mail.Session;
@@ -18,16 +17,7 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
-import java.util.Properties;
 
-import javax.mail.Message;
-import javax.mail.MessagingException;
-import javax.mail.PasswordAuthentication;
-import javax.mail.Session;
-import javax.mail.Transport;
-import javax.mail.internet.InternetAddress;
-import javax.mail.internet.MimeMessage;
-import java.io.IOException;
 import com.zea.geverytime.member.model.service.MemberService;
 import com.zea.geverytime.member.model.vo.Member;
 
@@ -37,7 +27,7 @@ import com.zea.geverytime.member.model.vo.Member;
 @WebServlet("/member/FindPwServletView")
 public class FIndPwServletView extends HttpServlet {
 	private static final long serialVersionUID = 1L;	
-	
+	MemberService memberService = new MemberService();
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException  {
 		request.setCharacterEncoding("utf-8");
 		
@@ -47,16 +37,20 @@ public class FIndPwServletView extends HttpServlet {
         System.out.println(email);
         //먼저 아이디로 회원정보를 받아오고 가져온 데이터에서 email값을 비교하여 존재하지 않으면 인증메일 보내지 못함
         Member m = new MemberService().memberCallPw(memberId);
+       
         System.out.println(m);
-        if(m==null ||  !m.getEmail().equals(email))
         	
-        {	System.out.println(m.getEmail());
-            request.setAttribute("msg", "아이디나 이메일 정보가 맞지 않습니다");
-            request.getRequestDispatcher("WEB-INF/views/common/msg.jsp").forward(request, response);
-            return;
-        }
-        
-                //mail server 설정
+        if(m == null ||  !m.getEmail().equals(email) || !m.getMemberId().equals(memberId))
+        {	
+             request.getRequestDispatcher("/WEB-INF/views/common/msg.jsp")
+             .forward(request, response);
+    
+         	return;
+	
+        }		
+		        String location = request.getContextPath() + "/";
+		        response.sendRedirect(location);
+        		//mail server 설정
                 String host = "smtp.naver.com";
                 String user = "zero2317"; //자신의 네이버 계정
                 String password = "rpqmflxkdla";//자신의 네이버 패스워드
@@ -97,6 +91,12 @@ public class FIndPwServletView extends HttpServlet {
                 String AuthenticationKey = temp.toString();
                 System.out.println(AuthenticationKey);
                 
+                if(m.getMemberId().equals(memberId)) {
+                m.setPassword(temp.toString());
+             
+                int member =  memberService.insertPassword(m);
+                String message = member > 0 ? "초기화성공!" : "초기화실패!";
+                
                 
                 Session session = Session.getDefaultInstance(props, new javax.mail.Authenticator() {
                 	 String un=user;
@@ -105,6 +105,7 @@ public class FIndPwServletView extends HttpServlet {
                         return new PasswordAuthentication(un,pw);
                     }
                 });
+              
                 session.setDebug(true); //for debug
                 //email 전송
                 try {
@@ -115,21 +116,24 @@ public class FIndPwServletView extends HttpServlet {
                     //메일 제목
                     msg.setSubject("안녕하세요 Geverytime 인증 메일입니다.");
                     //메일 내용
-                    msg.setText("인증 번호는 :"+temp);
+                    msg.setText("임시 비밀번호는 :"+temp);
                     
                     Transport.send(msg);
                     System.out.println("이메일 전송");
-                    
+                
                 }catch (Exception e) {
                     e.printStackTrace();// TODO: handle exception
+                   
                 }
                 HttpSession saveKey = request.getSession();
                 saveKey.setAttribute("AuthenticationKey", AuthenticationKey);
               
                 request.setAttribute("id", memberId);
-                RequestDispatcher rd = request.getRequestDispatcher("/WEB-INF/views/member/searchPasswordEnd.jsp");
-                rd.forward(request, response);
-				}
+                RequestDispatcher rd =  request.getRequestDispatcher("/WEB-INF/views/common/redirect.jsp");
+                rd.include(request, response);
+                }
+				    
+	}
 protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		
 	HttpSession session = request.getSession();

@@ -2,7 +2,11 @@
     pageEncoding="UTF-8"%>
  <%@page import="com.zea.geverytime.member.model.vo.Member"%>
    <%@ include file="/WEB-INF/views/common/header.jsp" %>
+   <%
 
+    Member member = (Member)request.getAttribute("member");    
+    
+    %>
 
 <!DOCTYPE html>
 
@@ -111,7 +115,7 @@ function chkPW(){
 
       <tr>
 
-        <td>비 번:</td>
+        <td>비밀번호:</td>
 
         <td><input type="password" name="password" id="_password"> </td>
 
@@ -119,7 +123,7 @@ function chkPW(){
 
       <tr>
 
-        <td>비번확인:</td>
+        <td>비밀번호확인:</td>
 
         <td><input type="password" id="_passwordCheck" name="passwordCheck"> </td>
 
@@ -206,7 +210,7 @@ function chkPW(){
 
 
 
-
+<%@ include file="/WEB-INF/views/common/footer.jsp" %>
 
 </body>
 </html>
