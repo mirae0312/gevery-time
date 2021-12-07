@@ -1,7 +1,7 @@
 @charset "UTF-8";
  
 #contents{
-    height: 250px;
+    height: 235px;
 }
 .content{
 	height: 1600px;
@@ -9,7 +9,7 @@
 .button{
     text-align: right;
     padding : 2px 20px;
-    margin-top: -90px;
+    margin-top: -70px;
     margin-right: 20px;
 }
 .buttonlist{
@@ -91,8 +91,8 @@ a {
 
 .board_list th,
 .board_list td {
-    padding: 7px;
-    font-size: 17px;
+    padding: 5px;
+    font-size: 16px;
     font-weight: inherit;
    
 }

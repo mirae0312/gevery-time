@@ -27,7 +27,7 @@ public class QnaBoardDeleteServlet extends HttpServlet {
 		
 		
 			int result = qnaBoardService.deleteQnaBoard(no);
-			String msg = result > 0 ? "게시물 삭제 성공!" : "게시물 삭제 실패!";
+			String msg = result > 0 ? "게시물이 삭제되었습니다." : "게시물 삭제에 실패했습니다.";
 
 			// 3. redirect : /mvc/board/boardList로 이동
 			request.getSession().setAttribute("msg", msg);
