@@ -335,7 +335,6 @@
 					console.log(data.result);
 					if(data.result == 0){
 						$("#wishListAdd").prop("disabled", "disabled");
-						$("#wishListAdd").css("background-color", "green");
 					}
 				},
 				error: console.log

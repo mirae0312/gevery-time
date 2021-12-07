@@ -11,6 +11,7 @@
 <head>
 <meta charset="UTF-8">
 <title>찜 목록</title>
+<link rel="stylesheet" href="<%=request.getContextPath() %>/css/market/cart/wishList.css" />
 </head>
 <body>
 <h1>찜 목록</h1>
@@ -81,7 +82,7 @@
 							<form action="<%= request.getContextPath() %>/cart/deleteWishList" method="POST">
 								<input type="hidden" name="boardNo" value="\${boardNo}" />
 								<input type="hidden" name="memberId" value="<%= loginMember.getMemberId() %>"/>
-								<input type="submit" value="삭제하기" />
+								<input type="submit" class="del-Btn" value="삭제하기" />
 							</form>
 						</td>
 					</tr>

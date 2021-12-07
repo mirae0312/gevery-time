@@ -14,14 +14,16 @@
 <head>
 <meta charset="UTF-8">
 <title>결제 완료</title>
+<link rel="stylesheet" href="<%=request.getContextPath() %>/css/market/purchase/purchaseComplete.css" />
+
 </head>
 <body>
 	<h1>결제 완료 화면</h1>
 	<p>주문이 완료 되었습니다.</p>
-	<table>
+	<table id="purchase-info">
 		<thead>
 			<tr>
-				<th>주문 상세 내역</th>
+				<th colspan=2>주문 상세 내역</th>
 			</tr>
 		</thead>
 		<tbody>
@@ -41,7 +43,7 @@
 		</tbody>
 	</table>
 	
-	<button onclick="location.href='<%= request.getContextPath() %>/product/main?div=all'">쇼핑 계속하기</button>
+	<button id="continueBtn" onclick="location.href='<%= request.getContextPath() %>/product/main?div=all'">쇼핑 계속하기</button>
 	
 </body>
 </html>

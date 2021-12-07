@@ -12,14 +12,17 @@
 <head>
 <meta charset="UTF-8">
 <title>장바구니</title>
+<link rel="stylesheet" href="<%=request.getContextPath() %>/css/market/cart/cart.css" />
+
 </head>
 <body>
 	<h1>장바구니</h1>
+	<input type="button" value="전체 선택/해제하기" id="checkAllBtn"/>
 <%
 	int countNum = 1;
 	if(!cartlist.isEmpty()) {
 %>
-	<table>
+	<table id="cartTable">
 		<thead>
 			<tr>
 				<th>선택</th>
@@ -32,6 +35,7 @@
 				<th>상품상태</th>
 				<th>선택수량</th>
 				<th>상품총가격</th>
+				<th>삭제하기</th>
 			</tr>
 		</thead>
 
@@ -90,7 +94,7 @@
 		}
 		%>
 			<tr>
-				<td colspan=8>
+				<td colspan=11>
 					<b><span>총 가격은 </span>
 					<span id="totalPricePlace"></span>
 					<span>원 입니다.</span></b>
@@ -101,7 +105,7 @@
 	<!-- 합계 처리 위한 영역 -->
 	<input type="hidden" id="countNum" value="<%= countNum - 1 %>"/>
 	
-	<input type="button" value="전체 선택/해제하기" id="checkAllBtn"/>
+
 	<!-- 전달할 form -->
 	<form action="<%= request.getContextPath() %>/purchase/purchasePage" name="purchaseFrm" id="purchaseFrm" method="GET">
 		<button>선택 상품 주문하기</button></br>
@@ -109,7 +113,7 @@
 	</form>
 <% } else { %>
 	<h1>텅 비었어요</h1>
-	<input type="button" value="쇼핑하러 가기" onclick="location.href='<%= request.getContextPath() %>/product/main'" />
+	<input type="button" value="쇼핑하러 가기" onclick="location.href='<%= request.getContextPath() %>/product/main?div=all'" />
 <% } %>	
 		
 	<script>
