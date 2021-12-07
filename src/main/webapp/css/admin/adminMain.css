@@ -1,0 +1,37 @@
+@charset "UTF-8";
+
+/* navBar */
+#admin-container {
+    width: 155px;
+    height: 600px;
+    border-radius:10px;
+    text-align:right;
+    float: left;
+    padding-right:10px;
+    padding-top:10px;
+    border: none;
+    background-color: rgb(250 215 1);
+ 
+}
+
+#admin-container li {
+    font-size:17px;
+    font-weight: 600;
+    list-style: none;
+    height: 40px;
+}
+#admin-container li :hover {
+	color: black;
+    background-color: #fff19c;
+    border-radius: 4px;
+}
+#admin-container a {
+	color: white;
+    text-decoration-line: none;
+}
+#pageBar {
+	display: flex;
+    justify-content: center;
+    margin: 10px;
+}
+

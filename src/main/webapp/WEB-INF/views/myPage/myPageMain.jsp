@@ -7,7 +7,8 @@
 %>
 <!DOCTYPE html>
 <%@ include file="/WEB-INF/views/common/header.jsp" %>
-<div class="myPage-container">
+<link rel="stylesheet" href="<%=request.getContextPath()%>/css/myPage/myPageMain.css" />
+<div id="myPage-container">
 	<ul class="myPageBar">
 		<% if(loginMember != null && loginMember.getMemberType().equals("N")) { %>
 		<li id="memberInfo"><a href="<%=request.getContextPath() %>/myPage/myPageMain">내정보(개인)</a></li>
@@ -17,12 +18,14 @@
 		<% } %>
 		<li id="buyList"><a href="<%=request.getContextPath() %>/myPage/PurchaseHistory?memberId=<%= loginMember.getMemberId() %>">나의 구매내역</a></li>
 		<% if(loginMember != null && loginMember.getMemberType().equals("B")) { %>
-		<li id="InfoPost"><a href="<%=request.getContextPath() %>/myPage/business?id=<%= businessMember.getMemberId() %>">정보게시물 승인</a></li>
+		<li id="InfoPost"><a href="<%=request.getContextPath() %>/myPage/business?id=<%= businessMember.getMemberId() %>">정보게시물</a></li>
 		<% } %>
 	</ul>
 </div>
-<session>
+<session id="myPageSession">
  <% if(loginMember != null && loginMember.getMemberType().equals("N")) { %>
+ <div id="memberUpdate-container">
+ <h1>회원정보</h1>
 	<form id="memberUpdateFrm" method="POST">
 		<table>
 			<tr>
@@ -62,12 +65,17 @@
 				</td>
 			</tr> 
 		</table>
+	</form>
+	<div id="form-button">
         <input type="button" onclick="updateMember();" value="수정"/>
         <input type="button" onclick="location.href='<%=request.getContextPath()%>/myPage/updatePassword'" value="비밀번호변경"/>
         <input type="button" onclick="deleteMember();" value="탈퇴"/>
-	</form>
+	</div>
 	<% } %>
+ </div>
 	<% if(loginMember != null && loginMember.getMemberType().equals("B")) { %>
+<div id="businessUpdate-container">
+<h1>사업자 정보</h1>
 	<form id="BusinessUpdateFrm" method="POST">
 		<table>
 			<tr>
@@ -119,11 +127,14 @@
 				</td>
 			</tr>
 		</table>
+	</form>
+	<div id="form-button">
         <input type="button" onclick="updateBusiness();" value="수정"/>
         <input type="button" onclick="location.href='<%=request.getContextPath()%>/myPage/updatePassword'" value="비밀번호수정"/>
         <input type="button" onclick="deleteBusiness();" value="탈퇴"/>
-	</form>
 	<% } %>
+	</div>
+ </div>
 </session>
 <!-- 회원탈퇴폼 -->
 <form id="memberDelFrm" action="<%= request.getContextPath() %>/myPage/memberDelete" method="POST">

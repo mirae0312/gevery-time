@@ -16,24 +16,12 @@
 	<div>
 	<ul>
 		<li>
-			<table id="refort-container">
-				<thead>
-					<tr>
-						<th>신고글 제목</th>
-						<th>신고자</th>
-						<th>신고 내용</th>
-						<th>작성일자</th>
-					</tr>
-				</thead>
-				<tbody>
-				</tbody>
-			</table>
+ 			<input type="hidden" id="code" name="code" value="" /> 
+			<button id="falseButton">반려</button>
+			<button id="deleteButton">삭제</button>
 		</li>
 	</ul>
 </div>
- 	<input type="hidden" id="code" name="code" value="" /> 
-	<button id="falseButton">반려</button>
-	<button id="deleteButton">처형</button>
 <script>
 // url에서 ?code='code값'추출
 var getUrlParameter = function getUrlParameter(sParam) {

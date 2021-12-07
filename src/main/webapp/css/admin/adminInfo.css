@@ -1,0 +1,46 @@
+@charset "UTF-8";
+
+#infoCheck-container {
+	padding-top: 60px;
+	padding-bottom: 160px;
+	background-image: url("../../images/myPage/paint.png");
+	background-position: top;
+ 	background-color: #cccccc;	
+}
+#infoCheck-container li {
+	display: flex;
+    flex-direction: column;
+    padding-left: 15px;
+    padding-right: 10px;
+}
+#infoCheck-container h1 {
+	text-align: center;
+	padding-top: 20px;
+}
+#infoCheck-container ul {
+	list-style:none;
+}
+#state-business-info {
+    justify-content: center;
+    border-collapse: collapse;
+}
+table {
+    justify-content: center;
+    border-collapse: collapse;
+}
+thead {
+    border-top: 1px solid #444444;
+    background-color: #fab90126;
+}
+#state-business-info tr, th, td {
+	border-bottom: 1px solid #444444;
+    text-align: center;
+    padding: 10px;
+    background-color: #fde85300;
+}
+#state-business-info td {
+	border-bottom: 1px solid #444444;
+    text-align: center;
+    padding: 10px;
+    background-color: #fde85300;
+}

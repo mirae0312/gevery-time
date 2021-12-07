@@ -1,0 +1,40 @@
+@charset "UTF-8";
+
+h1 {
+	padding-top: 20px;
+}
+#myInfo-container {
+	padding-top: 20px;
+	display: grid;
+	background-image: url("../../images/myPage/paint.png");
+	background-position: right;
+ 	background-color: #cccccc;
+}
+#myInfo-container ul {
+	display: grid;
+	margin-right: 7px;
+}
+#myPageBusinessInfo {
+    justify-content: center;
+    border-collapse: collapse;
+}
+table {
+    justify-content: center;
+    border-collapse: collapse;
+}
+#thead {
+    border-top: 1px solid #444444;
+    background-color: #fab90126;
+}
+#myPageBusinessInfo tr, th, td {
+	border-bottom: 1px solid #444444;
+    padding: 10px;
+    text-align: center;
+    background-color: #fde85300;
+}
+#myPageBusinessInfo td {
+	border-bottom: 1px solid #444444;
+    padding: 10px;
+    text-align: center;
+    background-color: #fde85300;
+}
