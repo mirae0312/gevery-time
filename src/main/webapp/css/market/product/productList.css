@@ -1,0 +1,58 @@
+@charset "UTF-8";
+
+#productListTable {
+	border: white;
+	border-radius: 5%;
+	width:100%;
+	margin-top: 10px;
+}
+#productListTable th{
+	height: 30px;
+	background-color: #efefec;	
+}
+#productListTable td{
+	height: 50px;
+	text-align:center;
+}
+#productListTable td, th{
+	border-bottom: 1px solid #ebebe6;
+}
+#productListTable select{
+	width: 200px;
+	height: 25px;
+}
+
+
+#productEnrollTable {
+	border: white;
+	border-radius: 5%;
+	width:50%;
+	margin-top: 10px;	
+}
+#productEnrollTable th{
+	height: 30px;
+	background-color: #efefec;	
+}
+#productEnrollTable td{
+	height: 50px;
+	text-align:center;
+}
+#productEnrollTable td, th{
+	border-bottom: 1px solid #ebebe6;
+}
+#productEnrollTable input{
+	width: 200px;
+	height: 25px;
+}
+#productEnrollTable select{
+	width: 210px;
+	height: 25px;
+}
+
+#pdt-Enroll-btn{
+	width: 50%;
+	height: 40px;
+	margin-top: 10px;
+}
+
+

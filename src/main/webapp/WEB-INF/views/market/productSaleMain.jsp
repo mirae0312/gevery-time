@@ -38,9 +38,9 @@
 		</table>
 	</div>
 	
-	<% if(loginMember != null && loginMember.getMemberType().equals("B")) { %>
+<%-- 	<% if(loginMember != null && loginMember.getMemberType().equals("B")) { %>
 	<button id="pdtBoardEnroll">등록하기</button>
-	<% } %>
+	<% } %> --%>
 	
 	<div id="pdtList">
 		<table id="pdtTable">

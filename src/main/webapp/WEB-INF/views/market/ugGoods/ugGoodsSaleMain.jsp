@@ -12,15 +12,16 @@
 </head>
 <body>
 	<h1>중고 거래</h1>
-	<% if(loginMember != null) { %>
+<%-- 	<% if(loginMember != null) { %>
 	<input type="button" value="등록하기" id="boardEnroll"/>
-	<% } %>
-	<br />
-	<select name="searchSelect" id="searchSelect">
-		<option value="title">제목</option>
-		<option value="content">내용</option>
-	</select>
-	<input type="text" name="searchName" id="searchName" /><input type="button" value="검색" onclick="selectContent(1)"/>
+	<% } %> --%>
+	<div id="searchOpt">
+		<select name="searchSelect" id="searchSelect">
+			<option value="title">제목</option>
+			<option value="content">내용</option>
+		</select>
+		<input type="text" name="searchName" id="searchName" /><input type="button" value="검색" id="searchNameBtn" onclick="selectContent(1)"/>
+	</div>
 	<div id="boardList">
 		<table id="boardTable">
 			<thead>

@@ -1,0 +1,36 @@
+@charset "UTF-8";
+
+#wishTable {
+	border: white;
+	border-radius: 5%;
+	width:100%;
+	margin-top: 10px;
+}
+#wishTable th{
+	height: 30px;
+	background-color: #efefec;	
+}
+#wishTable th:nth-child(1){
+	background-color: white;
+}
+#wishTable td{
+	height: 50px;
+	text-align:center;
+}
+#wishTable td, th{
+	border-bottom: 1px solid #ebebe6;
+}
+#wishTable a, a:visited{
+	text-decoration:none;
+	color:black;
+}
+#wishTable a:hover{
+	background-color: #d4d7ab;
+}
+
+
+/* 삭제버튼 */
+.del-Btn{
+	background-color: #e7a2a2a1;
+	border: 1px dotted gray;
+}
