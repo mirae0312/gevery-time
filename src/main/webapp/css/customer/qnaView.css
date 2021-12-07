@@ -1,7 +1,7 @@
 @charset "UTF-8";
  
 #contents{
-    height: 230px;
+    height: 250px;
 }
 .content{
 	height: 1600px;
@@ -51,7 +51,9 @@ table {
 }
 
 caption {
-    display: none;
+   margin-right: 740px;
+    font-size: 18px;
+    font-weight: 800;
 }
 
 a {
@@ -60,14 +62,14 @@ a {
 }
 
 .board_list_wrap {
-    width:  880px;
+    width:  860px;
     margin: auto;
     padding-left: 150px;
     margin-top:100px;
    
 }
 .board_list_wrap1 {
-    width:  880px;
+    width:  860px;
     margin: auto;
     padding-left: 130px;
    
@@ -90,7 +92,7 @@ a {
 .board_list th,
 .board_list td {
     padding: 7px;
-    font-size: 16px;
+    font-size: 17px;
     font-weight: inherit;
    
 }
@@ -99,11 +101,11 @@ a {
     text-align: center;
 }
 thead{
-    background-color: rgba(128, 128, 128, 0.103);
+    background-color: rgb(128 128 128 / 4%);
 }
 #total{
        margin-top: 40px;
-        height:480px;
+       height:480px;
     
     }  
 .header{

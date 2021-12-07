@@ -61,7 +61,7 @@ a {
 
 .board_list th,
 .board_list td {
-    padding: 6px;
+    padding: 8px;
     font-size: 17px;
 }
 .board_list th{
@@ -116,8 +116,9 @@ a {
 }   
 #search{
         text-align: center;
-        margin-bottom: 13px;
+        margin-bottom: 15px;
         margin-top:10px;
+        font-size: 19px;
     }
 #radioSubmit{
         margin-left: 20px;

@@ -47,11 +47,6 @@ body{
 table {
     border-collapse: collapse;
 }
-
-caption {
-    display: none;
-}
-
 a {
     text-decoration: none;
     color: inherit;
@@ -106,6 +101,10 @@ thead{
 	width:150px;
 }
 #ifReply{
-	margin-left:30px;
-	
+	margin-left:30px;	
 } 
+caption {
+   margin-right: 740px;
+    font-size: 18px;
+    font-weight: 800;
+}

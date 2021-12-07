@@ -6,11 +6,17 @@
  int no = (Integer) request.getAttribute("no");
 %>
   
- 
+ <div id="leftbox">
+            <span><a href="<%= request.getContextPath() %>/customer/qnaBoardList">Q&A</a></span>
+            <br><br>
+            <span><a href="<%= request.getContextPath() %>/customer/faqBoardList">FAQ</a></span>
+            <br><br>
+            <span><a href="<%= request.getContextPath() %>/customer/reportBoardList">신고내역</a></span>
+ </div> 
   
 <section id="password-container">
 <br><br> 
-<h3>비밀번호를 입력해주세요.</h3>
+<h4>비밀번호를 입력해주세요.</h4>
 <form
 	name="boardPasswordCheckFrm"
 	action="<%=request.getContextPath() %>/customer/PasswordFinalCheck" 
@@ -27,7 +33,7 @@
  
 	</tr>
 		<th colspan="2">
-			<div id=box><input class="submit" type="submit" value="입력"></div>
+			<input class="submit1" type="submit" value="입력"> 
 		</th>
 	</tr>
 </table>

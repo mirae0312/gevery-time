@@ -3,6 +3,7 @@ select * from product;
 select * from board;
 select * from member;
  
+ select * from business;
  
 create table QNA_BOARD(
     no number,
@@ -26,7 +27,7 @@ create table QNA_BOARD(
 create sequence seq_qna_board_no;
 
 commit;
-
+select * from member;
 select * from qna_board;
 
 insert into qna_board 
@@ -138,7 +139,11 @@ connect by
     prior no = reply_ref--부모의 no컬럼이 자식행의 reply_ref
 order siblings by
     no ;
-
+    
+select writer from qna_board start with 
+reply_level = 1 
+connect by  prior no = reply_ref order siblings by
+    no ;
 
 select * from qna_board;
 
@@ -217,12 +222,7 @@ where reply_ref = 122;
 select * from qna_board where no=308;
 
 update qna_board set category_b='OK' where no = 188;
-
-
-
-commit;
-
-
+ 
 create table CLIENT_REPORT(
     report_no number,
     title varchar2(500) not null,
@@ -238,13 +238,15 @@ create table CLIENT_REPORT(
     constraint fk_member_id foreign key(member_id)  references member(member_id) on delete cascade 
 );
 select * from CLIENT_REPORT;
-
+SELECT * FROM MEMBER;
 select * from business;
- 
+
+alter table CLIENT_REPORT drop column business_no;
  
 create sequence SEQ_CLIENT_REPORT_REPORT_NO;
 
 COMMIT;
+
 insert into CLIENT_REPORT
 (report_no,title,content,reg_date,member_id)
 values (SEQ_CLIENT_REPORT_REPORT_NO.nextval,'부적절한 게시글 올렸어요','신고합니다',default,'mirim');
@@ -252,8 +254,19 @@ values (SEQ_CLIENT_REPORT_REPORT_NO.nextval,'부적절한 게시글 올렸어요
 alter table client_report add reg_date date default sysdate;
 
 select * from member;
-
-delete  from CLIENT_REPORT;
-
+ 
 select * from qna_board;
+select * from CLIENT_REPORT;
+commit;
 
+
+select * from qna_board where reply_ref = 194;
+
+select * from qna_board where no= 324;
+
+update client_report set report_check = 'C' where report_no = 6;
+
+rollback;
+
+select * from (select row_number() over(order by report_no asc) rnum, b.* from client_report b) where rnum between 1 and 3;
+delete client_report where report_no = 32;

@@ -20,21 +20,21 @@
  </div>
         <div class="board_list_wrap">
             <table class="board_list">
-                <caption>게시판 상세보기</caption>
+                <caption>Q&A</caption>
                 <thead>
                     <tr>
                         <th class="header">제목</th>
                         <th><%=qnaBoard.getTitle() %></th>
+                        <th></th><th></th>
                     </tr>
                 </thead>
                 <tbody>
                     <tr>
                         <th class="header">작성자</th>
                         <th><%=qnaBoard.getWriter() %></th>
-                    </tr>
-                    <tr>
-                        <th class="header">날짜</th>
+                         <th class="header">날짜</th>
                         <th><%= qnaBoard.getRegDate() %></th>
+                   
                     </tr>
                      <tr>
                         <th class="header">분류</th>
@@ -125,7 +125,7 @@
                  <div class="board_list_wrap1">
                  <table class="board_list";>
                  <br>
-                 <span style="font-size:20px; margin-left:50px; "> [↳답변입니다.]  </span>
+                 <span style="font-size:20px; margin-left:50px; font-weight: 800; "> [↳답변입니다.]  </span>
                   <br><br>
                 
                  <tr>

@@ -20,7 +20,6 @@
         </div>
         <div class="board_list_wrap">
             <table class="board_list">
-                <caption>자주묻는질문 상세보기</caption>
                 <thead>
                     <tr>
                         <th>제목</th>
