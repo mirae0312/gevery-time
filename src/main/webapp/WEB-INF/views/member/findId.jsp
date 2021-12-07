@@ -29,18 +29,22 @@
 		<tr>
 			<td><input type="text" name="name" id="name" class="form-control" placeholder="이름을 입력하세요"></td>
 		</tr>
-		<br>
+		<tr></tr>
+		<tr></tr>
 		<tr>
 			<td><input type="text" name="email" id="email"class="form-control" placeholder="이메일을 입력하세요"></td>
 		</tr>
-		<br>	
-
-	<tr>
-	<td>
-	<button type="button" id="searchBtn" class= "btn btn-outline-info btn sm" onclick="searchId()">검색</button>
-	<button id="button2" class="btn2" onclick ="location.href='<%=request.getContextPath()%>/member/login'">로그인하러가기</button>
-	</td>
-	</tr>
+		
+		
+		<tr></tr>
+		<tr></tr>
+		
+		<tr>
+		<td><button type="button" id="searchBtn" class= "btn btn-outline-info btn sm" onclick="searchId()">검색</button>
+		
+		<button id="button2" class="btn2" onclick ="location.href='<%=request.getContextPath()%>/member/login'">로그인</button></td>
+		</tr>
+		
 	
 	</table>
 	

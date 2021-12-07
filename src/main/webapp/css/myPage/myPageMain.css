@@ -1,0 +1,52 @@
+@charset "UTF-8";
+
+/* theadC : #fab90126 */
+
+h1 {
+	text-align: center;
+}
+/* navBar */
+#myPage-container {
+    width: 155px;
+    height: 600px;
+    border-radius:10px;
+    text-align:right;
+    float: left;
+    padding-right:10px;
+    padding-top:10px;
+    border: none;
+    background-color: rgb(250 215 1);
+ 
+}
+#myPage-container li {
+    font-size:17px;
+    font-weight: 600;
+    list-style: none;
+    height: 40px;
+}
+#myPage-container li :hover {
+	color: black;
+    background-color: #fff19c;
+    border-radius: 4px;
+}
+#myPage-container a {
+	color: white;
+    text-decoration-line: none;
+}
+form {
+	display: flex;
+	justify-content: center;
+}
+#form-button {
+	display: flex;
+	justify-content: center;
+	padding: 25px;
+}
+#memberUpdate-container, #businessUpdate-container {
+	padding-top: 90px;
+	padding-bottom: 160px;
+	background-image: url("../../images/myPage/paint.png");
+	background-position: top;
+ 	background-color: #cccccc;
+}
+

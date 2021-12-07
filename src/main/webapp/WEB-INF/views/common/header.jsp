@@ -16,10 +16,12 @@
 <head>
 <meta charset="UTF-8">
 <title>index</title>
+<link rel="stylesheet" type="text/css" href="//cdn.jsdelivr.net/npm/slick-carousel@1.8.1/slick/slick.css"/>
 <link rel="stylesheet" href="<%=request.getContextPath() %>/css/style.css" />
 <link rel="stylesheet" href="<%=request.getContextPath() %>/css/board.css" />
 <link rel="stylesheet" href="<%=request.getContextPath() %>/css/summernote/summernote-lite.css">
 <script src="<%= request.getContextPath() %>/js/jquery-3.6.0.js"></script>
+<script type="text/javascript" src="//cdn.jsdelivr.net/npm/slick-carousel@1.8.1/slick/slick.min.js"></script>
 <script src="<%= request.getContextPath() %>/js/summernote/summernote-lite.js"></script>
 <script src="<%= request.getContextPath() %>/js/summernote/lang/summernote-ko-KR.js"></script>
 
@@ -28,11 +30,11 @@
 	<div class="go-up-btn">TOP</div>
 	<select name="write" id="write-board">
 		<option hidden="" selected disabled>게시글작성</option>
-		<option data-color="red" value="/board/boardForm">자유게시판 글쓰기</option>
+		<option value="/board/boardForm">자유게시판 글쓰기</option>
 		<% if(loginMember != null && loginMember.getMemberType().equals("B")) { %>
-		<option data-color="green" value="/info/Enroll">정보게시판 글쓰기</option>
-		<option data-color="blue" value="/product/boardForm">마켓 글쓰기</option>
-		<option data-color="blue" value="/ugGoods/boardForm">중고거래 글쓰기</option>
+		<option value="/info/Enroll">정보게시판 글쓰기</option>
+		<option value="/product/boardForm">마켓 글쓰기</option>
+		<option value="/ugGoods/boardForm">중고거래 글쓰기</option>
 		<% } %>
 	</select>
     <div id="container">
@@ -61,8 +63,7 @@
                <li class="nav" id="logout"><a href="<%= request.getContextPath() %>/member/logout">로그아웃</a></li>
                <li class="nav" id="mypage"><a href="<%= request.getContextPath() %>/myPage/myPageMain">마이페이지</a></li>	              
                <%}%>
-               <li class="nav" id="dm"><a href="<%= request.getContextPath() %>/chat/chatroom">DM</a></li>
-
+               <li class="nav" id="dm"><a href="<%= request.getContextPath() %>/chat/chatroom">DM</a></li>				
                <li class="nav"id="qna"><a href="<%= request.getContextPath() %>/customer/qnaBoardList">고객센터</a></li>
                </ul>
             </nav>

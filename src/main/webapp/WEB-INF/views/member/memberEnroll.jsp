@@ -2,7 +2,11 @@
     pageEncoding="UTF-8"%>
  <%@page import="com.zea.geverytime.member.model.vo.Member"%>
    <%@ include file="/WEB-INF/views/common/header.jsp" %>
+   <%
 
+    Member member = (Member)request.getAttribute("member");    
+    
+    %>
 
 <!DOCTYPE html>
 
@@ -11,7 +15,7 @@
 
 <head>
 <script>
-const checkIdDuplicate = (Id) => {
+const checkIdDuplicate = () => {
 		const name = "checkIdDuplicatePopup"; 
 		const spec = "left = 500px, top =500px, width=300px, height=250px";
 		const popup = open("",name, spec); 
@@ -23,7 +27,7 @@ const checkIdDuplicate = (Id) => {
 	
 };
 
-$(Id).change(() => {
+$().change(() => {
 	$(idValid).val(0);
 });
 </script>
@@ -53,7 +57,37 @@ function handleOnInput(el, maxlength) {
 
 <title>회원가입</title>
 
+<script>
+var regType1 =var regType1 = /^[A-Za-z0-9+]{4,12}$/; 
+if (regType1.test(document.getElementById('Id').value)) { alert('아이디가 조건에 맞지 않습니다(4~12자영한혼용)'); }
+</script>
+<script>
+function chkPW(){
 
+	 var pw = $("#password").val();
+	 var num = pw.search(/[0-9]/g);
+	 var eng = pw.search(/[a-z]/ig);
+	 var spe = pw.search(/[`~!@@#$%^&*|₩₩₩'₩";:₩/?]/gi);
+
+	 if(pw.length < 8 || pw.length > 20){
+
+	  alert("8자리 ~ 20자리 이내로 입력해주세요.");
+	  return false;
+	 }else if(pw.search(/\s/) != -1){
+	  alert("비밀번호는 공백 없이 입력해주세요.");
+	  return false;
+	 }else if(num < 0 || eng < 0 || spe < 0 ){
+	  alert("영문,숫자, 특수문자를 혼합하여 입력해주세요.");
+	  return false;
+	 }else {
+		console.log("통과"); 
+	    return true;
+	 }
+
+	}
+
+	
+</script>
 </head>
 <body>
 <section id =enroll-container>
@@ -70,8 +104,8 @@ function handleOnInput(el, maxlength) {
         <td>ID:</td>
 
         <td><input type="text" name="Id" id="Id" >
-        	
-        	<input type="button" value="아이디중복검사" onclick ="checkIdDuplicate(Id);"/>
+        
+        	<input type="button" value="아이디중복검사"  name="duplicate" onclick ="checkIdDuplicate();"/>
             
             <input type="hidden" id="idValid" value="0" />
 
@@ -81,7 +115,7 @@ function handleOnInput(el, maxlength) {
 
       <tr>
 
-        <td>비 번:</td>
+        <td>비밀번호:</td>
 
         <td><input type="password" name="password" id="_password"> </td>
 
@@ -89,7 +123,7 @@ function handleOnInput(el, maxlength) {
 
       <tr>
 
-        <td>비번확인:</td>
+        <td>비밀번호확인:</td>
 
         <td><input type="password" id="_passwordCheck" name="passwordCheck"> </td>
 
@@ -137,7 +171,7 @@ function handleOnInput(el, maxlength) {
 	         <input type="text" name="email01" id="email01" style="width:100px"> @
 			<input type="text" name="email02" id="email02" style="width:100px;" disabled value="naver.com">
 	 <select style="width:100px;margin-right:10px" name="selectEmail" id="selectEmail" >
-			 <option  name= "email03" value= <%request.getParameter("email02"); %>>직접입력</option>
+			 <%-- <option value= <%request.getParameter("email02"); %>>직접입력</option>--%> 
 			 <option value="naver.com" selected>naver.com</option>
 			 <option value="hanmail.net">hanmail.net</option>
 		</select>
@@ -153,7 +187,7 @@ function handleOnInput(el, maxlength) {
       <tr align="center">
         <td colspan="2">
            <input type="submit" value="등록">
-           <input type="reset" value="취소">
+           <input type="reset"   onclick="history.back()"  value="취소"/>
         </td>       
       </tr>
    </table>
@@ -176,7 +210,7 @@ function handleOnInput(el, maxlength) {
 
 
 
-
+<%@ include file="/WEB-INF/views/common/footer.jsp" %>
 
 </body>
 </html>
