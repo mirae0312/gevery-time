@@ -10,6 +10,7 @@
     margin-right: 30px;
 }
 .buttonlist{
+	marign-top:100px;
     border-style: none;
     border-radius: 5px;
     padding:7px 9px;
@@ -46,11 +47,6 @@ body{
 table {
     border-collapse: collapse;
 }
-
-caption {
-    display: none;
-}
-
 a {
     text-decoration: none;
     color: inherit;
@@ -74,6 +70,8 @@ a {
     border-top: 2px solid rgba(128, 128, 128, 0.616);
     border-bottom : 2px solid rgba(128, 128, 128, 0.616);
     margin: auto;
+    background-color: #f8f8ff54;
+    
 }
 
 .board_list tr {
@@ -103,6 +101,10 @@ thead{
 	width:150px;
 }
 #ifReply{
-	margin-left:30px;
-	
+	margin-left:30px;	
 } 
+caption {
+   margin-right: 740px;
+    font-size: 18px;
+    font-weight: 800;
+}
