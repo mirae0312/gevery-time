@@ -4,7 +4,7 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
 <%@ include file="/WEB-INF/views/common/header.jsp" %>
-<link rel="stylesheet" href="<%=request.getContextPath()%>/css/customer/faqView.css" />
+<link rel="stylesheet" href="<%=request.getContextPath()%>/css/customer/qnaView.css" />
 <%
 		QnaBoard qnaBoard = (QnaBoard) request.getAttribute("qnaBoard");
 %>
@@ -20,27 +20,27 @@
  </div>
         <div class="board_list_wrap">
             <table class="board_list">
-                <caption>게시판 상세보기</caption>
+                <caption>Q&A</caption>
                 <thead>
                     <tr>
                         <th class="header">제목</th>
                         <th><%=qnaBoard.getTitle() %></th>
+                        <th></th><th></th>
                     </tr>
                 </thead>
                 <tbody>
                     <tr>
                         <th class="header">작성자</th>
                         <th><%=qnaBoard.getWriter() %></th>
-                    </tr>
-                    <tr>
-                        <th class="header">날짜</th>
+                         <th class="header">날짜</th>
                         <th><%= qnaBoard.getRegDate() %></th>
+                   
                     </tr>
                      <tr>
                         <th class="header">분류</th>
                         <th><%= qnaBoard.getCategory() %></th>
                     </tr>
-                    <tr id="content">
+                    <tr id="contents">
                         <th class="header">내용</th>
                         <th><%=qnaBoard.getContent() %></th>
                     </tr>
@@ -48,7 +48,7 @@
             </table>
             <br> 
         </div>             
-        
+        <br><br><br><br><br>
         <div id="ifReply"></div> 
      
 </div>
@@ -125,7 +125,7 @@
                  <div class="board_list_wrap1">
                  <table class="board_list";>
                  <br>
-                 <span style="font-size:20px; margin-left:50px; "> ↳답변입니다.  </span>
+                 <span style="font-size:20px; margin-left:50px; font-weight: 800; "> [↳답변입니다.]  </span>
                   <br><br>
                 
                  <tr>
@@ -133,7 +133,7 @@
                      <td>\${writer}</td>
                  </tr>
                   <tr>
-                     <td class="header">내용</td>
+                     <td class="header" id="replycontent">내용</td>
                      <td>\${content}</td>
                 </tr>
                 </table>

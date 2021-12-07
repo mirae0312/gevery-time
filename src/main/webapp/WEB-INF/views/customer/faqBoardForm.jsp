@@ -30,7 +30,7 @@
  </div>
 <section id="board-container">
 <br><br> 
-<span>FAQ 작성</span>
+<span id="faq">FAQ 작성</span>
 <br><br>
 <form
 	name="boardEnrollFrm"

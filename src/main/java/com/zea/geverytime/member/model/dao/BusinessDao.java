@@ -67,25 +67,24 @@ public class BusinessDao {
 		PreparedStatement pstmt = null;
 		int result = 0;
 		try {
-				pstmt = conn.prepareStatement(sql);
-				pstmt.setString(1,business.getMemberId());
-				pstmt.setString(2,business.getPassword());
-				pstmt.setString(3,business.getMemberName());
-				pstmt.setString(4,"");
-				pstmt.setString(5,"");
-				pstmt.setString(6,business.getEmail());
-				pstmt.setString(7,MemberService.USER_ROLE);
-				pstmt.setString(8,business.getBusinessType());
-				pstmt.setString(9,"");
-				
+			pstmt = conn.prepareStatement(sql);
+			pstmt.setString(1,business.getMemberId());
+			pstmt.setString(2,business.getPassword());
+			pstmt.setString(3,business.getMemberName());
+			pstmt.setString(4,business.getEmail());
+			pstmt.setString(5,"");
+			pstmt.setString(6,"");
+			pstmt.setString(7,MemberService.USER_ROLE);
+			pstmt.setString(8,business.getBusinessType());
+			pstmt.setString(9,"");
 			
-					result = pstmt.executeUpdate();
-			
-			} catch (SQLException e) {
-				throw new MemberException("회원가입 오류!", e);
-			} finally {
-				close(pstmt);
-			}
+			result = pstmt.executeUpdate();
+
+		} catch (SQLException e) {
+			throw new MemberException("회원가입 오류!", e);
+		} finally {
+			close(pstmt);
+		}
 
 		sql = prop.getProperty("insertBusiness");
 		result = 0;
@@ -97,8 +96,11 @@ public class BusinessDao {
 		pstmt.setString(1,business.getMemberId());
 		pstmt.setString(2,business.getPassword());
 		pstmt.setString(3,business.getMemberName());
+		System.out.println(business.getMemberName());
 		pstmt.setString(4,business.getEmail());
+		System.out.println(business.getEmail());
 		pstmt.setString(5,business.getBusinessNo());
+		System.out.println(business.getBusinessNo());
 		pstmt.setString(6,business.getbName());
 		pstmt.setString(7,business.getbAddress());
 		pstmt.setString(8,business.getbTel());
@@ -115,10 +117,4 @@ public class BusinessDao {
 	
 		return result;
 	}
-
-
-	
-	
-	
-
 }

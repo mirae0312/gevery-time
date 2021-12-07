@@ -32,7 +32,7 @@
             <span><a href="<%= request.getContextPath() %>/customer/reportBoardList">신고내역</a></span>
  </div>
 <br><br>
-<span style="margin-left:5px;">문의글 작성하기</span> 
+<span style="margin-left:13px;">문의글 작성하기</span> 
 <br><br>
 <form
 	name="boardEnrollFrm"

@@ -1,0 +1,153 @@
+@charset "UTF-8";
+
+
+.choKind .join1Div:nth-child(2) .selfAccrdt .txt2 {
+    line-height: 23px;
+}
+.selfAccrdt .txt2 {
+    font-size: 16px;
+    color: #666;
+    line-height: 28px;
+    background: url(/images/roundbar_40x3.png) no-repeat center 0;
+    margin-top: 15px;
+    padding-top: 18px;
+    height: 78px;
+}
+.choKind .join1Div:nth-child(2) {
+    margin-left: 20px;
+}
+.choKind .join1Div {
+    float: left;
+    width: 520px;
+    height: 442px;
+}
+.join1Div {
+    padding-bottom: 80px;
+    width: 1060px;
+    margin: auto;
+}
+
+
+
+.txt2{font-family: NBG, 나눔바른고딕, dotum, 돋움, sans-serif;
+    letter-spacing: -0.5px;
+    text-align: center;
+    margin: 0;
+    padding: 0;
+    font-weight: normal;
+    font-size: 16px;
+    color: #666;
+    line-height: 28px;
+    background: url(/images/roundbar_40x3.png) no-repeat center 0;
+    margin-top: 15px;
+    padding-top: 18px;
+    height: 78px;
+}
+.choKind .join1Div .selfAccrdt {
+    margin: 0;
+    width: 100%;
+    height: 100%;
+}
+.selfAccrdt {
+    width: 1060px;
+    height: 515px;
+    margin: 40px auto 0;
+    border-top: 2px solid #333;
+    border-bottom: 1px solid #ddd;
+    background: #f6f6f6;
+    text-align: center;
+    box-sizing: border-box;
+}
+
+* {
+    margin: 0;
+    padding: 0;
+}
+.selfAccrdt .txt2 {
+    font-size: 16px;
+    color: #666;
+    line-height: 28px;
+    background: url(/images/roundbar_40x3.png) no-repeat center 0;
+    margin-top: 15px;
+    padding-top: 18px;
+    height: 78px;
+}
+p {
+    display: block;
+    margin-block-start: 1em;
+    margin-block-end: 1em;
+    margin-inline-start: 0px;
+    margin-inline-end: 0px;
+}
+.selfAccrdt {
+    width: 1060px;
+    height: 515px;
+    margin: 40px auto 0;
+    border-top: 2px solid #333;
+    border-bottom: 1px solid #ddd;
+    background: #f6f6f6;
+    text-align: center;
+    box-sizing: border-box;
+}
+body, div, h1, h2, h3, h4, h5, h6, ul, ol, li, dl, dt, dd, p, form, fieldset, table, tr, th, td {
+    margin: 0;
+    padding: 0;
+    font-weight: normal;
+}
+
+body {
+    position: relative;
+    font-size: 15px;
+    font-family: NBG, 나눔바른고딕, dotum, 돋움, sans-serif;
+    color: rgb(102, 102, 102);
+    height: 100%;
+    letter-spacing: -0.5px;
+}
+
+.choKind {
+    display: flex;
+    justify-content: center;
+    overflow: hidden;
+    margin: 0 auto;
+    padding-bottom: 100px;
+    width: 1060px;
+}
+.choKind .join1Div {
+    float: left;
+    width: 520px;
+    height: 442px;
+}
+.join1Div {
+    padding-bottom: 80px;
+    width: 1060px;
+    margin: auto;
+}
+.bts2 {
+    margin-top: 35px;
+    text-align: center;
+}
+.choKind .join1Div:nth-child(2) {
+    margin-left: 20px;
+}
+div {
+    display: block;
+}
+.subTit {
+    font-size: 46px;
+    color: #222;
+    font-family: 'NBGL', sans-serif;
+    text-align: center;
+    margin-bottom: 50px;
+}
+.selfAccrdt .txt1.normalMem {
+    background: url(/images/cat.png) no-repeat center 60px;
+}
+.selfAccrdt .txt1.comMem {
+    background: url(/images/com_mem.png) no-repeat center 60px;
+}
+.selfAccrdt .txt1 {
+    font-size: 26px;
+    color: #222;
+    padding-top: 250px;
+}
+
