@@ -64,12 +64,13 @@
 	</div><br />
 </div>
 <script>
+// slide를 위한 slick
 $('.slide').slick({
-	infinite: true,
-	slidesToShow: 1,
-	arrow: true,
-	autoplay: true,
-	autoplaySpeed:3000
+	infinite: true, // 마지막 슬라이드 다음 처음 슬라이드
+	slidesToShow: 1, // 보일 페이지 수
+	arrow: true, 
+	autoplay: true, // 자동 넘기기
+	autoplaySpeed:3000 // 자동넘기기 시간
 });
 $(()=>{	
 	getBoardPopularList();
