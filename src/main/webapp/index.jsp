@@ -68,7 +68,7 @@
 $('.slide').slick({
 	infinite: true, // 마지막 슬라이드 다음 처음 슬라이드
 	slidesToShow: 1, // 보일 페이지 수
-	arrow: true, 
+	arrow: false, 
 	autoplay: true, // 자동 넘기기
 	autoplaySpeed:3000 // 자동넘기기 시간
 });

@@ -1,0 +1,31 @@
+@charset "UTF-8";
+
+#purchase-info {
+	border: white;
+	border-radius: 5%;
+	width:100%;
+	margin-top: 10px;
+}
+#purchase-info th{
+	height: 30px;
+	background-color: rgb(224, 224, 218);	
+}
+#purchase-info td{
+	height: 50px;
+	text-align:center;
+}
+#purchase-info td, th{
+	border-bottom: 1px solid #ebebe6;
+}
+
+#continueBtn{
+	margin: auto;
+	text-align: center;
+	display: block;
+	margin-top: 40px;
+	width: 200px;
+	height: 50px;
+	font-size: 25px;
+	border: 1px dotted gray;
+	background-color: #35ab90;
+}

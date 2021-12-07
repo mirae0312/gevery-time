@@ -1,0 +1,60 @@
+@charset "UTF-8";
+
+#cartTable {
+	border: white;
+	border-radius: 5%;
+	width:100%;
+	margin-top: 10px;
+}
+#cartTable th{
+	height: 30px;
+	background-color: #efefec;	
+}
+#cartTable th:nth-child(1){
+	background-color: white;
+}
+#cartTable td{
+	height: 50px;
+	text-align:center;
+}
+#cartTable td, th{
+	border-bottom: 1px solid #ebebe6;
+}
+#cartTable a, a:visited{
+	text-decoration:none;
+	color:black;
+}
+#cartTable a:hover{
+	background-color: #d4d7ab;
+}
+
+
+/* 삭제버튼 */
+.deleteFromCart{
+	background-color: #e7a2a2a1;
+	border: 1px dotted gray;
+}
+
+/* 총가격 강조 */
+#totalPricePlace {
+	background-color: yellow;
+}
+
+/* 전체선택 */
+#checkAllBtn{
+	background-color: #e5e5e5;
+	border: 1px dotted gray;
+}
+
+#purchaseFrm{
+	padding-top:20px;
+	width: 100%;
+	margin: auto;
+	text-align: center;
+}
+
+#purchaseFrm button{
+	width: 400px;
+	height: 50px;	
+}
+

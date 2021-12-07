@@ -12,6 +12,8 @@
 <head>
 <meta charset="UTF-8">
 <title>Insert title here</title>
+<link rel="stylesheet" href="<%=request.getContextPath() %>/css/market/product/productList.css" />
+
 </head>
 <body>
 	<h1><%= MemberId %>님의 판매중인 상품 목록</h1>
@@ -24,7 +26,7 @@
 	<%
 	} else {
 	%>
-	<table>
+	<table id="productListTable">
 		<thead>
 			<tr>
 				<th>상품번호</th>
