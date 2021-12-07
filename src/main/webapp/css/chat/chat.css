@@ -1,0 +1,51 @@
+@charset "UTF-8";
+#chat-container{
+	margin: 0 auto;
+	padding: 10px;
+	text-align: center;
+}
+#msg-container {	
+	height: 400px;
+	overflow-y: scroll;
+}
+#msg-container ul {
+	display: flex;
+    list-style-type: none;
+    flex-direction: column;
+    align-items: flex-start;
+}
+#msg-container ul li.center {
+	margin: 10px auto;
+}
+#msg-container ul li {
+    margin: 10px 0;
+}
+#msg-container span.badge {
+	border: 5px solid #fff;
+    padding: 5px 5px 4px 5px;
+    color: white;
+    border-radius: 15px;
+    background-color: #fad701;
+}
+#send {
+	background-color: #fad701;
+    cursor: pointer;
+    border: aliceblue;
+    border-radius: 10%;
+}
+#send :hover {
+	background-color: #fff;
+	color: #fff;
+}
+.editor {
+	display: flex;
+	flex-direction: row;
+	justify-content: center;
+}
+.editor textarea {
+	width: 100%;
+	margin-right: 5px;
+	resize: none;
+	height: 5vh;
+}
+

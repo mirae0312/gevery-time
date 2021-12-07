@@ -1,6 +1,7 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
 <%@ include file="/WEB-INF/views/common/header.jsp" %>
+<link rel="stylesheet" href="<%=request.getContextPath()%>/css/chat/chat.css" />
 <script>
 // 접속한 주소
 const host = location.host;
@@ -34,7 +35,6 @@ ws.onerror = (e) => {
 ws.onclose = (e) => {
 	console.log("close", e);
 };
-
 // send message 전송
 $(() => {
 	$(send).click((e) => {
@@ -64,7 +64,6 @@ $(() => {
 <%-- <link rel="stylesheet" href="<%= request.getContextPath() %>/css/chat.css" /> --%>
 	<section id="chat-container">	
 		<h2>실시간 채팅</h2>
-		<button type="button" id="btn-userList">현재사용자확인</button>
 		<div id="msg-container">
 			<ul></ul>
 		</div>

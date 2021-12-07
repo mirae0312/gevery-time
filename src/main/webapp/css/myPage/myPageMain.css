@@ -1,5 +1,29 @@
 @charset "UTF-8";
 
+/* .heart {
+	width: 97px;
+    height: 104px;
+    position: absolute;
+    left: 49%;
+    top: 47%;
+    transform: translate(-50%, -50%);
+    background: url(https://cssanimation.rocks/images/posts/steps/heart.png) no-repeat;
+    background-position: 0 0;
+    cursor: pointer;
+    animation: fave-heart 1s steps(28);
+}
+.heart:hover {
+  background-position: -2800px 0;
+  transition: background 1s steps(28);
+}
+@keyframes fave-heart {
+  0% {
+    background-position: 0 0;
+  }
+  100% {
+    background-position: -2800px 0;
+  }
+} */
 /* theadC : #fab90126 */
 
 h1 {
@@ -42,6 +66,17 @@ form {
 	justify-content: center;
 	padding: 25px;
 }
+#send{
+	background-color: #fad701;
+    border: aliceblue;
+    padding: 6px;
+    border-radius: 10%;
+    margin: 2px;
+}
+#send:hover{
+	background-color: #fff;
+	cursor: pointer;
+}
 #memberUpdate-container, #businessUpdate-container {
 	padding-top: 90px;
 	padding-bottom: 160px;
@@ -49,4 +84,3 @@ form {
 	background-position: top;
  	background-color: #cccccc;
 }
-

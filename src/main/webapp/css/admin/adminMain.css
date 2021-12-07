@@ -34,4 +34,10 @@
     justify-content: center;
     margin: 10px;
 }
-
+#pageBar span{
+	cursor: pointer;
+}
+#pageBar a{
+	margin: 5px;
+	cursor: pointer;
+}
