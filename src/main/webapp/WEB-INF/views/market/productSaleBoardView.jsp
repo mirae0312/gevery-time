@@ -155,8 +155,7 @@ $(() => {
 			</tr>
 			<% } else { %>
 			<tr>
-				<td><input type="button" id="purchaseBtn" value="구매하기" class="purchaseNeedLogin" /></td>
-				<td><input type="button" id="cartBtn" value="장바구니" class="purchaseNeedLogin" /></td>
+				<td colspan=2><input type="button" id="purchaseBtn" value="구매하기" class="purchaseNeedLogin" /><input type="button" id="cartBtn" value="장바구니" class="purchaseNeedLogin" /></td>
 			</tr>
 			<% } %>
 		</tbody>

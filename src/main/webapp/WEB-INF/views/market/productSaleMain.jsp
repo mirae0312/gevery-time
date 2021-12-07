@@ -49,7 +49,7 @@
 					<th colspan=8><span id="sumContent"></span></th>
 				</tr>
 				<tr>
-					<th>상품번호</th>
+					<th>번호</th>
 					<th>섬네일</th>
 					<th>상태</th>
 					<th>분류</th>
