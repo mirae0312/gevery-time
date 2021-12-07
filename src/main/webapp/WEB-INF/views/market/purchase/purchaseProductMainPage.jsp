@@ -123,6 +123,7 @@
 	<input type="hidden" id="countNum" value="<%= countNum - 1 %>"/>
 	<input type="hidden" id="defaultTotalPrice" value="" />
 
+
 <script>
 	// point 사용 시 잔액과 비교
 	$("#pointSet").click((e) => {
@@ -241,7 +242,10 @@
                         	pointHandling("<%= loginMember.getMemberId() %>", usePoint, rsp.imp_uid);
                         } --%>
                         delCart();
-                        addPointHistory('O', usePoint, '일반 상품 결제', rsp.imp_uid);
+                        if(usePoint > 0){
+	                        addPointHistory('O', usePoint, '일반 상품 결제', rsp.imp_uid);                        	
+                        }
+                        addSellerPoint();
                         addPurchaseHistory("<%= loginMember.getMemberId() %>", totalPrice, rsp.imp_uid, rsp.merchant_uid);
                         alert(msg);
             			purchaseDone(rsp.imp_uid, rsp.merchant_uid, rsp.paid_amount);
@@ -312,6 +316,28 @@
 			error: console.log
 		})
 	};
+	
+	const addSellerPoint = () => {
+		let pdtNo
+		let pdtCount
+		$.ajax({
+			url: "<%= request.getContextPath() %>/point/addSellerPoint",
+			method: "POST",
+			data:{
+				<%
+					for(int i = 1; i < countNum; i++){
+				%>
+					pdtNo<%= i %>: $(`#pdtNo\${<%= i %>}`).val(),
+					pdtCount<%= i %>: $(`#pdtCount\${<%= i %>}`).val(),
+				<% } %>
+					countNum: <%= countNum %>
+			},
+			success(data){
+				console.log("성공");
+			},
+			error: console.log
+		})
+	}
 	
 	const addPurchaseHistory = (reqMemberId, reqTotPrice, reqUid, reqMuid) => {
 		// (회원 id, 총 가격, uid, muid), 상품 번호, 상품 개수

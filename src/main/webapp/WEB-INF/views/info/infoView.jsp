@@ -194,13 +194,13 @@
 	<div class="info-body-wrapper">
 		<img style="width:600px;" src="<%= request.getContextPath() %>/upload/info/<%= pic2 %>" alt="" />
 		<p><%= info.getBodyContents() %></p>
-		<%-- 지도 --%>
-		<div id="map" style="width:500px;"></div><br />
 		<%-- 길안내 --%>
 		<div class="way-content">
 			<h1>오시는 길</h1>
 			<p><%= info.getRoadGuide() %></p>
 		</div>
+		<%-- 지도 --%>
+		<div id="map" style="width:600px; height:400px;"></div><br />
 	</div>
 	<%-- 좋아요 --%>
 	<input type="checkbox" name="like" id="info-like" <%= "G".equals(recommend) ? "checked" : "" %> />

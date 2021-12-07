@@ -5,7 +5,7 @@
    <%
 
     Member member = (Member)request.getAttribute("member");    
-    
+   
     %>
 
 <!DOCTYPE html>
@@ -32,7 +32,7 @@ $().change(() => {
 });
 </script>
 <script src="<%= request.getContextPath() %>/js/jquery-3.6.0.js"></script>
-
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
 
 <style>
 input[type="number"]::-webkit-outer-spin-button,
@@ -44,57 +44,16 @@ input[type="number"]::-webkit-inner-spin-button
 	
 }
 </style>
-<script>
-
-function handleOnInput(el, maxlength) {
-	  if(el.value.length > maxlength)  {
-	    el.value 
-	      = el.value.substr(0, maxlength);
-	  }
-	}
-</script>
-
-
 <title>회원가입</title>
 
-<script>
-var regType1 =var regType1 = /^[A-Za-z0-9+]{4,12}$/; 
-if (regType1.test(document.getElementById('Id').value)) { alert('아이디가 조건에 맞지 않습니다(4~12자영한혼용)'); }
-</script>
-<script>
-function chkPW(){
 
-	 var pw = $("#password").val();
-	 var num = pw.search(/[0-9]/g);
-	 var eng = pw.search(/[a-z]/ig);
-	 var spe = pw.search(/[`~!@@#$%^&*|₩₩₩'₩";:₩/?]/gi);
-
-	 if(pw.length < 8 || pw.length > 20){
-
-	  alert("8자리 ~ 20자리 이내로 입력해주세요.");
-	  return false;
-	 }else if(pw.search(/\s/) != -1){
-	  alert("비밀번호는 공백 없이 입력해주세요.");
-	  return false;
-	 }else if(num < 0 || eng < 0 || spe < 0 ){
-	  alert("영문,숫자, 특수문자를 혼합하여 입력해주세요.");
-	  return false;
-	 }else {
-		console.log("통과"); 
-	    return true;
-	 }
-
-	}
-
-	
-</script>
 </head>
 <body>
 <section id =enroll-container>
 <content>
 <center>
    <h3>회원가입</h3>
-	<form  name ="memberEnrollFrm" action="" method="POST">
+	<form  id ="memberEnrollFrm" name="memberEnrollFrm" action="" method="POST">
    <table cellpadding="5" cellspacing="0"
 
          bgcolor="eeeeee">
@@ -102,8 +61,8 @@ function chkPW(){
       <tr>
 
         <td>ID:</td>
-
-        <td><input type="text" name="Id" id="Id" >
+			
+	        <td><input type="text" name="Id" id="Id"   required>
         
         	<input type="button" value="아이디중복검사"  name="duplicate" onclick ="checkIdDuplicate();"/>
             
@@ -117,7 +76,7 @@ function chkPW(){
 
         <td>비밀번호:</td>
 
-        <td><input type="password" name="password" id="_password"> </td>
+        <td><input type="password" name="password" id="password" required> </td>
 
       </tr>
 
@@ -125,7 +84,7 @@ function chkPW(){
 
         <td>비밀번호확인:</td>
 
-        <td><input type="password" id="_passwordCheck" name="passwordCheck"> </td>
+        <td><input type="password" id="passwordCheck" name="passwordCheck"> </td>
 
       </tr>
 
@@ -133,7 +92,7 @@ function chkPW(){
 
         <td>이 름:</td>
 
-        <td><input type="text" id="memberName" name="name"> </td>
+        <td><input type="text" id="name" name="name"> </td>
 
       </tr>
 
@@ -156,6 +115,19 @@ function chkPW(){
 
         </td>
 
+<script>
+
+function handleOnInput(el, maxlength) {
+	  if(el.value.length > maxlength)  {
+	    el.value 
+	      = el.value.substr(0, maxlength);
+	  }
+	}
+	
+	
+</script>
+
+
       </tr>
 
       <tr>
@@ -168,7 +140,7 @@ function chkPW(){
       <tr>
       <td>이메일 : </td>
       	<td>
-	         <input type="text" name="email01" id="email01" style="width:100px"> @
+	         <input type="text" name="email01" id="email01" style="width:100px" required> @
 			<input type="text" name="email02" id="email02" style="width:100px;" disabled value="naver.com">
 	 <select style="width:100px;margin-right:10px" name="selectEmail" id="selectEmail" >
 			 <%-- <option value= <%request.getParameter("email02"); %>>직접입력</option>--%> 
@@ -206,11 +178,67 @@ function chkPW(){
 <script src ="<%= request.getContextPath() %>/js/email/email.js" > </script>
 <script type="text/javascript" src="http://code.jquery.com/jquery-latest.min.js"></script> 
 
+<script>
+
+	
+/**
+ * 중복검사이후 아이디를 변경한 경우, 다시 중복검사해야 한다.
+ */
+ console.log("Id");
+ 
+$("#Id").change(() => {
+	$(idValid).val(0);
+});
 
 
-
-
+/**
+ * name=memberEnrollFrm 유효성검사
+ * - id/비번 영문자/숫자 4글자이상
+ * - 이름 한글 2글자 이상
+ * - 전화번호 숫자확인
+ */
+ 
+$("#memberEnrollFrm").submit((e) => {
+	console.log("Id");
+	//memberId
+	const $memberId = $("#Id");
+	//아이디는 영문자/숫자  4글자이상만 허용 
+	if(!/^\w{4,}$/.test($memberId.val())){
+		alert("아이디는 최소 4자리이상이어야 합니다.");
+		return false;
+	}
+	
+	//memberId 중복검사
+	const $idValid = $("#idValid");
+	if($idValid.val() == 0){
+		alert("아이디 중복 검사해주세요.");
+		return false;
+	}
+	
+	//password
+	const $password = $("#password");
+	const $passwordCheck = $("#passwordCheck");
+	
+	if(!/^[a-zA-Z0-9!@#$]{4,}$/.test($password.val())){
+		alert("유효한 패스워드를 입력하세요.");
+		return false;
+	}
+	if($password.val() != $passwordCheck.val()){
+		alert("패스워드가 일치하지 않습니다.");
+		return false;
+	}
+	
+	//memberName
+	const $memberName = $("#name");
+	if(!/^[가-힣]{2,}$/.test($memberName.val())){
+		alert("이름은 한글 2글자 이상이어야 합니다.");
+		return false;
+	}
+	
+	return true;
+});
+	
+	</script>
 <%@ include file="/WEB-INF/views/common/footer.jsp" %>
-
 </body>
 </html>

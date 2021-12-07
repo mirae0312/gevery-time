@@ -266,6 +266,13 @@ public class ProductSaleService {
 		return result;
 	}
 
+	public Product getProduct(int pdtNo) {
+		Connection conn = getConnection();
+		Product pdt = pdtDao.getProduct(conn, pdtNo);
+		close(conn);
+		return pdt;
+	}
+
 
 
 

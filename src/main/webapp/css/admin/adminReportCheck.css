@@ -1,0 +1,25 @@
+@charset "UTF-8";
+
+h3 {
+	text-align: center;
+	padding-top: 16px;
+}
+li {
+	list-style: none;
+}
+.reportCheck-container ul {
+	padding-top: 38px;
+    margin: 6px;
+}
+.send{
+	background-color: #fad701;
+    border: aliceblue;
+    padding: 6px;
+    border-radius: 10%;
+    margin: 2px;
+    cursor: pointer;
+}
+.send :hover {
+	background-color: #fff;
+    cursor: pointer;
+}
