@@ -246,17 +246,6 @@ public class InfoEnrollServlet extends HttpServlet {
 				
 				info.setPensions(pensions);
 				
-//				String[] services = {room1, ":", price11, ",", price12, ",", price13, ",", price14, ",", price15, ",", price16,
-//									"-", room2, ":", price21, ",", price22, ",", price23, ",", price24, ",", price25, ",", price26,
-//									"-", room3, ":", price31, ",", price32, ",", price33, ",", price34, ",", price35, ",", price36};
-//				StringBuilder service = new StringBuilder();
-//				for(int i = 0; i < services.length; i++) {
-//					if(services[i] != null && !services[i].isEmpty()) {
-//						service.append(services[i]);
-//					}
-//				}
-//				String serv = service.toString();
-//				info.setServiceContent(serv);
 			}
 			
 			// 미용실 5 - ,
