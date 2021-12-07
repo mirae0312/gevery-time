@@ -8,8 +8,10 @@
 <head>
 <meta charset="UTF-8">
 <title>중고 거래</title>
+<link rel="stylesheet" href="<%=request.getContextPath() %>/css/market/ugGoods/ugGoodsMain.css" />
 </head>
 <body>
+	<h1>중고 거래</h1>
 	<% if(loginMember != null) { %>
 	<input type="button" value="등록하기" id="boardEnroll"/>
 	<% } %>
@@ -74,15 +76,15 @@
 				},
 				success(data){
 					$("#boardTable tbody").empty();
-					/* $("#sumContent").html('조회된 게시물 수 : '+ data.totalContent); */
+					$("#sumContent").html('조회된 게시물 수 : '+ data.totalContent);
 					
 					//List부분
 					$(data.list).each((i, e)=>{						
 						let day = new Date(e.regDate);
 	                    let value = `\${day.getFullYear()}-\${f(day.getMonth() + 1)}-\${f(day.getDate())}`;
-
 	                    let imgSrc = e.attachments[0].renamedFilename;
-						
+
+	                    
 						const tr = `			<tr>
 		 					<td>\${e.no}</td>
 		 					<td class="thumbnailImg"><img src="<%= request.getContextPath() %>/upload/market/UgSale/\${imgSrc}" style="width:100px; height:50px;"/></td>
