@@ -2,12 +2,17 @@
     pageEncoding="UTF-8"%>
 <%@ page import="java.sql.*" %>
 <%@ include file="/WEB-INF/views/common/header.jsp" %>
+<link rel="stylesheet" href="<%=request.getContextPath() %>/css/slide.css" />
 <div class="body-wrapper">
 	
 	<%-- 사진영역 --%>
 	<h1>사진</h1>
 	<div class="photo-wrapper">
-		
+		<div class="slide">
+			<div class="pics"><img src="<%= request.getContextPath() %>/images/info/고양이.jpg" alt="" /></div>
+			<div class="pics"><img src="<%= request.getContextPath() %>/images/info/강아지.png" alt="" /></div>
+			<div class="pics"><img src="<%= request.getContextPath() %>/images/info/고양이.jpg" alt="" /></div>
+		</div>
 	</div><hr />
 	
 	<%-- 게시글영역 --%>
@@ -59,7 +64,14 @@
 	</div><br />
 </div>
 <script>
-$(()=>{
+$('.slide').slick({
+	infinite: true,
+	slidesToShow: 1,
+	arrow: true,
+	autoplay: true,
+	autoplaySpeed:3000
+});
+$(()=>{	
 	getBoardPopularList();
 	console.log("hi");
 	mainInfoLists();
@@ -124,10 +136,12 @@ const mainInfoLists = () => {
 			const $box = $("#info-board-table");
 			$box.empty();
 			$(data).each((i, e) => {
-				console.log(e.businessName);
+				//console.log(e.businessName);
 				const contents = `
 				<div class="content">
+				<div class="info-img-wrap">
 				<img class="info-img" src="<%= request.getContextPath() %>/upload/info/\${e.attachments[0].renamedFilename}" alt="" />
+				</div>
 				<div class="info-bname">\${e.businessName}</div>
 				<div class="hidden-code">\${e.code}</div>	
 				</div>
@@ -137,7 +151,7 @@ const mainInfoLists = () => {
 			
 			$(".content").click((e) => {
 				const $code = $(e.currentTarget).find('div.hidden-code').text();
-				console.log($code);
+				//console.log($code);
 				
 				location.href=`<%= request.getContextPath() %>/info/view?code=\${$code}`;
 			});

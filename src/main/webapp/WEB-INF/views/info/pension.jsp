@@ -20,7 +20,7 @@
 			<div class="info-wrap">
 				<div class="business-name"><%= popInfo.getBusinessName() %></div>
 				<img class="list-thumbnail" src="<%= request.getContextPath() %>/upload/info/<%= popInfo.getAttachments().get(0).getRenamedFilename() %>" alt="" />
-				<div class="head-content"><%= popInfo.getHeadContent() %></div><br />
+<%--			<div class="head-content"><%= popInfo.getHeadContent() %></div><br />	--%>
 				<div class="recommend-count">추천수 : <%= popInfo.getRecommend() %></div>
 				<div class="view-count">조회수 : <%= popInfo.getViewCount() %></div>	
 				<div class="popInfo-comment">리뷰 : <%= popInfo.getCommentCount() %></div>
@@ -106,7 +106,7 @@ const scrollPage = () => {
 				<div class="info-comment-count">리뷰 : \${commentCount}</div>
 				<div class="info-reg-date">\${value}</div>
 				<div class="hidden-code">\${code}</div>
-				</div><hr />
+				</div>
 				`;
 								
 				$div.append($contents);

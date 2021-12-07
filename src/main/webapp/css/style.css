@@ -212,7 +212,12 @@ section#content{
 	border-radius: 50%;
 	font-weight: bold;
 	text-align-last: center;
+	cursor: pointer;
 }
+#write-board:hover{
+	box-shadow: 0 0 5px gray;
+}
+
 .go-up-btn{
 	position: fixed;
 	width: 63px;
@@ -224,6 +229,10 @@ section#content{
 	font-weight: bold;
 	text-align: center;
 	padding: 22px 0px;
+	cursor: pointer;
+}
+.go-up-btn:hover{
+	box-shadow: 0 0 5px gray;
 }
 .btn{
 	border: 0;
@@ -232,6 +241,10 @@ section#content{
 	border-radius: 5px;
 	font-weight: bold;
 	text-align: center;
+	cursor: pointer;
+}
+.btn:hover{
+	box-shadow: 0 0 5px gray;
 }
 
 /* index body */
@@ -239,11 +252,7 @@ section#content{
 	width: 1024px;
 }
 
-/* 사진 */
-.photo-wrapper{
-	border: 1px solid red;
-	height: 370px;
-}
+
 
 /* 게시판 */
 .board-wrapper{
@@ -277,7 +286,7 @@ section#content{
 }
 .board-wrapper table td.title{
 	  white-space:nowrap;
-	width:350px;
+	width:300px;
 	font-size:100%;	
 }
 /* 정보 게시판 */
@@ -296,12 +305,18 @@ section#content{
 .content{
 	width: 300px;
 	overflow:hidden;
+	cursor: pointer;
+}
+.content:hover .info-bname {
+	font-weight: bold;
+}
+.info-img-wrap{
+	overflow:hidden;
+	width: 300px;
+	height: 210px;
 }
 .content:hover img{
 	transform: scale(1.05);
-}
-.info-bname{
-	
 }
 .info-img{
 	transition: all 0.1s linear;
@@ -360,5 +375,9 @@ section#content{
 	font-size:30px;
 	text-decoration:none;
 }
+
+
+
+
 
 
