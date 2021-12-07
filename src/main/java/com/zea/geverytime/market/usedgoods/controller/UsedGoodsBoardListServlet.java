@@ -28,6 +28,13 @@ public class UsedGoodsBoardListServlet extends HttpServlet {
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		int cPage = Integer.parseInt(request.getParameter("cPage"));
 		
+		// 검색 조건
+		String keyword = request.getParameter("searchKeyword");
+		if(keyword == null || keyword.equals("")) {
+			keyword = "%%";
+		}
+		String type = request.getParameter("searchType");
+		
 		int numPerPage = 10;
 		int startNum = (cPage-1)*10+1;
 		int endNum = cPage*numPerPage;
@@ -36,8 +43,8 @@ public class UsedGoodsBoardListServlet extends HttpServlet {
 		map.put("startNum", startNum);
 		map.put("endNum", endNum);
 		
-		List<UsedGoodsBoard> list = ugService.getProductSaleBoardAll(startNum, endNum);
-		
+		List<UsedGoodsBoard> list = ugService.getProductSaleBoardAll(startNum, endNum, keyword, type);
+		System.out.println("LIST : "+list);
 		// board에 attachment 첨부
 		for(UsedGoodsBoard board : list) {
 			String orCode = board.getOrCode();

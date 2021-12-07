@@ -1,0 +1,110 @@
+@charset "UTF-8";
+ 
+#content{
+    height: 280px;
+}
+.button2{
+    text-align: right;
+    padding : 2px 20px;
+    margin-top: 60px;
+    margin-right: 30px;
+}
+.buttonlist{
+	marign-top:100px;
+    border-style: none;
+    border-radius: 5px;
+    padding:7px 9px;
+    font-size: 14px;
+    cursor:pointer;
+   
+}
+body{
+    width: 1024px;
+    margin: auto;
+   
+}
+#leftbox{
+    width: 155px;
+    height: 380px;
+    border: solid;
+    border-radius:10px;
+    float: left;
+    text-align:right;
+    padding-right:10px;
+    padding-top:10px;
+    /* size: 100px; */
+    border: none;
+    background-color: rgb(128 128 128 / 12%);
+ 
+}
+#leftbox span{
+    font-size:17px;
+    font-weight: 600;
+}
+#leftbox span :hover {
+    text-decoration: underline;
+}
+table {
+    border-collapse: collapse;
+}
+a {
+    text-decoration: none;
+    color: inherit;
+}
+
+.board_list_wrap {
+    width:  830px;
+    margin: auto;
+    padding-left: 150px;
+    margin-left: 50px;
+}
+.board_list_wrap1 {
+    width:  850px;
+    margin: auto;
+    padding-left: 150px;
+   
+}
+
+.board_list {
+    width: 90%;
+    border-top: 2px solid rgba(128, 128, 128, 0.616);
+    border-bottom : 2px solid rgba(128, 128, 128, 0.616);
+    margin: auto;
+    background-color: #f8f8ff54;
+    
+}
+
+.board_list tr {
+    border-bottom: 1px solid #ccc;
+}
+
+.board_list th,
+.board_list td {
+    padding: 10px;
+    font-size: 15px;
+    font-weight: inherit;
+   
+}
+
+.board_list td {
+    text-align: center;
+}
+thead{
+    background-color: rgba(128, 128, 128, 0.103);
+}
+#total{
+       margin-top: 100px;
+        height:480px;
+    
+    }  
+.header{
+	width:150px;
+}
+#ifReply{
+	margin-left:30px;	
+} 
+caption {
+   margin-right: 740px;
+    font-size: 18px;
+    font-weight: 800;
+}

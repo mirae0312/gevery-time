@@ -40,6 +40,7 @@
 <meta charset="UTF-8">
 <title>index</title>
 <link rel="stylesheet" href="<%=request.getContextPath() %>/css/style.css" />
+<link rel="stylesheet" href="<%=request.getContextPath() %>/css/admin/infoCheck.css" />
 <link rel="stylesheet" href="<%=request.getContextPath() %>/css/summernote/summernote-lite.css">
 <script src="<%= request.getContextPath() %>/js/jquery-3.6.0.js"></script>
 <script src="<%= request.getContextPath() %>/js/summernote/summernote-lite.js"></script>
@@ -47,7 +48,6 @@
 
 </head>
 <body>
-<link rel="stylesheet" href="<%=request.getContextPath() %>/css/info/infoView.css" />
 <script type="text/javascript" src="//dapi.kakao.com/v2/maps/sdk.js?appkey=4247f28f0dc06c5cc8486ac837d411ff&libraries=services"></script>
 <div class="info-view-wrapper">
 	<div class="info-head-wrapper">
@@ -195,9 +195,9 @@
 	</div>
 </div>
 	<input type="hidden" id="code" name="code" value="<%= info.getCode() %>" />
-	<button id="checkButton">승인</button>
-	<button id="falseButton">반려</button>
-	<button id="deleteButton">삭제</button>
+	<button id="checkButton" class="approve-btn btn">승인</button>
+	<button id="falseButton" class="reject-btn btn">반려</button>
+	<button id="deleteButton" class="delete-btn btn">삭제</button>
 <script>
 // 승인
 $("#checkButton").click((e) => {

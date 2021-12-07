@@ -1,6 +1,7 @@
 @charset "UTF-8";
 h3{
-   padding-left: 210px;
+  
+   padding-left: 520px;
 
    }
  body{
@@ -9,9 +10,10 @@ h3{
 }
 
 #leftbox{
-    width: 110px;
-    height: 370px;
+    width: 155px;
+    height: 380px;
     border: solid;
+    border-radius:10px;
     float: left;
     /* margin-left: 150px; */
     text-align:right;
@@ -19,7 +21,7 @@ h3{
     padding-top:10px;
     /* size: 100px; */
     border: none;
-    background-color: rgba(128, 128, 128, 0.185);
+    background-color: rgb(128 128 128 / 12%);
  
 }
 #leftbox span{
@@ -43,14 +45,12 @@ a {
 }
 
 .board_list_wrap {
-    /* padding: 50px; */
-    width: 800px;
     margin: auto;
     padding-left: 120px;
 }
 
 .board_list {
-    width: 90%;
+    width: 80%;
     border-top: 2px solid gray;
     margin: auto;
 }
@@ -61,20 +61,13 @@ a {
 
 .board_list th,
 .board_list td {
-    padding: 6px;
+    padding: 8px;
     font-size: 17px;
 }
 .board_list th{
 	text-align:left;
 }
-/*.board_list td {
-    text-align: center;
-}*/
-
-/* .board_list .tit {
-    text-align: left;
-} */
-
+ 
 .board_list .tit:hover {
     text-decoration: underline;
 }
@@ -111,10 +104,11 @@ a {
  #btn-add{
     background-color: rgba(211, 211, 211, 0.479);
     border-style: none;
-    font-size: 15px;
+    font-size: 12px;
     padding: 10px 16px;
     border-radius: 10px;
     cursor: pointer;
+    margin-left: 35px;
 }
 #inputBox{
    margin-top: 30px;
@@ -122,11 +116,9 @@ a {
 }   
 #search{
         text-align: center;
-        margin-bottom: 20px;
-        font-family: 'Franklin Gothic Medium', 'Arial Narrow', Arial, sans-serif;
-        font-size: 16px;
-        margin-right:130px;
-        margin-top:30px;
+        margin-bottom: 15px;
+        margin-top:10px;
+        font-size: 19px;
     }
 #radioSubmit{
         margin-left: 20px;
@@ -138,7 +130,7 @@ a {
         font-weight:800;
     }
 /*페이지바*/
-div#pageBar{margin-top:14px; text-align:center; font-size:19px; }
+div#pageBar{margin-top:34px; text-align:center; font-size:19px; }
 div#pageBar span.cPage{color: gray; margin-right: 5px;}
 div#pageBar a{margin-right: 5px;}
       

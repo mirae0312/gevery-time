@@ -37,7 +37,6 @@
     <input type="hidden" name="replyLevel" value="2" />
      <input type="hidden" name="replyRef" value="<%= no %>" />  
 	<table id="tbl-board-view">
-	
 	<tr>
 		<th>제 목</th>
 		<td><input class="inputBox" type="text" name="title" required></td>
@@ -45,7 +44,7 @@
 	<tr>
 		<th>작성자</th>
 		<td>
-			<input class="inputBox" type="text" name="writer" value="<%= loginMember.getMemberId() %>"/>
+			<input class="inputBox" type="text" name="writer" value="<%= loginMember.getMemberId() %>" readonly/>
 		</td>
 	</tr>
 	<tr>

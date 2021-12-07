@@ -1,0 +1,110 @@
+@charset "UTF-8";
+
+#pdtList {
+	border: white;
+	border-radius: 5%;
+	width:100%;
+	margin-top: 10px;
+}
+#pdtList th{
+	height: 30px;
+	background-color: #efefec;	
+}
+#pdtList td{
+	height: 50px;
+	text-align:center;
+}
+#pdtList td, th{
+	border-bottom: 1px solid #ebebe6;
+}
+#pdtList a, a:visited{
+	text-decoration:none;
+	color:black;
+}
+#pdtList a:hover{
+	background-color: #d4d7ab;
+}
+
+
+#consumerInfo {
+	border: white;
+	border-radius: 5%;
+	width: 70%;
+	margin-top: 10px;
+}
+#consumerInfo th{
+	width: 80px;
+	padding-top:15px;
+	height: 30px;
+}
+#consumerInfo span{
+	background-color: #efefec;	
+}
+#consumerInfo td{
+	padding-top:15px;
+}
+#consumerInfo td, th{
+	border-bottom: 1px solid #ebebe6;
+}
+#consumerInfo input{
+	width: 250px;
+	translate: translateY(-30px);
+}
+#repeat{
+	transform: translateX(50px);
+	font-size: 15px;
+}
+
+
+#point-area{
+	border: white;
+	border-radius: 5%;
+	width: 70%;
+	margin-top: 10px;	
+}
+#point-area th{
+	width: 120px;
+	padding-top:15px;
+}
+#point-area td{
+	padding-top:15px;
+}
+#point-area span{
+	background-color: #efefec;		
+}
+
+
+#finalPrice{
+	margin-top: 40px;
+	padding-top: 20px;
+	width: 100%;
+	height: 50px;
+	text-align: center;
+	font-size: 25px;
+/* 	background-color: #6daf7e;
+	border-radius: 20px;
+	border: 1px dotted gray;
+	text-decoration-style: solid; */
+}
+#finalPrice span{
+	background-color:yellow;
+}
+
+#purchaseBtn {
+	margin-top: 10px;
+	margin-bottom: 30px;
+	width: 100%;
+	height: 70px;
+	text-align: center;
+	font-size: 25px;
+	background-color: #6daf7e;
+	border-radius: 20px;	
+	border: 1px dotted gray;
+}
+
+
+
+
+
+
+

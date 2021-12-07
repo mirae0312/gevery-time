@@ -19,7 +19,7 @@ public class BoardCommentEnrollServlet extends HttpServlet {
 	private BoardService boardService = new BoardService();
 	
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		// 1. 사용자 입력처리
+		try{// 1. 사용자 입력처리
 		String orCode = request.getParameter("orCode");
 		int boardNo = Integer.parseInt(request.getParameter("boardNo"));
 		int commentLevel = Integer.parseInt(request.getParameter("commentLevel"));
@@ -43,6 +43,9 @@ public class BoardCommentEnrollServlet extends HttpServlet {
 		// 3. 응답처리
 		String loaction = request.getContextPath() + "/board/boardView?no=" + boardNo;
 		response.sendRedirect(loaction);
+		}catch(Exception e) {
+			throw e;
+		}
 	}
 
 }

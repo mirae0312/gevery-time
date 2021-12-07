@@ -1,0 +1,28 @@
+@charset "UTF-8";
+/* slick */
+.slick-arrow{
+	position:absolute;
+	top: 0px;
+	border: 0;
+	pointer-events: none;
+	background-color: #fff;
+	text-indent:-9999px;
+	overflow:hidden;
+	z-index: -1;
+}
+
+/* 사진 */
+.photo-wrapper{
+	height: 450px;
+}
+.slide{
+	display: flex;
+	align-items: center;
+}
+.pics{
+}
+.pics img{
+	width: 1024px;
+	height: 400px;
+	background-position: center;
+}

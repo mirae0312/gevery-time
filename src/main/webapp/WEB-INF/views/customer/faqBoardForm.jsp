@@ -7,21 +7,31 @@
   <script>
   $(document).ready(function() {
 		$('#summernote').summernote({
-			  height: 300,                 // 에디터 높이
-			  minHeight: null,             // 최소 높이
-			  maxHeight: null,             // 최대 높이
-			  focus: true,                  // 에디터 로딩후 포커스를 맞출지 여부
-			  lang: "ko-KR",					// 한글 설정
-			  placeholder: '최대 2048자까지 쓸 수 있습니다',	//placeholder 설정
-			  disableResizeEditor: true
-		});
+			toolbar: [
+			    ['style', ['bold', 'italic', 'underline', 'clear']],
+			    ['font', ['strikethrough']],
+			    ['fontsize', ['fontsize']],
+			    ['color', ['color']],
+			    ['para', ['ul', 'ol', 'paragraph']],
+			    ['height', ['height']]
+			  ],
+			  disableResizeEditor: true,
+			  height: 300,
+			  width:650
+			});
 	});
- 
   </script>
-
+  <div id="leftbox">
+            <span><a href="<%= request.getContextPath() %>/customer/qnaBoardList">Q&A</a></span>
+            <br><br>
+            <span><a href="<%= request.getContextPath() %>/customer/faqBoardList">FAQ</a></span>
+            <br><br>
+            <span><a href="<%= request.getContextPath() %>/customer/reportBoardList">신고내역</a></span>
+ </div>
 <section id="board-container">
 <br><br> 
-<h3>FAQ 작성</h3>
+<span id="faq">FAQ 작성</span>
+<br><br>
 <form
 	name="boardEnrollFrm"
 	action="<%=request.getContextPath() %>/customer/faqBoardEnroll" 
@@ -29,11 +39,11 @@
 	
 	<table id="tbl-board-view">
 	<tr>
-		<th>제 목</th>
+		<td>제 목</td>
 		<td><input class="inputBox" type="text" name="title" ></td>
 	</tr>
 	<tr>
-    	<th>분류</th>
+    	<td>분류</td>
         <td>
         <label for="category"></label> 
          <select class="inputBox" name="category" id="category"  >
@@ -46,13 +56,13 @@
        </td>
     </tr>              
 	<tr>
-		<th>내 용</th>
+		<td>내 용</td>
 		<td><textarea name="content" id="summernote" class="summernote"></textarea></td>
 	</tr>
 	<tr>
-		<th colspan="2">
+		<td colspan="2">
 			<div id=box><input class="submit" type="submit" value="등록하기"></div>
-		</th>
+		</td>
 	</tr>
 </table>
 </form>

@@ -27,20 +27,30 @@ public class InfoScrollServlet extends HttpServlet {
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 
 		try {		
+			Info info = new Info();
+			
 			// 페이지 체크
 			String board = request.getParameter("pageCheck");
 			String n = request.getParameter("n");
+			String sido = request.getParameter("sido");
 			System.out.println("[InfoScrollServlet] + n : " + n);	
+			System.out.println("[InfoScrollServlet] + sido : " + sido);	
+						
 			// 페이징
-			final int numPerPage = 5;
+			final int numPerPage = 4;
 			int page = Integer.parseInt(request.getParameter("page"));			
 			int start = (page - 1) * numPerPage + 1;
 			int end = page * numPerPage;
 						
 			// 전체 게시물
-			List<Info> list = infoService.selectAllList(board, start, end, n);
+			List<Info> list = null;
 //			for(Info info : list)
 //				System.out.println("[infoScrollServlet] infoList : " + info);
+			
+			
+			info.setLocation(sido);
+			list = infoService.selectAllList(board, start, end, n, info);
+			
 			
 			response.setContentType("application/json; charset=utf-8");
 			new Gson().toJson(list, response.getWriter());

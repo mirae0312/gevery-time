@@ -1,7 +1,6 @@
 package com.zea.geverytime.info.model.service;
 
 import static com.zea.geverytime.common.JdbcTemplate.*;
-import static com.zea.geverytime.common.JdbcTemplate.getConnection;
 
 import java.sql.Connection;
 import java.util.ArrayList;
@@ -42,26 +41,42 @@ public class InfoService {
 		return popList;
 	}
 
-	public List<Info> selectAllList(String board, int start, int end, String n) {
+	public List<Info> selectAllList(String board, int start, int end, String n, Info sido) {
 		Connection conn = null;
 		List<Info> list = null;
 		List<Attachment> attach = null;
 		try {
 			conn = getConnection();
-			
-			switch(n) {
-			case "new": 
-				list = infoDao.selectAllListAsc(board, conn, start, end);
-				break;
-			case "old": 
-				list = infoDao.selectAllList(board, conn, start, end);
-				break;
-			case "view": 
-				list = infoDao.selectAllListView(board, conn, start, end);
-				break;
-			case "like": 
-				list = infoDao.selectAllListPop(board, conn, start, end);
-				break;
+			if("all".equals(sido.getLocation())) {
+				switch(n) {
+				case "new": 
+					list = infoDao.selectAllListAsc(board, conn, start, end);
+					break;
+				case "old": 
+					list = infoDao.selectAllList(board, conn, start, end);
+					break;
+				case "view": 
+					list = infoDao.selectAllListView(board, conn, start, end);
+					break;
+				case "like": 
+					list = infoDao.selectAllListPop(board, conn, start, end);
+					break;
+				}				
+			} else {
+				switch(n) {
+				case "new": 
+					list = infoDao.selectAllListAscSido(board, conn, start, end, sido);
+					break;
+				case "old": 
+					list = infoDao.selectAllListSido(board, conn, start, end, sido);
+					break;
+				case "view": 
+					list = infoDao.selectAllListViewSido(board, conn, start, end, sido);
+					break;
+				case "like": 
+					list = infoDao.selectAllListPopSido(board, conn, start, end, sido);
+					break;
+				}		
 			}
 			
 			for(int i = 0; i < list.size(); i++) {
@@ -523,6 +538,20 @@ public class InfoService {
 			close(conn);
 		}
 		return list;
+	}
+
+	public Info selectMyBusiness(String memberId) {
+		Connection conn = null;
+		Info info = null;
+		try {
+			conn = getConnection();
+			info = infoDao.selectMyBusiness(conn, memberId);
+		} catch(Exception e) {
+			throw e;
+		} finally {
+			close(conn);
+		}
+		return info;
 	}
 
 

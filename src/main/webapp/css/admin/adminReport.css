@@ -1,0 +1,41 @@
+@charset "UTF-8";
+#report-container {
+	padding-top: 60px;
+	padding-bottom: 160px;
+	background-image: url("../../images/myPage/paint.png");
+	background-position: right;
+ 	background-color: #cccccc;	
+}
+#report-container li {
+	display: flex;
+	padding-right: 10px;
+    flex-direction: column;
+    padding-left: 15px;
+}
+#report-container h1 {
+	text-align: center;
+	padding-top: 20px;
+}
+#report-container ul {
+	list-style:none;
+}
+
+table {
+    justify-content: center;
+    border-collapse: collapse;
+}
+thead {
+    border-top: 1px solid #444444;
+    background-color: #fab90126;
+}
+#reportList tr, th {
+	border-bottom: 1px solid #444444;
+    padding: 10px;
+    text-align: center;
+    background-color: #fde85300;
+}
+#reportList td {
+	border-bottom: 1px solid #444444;
+    text-align: center;
+    background-color: #fde85300;
+}

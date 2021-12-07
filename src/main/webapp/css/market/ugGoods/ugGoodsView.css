@@ -1,0 +1,201 @@
+@charset "UTF-8";
+
+/* 신고하기 버튼 */
+#reportBtn {
+	background-color: #edc5c5;
+	border:none;
+	float:right;
+	cursor: pointer;
+}
+
+/* 수정/삭제 */
+#boardUpdate {
+	background-color: #a0d3a0;
+	border: none;
+	margin-left: 5px;
+}
+#boardDelete {
+	background-color: #ffe4be;
+	border: none;
+	margin-left: 15px;
+}
+
+/* 상단영역 */
+#goodsInfoTable {
+	width: 100%;
+	background-color: #eff5fda1;
+	border: 1px dotted gray;
+	border-radius: 20px;
+	margin-top: 15px;
+	padding-left: 20px;
+	padding-bottom: 20px;
+}
+
+#goodsInfoTable thead th{
+	font-size: 25px;
+	padding-bottom: 20px;
+	padding-top: 20px;
+}
+#goodsInfoTable tbody th{
+	float:left;
+}
+#goodsInfoTable td{
+	padding: 10px;
+	transform: translateX(-100px);
+}
+
+/* 버튼영역 */
+/* 상태별 색상 지정 */
+#state-OnSale {
+	background-color: yellow;
+}
+#state-OnTrade {
+	background-color: #bae5ba;
+}
+#state-PurchaseDone {
+	background-color: #f9e7c5;
+}
+#state-TradeDone{
+	background-color: #c5c3c3;
+}
+
+#trade-area {
+	width: 100%;
+	margin: auto;
+	text-align: center;
+	margin-top: 20px;
+	margin-bottom: 20px;
+}
+/* 찜하기 */
+#wishListAdd {
+	width: 80px;
+	height: 80px;
+	border-radius: 50%;
+	background-color: #d1edd1c4;
+	border: 1px dotted gray;
+	cursor: pointer;
+}
+/* 구매요청 */
+#requestBtn {
+	width: 80px;
+	height: 80px;
+	border-radius: 50%;
+	background-color: #b5eb6da6;
+	border: 1px dotted black;
+	cursor: pointer;
+}
+#reqContent {
+	width: 100%;
+	margin-top: 20px;
+	margin-bottom: 5px;
+}
+#userReq {
+	width: 100%;
+}
+
+/* 보내기버튼 */
+#requestSubmit{
+	width: 50px;
+	height: 50px;
+	border-radius: 50%;
+	background-color: #dbdbd7a6;
+	border: 1px dotted black;
+	cursor: pointer;
+}
+
+/* 구매요청 확인 */
+#responseBtn{
+	width: 80px;
+	height: 80px;
+	border-radius: 50%;
+	background-color: #f7969654;
+	border: 1px dotted gray;
+	cursor: pointer;
+}
+#notiMessage{
+	padding-bottom: 15px;
+	color: red;
+}
+.getReqContent td {
+	padding-top: 15px;
+	border-bottom: 1px solid #ebe8e8;
+}
+.selectReqUser {
+	cursor: pointer;
+}
+
+/* 결제 진행 */
+#purchaseBtn{
+	width: 80px;
+	height: 80px;
+	border-radius: 50%;
+	background-color: #747fcf54;
+	border: 1px dotted gray;
+	cursor: pointer;
+}
+
+/* 결제가 완료되었습니다. 버튼 */
+#pcDoneBtn {
+	background-color: white;
+	color: #09707c;
+	border: none;
+	font-size: 15px;
+	cursor: pointer;
+}
+
+/* 판매완료처리 버튼 */
+#tradeDone{
+	width: 150px;
+	height: 50px;
+	border-radius: 20px;
+	border: 1px dotted gray;
+	background-color: #7590e9b5;
+	cursor: pointer;
+}
+
+
+/* 콘텐츠영역 */
+#img-area{
+	width: 100%;
+}
+#img-area img{
+	width: 100%;
+}
+.board-content {
+	padding-top: 30px;
+	padding-bottom: 20px;
+	font-size: 20px;
+}
+
+#content-area{
+	margin-top: 30px;
+	width: 100%;
+	background-color: #f7f7b366;
+	border: 1px dotted gray;
+	border-radius: 25px;
+}
+#content-area td{
+	text-align: center;
+}
+
+
+/* 목록으로 돌아가기 */
+#returnList{
+	padding-top: 40px;
+	padding-bottom: 40px;
+	font-size: 15px;
+	display: block;
+	margin: auto;
+	background-color: white;
+	text-decoration: underline;
+	text-align: center;
+	border: none;
+}
+
+
+
+
+
+
+
+

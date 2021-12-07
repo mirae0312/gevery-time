@@ -133,6 +133,7 @@ public class InfoDao {
 				info.setRecommend(rset.getInt("count"));
 				info.setRegDate(rset.getDate("reg_date"));
 				info.setCommentCount(rset.getInt("comment_count"));
+				info.setLocation(rset.getString("location"));
 				
 				list.add(info);
 			}
@@ -191,6 +192,7 @@ public class InfoDao {
 				info.setRecommend(rset.getInt("count"));
 				info.setRegDate(rset.getDate("reg_date"));
 				info.setCommentCount(rset.getInt("comment_count"));
+				info.setLocation(rset.getString("location"));
 				
 				list.add(info);
 			}
@@ -249,6 +251,7 @@ public class InfoDao {
 				info.setRecommend(rset.getInt("count"));
 				info.setRegDate(rset.getDate("reg_date"));
 				info.setCommentCount(rset.getInt("comment_count"));
+				info.setLocation(rset.getString("location"));
 				
 				list.add(info);
 			}
@@ -307,6 +310,247 @@ public class InfoDao {
 				info.setRecommend(rset.getInt("count"));
 				info.setRegDate(rset.getDate("reg_date"));
 				info.setCommentCount(rset.getInt("comment_count"));
+				info.setLocation(rset.getString("location"));
+				
+				list.add(info);
+			}
+		} catch (SQLException e) {
+			throw new InfoBoardException("게시글 불러오기 실패!", e);
+		} finally {
+			close(rset);
+			close(pstmt);
+		}
+		
+		return list;
+	}
+	
+	public List<Info> selectAllListSido(String board, Connection conn, int start, int end, Info sido) {
+		PreparedStatement pstmt = null;
+		String sql = "";
+		switch(board) {
+		case "info": 
+			sql = prop.getProperty("selectAllListSido");
+			break;
+		case "hospital":
+			sql = prop.getProperty("selectHospitalAllListSido");
+			break;
+		case "cafe": 
+			sql = prop.getProperty("selectCafeAllListSido");
+			break;
+		case "restaurant":
+			sql = prop.getProperty("selectRestaurantAllListSido");
+			break;
+		case "pension": 
+			sql = prop.getProperty("selectPensionAllListSido");
+			break;
+		case "salon": 
+			sql = prop.getProperty("selectSalonAllListSido");
+			break;
+		}
+		
+		
+		ResultSet rset = null;
+		List<Info> list = new ArrayList<>();
+		
+		try {
+			pstmt = conn.prepareStatement(sql);
+			
+			pstmt.setString(1, sido.getLocation());
+			pstmt.setInt(2, start);
+			pstmt.setInt(3, end);
+			
+			rset = pstmt.executeQuery();
+			while(rset.next()) {
+				Info info = new Info();
+				info.setCode(rset.getString("code"));
+				info.setMemberId(rset.getString("writer"));
+				info.setBusinessName(rset.getString("business_name"));
+				info.setHeadContent(rset.getString("head_content"));
+				info.setViewCount(rset.getInt("view_count"));
+				info.setRecommend(rset.getInt("count"));
+				info.setRegDate(rset.getDate("reg_date"));
+				info.setCommentCount(rset.getInt("comment_count"));
+				info.setLocation(rset.getString("location"));
+				
+				list.add(info);
+			}
+		} catch (SQLException e) {
+			throw new InfoBoardException("게시글 불러오기 실패!", e);
+		} finally {
+			close(rset);
+			close(pstmt);
+		}
+		
+		return list;
+	}
+	
+	public List<Info> selectAllListAscSido(String board, Connection conn, int start, int end, Info sido) {
+		PreparedStatement pstmt = null;
+		String sql = "";
+		switch(board) {
+		case "info": 
+			sql = prop.getProperty("selectAllListAscSido");
+			break;
+		case "hospital":
+			sql = prop.getProperty("selectHospitalAllListAscSido");
+			break;
+		case "cafe": 
+			sql = prop.getProperty("selectCafeAllListAscSido");
+			break;
+		case "restaurant":
+			sql = prop.getProperty("selectRestaurantAllListAscSido");
+			break;
+		case "pension": 
+			sql = prop.getProperty("selectPensionAllListAscSido");
+			break;
+		case "salon": 
+			sql = prop.getProperty("selectSalonAllListAscSido");
+			break;
+		}
+		
+		
+		ResultSet rset = null;
+		List<Info> list = new ArrayList<>();
+		
+		try {
+			pstmt = conn.prepareStatement(sql);
+			
+			pstmt.setString(1, sido.getLocation());
+			pstmt.setInt(2, start);
+			pstmt.setInt(3, end);
+			
+			rset = pstmt.executeQuery();
+			while(rset.next()) {
+				Info info = new Info();
+				info.setCode(rset.getString("code"));
+				info.setMemberId(rset.getString("writer"));
+				info.setBusinessName(rset.getString("business_name"));
+				info.setHeadContent(rset.getString("head_content"));
+				info.setViewCount(rset.getInt("view_count"));
+				info.setRecommend(rset.getInt("count"));
+				info.setRegDate(rset.getDate("reg_date"));
+				info.setCommentCount(rset.getInt("comment_count"));
+				info.setLocation(rset.getString("location"));
+				
+				list.add(info);
+			}
+		} catch (SQLException e) {
+			throw new InfoBoardException("게시글 불러오기 실패!", e);
+		} finally {
+			close(rset);
+			close(pstmt);
+		}
+		
+		return list;
+	}
+	
+	public List<Info> selectAllListViewSido(String board, Connection conn, int start, int end, Info sido) {
+		PreparedStatement pstmt = null;
+		String sql = "";
+		switch(board) {
+		case "info": 
+			sql = prop.getProperty("selectAllListViewSido");
+			break;
+		case "hospital":
+			sql = prop.getProperty("selectHospitalAllListViewSido");
+			break;
+		case "cafe": 
+			sql = prop.getProperty("selectCafeAllListViewSido");
+			break;
+		case "restaurant":
+			sql = prop.getProperty("selectRestaurantAllListViewSido");
+			break;
+		case "pension": 
+			sql = prop.getProperty("selectPensionAllListViewSido");
+			break;
+		case "salon": 
+			sql = prop.getProperty("selectSalonAllListViewSido");
+			break;
+		}
+		
+		
+		ResultSet rset = null;
+		List<Info> list = new ArrayList<>();
+		
+		try {
+			pstmt = conn.prepareStatement(sql);
+			
+			pstmt.setString(1, sido.getLocation());
+			pstmt.setInt(2, start);
+			pstmt.setInt(3, end);
+			
+			rset = pstmt.executeQuery();
+			while(rset.next()) {
+				Info info = new Info();
+				info.setCode(rset.getString("code"));
+				info.setMemberId(rset.getString("writer"));
+				info.setBusinessName(rset.getString("business_name"));
+				info.setHeadContent(rset.getString("head_content"));
+				info.setViewCount(rset.getInt("view_count"));
+				info.setRecommend(rset.getInt("count"));
+				info.setRegDate(rset.getDate("reg_date"));
+				info.setCommentCount(rset.getInt("comment_count"));
+				info.setLocation(rset.getString("location"));
+				
+				list.add(info);
+			}
+		} catch (SQLException e) {
+			throw new InfoBoardException("게시글 불러오기 실패!", e);
+		} finally {
+			close(rset);
+			close(pstmt);
+		}
+		
+		return list;
+	}
+	
+	public List<Info> selectAllListPopSido(String board, Connection conn, int start, int end, Info sido) {
+		PreparedStatement pstmt = null;
+		String sql = "";
+		switch(board) {
+		case "info": 
+			sql = prop.getProperty("selectAllListPopSido");
+			break;
+		case "hospital":
+			sql = prop.getProperty("selectHospitalAllListPopSido");
+			break;
+		case "cafe": 
+			sql = prop.getProperty("selectCafeAllListPopSido");
+			break;
+		case "restaurant":
+			sql = prop.getProperty("selectRestaurantAllListPopSido");
+			break;
+		case "pension": 
+			sql = prop.getProperty("selectPensionAllListPopSido");
+			break;
+		case "salon": 
+			sql = prop.getProperty("selectSalonAllListPopSido");
+			break;
+		}
+		
+		
+		ResultSet rset = null;
+		List<Info> list = new ArrayList<>();
+		
+		try {
+			pstmt = conn.prepareStatement(sql);
+			
+			pstmt.setString(1, sido.getLocation());
+			pstmt.setInt(2, start);
+			pstmt.setInt(3, end);
+			
+			rset = pstmt.executeQuery();
+			while(rset.next()) {
+				Info info = new Info();
+				info.setCode(rset.getString("code"));
+				info.setMemberId(rset.getString("writer"));
+				info.setBusinessName(rset.getString("business_name"));
+				info.setHeadContent(rset.getString("head_content"));
+				info.setViewCount(rset.getInt("view_count"));
+				info.setRecommend(rset.getInt("count"));
+				info.setRegDate(rset.getDate("reg_date"));
+				info.setCommentCount(rset.getInt("comment_count"));
+				info.setLocation(rset.getString("location"));
 				
 				list.add(info);
 			}
@@ -1496,6 +1740,36 @@ public class InfoDao {
 		}
 		
 		return list;
+	}
+
+	public Info selectMyBusiness(Connection conn, String memberId) {
+		PreparedStatement pstmt = null;
+		String sql = prop.getProperty("selectMyBusiness");
+		ResultSet rset = null;
+		Info info = new Info();
+		try {
+			pstmt = conn.prepareStatement(sql);
+			
+			pstmt.setString(1, memberId);
+			
+			rset = pstmt.executeQuery();
+			if(rset.next()) {
+				info = new Info();
+				info.setCode(rset.getString("code"));
+				info.setMemberId(rset.getString("writer"));
+				info.setRegCheck(rset.getString("reg_check"));
+				info.setHeadContent(rset.getString("head_content"));
+				info.setRegDate(rset.getDate("reg_date"));
+				info.setDeleteCheck(rset.getString("delete_check"));
+				info.setBusinessName(rset.getString("business_name"));
+			}
+		} catch (SQLException e) {
+			throw new InfoBoardException("정보 게시물 승인여부 가져오기 실패!, e");
+		} finally {
+			close(pstmt);
+		}
+		
+		return info;
 	}
 
 

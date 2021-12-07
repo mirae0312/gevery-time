@@ -29,6 +29,7 @@ public class BoardUpdateServlet extends HttpServlet {
 	private BoardService boardService = new BoardService();
 
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+		try {
 		// 1. 입력값 처리
 		int no = Integer.parseInt(request.getParameter("no"));
 		// 2. 업무로직
@@ -38,6 +39,9 @@ public class BoardUpdateServlet extends HttpServlet {
 		request
 			.getRequestDispatcher("/WEB-INF/views/board/boardUpdateForm.jsp")
 			.forward(request, response);
+		}catch(Exception e) {
+			throw e;
+		}
 	}
 
 	/**

@@ -7,14 +7,14 @@
   <link rel="stylesheet" href="<%=request.getContextPath()%>/css/customer/qnaList.css" /> 
  <section id="qnaBoard-container">
  <div id="total">
-        <h3>Q&A</h3>
+        <h3 style="margin-left:23px;">Q&A</h3>
  <div id="leftbox">
             <span><a href="<%= request.getContextPath() %>/customer/qnaBoardList">Q&A</a></span>
             <br><br>
             <span><a href="<%= request.getContextPath() %>/customer/faqBoardList">FAQ</a></span>
             <br><br>
             <span><a href="<%= request.getContextPath() %>/customer/reportBoardList">신고내역</a></span>
-        </div>
+ </div>
         <div class="board_list_wrap">
             <table class="board_list">
                 <caption>게시판 목록</caption>
@@ -36,7 +36,7 @@
  
                     <tr>
                         <td><%= qnaBoard.getNo() %></td>
-                        <td style="font-size:12px";><%= qnaBoard.getCategory() %></td>
+                        <td style="font-size:13px";><%= qnaBoard.getCategory() %></td>
                         <td class="tit" colspan="5">
 				<%if(MemberService.ADMIN_ROLE.equals(loginMember.getMemberRole()) 
 						)

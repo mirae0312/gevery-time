@@ -1,0 +1,40 @@
+@charset "UTF-8";
+
+h1 {
+	padding-top: 20px;
+}
+#purchase-container {
+	list-style: none;
+	padding-top: 20px;
+	background-image: url("../../images/myPage/paint.png");
+	background-position: center;
+ 	background-color: #cccccc;
+}
+#purchase-container li {
+	padding-left: 10px;
+    padding-right: 10px;
+	display: grid;
+    list-style: none;
+}
+
+table {
+    justify-content: center;
+    border-collapse: collapse;
+}
+#thead {
+    border-top: 1px solid #444444;
+    background-color: #fab90126;
+}
+#purchase-container tr, th {
+	border-bottom: 1px solid #444444;
+    padding: 10px;
+    text-align: center;
+    background-color: #fde85300;
+}
+#purchaseTable td {
+	border-bottom: 1px solid #444444;
+    padding: 10px;
+    text-align: center;
+    background-color: #fde85300;
+}
+

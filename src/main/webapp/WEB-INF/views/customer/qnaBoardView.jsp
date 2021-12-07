@@ -11,49 +11,50 @@
  
 <section id="board-container">
 <div id="total">
-       <div id="leftbox">
-            <span>Q&A</span>
+    <div id="leftbox">
+            <span><a href="<%= request.getContextPath() %>/customer/qnaBoardList">Q&A</a></span>
             <br><br>
             <span><a href="<%= request.getContextPath() %>/customer/faqBoardList">FAQ</a></span>
             <br><br>
-            <span>신고내역</span>
-        </div>
+            <span><a href="<%= request.getContextPath() %>/customer/reportBoardList">신고내역</a></span>
+ </div>
         <div class="board_list_wrap">
             <table class="board_list">
-                <caption>게시판 상세보기</caption>
+                <caption>Q&A</caption>
                 <thead>
                     <tr>
                         <th class="header">제목</th>
                         <th><%=qnaBoard.getTitle() %></th>
+                        <th></th><th></th>
                     </tr>
                 </thead>
                 <tbody>
                     <tr>
                         <th class="header">작성자</th>
                         <th><%=qnaBoard.getWriter() %></th>
-                    </tr>
-                    <tr>
-                        <th class="header">날짜</th>
+                         <th class="header">날짜</th>
                         <th><%= qnaBoard.getRegDate() %></th>
+                   
                     </tr>
                      <tr>
                         <th class="header">분류</th>
                         <th><%= qnaBoard.getCategory() %></th>
                     </tr>
-                    <tr id="content">
+                    <tr id="contents">
                         <th class="header">내용</th>
                         <th><%=qnaBoard.getContent() %></th>
                     </tr>
                 </tbody>
             </table>
-        </div>     
-        
-        <div id="ifReply">
-        
-        </div>
-        
+            <br> 
+        </div>             
+        <br><br><br><br><br>
+        <div id="ifReply"></div> 
+     
+</div>
+         
         <div class="button">
-        <input type="button" value="목록" onclick="showQnaBoardList()"/>
+        <input type="button" class="buttonlist" value="목록" onclick="showQnaBoardList()"/>
         
 	<% 	if(
 				loginMember != null && 
@@ -62,18 +63,19 @@
 				  || MemberService.ADMIN_ROLE.equals(loginMember.getMemberRole())
 				)
 			){ %>
-        <input type="button" value="수정" onclick="updateQnaBoard()"/>
-        <input type="button" value="삭제" onclick="deleteQnaBoard()"/>
+        <input type="button"  class="buttonlist" value="수정" onclick="updateQnaBoard()"/>
+        <input type="button" class="buttonlist" value="삭제" onclick="deleteQnaBoard()"/>
          <% 	} %>
         <% 	if(
 				loginMember != null && 
 				( MemberService.ADMIN_ROLE.equals(loginMember.getMemberRole()))
 			){ %>
-        <input type="button" value="답변" onclick="replyQnaBoard()"/>
+        <input type="button" class="buttonlist" value="답변" onclick="replyQnaBoard()"/>
         </div>
   <% 	} %>
- </div>
+ 		</div>
  </section>
+ 	 
 <!--  게시글 삭제-->
 <form
 	name="boardDelFrm"
@@ -118,13 +120,24 @@
                
                  $(data).each((i, {title, writer, content}) => {
                  const reply = 
-                 `<table style="border:solid";>
+                	
+                 `
+                 <div class="board_list_wrap1">
+                 <table class="board_list";>
+                 <br>
+                 <span style="font-size:20px; margin-left:50px; font-weight: 800; "> [↳답변입니다.]  </span>
+                  <br><br>
+                
                  <tr>
-                     <td>\${title}</td>
+                 	<th class="header">작성자</th>
                      <td>\${writer}</td>
+                 </tr>
+                  <tr>
+                     <td class="header" id="replycontent">내용</td>
                      <td>\${content}</td>
                 </tr>
                 </table>
+                </div>
                 `;
                  $("#ifReply").append(reply);
                 });

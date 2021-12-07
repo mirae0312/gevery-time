@@ -7,6 +7,7 @@ import static com.zea.geverytime.common.JdbcTemplate.rollback;
 
 import java.sql.Connection;
 import java.util.List;
+import java.util.Map;
 
 import com.zea.geverytime.common.model.vo.Attachment;
 import com.zea.geverytime.market.usedgoods.model.dao.UsedGoodsDao;
@@ -56,9 +57,9 @@ public class UsedGoodsService {
 		return board;
 	}
 
-	public List<UsedGoodsBoard> getProductSaleBoardAll(int startNum, int endNum) {
+	public List<UsedGoodsBoard> getProductSaleBoardAll(int startNum, int endNum, String keyword, String type) {
 		Connection conn = getConnection();
-		List<UsedGoodsBoard> list = ugDao.getProductSaleBoardAll(conn, startNum, endNum);
+		List<UsedGoodsBoard> list = ugDao.getProductSaleBoardAll(conn, startNum, endNum, keyword, type);
 		close(conn);
 		return list;
 	}
@@ -165,4 +166,60 @@ public class UsedGoodsService {
 		}
 		return result;
 	}
+
+	public int addBoardRequest(int boardNo, String memberId, String content) {
+		Connection conn = getConnection();
+		int result = 0;
+		try {
+			result = ugDao.addBoardRequest(conn, boardNo, memberId, content);
+			commit(conn);
+		} catch(Exception e) {
+			rollback(conn);
+			e.printStackTrace();
+		} finally {
+			close(conn);
+		}
+		return result;
+	}
+
+	public List<Map<String, Object>> getUgBoardReqUsers(int boardNo) {
+		Connection conn = getConnection();
+		List<Map<String, Object>> reqUsers = ugDao.getUgBoardReqUsers(conn, boardNo);
+		close(conn);
+		return reqUsers;
+	}
+
+	public int tradeRequestAccept(String userId, int boardNo) {
+		Connection conn = getConnection();
+		int result = 0;
+		
+		try {
+			result = ugDao.tradeRequestAccept(conn, userId, boardNo);
+			commit(conn);
+		} catch(Exception e) {
+			rollback(conn);
+			e.printStackTrace();
+		} finally {
+			close(conn);
+		}
+		
+		return result;
+	}
+
+	public int changeUgBoardState(int boardNo, String state) {
+		Connection conn = getConnection();
+		int result = 0;
+		
+		try {
+			result = ugDao.changeUgBoardState(conn, boardNo, state);
+			commit(conn);
+		} catch(Exception e) {
+			rollback(conn);
+			e.printStackTrace();
+		} finally {
+			close(conn);
+		}
+		return result;
+	}
+
 }

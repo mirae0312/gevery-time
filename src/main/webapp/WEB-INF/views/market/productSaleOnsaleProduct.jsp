@@ -12,12 +12,21 @@
 <head>
 <meta charset="UTF-8">
 <title>Insert title here</title>
+<link rel="stylesheet" href="<%=request.getContextPath() %>/css/market/product/productList.css" />
+
 </head>
 <body>
 	<h1><%= MemberId %>님의 판매중인 상품 목록</h1>
 	<button id="pdtEnroll">상품 등록하기</button>
 	
-	<table>
+	<%
+	if(list.isEmpty() || list == null) {
+	%>
+		<h2>텅 비었어요. 등록해주세요</h2>
+	<%
+	} else {
+	%>
+	<table id="productListTable">
 		<thead>
 			<tr>
 				<th>상품번호</th>
@@ -38,9 +47,9 @@
 				<td><%= pdt.getPdtPrice() %></td>
 				<td>
 					<select class="optionChange" data-pdtno="<%= pdt.getPdtNo() %>" data-colname="div" name="div">
-						<option value="div1" <%= pdt.getPdtDiv().equals("div1") ? "selected" : "" %> >대분류1</option>
-						<option value="div2" <%= pdt.getPdtDiv().equals("div2") ? "selected" : "" %> >대분류2</option>
-						<option value="div3" <%= pdt.getPdtDiv().equals("div3") ? "selected" : "" %> >대분류3</option>
+						<option value="dog" <%= pdt.getPdtDiv().equals("dog") ? "selected" : "" %> >강아지</option>
+						<option value="cat" <%= pdt.getPdtDiv().equals("cat") ? "selected" : "" %> >고양이</option>
+						<option value="goose" <%= pdt.getPdtDiv().equals("goose") ? "selected" : "" %> >거위</option>
 					</select>
 				</td>
 				<td>
@@ -57,6 +66,7 @@
 		</tbody>
 	</table>
 	
+	<% } %>
 	<script>
 		$("#searchDiv").change((e) => {
 			

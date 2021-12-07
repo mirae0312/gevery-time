@@ -1,3 +1,4 @@
+<%@page import="com.zea.geverytime.common.model.vo.Attachment"%>
 <%@page import="com.zea.geverytime.market.cart.model.vo.Cart"%>
 <%@page import="java.util.List"%>
 <%@ page language="java" contentType="text/html; charset=UTF-8"
@@ -11,25 +12,30 @@
 <head>
 <meta charset="UTF-8">
 <title>장바구니</title>
+<link rel="stylesheet" href="<%=request.getContextPath() %>/css/market/cart/cart.css" />
+
 </head>
 <body>
 	<h1>장바구니</h1>
+	<input type="button" value="전체 선택/해제하기" id="checkAllBtn"/>
 <%
 	int countNum = 1;
 	if(!cartlist.isEmpty()) {
 %>
-	<table>
+	<table id="cartTable">
 		<thead>
 			<tr>
 				<th>선택</th>
-				<th>상품 번호</th>
-				<th>게시글 번호</th>
+				<th>상품번호</th>
+				<th>게시글번호</th>
+				<th>섬네일</th>
 				<th>상품명</th>
 				<th>제목</th>				
 				<th>가격</th>
-				<th>상품 상태</th>
-				<th>선택 수량</th>
-				<th>상품 총 가격</th>
+				<th>상품상태</th>
+				<th>선택수량</th>
+				<th>상품총가격</th>
+				<th>삭제하기</th>
 			</tr>
 		</thead>
 
@@ -49,6 +55,17 @@
 				<td>
 					<%= cart.getProductboardNo() %>
 					<input type="hidden" id="pdtBoardNo<%= countNum %>" value="<%= cart.getProductboardNo() %>" />
+				</td>
+				<td>
+					<%
+					List<Attachment> list = cart.getPdtBoard().getAttachments();
+					String rfn = "";
+					for(Attachment attach : list){
+						rfn = attach.getRenamedFilename();
+						break;
+					}
+					%>
+					<img src="<%= request.getContextPath() %>/upload/market/productSale/<%= rfn %>" alt="" style="width:100px"/>
 				</td>
 				<td>
 					<%= cart.getPdtBoard().getProduct().getPdtName() %>
@@ -77,7 +94,7 @@
 		}
 		%>
 			<tr>
-				<td colspan=8>
+				<td colspan=11>
 					<b><span>총 가격은 </span>
 					<span id="totalPricePlace"></span>
 					<span>원 입니다.</span></b>
@@ -88,7 +105,7 @@
 	<!-- 합계 처리 위한 영역 -->
 	<input type="hidden" id="countNum" value="<%= countNum - 1 %>"/>
 	
-	<input type="button" value="전체 선택/해제하기" id="checkAllBtn"/>
+
 	<!-- 전달할 form -->
 	<form action="<%= request.getContextPath() %>/purchase/purchasePage" name="purchaseFrm" id="purchaseFrm" method="GET">
 		<button>선택 상품 주문하기</button></br>
@@ -96,7 +113,7 @@
 	</form>
 <% } else { %>
 	<h1>텅 비었어요</h1>
-	<input type="button" value="쇼핑하러 가기" onclick="location.href='<%= request.getContextPath() %>/product/main'" />
+	<input type="button" value="쇼핑하러 가기" onclick="location.href='<%= request.getContextPath() %>/product/main?div=all'" />
 <% } %>	
 		
 	<script>

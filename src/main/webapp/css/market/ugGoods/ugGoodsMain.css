@@ -1,0 +1,73 @@
+@charset "UTF-8";
+
+/* 리스트 영역 */
+
+#boardTable {
+	border: white;
+	border-radius: 5%;
+	width:100%;
+	margin-top: 10px;
+}
+#boardTable th{
+	height: 30px;
+	background-color: #efefec;	
+}
+#boardTable th:nth-child(1){
+	background-color: white;
+}
+#boardTable td{
+	height: 50px;
+	text-align:center;
+}
+#boardTable td, th{
+	border-bottom: 1px solid #ebebe6;
+}
+#boardTable a, a:visited{
+	text-decoration:none;
+	color:black;
+}
+#boardTable a:hover{
+	background-color: #d4d7ab;
+}
+
+
+/* 상단영역 */
+#searchSelect {
+	appearance : none;
+	height: 24px;
+	background-color: #80808017;
+}
+
+#searchName {
+	height: 20px;
+	width: 200px;
+	margin-right: 10px;
+	border: 1px solid gray;
+}
+#searchNameBtn {
+	width: 40px;
+	height: 40px;
+	border-radius: 50%;
+	background-color: #e2f3d4;
+	border: 1px dotted gray;
+}
+#searchOpt{
+	float: right;
+}
+
+
+/* 페이지바 */
+.pageBar{
+	margin-top:15px;
+	margin-bottom: 20px;
+	text-align:center;
+	width:100%;
+}
+.pageBar a {
+	padding:10px;
+	cursor: pointer;
+}
+.cPage {
+	text-decoration: underline;
+	background-color: #f7fbc6;
+}

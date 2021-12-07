@@ -4,23 +4,23 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
 <%@ include file="/WEB-INF/views/common/header.jsp" %>
-<link rel="stylesheet" href="<%=request.getContextPath()%>/css/customer/qnaView.css" />
+<link rel="stylesheet" href="<%=request.getContextPath()%>/css/customer/faqView.css" />
 <%
 		FaqBoard faqBoard = (FaqBoard) request.getAttribute("faqBoard");
 %>
  
 <section id="board-container">
 <div id="total">
-       <div id="leftbox">
-            <span>Q&A</span>
-            <br>
-            <span>FAQ</span>
-            <br>
-            <span>신고내역</span>
-        </div>
+ <div id="leftbox">
+            <span><a href="<%= request.getContextPath() %>/customer/qnaBoardList">Q&A</a></span>
+            <br><br>
+            <span><a href="<%= request.getContextPath() %>/customer/faqBoardList">FAQ</a></span>
+            <br><br>
+            <span><a href="<%= request.getContextPath() %>/customer/reportBoardList">신고내역</a></span>
+ </div>
         <div class="board_list_wrap">
             <table class="board_list">
-                <caption>자주묻는질문 상세보기</caption>
+                <caption>FAQ</caption>
                 <thead>
                     <tr>
                         <th>제목</th>
@@ -39,14 +39,13 @@
                 </tbody>
             </table>
         </div>
-        <div class="button">
-        <input type="button" class="button" value="목록" onclick="showFaqBoardList()"/>
+        <div class="button2">
+        <input type="button" class="buttonlist " value="목록" onclick="showFaqBoardList()"/>
 <% 	if(
 				loginMember != null && 
 				(MemberService.ADMIN_ROLE.equals(loginMember.getMemberRole()))
 			){ %>
-       <!-- <input type="button" value="수정" onclick="updateFaqBoard()"/> --> 
-        <input type="button" class="button" value="삭제" onclick="deleteFaqBoard()"/>
+        <input type="button" class="buttonlist" value="삭제" onclick="deleteFaqBoard()"/>
 <%} %>       
         </div>
  </div>

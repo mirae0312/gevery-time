@@ -69,6 +69,7 @@
 		<tr>
 			<%-- 작성자와 관리자만 마지막행 수정/삭제버튼이 보일수 있게 할 것 --%>
 			<th colspan="2">
+				<button class="report" value="<%= board.getOrCode() %>">신고</button>
 				<input type="button" value="수정하기" onclick="updateBoard()">
 				<input type="button" value="삭제하기" onclick="deleteBoard()">
 			</th>
@@ -113,13 +114,14 @@
 					<%= bc.getContent() %>
 				</td>
 				<td>
-				<button class="btn-comment-like" value="<%= bc.getNo() %>">좋아요 <%=bc.getLikeCount()%></button>
-					<button class="btn-reply" value="<%= bc.getNo() %>">답글</button>
+				<button class="btn-comment-like btn" value="<%= bc.getNo() %>">좋아요 <%=bc.getLikeCount()%></button>
+					<button class="btn-reply btn" value="<%= bc.getNo() %>">답글</button>
+					<button class="report btn" value="<%= bc.getOrCode() %>">신고</button>					
 					<% if(loginMember!= null){	
 						if(loginMember.getMemberId().equals(bc.getWriter())
 								|| loginMember.getMemberRole().equals(MemberService.ADMIN_ROLE)){
 					%>
-					<button class="btn-deleteComment" value="<%= bc.getNo() %>" style ="float:right"> 삭제</button>
+					<button class="btn-deleteComment btn" value="<%= bc.getNo() %>" style ="float:right"> 삭제</button>
 					<%}} %>				</td>
 			</tr>
 <%
@@ -132,12 +134,13 @@
 					<br />
 					<%-- 대댓글내용 --%>
 					<%= bc.getContent() %>
-					<button class="btn-comment-like" value="<%= bc.getNo() %>">좋아요 <%=bc.getLikeCount()%></button>
+					<button class="btn-comment-like btn" value="<%= bc.getNo() %>">좋아요 <%=bc.getLikeCount()%></button>
+					<button class="report btn" value="<%= bc.getOrCode() %>">신고</button>
 					<% if(loginMember!= null){	
 						if(loginMember.getMemberId().equals(bc.getWriter())
 								|| loginMember.getMemberRole().equals(MemberService.ADMIN_ROLE)){
 					%>
-					<button class="btn-deleteComment" value="<%= bc.getNo() %>" style ="float:right"> 삭제</button>
+					<button class="btn-deleteComment btn" value="<%= bc.getNo() %>" style ="float:right"> 삭제</button>
 					<%}} %>
 				</td>
 				<td></td>
@@ -154,8 +157,8 @@
 	</div>
 </section>
 <section class="sameWriterOtherBoardList">
-<h4><%=board.getWriter() %>님의 다른 게시물</h4>
-<table id="otherBoardList">
+<h4 id="otherList"><%=board.getWriter() %>님의 다른 게시물</h4>
+<table id="otherBoardList" class="board-list-table">
 		<thead>
 			<tr>
 				<th>번호</th>
@@ -170,7 +173,7 @@
 		<tbody>
 		</tbody>
 	</table>
-	<div class="pageBar"></div>
+	<div class="board-pageBar"></div>
 </section>
 
 <form
@@ -193,12 +196,33 @@
 	<input type="hidden" name="boardNo" value=""/>
 </form>
 <script>
+//신고
+$(".report").click((e) => {
+	const name = "report";
+	const spec = "left=500px, top=500px, width=450px, height=650px";
+	const popup = open(`<%= request.getContextPath() %>/common/report?code=\${$(e.target).val()}`, name, spec);
+});
 	//좋아요
 	$(".btn-board-like").click((e)=>{
 		<%if(loginMember == null){%>
 			loginAlert();
 			return;
 		<%}%>
+		$.ajax({
+			url : "<%= request.getContextPath() %>/board/boardLike",
+			method:"post",
+			data : {
+				no : <%=board.getNo()%>,
+				id : "<%=loginMember.getMemberId()%>"
+			},
+			success(data){ // 해당 댓글의 좋아요 수
+				console.log(data)
+				if(data > -1){
+					$(e.target).text('좋아요 '+data);
+				}
+			},
+			error:console.log
+		});
 		
 	});
 	$(".btn-comment-like").click((e)=>{
@@ -208,12 +232,16 @@
 		<%}%>
 		$.ajax({
 			url : "<%= request.getContextPath() %>/board/commentLike",
+			method:"post",
 			data : {
 				no : $(e.target).val(),
-				id : loginMember.getMemberId()
+				id : "<%=loginMember.getMemberId()%>"
 			},
 			success(data){ // 해당 댓글의 좋아요 수
 				console.log(data)
+				if(data > -1){
+					$(e.target).text('좋아요 '+data);
+				}
 			},
 			error:console.log
 		});
@@ -325,7 +353,7 @@
 	$(()=>{
 		selectContent(1);
 	});
-	$(".pageBar").click((e)=>{
+	$(".board-pageBar").click((e)=>{
 		selectContent($(e.target).data('page'));
 	})
 	const selectContent = (cPage) => {
@@ -369,10 +397,10 @@
 					$("#otherBoardList tbody").append(tr);
 					
 				})
-				//pagebar부분
+				//pageBar부분
 				console.log(data.pagebar);
-				$(".pageBar").empty();
-				$(".pageBar").append(data.pagebar);
+				$(".board-pageBar").empty();
+				$(".board-pageBar").append(data.pagebar);
 			},
 			error:console.log
 		});	

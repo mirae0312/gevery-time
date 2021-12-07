@@ -9,7 +9,9 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 import java.util.Properties;
 
 import com.zea.geverytime.common.model.vo.Attachment;
@@ -118,7 +120,7 @@ public class UsedGoodsDao {
 		return board;
 	}
 
-	public List<UsedGoodsBoard> getProductSaleBoardAll(Connection conn, int startNum, int endNum) {
+	public List<UsedGoodsBoard> getProductSaleBoardAll(Connection conn, int startNum, int endNum, String keyword, String type) {
 		PreparedStatement pstmt = null;
 		ResultSet rset= null;
 		String sql = prop.getProperty("getProductSaleBoardAll");
@@ -128,6 +130,13 @@ public class UsedGoodsDao {
 			pstmt = conn.prepareStatement(sql);
 			pstmt.setInt(1, startNum);
 			pstmt.setInt(2, endNum);
+			if(type.equals("title")) {
+				pstmt.setString(3, "%"+keyword+"%");
+				pstmt.setString(4, "%%");
+			} else if(type.equals("content")){
+				pstmt.setString(3, "%%");
+				pstmt.setString(4, "%"+keyword+"%");
+			}
 			
 			rset = pstmt.executeQuery();
 			
@@ -140,6 +149,7 @@ public class UsedGoodsDao {
 				board.setWriter(rset.getString("writer"));
 				board.setContent(rset.getString("content"));
 				board.setRegDate(rset.getDate("reg_date"));
+				board.setState(rset.getString("state"));
 				list.add(board);
 			}
 		} catch (SQLException e) {
@@ -294,6 +304,94 @@ public class UsedGoodsDao {
 		try {
 			pstmt = conn.prepareStatement(sql);
 			pstmt.setInt(1, boardNo);
+			
+			result = pstmt.executeUpdate();
+		} catch (SQLException e) {
+			e.printStackTrace();
+		} finally {
+			close(pstmt);
+		}
+		return result;
+	}
+
+	public int addBoardRequest(Connection conn, int boardNo, String memberId, String content) {
+		PreparedStatement pstmt = null;
+		String sql = prop.getProperty("addBoardRequest");
+		int result = 0;
+		
+		try {
+			pstmt = conn.prepareStatement(sql);
+			pstmt.setInt(1, boardNo);
+			pstmt.setString(2, memberId);
+			pstmt.setString(3, content);
+			
+			result = pstmt.executeUpdate();
+		} catch (SQLException e) {
+			e.printStackTrace();
+		} finally {
+			close(pstmt);
+		}
+		return result;
+	}
+
+	public List<Map<String, Object>> getUgBoardReqUsers(Connection conn, int boardNo) {
+		PreparedStatement pstmt = null;
+		String sql = prop.getProperty("getUgBoardReqUsers");
+		List<Map<String, Object>> reqUsers = new ArrayList<>();
+		ResultSet rset = null;
+		
+		try {
+			pstmt = conn.prepareStatement(sql);
+			pstmt.setInt(1, boardNo);
+			
+			rset = pstmt.executeQuery();
+			while(rset.next()) {
+				String user = rset.getString("request_user");
+				String content = rset.getString("content");
+				String selected = rset.getString("selected");
+				
+				Map<String, Object> map = new HashMap<>();
+				map.put("user", user);
+				map.put("content", content);
+				map.put("selected", selected);
+				
+				reqUsers.add(map);
+			}
+		} catch (SQLException e) {
+			e.printStackTrace();
+		} finally {
+			close(pstmt);
+		}
+		return reqUsers;
+	}
+
+	public int tradeRequestAccept(Connection conn, String userId, int boardNo) {
+		PreparedStatement pstmt = null;
+		String sql = prop.getProperty("tradeRequestAccept");
+		int result = 0;
+		
+		try {
+			pstmt = conn.prepareStatement(sql);
+			pstmt.setString(1, userId);
+			pstmt.setInt(2, boardNo);
+			
+			result = pstmt.executeUpdate();
+		} catch (SQLException e) {
+			e.printStackTrace();
+		} finally {
+			close(pstmt);
+		}
+		return result;
+	}
+
+	public int changeUgBoardState(Connection conn, int boardNo, String state) {
+		PreparedStatement pstmt = null;
+		String sql = prop.getProperty("changeUgBoardState");
+		int result = 0;
+		try {
+			pstmt = conn.prepareStatement(sql);
+			pstmt.setString(1, state);
+			pstmt.setInt(2, boardNo);
 			
 			result = pstmt.executeUpdate();
 		} catch (SQLException e) {

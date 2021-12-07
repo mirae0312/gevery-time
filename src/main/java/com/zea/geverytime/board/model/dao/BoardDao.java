@@ -83,6 +83,7 @@ public class BoardDao {
 				count = rset.getInt(1);
 			}
 		} catch (SQLException e) {
+			e.printStackTrace();
 			throw new BoardException("게시물 총 개수 가져오기 오류");
 		}finally {
 			close(rset);
@@ -406,7 +407,7 @@ public class BoardDao {
 		return result;
 	}
 
-	public List<Board> getFreePopularList(Connection conn) {
+	public List<Board> getFreePopularList(Connection conn, int count) {
 		List<Board> list = new ArrayList<>();
 		String sql = prop.getProperty("getFreePopularList");
 		PreparedStatement pstmt = null;
@@ -414,6 +415,43 @@ public class BoardDao {
 		
 		try {
 			pstmt = conn.prepareStatement(sql);
+			pstmt.setInt(1, count);
+			rset = pstmt.executeQuery();
+			while(rset.next()) {
+				int no = rset.getInt("no");
+				String orCode = rset.getString("or_code");
+				String title = rset.getString("title");
+				String writer = rset.getString("writer");
+				String content = rset.getString("content");
+				int readCount = rset.getInt("read_count");
+				int likeCount = rset.getInt("like_count");
+				Date regDate = rset.getDate("reg_date");
+				Board board = new Board(no,orCode,title,writer,content,readCount,likeCount,regDate);
+				board.setAttachCount(rset.getInt("attach_count"));
+				board.setCommentCount(rset.getInt("comment_count"));
+				list.add(board);
+			}
+			
+		} catch (SQLException e) {
+			e.printStackTrace();
+			throw new BoardException("게시물 불러오기 오류!");
+		}finally {
+			close(rset);
+			close(pstmt);
+		}
+		
+		return list;
+	}
+	public List<Board> getReviewPopularList(Connection conn, int count) {
+		List<Board> list = new ArrayList<>();
+		String sql = prop.getProperty("getReviewPopularList");
+		System.out.println("sql= "+sql);
+		PreparedStatement pstmt = null;
+		ResultSet rset = null;
+		
+		try {
+			pstmt = conn.prepareStatement(sql);
+			pstmt.setInt(1, count);
 			rset = pstmt.executeQuery();
 			while(rset.next()) {
 				int no = rset.getInt("no");
@@ -503,5 +541,141 @@ public class BoardDao {
 		
 		return count;
 	}
+	
+	public int upCommentLike(Connection conn, Map<String, Object> map) {
+		int result = 0;
+		String data = map.get("no") + "-" + map.get("id");
+		String sql = prop.getProperty("upCommentLike");
+		PreparedStatement pstmt = null;
+		try {
+			pstmt = conn.prepareStatement(sql);
+			pstmt.setString(1, data);
+			result = pstmt.executeUpdate();
+		} catch (SQLException e) {
+			e.printStackTrace();
+		} catch(Exception e) {
+			e.printStackTrace();
+			throw new BoardException("좋아요 오류");
+		} finally {
+			close(pstmt);
+		}
+		
+		return result;
+	}
+
+	public int getCommentLike(Connection conn ,int no) {
+		String sql = prop.getProperty("getCommentLike");
+		int count = 0;
+		PreparedStatement pstmt = null;
+		ResultSet rset = null;
+		
+		try {
+			pstmt = conn.prepareStatement(sql);
+			pstmt.setInt(1, no);
+			rset = pstmt.executeQuery();
+			if(rset.next()) {
+				count = rset.getInt(1);
+			}
+		} catch (SQLException e) {
+			e.printStackTrace();
+			throw new BoardException("좋아요 불러오기 오류");
+		}finally {
+			close(rset);
+			close(pstmt);
+		}
+		
+		return count;
+	}
+
+	public int checkCommentLike(Connection conn, Map<String, Object> map) {
+		int check = 0;
+		String data = map.get("no") + "-" + map.get("id");
+		String sql = prop.getProperty("checkCommentLike");
+		PreparedStatement pstmt = null;
+		ResultSet rset = null;
+		try {
+			pstmt = conn.prepareStatement(sql);
+			pstmt.setString(1, data);
+			rset = pstmt.executeQuery();
+			if(rset.next()) {
+				check = rset.getInt(1);
+			}
+		} catch(Exception e) {
+			e.printStackTrace();
+			throw new BoardException("좋아요 여부 확인 오류");
+		} finally {
+			close(pstmt);
+		}
+		
+		return check;
+	}
+	public int upBoardLike(Connection conn, Map<String, Object> map) {
+		int result = 0;
+		String data = map.get("no") + "-" + map.get("id");
+		String sql = prop.getProperty("upBoardLike");
+		PreparedStatement pstmt = null;
+		try {
+			pstmt = conn.prepareStatement(sql);
+			pstmt.setString(1, data);
+			result = pstmt.executeUpdate();
+		} catch (SQLException e) {
+			e.printStackTrace();
+		} catch(Exception e) {
+			e.printStackTrace();
+			throw new BoardException("좋아요 오류");
+		} finally {
+			close(pstmt);
+		}
+		
+		return result;
+	}
+
+	public int getBoardLike(Connection conn ,int no) {
+		String sql = prop.getProperty("getBoardLike");
+		int count = 0;
+		PreparedStatement pstmt = null;
+		ResultSet rset = null;
+		
+		try {
+			pstmt = conn.prepareStatement(sql);
+			pstmt.setInt(1, no);
+			rset = pstmt.executeQuery();
+			if(rset.next()) {
+				count = rset.getInt(1);
+			}
+		} catch (SQLException e) {
+			e.printStackTrace();
+			throw new BoardException("좋아요 불러오기 오류");
+		}finally {
+			close(rset);
+			close(pstmt);
+		}
+		
+		return count;
+	}
+
+	public int checkBoardLike(Connection conn, Map<String, Object> map) {
+		int check = 0;
+		String data = map.get("no") + "-" + map.get("id");
+		String sql = prop.getProperty("checkBoardLike");
+		PreparedStatement pstmt = null;
+		ResultSet rset = null;
+		try {
+			pstmt = conn.prepareStatement(sql);
+			pstmt.setString(1, data);
+			rset = pstmt.executeQuery();
+			if(rset.next()) {
+				check = rset.getInt(1);
+			}
+		} catch(Exception e) {
+			e.printStackTrace();
+			throw new BoardException("좋아요 여부 확인 오류");
+		} finally {
+			close(pstmt);
+		}
+		
+		return check;
+	}
+	
 
 }

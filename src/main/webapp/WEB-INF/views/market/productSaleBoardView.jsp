@@ -38,70 +38,78 @@
 <head>
 <meta charset="UTF-8">
 <title>상세목록</title>
+<link rel="stylesheet" href="<%=request.getContextPath() %>/css/market/product/productSaleView.css" />
 </head>
 <body>
+<% if(loginMember != null && !loginMember.getMemberId().equals(board.getSellerId())) { %>
+<input type="button" id="reportBtn" value="신고하기" onclick="window.open('<%= request.getContextPath() %>/common/report?code=<%= (String)board.getOrCode() %>', 'popup', 'width=500, height=600, left=100')"/>
+<% } %>
 <script>
 $(() => {
 	const fimg = `<tr>
-		<td>img1</td>
-		<td><img src="<%= request.getContextPath() %>/upload/market/productSale/<%= firstImg %>" style="width:300px;"></td>
+		<td><img src="<%= request.getContextPath() %>/upload/market/productSale/<%= firstImg %>"></td>
 	</tr>`; 
 	const simg = `<tr>
-		<td>img2</td>
-		<td><img src="<%= request.getContextPath() %>/upload/market/productSale/<%= secondImg %>" style="width:300px;"></td>
+		<td><img src="<%= request.getContextPath() %>/upload/market/productSale/<%= secondImg %>"></td>
 	</tr>`;			
 	const timg = `<tr>
-		<td>img3</td>
-		<td><img src="<%= request.getContextPath() %>/upload/market/productSale/<%= thirdImg %>" style="width:300px;"></td>
+		<td><img src="<%= request.getContextPath() %>/upload/market/productSale/<%= thirdImg %>"></td>
 	</tr>`;
 	
 	switch(<%= imgArr %>){
 	case 2 : 
-		$("#board tbody").append("이미지 없음");
+		$("#content-area tbody").append("이미지 없음");
 		break;
 	case 3 : 
-		$("#board tbody").append(fimg);
+		$("#content-area tbody").append(fimg);
 		break;
 	case 4 :
-		$("#board tbody").append(fimg);
-		$("#board tbody").append(simg);
+		$("#content-area tbody").append(fimg);
+		$("#content-area tbody").append(simg);
 		break;
 	case 5 :
-		$("#board tbody").append(fimg);
-		$("#board tbody").append(simg);
-		$("#board tbody").append(timg);
+		$("#content-area tbody").append(fimg);
+		$("#content-area tbody").append(simg);
+		$("#content-area tbody").append(timg);
 		break;
 	};
 })
 </script>
-	<table id="board">
-		<thead>
-			<tr>
-				<th>판매게시글</th>
-			</tr>
-		</thead>
+	<h1>판매 게시글</h1>
+	<table id="seller-area">
 		<tbody>
-		
 		<!-- 수정하기 / 삭제하기 : 작성자 로그인 시에만 보여짐 -->
 		<% if(loginMember != null && loginMember.getMemberId().equals(board.getSellerId())) { %>
 			<tr>
-				<td><input type="button" value="수정하기" id="boardEdit" onclick="updateBoard();"/></td>
+				<td colspan=2><input type="button" value="수정하기" id="boardEdit" onclick="updateBoard();"/></td>
 				<td>
 					<form action="<%= request.getContextPath() %>/product/productBoardDelete" method="POST">
 						<input type="hidden" name="boardNo" value="<%= board.getBoardNo() %>" />
-						<input type="submit" value="삭제하기"/>
+						<input type="submit" id="boardDelete" value="삭제하기"/>
 					</form>
 					
 				</td>
 			</tr>
 		<% } %>
+		</tbody>
+	</table>
+	<table id="board-headerArea">
+		<tbody>
 			<tr>
 				<th>섬네일</th>
-				<td><img src="<%= request.getContextPath() %>/upload/market/productSale/<%= thumbnailImg %>" style="width:300px;"></td>
+				<td><img src="<%= request.getContextPath() %>/upload/market/productSale/<%= thumbnailImg %>" style="width:450px; height:320px"></td>
 			</tr>
+		</tbody>
+	</table>
+	
+	<table id="info-<%= board.getProduct().getPdtDiv() %>" class="board-infoArea">
+		<thead>
 			<tr>
-				<th>제목</th>
+				<th>상품명</th>
 				<td><%= board.getTitle() %></td>
+			</tr>		
+		</thead>
+		<tbody>
 			<tr>
 				<th>작성자</th>
 				<td><%= board.getSellerId() %></td>
@@ -119,7 +127,7 @@ $(() => {
 				<td><input type="number" id="countOption" value="1"/></td>
 			</tr>
 			<!-- 구매 관련 영역 -->
-			<% if(loginMember != null) {%>
+			<% if(loginMember != null && !loginMember.getMemberId().equals(board.getSellerId())) {%>
 			<tr>
 				<td colspan=2>
 					<!-- 바로 구매하기 form -->
@@ -131,34 +139,36 @@ $(() => {
 						<input type="hidden" name="pdtPrice1" value="<%= board.getProduct().getPdtPrice() %>" />
 						<input type="hidden" name="pdtCount1" id="directPurchaseCount" value="1" />
 						<input type="hidden" name="pdtTitle1" value="<%= board.getTitle() %>" />
-						<input type="submit" value="구매하기" />
+						<input type="submit" id="purchaseBtn" value="구매하기" />
 					</form>
-				</td>
-			</tr>
-
-			<tr>
-				<td colspan=2>
 					<!-- 장바구니 담기 form -->
 					<form action="" name="addCartFrm">
 						<input type="hidden" id="addCartId" name="addCartId" value="<%= loginMember.getMemberId() %>" />
 						<input type="hidden" id="addCartBoardNo" name="addCartBoardNo" value="<%= board.getBoardNo() %>" />
-						<input type="submit" value="장바구니 담기"/>
+						<input type="submit" id="cartBtn" value="장바구니"/>
 					</form>
 				</td>
 			</tr>
+			<% } else if(loginMember != null && loginMember.getMemberId().equals(board.getSellerId())) { %>
+			<tr>
+				<td id="mySelfPdt" colspan=2>본인의 판매 상품은 구매할 수 없습니다.</td>
+			</tr>
 			<% } else { %>
 			<tr>
-				<td colspan=2><input type="button" value="구매하기" class="purchaseNeedLogin" /></td>
-			</tr>
-			<tr>
-				<td colspan=2><input type="button" value="장바구니 담기" class="purchaseNeedLogin" /></td>
+				<td><input type="button" id="purchaseBtn" value="구매하기" class="purchaseNeedLogin" /></td>
+				<td><input type="button" id="cartBtn" value="장바구니" class="purchaseNeedLogin" /></td>
 			</tr>
 			<% } %>
+		</tbody>
+	</table>
+	
+	<table id="content-area">
+		<tbody>
 			<tr>
 				<th colspan=2>내용</th>
 			</tr>
 			<tr>
-				<td colspan=2><%= board.getContent() %></td>
+				<td colspan=2 id="textArea"><span id="content-text"><%= board.getContent() %></span></td>
 			</tr>
 			<tr>
 				<th colspan=2>이미지</th>
@@ -166,20 +176,20 @@ $(() => {
 		</tbody>	
 	</table>
 	
-	<table>
+	<table id="qnaTable">
 		<thead>
 			<tr>
-				<th colspan=3>문의글목록</th>
+				<th colspan=6>문의글목록</th>
 			</tr>
 		</thead>
 		<tbody>
 			<tr>
 				<th>번호</th>
-				<th>제목</th>
+				<th id="testTtitle">제목</th>
 				<th>내용</th>
 				<th>작성자</th>
 				<% if(loginMember != null && loginMember.getMemberId().equals(board.getSellerId())) { %>
-				<th>답변하기</th>
+				<th class="aDelBtns" colspan=2>답변하기</th>
 				<% } %>
 			</tr>
 		<%
@@ -189,17 +199,24 @@ $(() => {
 		%>
 		
 			<tr>
+			<% if(loginMember != null && loginMember.getMemberId().equals(question.get("writer"))) { %>
+				<td class="myQ"><%= listNum %>번</td>
+				<td class="myQ"><%= question.get("title") %></td>
+				<td class="myQ"><%= question.get("content") %></td>
+				<td class="myQ"><%= question.get("writer") %></td>
+			<% } else {%>
 				<td><%= listNum %>번</td>
 				<td><%= question.get("title") %></td>
 				<td><%= question.get("content") %></td>
 				<td><%= question.get("writer") %></td>
+			<% } %>
 				<td>
 					<form action="<%= request.getContextPath() %>/product/qaDelete" method="POST">
 						<input type="hidden" name="delCommentNo" value="<%= question.get("no") %>" />	
 						<input type="hidden" name="delCommentBoardNo" value="<%= board.getBoardNo() %>" />	
 						<!-- 작성자만 삭제버튼 노출되도록 함 -->
 						<% if(loginMember != null && loginMember.getMemberId().equals(question.get("writer"))) { %>			
-						<input type="submit" value="삭제하기" />
+						<input type="submit" class="aDelBtns" id="qDeleteBtn" value="삭제하기" />
 						<% } %>
 					</form>
 				</td>
@@ -210,21 +227,20 @@ $(() => {
 						if((int) answer.get("refNo") == (int)question.get("no")){
 							checkNum = -1;
 		%>
-				<td></td>
 			</tr>
 			<tr>
 							<td>(답글)</td>
 							<td><%= answer.get("title") %></td>
 							<td><%= answer.get("content") %></td>
 							<td><%= answer.get("writer") %></td>
-							<td>
+							<td colspan=2>
 								<form action="<%= request.getContextPath() %>/product/qaDelete" method="POST">
 									<input type="hidden" name="delCommentNo" value="<%= answer.get("no") %>" />
 									<input type="hidden" name="delCommentBoardNo" value="<%= board.getBoardNo() %>" />					
-									<input type="submit" value="삭제하기" />
+									<input type="submit" class="aDelBtns" id="aDeleteBtn" value="삭제하기" />
 								</form>
-							</td>
-			</tr>
+ 							</td>
+
 		<%
 							break;
 						}
@@ -235,17 +251,18 @@ $(() => {
 		
 		<!-- 로그인 유저가 작성자인 경우에만 답글 작성 가능하도록 함 -->
 		<% if(loginMember != null && loginMember.getMemberId().equals(board.getSellerId())) { %>
-				<td><input type="button" value="답글달기" class="reply"/></td>
+
+				<td><input type="button" value="답글달기" id="replyBtn" class="reply"/></td>
 			</tr>
 			<tr class="replyTr" style="display:none;">
 				<th>답글달기</th>
-				<td colspan=2>
-					<form action="<%= request.getContextPath() %>/product/answerEnroll" method="POST">
+				<td colspan=5>
+					<form action="<%= request.getContextPath() %>/product/answerEnroll" method="POST" id="comForm">
 						<input type="hidden" name="awriter" value="<%= loginMember.getMemberId() %>" readonly /><br />
-						<label for="acontent">내용</label><input type="text" name="acontent"/>
+						<label for="acontent">내용</label><br /><textarea name="acontent" id="aContent" cols="30" rows="10"></textarea>
 						<input type="hidden" name="boardNo" value="<%= board.getBoardNo() %>" />
 						<input type="hidden" name="commentNo" value="<%= (int)question.get("no") %>"/>
-						<input type="submit" value="등록" />
+						<input type="submit" id="aBtn" value="등록" />
 					</form>
 				</td>
 			</tr>
@@ -256,23 +273,26 @@ $(() => {
 				}
 			}
 		%>
+		<% if(loginMember != null && !loginMember.getMemberId().equals(board.getSellerId())) { %>
 			<tr>
 				<th>입력하기</th>
-				<td colspan=2>
-					<form action="<%= request.getContextPath() %>/product/questionEnroll" method="POST" name="commentEnrollFrm">
+				<td colspan=5>
+					<form action="<%= request.getContextPath() %>/product/questionEnroll" method="POST" name="commentEnrollFrm" id="comForm">
 						<input type="hidden" name="writer" value="<%= loginMember != null ? loginMember.getMemberId() : "" %>" readonly/><br />
-						<label for="qtitle">제목</label><input type="text" name="qtitle"/>
-						<label for="qcontent">내용</label><input type="text" name="qcontent"/>
+						<label for="qtitle" id="qTitleLab">제목</label><br /><input type="text" id="qTitle" name="qtitle"/><br />
+						<label for="qcontent" id="qContentLab">내용</label><br /><textarea name="qcontent" id="qContent" cols="30" rows="10"></textarea>
 						<input type="hidden" name="boardNo" value="<%= board.getBoardNo() %>" />
-						<input type="submit" value="등록" />
+						<br />
+						<input type="submit" id="qBtn" value="등록" />
 					</form>
 				</td>
 			</tr>
+		<% } %>
 		</tbody>
 	</table>
 	
 	<br />
-	<input type="button" value="목록으로 돌아가기" onclick="location.href='<%= request.getContextPath() %>/product/main'"/>
+	<input type="button" id="returnList" value="목록으로 돌아가기" onclick="location.href='<%= request.getContextPath() %>/product/main?div=all'"/>
 	
 	<script>
 		// 답글달기
@@ -307,7 +327,7 @@ $(() => {
 		$(".purchaseNeedLogin").click((e) => {
 			alert("로그인 후 이용 가능합니다.");
 		});
-		
+		<% if(loginMember != null) { %>
 		// 장바구니 담기 비동기 처리
 		$(document.addCartFrm).submit((e) =>{
 			e.preventDefault();
@@ -355,6 +375,24 @@ $(() => {
 			$(e.target).unbind();
 			$(e.target).submit();
 		})
+		
+		$(() => {
+			// 신고 버튼 잠그기
+			$.ajax({
+				url: "<%= request.getContextPath() %>/common/reportCheck",
+				data:{
+					user: "<%= loginMember.getMemberId() %>",
+					reportCode: "<%= board.getOrCode() %>"
+				},
+				success(data){
+					if(data.result == 0){
+						$("#reportBtn").prop("disabled", "disabled");
+					}
+				},
+				error:console.log
+			});
+		})
+		<% } %>
 	</script>
 </body>
 </html>

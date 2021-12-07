@@ -16,21 +16,34 @@
 <head>
 <meta charset="UTF-8">
 <title>index</title>
+<link rel="stylesheet" type="text/css" href="//cdn.jsdelivr.net/npm/slick-carousel@1.8.1/slick/slick.css"/>
 <link rel="stylesheet" href="<%=request.getContextPath() %>/css/style.css" />
+<link rel="stylesheet" href="<%=request.getContextPath() %>/css/board.css" />
 <link rel="stylesheet" href="<%=request.getContextPath() %>/css/summernote/summernote-lite.css">
 <script src="<%= request.getContextPath() %>/js/jquery-3.6.0.js"></script>
+<script type="text/javascript" src="//cdn.jsdelivr.net/npm/slick-carousel@1.8.1/slick/slick.min.js"></script>
 <script src="<%= request.getContextPath() %>/js/summernote/summernote-lite.js"></script>
 <script src="<%= request.getContextPath() %>/js/summernote/lang/summernote-ko-KR.js"></script>
 
 </head>
 <body>
+	<div class="go-up-btn">TOP</div>
+	<select name="write" id="write-board">
+		<option hidden="" selected disabled>게시글작성</option>
+		<option value="/board/boardForm">자유게시판 글쓰기</option>
+		<% if(loginMember != null && loginMember.getMemberType().equals("B")) { %>
+		<option value="/info/Enroll">정보게시판 글쓰기</option>
+		<option value="/product/boardForm">마켓 글쓰기</option>
+		<option value="/ugGoods/boardForm">중고거래 글쓰기</option>
+		<% } %>
+	</select>
     <div id="container">
         <section id="header" >
            <div class="wrapper">
-               <div class="title"><a href="<%=request.getContextPath() %>/">타이틀</a></div>
+               <div class="title"><a href="<%=request.getContextPath() %>/">개브리타임</a></div>
                <ul class="lists" >
                    <li id="info"><a href="<%= request.getContextPath() %>/info/allList?board=<%= "info" %>">정보</a></li>
-                   <li id="board"><a href="<%=request.getContextPath() %>/board/freeBoard">게시판</a></li>
+                   <li id="board"><a href="<%=request.getContextPath() %>/board/freeBoardList">게시판</a></li>
                    <li id="market"><a href="#">마켓</a></li>
                </ul>
                <ul>
@@ -68,17 +81,17 @@
 	        </div> 
 	        <div class="board-navsbox">
 	            <ul class="board-pagenavs">
-	                <li class="board-pagenav" id="board"><a href="<%=request.getContextPath() %>/board/freeBoard">자유게시판</a></li>
-	                <li class="board-pagenav" id="review"><a href="#">후기</a></li>
+	                <li class="board-pagenav" id="board"><a href="<%=request.getContextPath() %>/board/freeBoardList">자유게시판</a></li>
+	                <li class="board-pagenav" id="review"><a href="<%=request.getContextPath() %>/board/reviewBoardList">후기</a></li>
 	            </ul>
 	        </div> 
 	        <div class="market-navsbox">
 	            <ul class="market-pagenavs">
 	                <!-- <li class="pagenav3" id="point"><a href="#">내 Point 확인</a></li> -->
-	                <li class="market-pagenav" id="store"><a href="#">일반상점</a></li>
+	                <li class="market-pagenav" id="store"><a href="<%= request.getContextPath() %>/product/main?div=all">일반상점</a></li>
 	                <li class="market-pagenav" id="used"><a href="<%= request.getContextPath() %>/ugGoods/main">중고 매매</a></li>
 	                <% if(loginMember != null) { %>
-	                <li class="market-pagenav" id="list"><a href="#">찜 목록</a></li>
+	                <li class="market-pagenav" id="list"><a href="<%= request.getContextPath() %>/wishList/main?memberId=<%= loginMember.getMemberId() %>">찜 목록</a></li>
 	                <li class="market-pagenav" id="cart"><a href="<%= request.getContextPath() %>/cart/main?memberId=<%= loginMember.getMemberId() %>">장바구니</a></li>
 	                <% } %>
 	                <% if(loginMember != null && loginMember.getMemberType().equals("B")) { %>
@@ -93,8 +106,12 @@
     <script>
     // alert msg
     $(()=>{
-    	<% if(msg != null) {%>
-    	        alert("<%= msg %>");
+    	<% if(msg != null && "로그인후 이용하세요".equals(msg)) {%>
+				if(confirm("로그인이 필요한 서비스입니다. 로그인 페이지로 이동하시겠습니까?")){
+					location.href="<%= request.getContextPath() %>/member/login";
+				}
+    	<% } else if(msg != null && !"로그인후 이용하세요".equals(msg)) { %>
+    	        alert("<%= msg %>");    	
     	<% } %>
     });
 
@@ -107,7 +124,20 @@
     
     // 일반상점 이동
     $("#store").click((e) => {
-    	location.href="<%= request.getContextPath() %>/product/main";
+    	location.href="<%= request.getContextPath() %>/product/main?div=%%";
     });
+    
+    // 상단 이동
+    $(".go-up-btn").click((e) => {
+    	$('html, body').animate({scrollTop:0}, 300);
+    });
+    
+ 	// 게시물 등록
+ 	$("#write-board").change((e) => {
+ 		const value = $("#write-board").val();
+ 		console.log(value);
+ 		location.href=`<%= request.getContextPath() %>\${value}`;
+ 	});
+ 	
 
 	</script>

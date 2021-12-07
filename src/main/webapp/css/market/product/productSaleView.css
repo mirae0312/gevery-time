@@ -1,0 +1,219 @@
+@charset "UTF-8";
+
+/* 신고하기 버튼 */
+#reportBtn {
+	background-color: #edc5c5;
+	border:none;
+	float:right;
+	cursor: pointer;
+}
+
+/* 수정/삭제 */
+#seller-area{
+	height: 30px;
+}
+#seller-area td{
+	padding:0;
+	padding-right: 20px;
+}
+#boardEdit {
+	background-color: #a0d3a0;
+	border: none;
+}
+#boardDelete {
+	background-color: #ffe4be;
+	border: none;
+}
+
+
+/* 헤더 */
+h1{
+	margin-bottom: 25px;
+}
+#board-headerArea{
+	display: inline-block;
+}
+#board-headerArea img{
+	margin-left: 20px;
+}
+
+/* 인포영역 */
+#info-cat{
+	background-color: #ebe4f375;
+}
+#info-dog{
+	background-color: #e4f7f9a6;
+}
+#info-goose{
+	background-color: #fdffe3;
+}
+
+.board-infoArea {
+	width: 430px;
+	height: 320px;
+	float:right;
+	margin-right: 0px;
+	margin-top: 10px;
+	border-radius: 20px;
+}
+
+.board-infoArea th,td{
+	padding: 10px;
+}
+
+.board-infoArea thead {
+	font-size: 25px;
+	margin-bottom: 20px;
+}
+
+/* 카트/구매버튼 */
+#cartBtn{
+	width: 80px;
+	height: 80px;
+	border-radius: 100%;
+	border: 1px solid gray;
+	margin-left: 50px;	
+	background-color: #dcf5d5;
+}
+#purchaseBtn{
+	width: 80px;
+	height: 80px;
+	border-radius: 100%;
+	border: 1px solid gray;
+	float: right;
+	margin-right: 50px;
+	background-color: #ffe9efb3;
+}
+#mySelfPdt{
+	text-align: center;
+	text-decoration: underline;
+}
+
+
+/* 키비쥬얼영역 */
+#content-area{
+	width: 100%;
+}
+#textArea{
+	text-align: center;
+	border-radius: 20px;
+	background-color: #80808017;
+}
+#content-area img{
+	width: 100%;
+}
+#content-area th{
+	padding: 20px;
+}
+#content-area td{
+	padding: 0;
+	margin: 0;
+}
+
+#content-text p{
+	padding: 30px;
+}
+
+
+/* 문의영역 */
+#qnaTable{
+	width: 100%;
+	margin-top: 30px;
+	border-top: 1px dotted black;
+}
+
+#qnaTable thead th{
+	padding: 30px;
+	border-bottom: 1px dotted gray;
+}
+#qnaTable th {
+	border-bottom: 1px dotted gray;
+}
+#qnaTable td {
+	text-align: center;
+	padding:0;
+	padding-top:20px;
+	border-bottom: 1px dotted gray;
+}
+#qDeleteBtn{
+	border: 1px dotted gray;
+	background-color: #ffc4c4;
+}
+#aDeleteBtn{
+	border: 1px dotted gray;
+	background-color: #ffc4c4;
+}
+
+/* 내 작성문의는 배경색이 다르게 */
+.myQ{
+	background-color: #9cc79b;
+}
+
+#replyBtn {
+	border: 1px dotted gray;
+}
+
+#qTitle {
+	width: 743px;
+	height: 25px;
+	margin-bottom: 5px;
+	font-size: 20px;
+}
+#qContent {
+	margin-top: 5px;
+	width: 743px;
+	height: 50px;
+	resize: none;
+	font-size: 20px;
+}
+#qBtn{
+	width: 750px;
+}
+#aBtn{
+	width: 707px;	
+}
+#comForm{
+	padding-bottom: 20px;
+	width: 752px;
+}
+#aContent {
+	margin-top: 5px;
+	width: 700px;
+	height: 50px;
+	resize: none;
+	font-size: 20px;	
+}
+
+
+/* 목록으로 돌아가기 */
+#returnList{
+	padding-top: 40px;
+	padding-bottom: 40px;
+	font-size: 15px;
+	display: block;
+	margin: auto;
+	background-color: white;
+	text-decoration: underline;
+	text-align: center;
+	border: none;
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

@@ -1,178 +1,385 @@
 @CHARSET "UTF-8";
-    html {
-        height: 100%;
-        } 
-    #container	{
-        width:1024px;
-        height: 193px;
-        margin:0 auto;
-     }
-    #header{
-       font-weight: bold;
-       border-bottom-style: solid;
-       border-bottom-color: rgba(128, 128, 128, 0.432);
-       border-bottom-width: 2px;
-   }
-   .wrapper{
-       min-height: 140px;
-       display: flex;
-       align-items: center;
-       display: flex;
-       justify-content: space-between;
-   }
-   #admin{
-       display: flex;
-       padding-top: 85px;
-       margin-left: -180px;
-       
-   }
-   #admin a{
-    text-decoration-line: none;
-   }
-   .title{
-       font-size: 35px;
-       margin-left: 20px;
-       margin-bottom: -70px;
-   }
-   .lists{
-       display: flex;
-       margin-right: 110px;
-       font-size: 16px;
-       list-style: none;
-       margin-bottom: -70px;
-   }
-   .nav{
-       /* margin-right: 10px; */
-       font-size: 13px;
-       margin-bottom:50px;
-       margin-top: -90px;
-       margin-left: 10px;
-   }
-   .navs{
-    display: flex;
-       font-size: 90px;
-       list-style: none;
-       margin-bottom: -30px;
-       margin-left:70px;
-       padding-left: 20px;  
-   }
-   .lists a{
-       text-decoration-line: none;
-       color: black;
-   }
-    .lists a:hover {
-        color:darkgray;
-   }
-   .lists li{
-       margin-right: 42px;
-   }
-   
-   .title a{
-    text-decoration-line: none;
-       color: black;
-   }
-   .nav a {
-       text-decoration-line: none;
-       color: black;
-   }
-    .nav a:hover {
-            color:darkgray;
-   }
-    section#content		{
-        width:1024px; 
-        min-height : 690px; 
-        margin: 0 auto;
-    }
-    footer				{ 
-        clear:both; 
-        width:1024px;
-        margin-left:auto ;
-        margin-right: auto;
-        border-top: solid;
-        align-items: center;
-        border-top-color:rgba(128, 128, 128, 0.432) ;
-        border-top-width: 2px;
-        }
-    footer table{
-        font-size: 13px;
-        margin-left: auto;
-        margin-right: auto;
-        margin-top: 30px;
-        }
-      
-    footer table tr td{
-        padding-right: 5px;
-        font-size: 13px;
-        }
-    #footer-inner{
-        height: 50px;
-        margin-top: 3px;
-        margin-bottom: 3px;
-        padding-bottom: 9px;
-    }
-    .info-navsbox{
-        display: none;
-        padding-left: 130px;
-        /* margin: auto; */
-        border-bottom: solid;
-        border-color:rgba(128, 128, 128, 0.432);
-        border-width: 1px;
-        } 
-    .info-pagenav{
-           font-size: 14px;
-           margin-left: 30px;
-       }
-    .info-pagenav a {
-           text-decoration-line: none;
-           color: black;
-       } 
-    .info-pagenavs{
-        display: flex;
-           list-style: none;
-           margin-left: auto;
-       }
-    .board-navsbox{
-        display: none;
-        padding-left: 200px;
-        /* margin: auto; */
-        border-bottom: solid;
-        border-color:rgba(128, 128, 128, 0.432);
-        border-width: 1px;
-        } 
-    .board-pagenav{
-           font-size: 14px;
-           margin-left: 30px;
-       }
-    .board-pagenav a {
-           text-decoration-line: none;
-           color: black;
-       } 
-    .board-pagenavs{
-        display: flex;
-        list-style: none;
-        margin-left: auto;
-       }
-    .market-navsbox{
-        display: none;
-        padding-left: 290px;
-        /* margin: auto; */
-        border-bottom: solid;
-        border-color:rgba(128, 128, 128, 0.432);
-        border-width: 1px;
-        } 
-    .market-pagenav{
-           font-size: 14px;
-           margin-left: 30px;
-       }
-    .market-pagenav a {
-           text-decoration-line: none;
-           color: black;
-       } 
-    .market-pagenavs{
-        display: flex;
-        list-style: none;
-        margin-left: auto;
-       }
-     section#content{
+
+@font-face {
+    src: url("./fonts/Cafe24SsurroundAir.ttf");
+    font-family: "CafeAir";
+}
+@font-face {
+    src: url("./fonts/Cafe24Ssurround.ttf");
+    font-family: "CafeBold";
+}
+* {
+	font-family: "CafeAir";
+}
+input:focus, select:focus, option:focus, textarea:focus, button:focus{
+	outline: none;
+}
+
+html {
+    height: 100%;
+} 
+#container	{
+     width:1024px;
+     height: 193px;
      margin:0 auto;
-     }
+}
+#header{
+    font-weight: bold;
+    border-bottom-style: solid;
+    border-bottom-color: rgba(128, 128, 128, 0.432);
+    border-bottom-width: 2px;
+}
+.wrapper{
+    min-height: 140px;
+    display: flex;
+    align-items: center;
+    display: flex;
+    justify-content: space-between;
+}
+#admin{
+    display: flex;
+    padding-top: 85px;
+    margin-left: -180px;    
+}
+#admin a{
+	text-decoration-line: none;
+}
+.title{
+    font-size: 35px;
+    margin-left: 20px;
+    margin-bottom: -70px;
+}
+.lists{
+    display: flex;
+    margin-right: 110px;
+    font-size: 16px;
+    list-style: none;
+    margin-bottom: -70px;
+}
+.nav{
+    /* margin-right: 10px; */
+    font-size: 13px;
+    margin-bottom:50px;
+    margin-top: -90px;
+    margin-left: 10px;
+}
+.navs{
+ 	display: flex;
+    font-size: 90px;
+    list-style: none;
+    margin-bottom: -30px;
+    margin-left:70px;
+    padding-left: 20px;  
+}
+.lists a{
+    text-decoration-line: none;
+    color: black;
+}
+.lists a:hover {
+    color:darkgray;
+}
+.lists li{
+    margin-right: 42px;
+}
+
+.title a{
+ 	text-decoration-line: none;
+    color: black;
+}
+.nav a {
+    text-decoration-line: none;
+    color: black;
+}
+.nav a:hover {
+    color:darkgray;
+}
+section#content {
+    width:1024px; 
+    min-height : 690px; 
+    margin: 0 auto;
+}
+footer { 
+    clear:both; 
+    width:1024px;
+    margin-left:auto ;
+    margin-right: auto;
+    border-top: solid;
+    align-items: center;
+    border-top-color:rgba(128, 128, 128, 0.432) ;
+    border-top-width: 2px;
+}
+footer table{
+    font-size: 13px;
+    margin-left: auto;
+    margin-right: auto;
+    margin-top: 30px;
+}
+   
+footer table tr td{
+    padding-right: 5px;
+    font-size: 13px;
+}
+#footer-inner{
+    height: 50px;
+    margin-top: 3px;
+    margin-bottom: 3px;
+    padding-bottom: 9px;
+}
+ .info-navsbox{
+    display: none;
+    padding-left: 130px;
+    /* margin: auto; */
+    border-bottom: solid;
+    border-color:rgba(128, 128, 128, 0.432);
+	border-width: 1px;
+} 
+.info-pagenav{
+    font-size: 14px;
+    margin-left: 30px;
+}
+.info-pagenav a {
+    text-decoration-line: none;
+    color: black;
+} 
+.info-pagenavs{
+    display: flex;
+    list-style: none;
+    margin-left: auto;
+}
+.board-navsbox{
+    display: none;
+    padding-left: 200px;
+    /* margin: auto; */
+    border-bottom: solid;
+    border-color:rgba(128, 128, 128, 0.432);
+    border-width: 1px;
+} 
+.board-pagenav{
+    font-size: 14px;
+    margin-left: 30px;
+}
+.board-pagenav a {
+    text-decoration-line: none;
+    color: black;
+} 
+.board-pagenavs{
+    display: flex;
+    list-style: none;
+    margin-left: auto;
+}
+.market-navsbox{
+    display: none;
+    padding-left: 290px;
+    /* margin: auto; */
+    border-bottom: solid;
+    border-color:rgba(128, 128, 128, 0.432);
+    border-width: 1px;
+} 
+.market-pagenav{
+    font-size: 14px;
+    margin-left: 30px;
+}
+.market-pagenav a {
+    text-decoration-line: none;
+    color: black;
+} 
+.market-pagenavs{
+    display: flex;
+    list-style: none;
+    margin-left: auto;
+}
+section#content{
+	 margin:0 auto;
+}
+
+
+/* top버튼 게시글 작성 버튼 */
+#write-board::-ms-expand { 
+	display: none;
+}
+#write-board{
+	-o-appearance: none;
+ 	-webkit-appearance: none;
+    -moz-appearance: none;
+    appearance: none;
+	position: fixed;
+	border: 0;
+	width: 70px;
+	height: 70px;
+	bottom: 80px;
+	right: 140px;
+	background-color: #ffd700;
+	border-radius: 50%;
+	font-weight: bold;
+	text-align-last: center;
+	cursor: pointer;
+	z-index: 9;
+}
+#write-board:hover{
+	box-shadow: 0 0 5px gray;
+}
+
+.go-up-btn{
+	position: fixed;
+	width: 63px;
+	height: 17px;
+	bottom: 170px;
+	right: 144px;
+	background-color: linen;
+	border-radius: 50%;
+	font-weight: bold;
+	text-align: center;
+	padding: 22px 0px;
+	cursor: pointer;
+	z-index: 9;
+}
+.go-up-btn:hover{
+	box-shadow: 0 0 5px gray;
+}
+.btn{
+	border: 0;
+	width: 80px;
+	height: 30px;
+	border-radius: 5px;
+	font-weight: bold;
+	text-align: center;
+	cursor: pointer;
+}
+.btn:hover{
+	box-shadow: 0 0 5px gray;
+}
+
+/* index body */
+.body-wrapper{
+	width: 1024px;
+}
+
+
+
+/* 게시판 */
+.board-wrapper{
+	border:1px solid black;
+	margin-left:auto;
+	margin-right:auto;
+	width: 1024px;
+	height: 570px;
+	display:flex;
+	justify-content: space-around;
+}
+.board-left-wrap{
+	padding:50px;
+	border-right: 1px solid black;
+	width: 50%;
+}
+.board-right-wrap{
+	padding:50px;
+	width: 50%;
+}
+.board-wrapper table {
+/* 	border:1px solid black;
+ */	margin-left:auto;
+	margin-right:auto;
+}
+.board-wrapper table th {
+	padding-bottom:30px;
+}
+.board-wrapper table td {
+	padding-bottom:6px;
+}
+.board-wrapper table td.title{
+	  white-space:nowrap;
+	width:300px;
+	font-size:100%;	
+}
+/* 정보 게시판 */
+.info-board-wrapper{
+	width: 1024px;
+	height: 550px;
+}
+#info-board-table{
+	display: flex;
+	flex-wrap: wrap;
+	justify-content: space-evenly;
+	align-items: center;
+	width: 1024px;
+	height: 550px;
+}
+.content{
+	width: 300px;
+	overflow:hidden;
+	cursor: pointer;
+}
+.content:hover .info-bname {
+	font-weight: bold;
+}
+.info-img-wrap{
+	overflow:hidden;
+	width: 300px;
+	height: 210px;
+}
+.content:hover img{
+	transform: scale(1.05);
+}
+.info-img{
+	transition: all 0.1s linear;
+	width:300px;
+	height:210px;
+}
+.hidden-code{
+	display: none;
+}
+
+
+/* 마켓 */
+.market-wrapper{
+	width: 1024px;
+	height: 250px;
+}
+#market-board-table{
+	width: 1024px;
+	height: 250px;
+	border-collapse: collapse;	
+}
+
+#market-board-table td:nth-child(1){
+	width:340px;
+	background-image:url('../images/market/dog.png');
+	background-size:100% 100%;
+	opacity:.7;
+}
+#market-board-table td:nth-child(2){
+	width:340px;
+	background-image:url('../images/market/cat.png');
+	background-size:100% 100%;
+	opacity:.8;
+}
+#market-board-table td:nth-child(3){
+	width:340px;
+	background-image:url('../images/market/goose.png');
+	background-size:100% 100%;
+	opacity:.7;
+}
+#market-board-table td:nth-child(1):hover{
+	opacity:1;
+}
+#market-board-table td:nth-child(2):hover{
+	opacity:1;
+}
+#market-board-table td:nth-child(3):hover{
+	opacity:1;
+}
+
+#market-board-table a {
+	transform: translateY(-100px);
+	position: absolute;
+	padding-left:20px;
+	color:white;
+	font-size:30px;
+	text-decoration:none;
+}
+
+
+
+
+
+

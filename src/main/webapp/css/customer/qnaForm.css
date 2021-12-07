@@ -1,13 +1,40 @@
 @charset "UTF-8";
+ #faq{
+ margin-left:30px;}
+ #leftbox{
+ 	margin-top:98px;
+ 	margin-right:100px;
+    width: 155px;
+    height: 380px;
+    border: solid;
+    border-radius:10px;
+    float: left;
+    /* margin-left: 150px; */
+    text-align:right;
+    padding-right:10px;
+    padding-top:10px;
+    /* size: 100px; */
+    border: none;
+    background-color: rgb(128 128 128 / 12%);
+ 
+}
+#leftbox span{
+    font-size:17px;
+    font-weight: 600;
+}
+#leftbox span :hover {
+    text-decoration: underline;
+}
+a {
+    text-decoration: none;
+    color: inherit;
+} 
+ 
  h3{
- 	font-family: 'Franklin Gothic Medium', 'Arial Narrow', Arial, sans-serif;
- 	 color: gray;
+ 	 color:black;
  	 margin-left:10px;
  }
- th {
-     font-family: 'Franklin Gothic Medium', 'Arial Narrow', Arial, sans-serif;
-     color: gray;
-    }
+
 .inputBox{
     border-radius: 5px;
     width: 300px;
@@ -18,13 +45,18 @@
 .submit{
     background-color: rgba(211, 211, 211, 0.479);
     border-style: none;
-    font-size: 15px;
+    font-size: 13px;
     padding: 10px 16px;
     border-radius: 10px;
     cursor: pointer;
-    
+    margin-right:160px;
+    margin-top:25px;
 }
 #box{
-   margin-top: 20px;
+   margin-top: 30px;
    margin-bottom :150px;
+   margin-left: 300px;
 } 
+#tbl-board-view{
+	margin: auto;
+}

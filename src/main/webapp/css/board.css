@@ -1,0 +1,111 @@
+@charset "UTF-8";
+/* :root {
+  --button-color: #212529;
+  --button-bg-color: #ffc107;
+  --button-hover-bg-color: #e0a800;
+}
+.btn {
+  -webkit-appearance: none;
+  -moz-appearance: none;
+  appearance: none;
+  
+  background: var(--button-bg-color);
+  color: var(--button-color);
+  
+  margin: 0;
+  padding: 0.5rem 1rem;
+  
+  font-family: 'Noto Sans KR', sans-serif;
+  font-size: 1rem;
+  font-weight: 200;
+  text-align: center;
+  text-decoration: none;
+  
+  border: none;
+  border-radius: 4px;
+  
+  display: inline-block;
+  width: auto;
+  
+  box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1), 0 2px 4px -1px rgba(0, 0, 0, 0.06);
+  
+  cursor: pointer;
+  
+  transition: 0.5s;
+}
+
+.btn:active,
+.btn:hover,
+.btn:focus {
+  background: var(--button-hover-bg-color);
+  outline: 0;
+}
+.btn:disabled {
+  opacity: 0.5;
+} */
+
+/* 댓글 개수 색깔 */
+	.comment-count {
+	color:#ff9800;
+	}
+/* 한 주의 인기 게시물 */	
+	#popularList, #otherList{
+	text-align:center;
+	}
+/* 페이지바 */
+	.board-pageBar {
+		text-align:center;
+		margin-left:10px;
+		margin-top:20px;
+		margin-bottom:20px;
+	}
+	.board-pageBar a, .pageBar span {
+		margin-left:10px;
+	}
+	.board-pageBar a:hover{
+		cursor:pointer;
+	}
+	.board-pageBar span {
+		margin-left:10px;
+		color : #ff9800;
+	}
+/* 게시물 목록 전체 */	
+  .board-list-table {
+  white-space:nowrap;
+    margin-left:auto; 
+    margin-right:auto;
+    margin-top:10px;
+    margin-bottom:10px;
+    
+    width: 80%;
+    border-top: 1px solid #444444;
+    border-collapse: collapse;
+    text-align:center;
+  }
+  .board-list-table th {
+    border-bottom: 1px solid #444444;
+    padding: 18px;
+  }
+  .board-list-table td {
+  	border-bottom: 1px solid #d1d1d1;
+    padding: 18px;
+  }
+  
+
+  .board-list-table a {
+  	color:black;
+  	text-decoration : none;
+  }
+  
+/* 조건 선택 기능 */
+ /*  .select-container {
+	text-align:right;
+	margin-right:8vw;
+	margin-top:20px;
+	margin-bottom:20px;
+	border-color : white;
+} */
+.select-container {margin-top:20px; margin-bottom:20px; float:right; margin-right:6.2vw;}
+select { appearance: none; -webkit-appearance: none; text-align:center; width:100px; }
+select::-ms-expand { display:none; }
+
