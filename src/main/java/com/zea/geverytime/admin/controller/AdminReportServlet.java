@@ -24,7 +24,7 @@ public class AdminReportServlet extends HttpServlet {
 
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		request
-		.getRequestDispatcher("/WEB-INF/views/admin/adminList.jsp")
+		.getRequestDispatcher("/WEB-INF/views/admin/adminReportList.jsp")
 		.forward(request, response);
 	}
 }

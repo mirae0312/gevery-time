@@ -26,8 +26,8 @@ public class AdminReportCheckServlet extends HttpServlet {
 	private AdminService adminService = new AdminService();
 	
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+		int cPage = 1;
 		try {
-			int cPage = 1;
 			try {
 			// 사용자입력값
 			cPage = Integer.parseInt(request.getParameter("cPage"));

@@ -19,7 +19,9 @@
 	<% for(Info popInfo : popList){ %>
 			<div class="info-wrap">
 				<div class="business-name"><%= popInfo.getBusinessName() %></div>
-				<img class="list-thumbnail" src="<%= request.getContextPath() %>/upload/info/<%= popInfo.getAttachments().get(0).getRenamedFilename() %>" alt="" />
+				<div class="pop-thumb-wrap">
+					<img class="list-thumbnail" src="<%= request.getContextPath() %>/upload/info/<%= popInfo.getAttachments().get(0).getRenamedFilename() %>" alt="" />
+				</div>
 <%--			<div class="head-content"><%= popInfo.getHeadContent() %></div><br />	--%>
 				<div class="recommend-count">추천수 : <%= popInfo.getRecommend() %></div>
 				<div class="view-count">조회수 : <%= popInfo.getViewCount() %></div>	
@@ -56,6 +58,14 @@
 	</div>
 </div>
 <script>
+// slick
+$('.pop-contents').slick({
+	infinite: true,
+	arrow: true,
+	slidesToShow: 3,
+	slidesToScroll: 1
+});
+
 // ajax data
 var loading = false;
 var page = 1;
@@ -100,7 +110,9 @@ const scrollPage = () => {
 				const $contents = `<div class="info-wrap">
 				<div class="business-name">\${businessName}</div>
 				<div class="head-content">\${headContent}</div>				
-				<img class="list-thumbnail" src="<%= request.getContextPath() %>/upload/info/\${attachments[0].renamedFilename}" alt="" /><br />
+				<div class="thumb-wrap">
+				<img class="list-thumbnail" src="<%= request.getContextPath() %>/upload/info/\${attachments[0].renamedFilename}" alt="" /><br />				
+				</div>
 				<div class="recommend-count">추천수 : \${recommend}</div>
 				<div class="view-count">조회수 : \${viewCount}</div>	
 				<div class="info-comment-count">리뷰 : \${commentCount}</div>
