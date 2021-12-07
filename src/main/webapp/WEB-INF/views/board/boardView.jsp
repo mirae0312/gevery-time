@@ -11,23 +11,12 @@
 	List<Board> other = (List<Board>)request.getAttribute("otherBoard");
 %>
 <section id="board-container">
-	<h2>게시판</h2>
 	<table id="tbl-board-view">
-		<tr>
-			<th>글번호</th>
-			<td><%= board.getNo() %></td>
-		</tr>
-		<tr>
-			<th>제 목</th>
+		<tr class="board-view-title">
 			<td><%= board.getTitle() %></td>
 		</tr>
-		<tr>
-			<th>작성자</th>
+		<tr class="board-view-writer">
 			<td><%= board.getWriter() %></td>
-		</tr>
-		<tr>
-			<th>조회수</th>
-			<td><%= board.getReadCount() %></td>
 		</tr>
 		
 <% 
@@ -36,9 +25,9 @@
 		for(int i = 0; i < attachments.size(); i++){
 			Attachment attach = attachments.get(i);
 %>
-		<tr>
-			<th>첨부파일<%= i + 1 %></th>
-			<td>
+
+		<tr class="board-view-attachment">
+			<td style="padding-right:20px;">
 				<%-- 첨부파일이 있을경우만, 이미지와 함께 original파일명 표시 --%>
 				<img alt="첨부파일" src="<%=request.getContextPath() %>/images/file.png" width=16px>
 				<a href="<%= request.getContextPath() %>/board/fileDownload?no=<%= attach.getNo() %>"><%= attach.getOriginalFilename() %></a>
@@ -48,15 +37,13 @@
 		}
 	} 
 %>
-		<tr>
-			<th>내 용</th>
+		<tr class="board-view-content">
 			<td>
 				<%= board.getContent() %> 
 			</td>
 		</tr>
 		<tr>
 		<td>
-		<button class="btn-board-like">좋아요 <%=board.getLikeCount()%></button>		
 		</td>
 		</tr>
 		<% 	if(
@@ -66,13 +53,20 @@
 				  || MemberService.ADMIN_ROLE.equals(loginMember.getMemberRole())
 				)
 			){ %>
-		<tr>
+		<tr class = "like-and-report">
 			<%-- 작성자와 관리자만 마지막행 수정/삭제버튼이 보일수 있게 할 것 --%>
 			<th colspan="2">
-				<button class="report" value="<%= board.getOrCode() %>">신고</button>
-				<input type="button" value="수정하기" onclick="updateBoard()">
-				<input type="button" value="삭제하기" onclick="deleteBoard()">
+					<button class="btn-board-like board-btn">좋아요 <%=board.getLikeCount()%></button>		
+				<button class="report board-btn" value="<%= board.getOrCode() %>">신고</button>
 			</th>
+		</tr>
+		<tr class="delete-or-update">
+			<td>
+			<input type="button" value="수정하기" onclick="updateBoard()" class="board-btn delete-or-update-btn">
+				<input type="button" value="삭제하기" onclick="deleteBoard()" class="board-btn delete-or-update-btn">
+			
+			</td>
+			
 		</tr>
 		<% 	} %>
 	</table>
@@ -91,7 +85,7 @@
                 <input type="hidden" name="commentLevel" value="1" />
                 <input type="hidden" name="commentRef" value="0" />    
 				<textarea name="content" cols="60" rows="3" style="resize:none; width:80%;"></textarea>
-                <button type="submit" id="btn-comment-enroll1">등록</button>
+                <button type="submit" id="btn-comment-enroll1" class="board-comment-btn comment-submit">등록</button>
             </form>
         </div>
 		
@@ -100,50 +94,54 @@
 	List<BoardComment> commentList = (List<BoardComment>) request.getAttribute("comment"); 
 	if(commentList != null && !commentList.isEmpty()){
 %>
-		<table id="tbl-comment">
+		<table id="tbl-comment" class="board-comment">
 <%
 		for(BoardComment bc : commentList){
 			if(bc.getCommentLevel() == 1){
 %>
 			<tr class="level1">
-				<td>
+				<td class="comment-content">
 					<sub class="comment-writer"><%= bc.getWriter() %></sub>
 					<sub class="comment-date"><%= bc.getRegDate() %></sub>
 					<br />
+					<br />
+
 					<%-- 댓글내용 --%>
 					<%= bc.getContent() %>
 				</td>
-				<td>
-				<button class="btn-comment-like btn" value="<%= bc.getNo() %>">좋아요 <%=bc.getLikeCount()%></button>
-					<button class="btn-reply btn" value="<%= bc.getNo() %>">답글</button>
-					<button class="report btn" value="<%= bc.getOrCode() %>">신고</button>					
+				<td class="comment-btns">
+				<button class="btn-comment-like board-comment-btn" value="<%= bc.getNo() %>">좋아요 <%=bc.getLikeCount()%></button>
+					<button class="btn-reply board-comment-btn" value="<%= bc.getNo() %>">답글</button>
+					<button class="report board-comment-btn" value="<%= bc.getOrCode() %>">신고</button>					
 					<% if(loginMember!= null){	
 						if(loginMember.getMemberId().equals(bc.getWriter())
 								|| loginMember.getMemberRole().equals(MemberService.ADMIN_ROLE)){
 					%>
-					<button class="btn-deleteComment btn" value="<%= bc.getNo() %>" style ="float:right"> 삭제</button>
+					<button class="btn-deleteComment board-comment-btn" value="<%= bc.getNo() %>" > 삭제</button>
 					<%}} %>				</td>
 			</tr>
 <%
 			} else {
 %>
 			<tr class="level2">
-				<td>
+				<td class="comment-content">
 					<sub class="comment-writer"><%= bc.getWriter() %></sub>
 					<sub class="comment-date"><%= bc.getRegDate() %></sub>
 					<br />
+					<br />
 					<%-- 대댓글내용 --%>
 					<%= bc.getContent() %>
-					<button class="btn-comment-like btn" value="<%= bc.getNo() %>">좋아요 <%=bc.getLikeCount()%></button>
-					<button class="report btn" value="<%= bc.getOrCode() %>">신고</button>
+				</td>
+				<td class="comment-btns">	
+					<button class="btn-comment-like board-comment-btn" value="<%= bc.getNo() %>">좋아요 <%=bc.getLikeCount()%></button>
+					<button class="report board-comment-btn" value="<%= bc.getOrCode() %>">신고</button>
 					<% if(loginMember!= null){	
 						if(loginMember.getMemberId().equals(bc.getWriter())
 								|| loginMember.getMemberRole().equals(MemberService.ADMIN_ROLE)){
 					%>
-					<button class="btn-deleteComment btn" value="<%= bc.getNo() %>" style ="float:right"> 삭제</button>
+					<button class="btn-deleteComment board-comment-btn" value="<%= bc.getNo() %>"> 삭제</button>
 					<%}} %>
 				</td>
-				<td></td>
 			</tr>
 <%
 			}%>
@@ -278,7 +276,7 @@ $(".report").click((e) => {
 		    <input type="hidden" name="writer" value="<%= loginMember != null ? loginMember.getMemberId() : "" %>" />
 		    <input type="hidden" name="commentLevel" value="2" />
 		    <input type="hidden" name="commentRef" value="\${commentRef}" />    
-			<textarea name="content" cols="60" rows="2"></textarea>
+			<textarea name="content" cols="60" rows="3" style="resize:none; width:80%;"></textarea>
 		    <button type="submit" class="btn-comment-enroll2">등록</button>
 		</form>
 		
@@ -380,7 +378,7 @@ $(".report").click((e) => {
 					}
 					if(e.commentCount>0){
 						console.log(e.commentCount);
-						commentCount = '('+e.commentCount+')';
+						commentCount = '<span class="comment-count">('+e.commentCount+')</span>';
 						console.log(commentCount);
 					}
 					const tr = `			<tr>
