@@ -1,16 +1,68 @@
 @charset "UTF-8";
-/* :root {
+
+/*게시물부분*/
+#tbl-board-view {
+	width:100%;
+	
+}
+.board-view-writer {
+	float:right;
+}
+.board-view-writer td {
+	padding-bottom:50px;
+}
+.board-view-title{
+	text-align:center;	
+}
+.board-view-title td{
+	padding-top:50px;
+	padding-bottom:50px;
+	font-size:200%;
+}
+.delete-or-update {
+	float:right;
+}
+.board-view-attachment {
+	float:left;
+} 
+.board-view-attachment a {
+	text-decoration:none;
+	color:black;
+}
+.board-view-content {
+	text-align:center;
+	width:50%;
+}
+.board-view-content td {
+	border-top:1px solid #b3b3b3;
+	padding-top:50px;
+	padding-bottom:50px;
+}
+
+:root {
   --button-color: #212529;
   --button-bg-color: #ffc107;
+  --delete-button-color: white;
+  --delete-button-bg-color: gray;
   --button-hover-bg-color: #e0a800;
+} 
+ .board-btn {
+  background: var(--button-bg-color);
+  color: var(--button-color);
+ }
+ .board-comment-btn{
+background:#fff7cc;
+ }
+ .delete-or-update-btn{
+	background: white;
+  color: black;
 }
-.btn {
+
+ .board-comment-btn, .board-btn,.btn-comment-enroll2 {
   -webkit-appearance: none;
   -moz-appearance: none;
   appearance: none;
   
-  background: var(--button-bg-color);
-  color: var(--button-color);
   
   margin: 0;
   padding: 0.5rem 1rem;
@@ -31,19 +83,38 @@
   
   cursor: pointer;
   
-  transition: 0.5s;
-}
+  transition: 0.5s; 
+  
+} 
 
-.btn:active,
-.btn:hover,
-.btn:focus {
+/* 댓글 관련 버튼*/
+
+.board-btn:active,
+.board-btn:hover,
+.board-btn:focus,
+.board-comment-btn:active,
+.board-comment-btn:hover,
+.board-comment-btn:focus {
   background: var(--button-hover-bg-color);
   outline: 0;
 }
-.btn:disabled {
+.delete-or-update-btn:active,
+.delete-or-update-btn:hover,
+.delete-or-update-btn:focus{
+  background: gray;
+  color:white;
+  outline: 0;
+}
+.board-btn:disabled,
+.board-comment-btn:disabled  {
   opacity: 0.5;
-} */
-
+}
+.comment-submit ,.btn-comment-enroll2{
+	
+	transform:translateY(-22px);
+	  background: var(--button-bg-color);
+  color: var(--button-color);
+}
 /* 댓글 개수 색깔 */
 	.comment-count {
 	color:#ff9800;
@@ -96,16 +167,47 @@
   	color:black;
   	text-decoration : none;
   }
+  #tbl-board-view {
+  margin-left:auto;
+  margin-right:auto;
+  }
+  
+  /* 댓글 */
+  .comment-editor {
+  transform: translateX(100px);
+  }
+  .board-comment, #comment-editor {
+  margin-left:auto;
+  margin-right:auto;
+  }
+  .comment-content {
+ 	width:300px;
+  }
+  .level2 {
+  	transform: translateX(90px);
+  }
+  .level2, .level1 {
+	height : 50px;	
+}
+.comment-content, .comment-btns{
+	border-bottom:1px solid black;
+}
+.comment-writer{
+	padding-right:10px;
+	font-size:110%;
+	font-weight:bold;
+}
+  
+  /*작성자의 다른 게시글*/
+  #otherList {
+ 	margin-top:170px;
+  }
+  
+  .board-select {
+  width:200px;
+  }
   
 /* 조건 선택 기능 */
- /*  .select-container {
-	text-align:right;
-	margin-right:8vw;
-	margin-top:20px;
-	margin-bottom:20px;
-	border-color : white;
-} */
 .select-container {margin-top:20px; margin-bottom:20px; float:right; margin-right:6.2vw;}
 select { appearance: none; -webkit-appearance: none; text-align:center; width:100px; }
 select::-ms-expand { display:none; }
-
