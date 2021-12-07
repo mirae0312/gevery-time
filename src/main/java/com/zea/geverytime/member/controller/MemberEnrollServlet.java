@@ -11,6 +11,7 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
+
 import com.zea.geverytime.member.model.service.MemberService;
 import com.zea.geverytime.member.model.vo.Member;
 
@@ -37,7 +38,7 @@ public class MemberEnrollServlet extends HttpServlet {
 			
 		
 			String memberId = request.getParameter("Id");
-			String password = request.getParameter("password");
+			String password =request.getParameter("password");
 			String memberName = request.getParameter("name");
 			String phone1 = request.getParameter("phone1");
 			String phone2 = request.getParameter("phone2");

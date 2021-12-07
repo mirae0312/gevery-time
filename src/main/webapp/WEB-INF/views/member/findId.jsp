@@ -27,7 +27,7 @@
 	
 	<table class ="table" style="margin:0 auto;width:700px;">
 		<tr>
-			<td><input type="text" name="name" id="name" class="form-control" placeholder="이름을 입력하세요"></td>
+			<td><input type="text" name="name" id="name" class="form-control" placeholder="이름을 입력하세요" required></td>
 		</tr>
 		<tr></tr>
 		<tr></tr>

@@ -21,24 +21,6 @@ $(() => {
 	});
 
 
-function check_input() {
-    if (!document.authForm.memberId.value)
-    // login_form 이름을 가진 form 안의 id_val 의 value가 없으면
-    {
-        alert("아이디를 입력하세요!");
-        document.authForm.memberId.focus();
-        // 화면 커서 이동
-        return;
-    }
-    if (!document.authForm.password.value)
-    {
-        alert("비밀번호를 입력하세요!");
-        // 화면 커서 이동
-        return;
-    }
-    document.authForm.submit();
-    // 모두 확인 후 submit()
- }
 </script>
 <title>Insert title here</title>
 </head>
