@@ -527,6 +527,28 @@ public class ProductSaleDao {
 		return result;
 	}
 
+	public Product getProduct(Connection conn, int pdtNo) {
+		PreparedStatement pstmt = null;
+		String sql = prop.getProperty("getProduct");
+		Product pdt = new Product();
+		ResultSet rset = null;
+		
+		try {
+			pstmt = conn.prepareStatement(sql);
+			pstmt.setInt(1, pdtNo);
+			
+			rset = pstmt.executeQuery();
+			
+			if(rset.next()) {
+				pdt.setSellerId(rset.getString("seller_id"));
+				pdt.setPdtPrice(rset.getInt("price"));
+			}
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}
+		return pdt;
+	}
+
 
 
 
