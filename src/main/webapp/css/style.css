@@ -213,6 +213,7 @@ section#content{
 	font-weight: bold;
 	text-align-last: center;
 	cursor: pointer;
+	z-index: 9;
 }
 #write-board:hover{
 	box-shadow: 0 0 5px gray;
@@ -230,6 +231,7 @@ section#content{
 	text-align: center;
 	padding: 22px 0px;
 	cursor: pointer;
+	z-index: 9;
 }
 .go-up-btn:hover{
 	box-shadow: 0 0 5px gray;
