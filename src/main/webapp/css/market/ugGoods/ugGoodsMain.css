@@ -1,0 +1,48 @@
+@charset "UTF-8";
+
+/* 리스트 영역 */
+
+#boardTable {
+	border: white;
+	border-radius: 5%;
+	width:100%;
+	margin-top: 10px;
+}
+#boardTable th{
+	height: 30px;
+	background-color: #efefec;	
+}
+#boardTable th:nth-child(1){
+	background-color: white;
+}
+#boardTable td{
+	height: 50px;
+	text-align:center;
+}
+#boardTable td, th{
+	border-bottom: 1px solid #ebebe6;
+}
+#boardTable a, a:visited{
+	text-decoration:none;
+	color:black;
+}
+#boardTable a:hover{
+	background-color: #d4d7ab;
+}
+
+
+/* 페이지바 */
+.pageBar{
+	margin-top:15px;
+	margin-bottom: 20px;
+	text-align:center;
+	width:100%;
+}
+.pageBar a {
+	padding:10px;
+	cursor: pointer;
+}
+.cPage {
+	text-decoration: underline;
+	background-color: #f7fbc6;
+}

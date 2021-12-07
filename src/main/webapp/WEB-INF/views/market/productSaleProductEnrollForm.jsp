@@ -31,7 +31,7 @@
 						<select name="pdtDiv" id="pdtDiv">
 							<option value="dog">강아지</option>
 							<option value="cat">고양이</option>
-							<option value="duck">거위</option>
+							<option value="goose">거위</option>
 						</select>
 					</td>
 				</tr>
