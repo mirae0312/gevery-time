@@ -69,6 +69,13 @@
 		<td>내 용</td>
 		 
 		<td><textarea name="content" id="summernote" class="summernote"><%=qnaBoard.getContent() %></textarea></td>
+	</tr>
+	<tr>
+	  <td>비밀번호</td>
+		<td>
+			<input class="inputBox" type="password" name="password" maxlength="20" value="<%=qnaBoard.getPassword() %>"/>
+		</td>
+	 </tr>
 	<tr>
 		<th colspan="2">
 			<input type="submit" class="submit" value="수정하기">
