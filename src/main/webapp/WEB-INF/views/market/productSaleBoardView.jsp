@@ -168,7 +168,7 @@ $(() => {
 				<th colspan=2>내용</th>
 			</tr>
 			<tr>
-				<td colspan=2 id="textArea"><%= board.getContent() %></td>
+				<td colspan=2 id="textArea"><span id="content-text"><%= board.getContent() %></span></td>
 			</tr>
 			<tr>
 				<th colspan=2>이미지</th>
@@ -292,7 +292,7 @@ $(() => {
 	</table>
 	
 	<br />
-	<input type="button" value="목록으로 돌아가기" onclick="location.href='<%= request.getContextPath() %>/product/main?div=all'"/>
+	<input type="button" id="returnList" value="목록으로 돌아가기" onclick="location.href='<%= request.getContextPath() %>/product/main?div=all'"/>
 	
 	<script>
 		// 답글달기

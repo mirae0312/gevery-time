@@ -31,6 +31,31 @@
 }
 
 
+/* 상단영역 */
+#searchSelect {
+	appearance : none;
+	height: 24px;
+	background-color: #80808017;
+}
+
+#searchName {
+	height: 20px;
+	width: 200px;
+	margin-right: 10px;
+	border: 1px solid gray;
+}
+#searchNameBtn {
+	width: 40px;
+	height: 40px;
+	border-radius: 50%;
+	background-color: #e2f3d4;
+	border: 1px dotted gray;
+}
+#searchOpt{
+	float: right;
+}
+
+
 /* 페이지바 */
 .pageBar{
 	margin-top:15px;

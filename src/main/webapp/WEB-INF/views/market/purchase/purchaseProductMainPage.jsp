@@ -14,12 +14,15 @@
 <head>
 <meta charset="UTF-8">
 <title>구매페이지</title>
+<link rel="stylesheet" href="<%=request.getContextPath() %>/css/market/purchase/purchaseMain.css" />
   <script type="text/javascript" src="https://code.jquery.com/jquery-1.12.4.min.js" ></script>
   <script type="text/javascript" src="https://cdn.iamport.kr/js/iamport.payment-1.1.5.js"></script>
 </head>
 <body>
 	<h1>결제페이지</h1>
-	<table>
+	<br />
+	<h3>선택 상품 목록</h3>
+	<table id="pdtList">
 		<thead>
 			<tr>
 				<th>상품번호</th>
@@ -66,28 +69,29 @@
 	<table id="consumerInfo">
 		<tbody>
 			<tr>
-				<th>이름</th>
+				<th><span>이름</span></th>
 				<td>
 					<input type="text" name="conName" id="" value="<%= loginMember != null ? loginMember.getMemberName() : "" %>"/>
 				</td>
 			</tr>
 			<tr>
-				<th>전화번호</th>
+				<th><span>전화번호</span></th>
 				<td>
 					<input type="text" name="conPhone" value="<%= loginMember != null ? loginMember.getPhone() : "" %>" />
 				</td>
 			</tr>
 			<tr>
-				<th>주소</th>
+				<th><span>주소</span></th>
 				<td>
 					<input type="text" name="conAddr" value="<%= loginMember != null ? loginMember.getAddress() : "" %>" />
 				</td>
+				<th><span>상세주소</span></th>
 				<td>
-					<span>상세주소</span><input type="text" name="conAddrDetail" />
+					<input type="text" name="conAddrDetail" />
 				</td>
 			</tr>
 			<tr>
-				<td>인적사항이 다른 경우 다시 입력해주세요.</td>
+				<td id="repeat" colspan=2> * 인적사항이 다른 경우 다시 입력해주세요.</td>
 			</tr>
 		</tbody>
 	</table>
@@ -95,17 +99,26 @@
 	<br />
 	
 	<h3>포인트 적용</h3>
-	<span>나의 보유 point : </span><span id="myPoint"></span><br />
-	<label for="usePoint">사용할 포인트 입력 </label><input type="text" name="conPoint" id="usePoint" value="0"/>
-	<input type="button" value="적용하기" id="pointSet" />
-	<br /><br />
+	<table id="point-area">
+		<tr>
+			<th><span>나의 보유 point</span></th>
+			<td><span id="myPoint"></span></td>
+		</tr>
+		<tr>
+			<th><span>사용할 포인트 입력</span></th>
+			<td>
+				<input type="text" name="conPoint" id="usePoint" value="0"/>
+				<input type="button" value="적용하기" id="pointSet" />
+			</td>
+		</tr>
+	</table>
 	
 	
 	<!-- 최종 결제 금액 영역 -->
-	<span>최종 결제 금액은 : </span><span id="totalPricePlace"></span><span>원 입니다.</span>
-	
-	<br /><br />	
-	<button onclick="requestPay()">결제하기</button>
+	<div id="finalPrice">
+		<span>최종 결제 금액은 </span><b><span id="totalPricePlace"></span></b><span>원 입니다.</span>
+	</div>
+	<button id="purchaseBtn" onclick="requestPay()">결제하기</button>
 	
 	<input type="hidden" id="countNum" value="<%= countNum - 1 %>"/>
 	<input type="hidden" id="defaultTotalPrice" value="" />
