@@ -130,7 +130,7 @@ a {
         font-weight:800;
     }
 /*페이지바*/
-div#pageBar{margin-top:34px; text-align:center; font-size:19px; }
+div#pageBar{margin-top:64px; text-align:center; font-size:19px; }
 div#pageBar span.cPage{color: gray; margin-right: 5px;}
 div#pageBar a{margin-right: 5px;}
       
