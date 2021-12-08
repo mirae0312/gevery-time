@@ -46,6 +46,13 @@
 		<td>
 		</td>
 		</tr>
+		<tr class = "like-and-report">
+			<th colspan="2">
+					<button class="btn-board-like board-btn">좋아요 <%=board.getLikeCount()%></button>		
+				<button class="report board-btn" value="<%= board.getOrCode() %>">신고</button>
+			</th>
+		</tr>
+			<%-- 작성자와 관리자만 마지막행 수정/삭제버튼이 보일수 있게 할 것 --%>
 		<% 	if(
 				loginMember != null && 
 				(
@@ -53,13 +60,7 @@
 				  || MemberService.ADMIN_ROLE.equals(loginMember.getMemberRole())
 				)
 			){ %>
-		<tr class = "like-and-report">
-			<%-- 작성자와 관리자만 마지막행 수정/삭제버튼이 보일수 있게 할 것 --%>
-			<th colspan="2">
-					<button class="btn-board-like board-btn">좋아요 <%=board.getLikeCount()%></button>		
-				<button class="report board-btn" value="<%= board.getOrCode() %>">신고</button>
-			</th>
-		</tr>
+		
 		<tr class="delete-or-update">
 			<td>
 			<input type="button" value="수정하기" onclick="updateBoard()" class="board-btn delete-or-update-btn">
@@ -155,7 +156,7 @@
 	</div>
 </section>
 <section class="sameWriterOtherBoardList">
-<h4 id="otherList"><%=board.getWriter() %>님의 다른 게시물</h4>
+<h4 id="otherList"><%=board.getWriter() %>님의 게시물</h4>
 <table id="otherBoardList" class="board-list-table">
 		<thead>
 			<tr>
@@ -180,6 +181,13 @@
 	action="<%= request.getContextPath() %>/board/boardDelete" >
 	<input type="hidden" name="no" value="<%= board.getNo() %>" />
 </form>
+<form
+	name="commentDelFrm"
+	method="POST" 
+	action="<%= request.getContextPath() %>/board/boardCommentDelete" >
+	<input type="hidden" name="commentNo" value="" />
+	<input type="hidden" name="boardNo" value="<%= board.getNo() %>" />
+</form>
 
 <form
 	name="boardLikeFrm"
@@ -194,8 +202,16 @@
 	<input type="hidden" name="boardNo" value=""/>
 </form>
 <script>
+//댓글삭제
+$(".btn-deleteComment").click((e)=>{
+	if(confirm("댓글을 삭제하시겠습니까?")){
+		$(document.commentDelFrm)
+			.children("[name=commentNo]").val($(e.target).val())
+			.parent().submit();
+	}
+});
 //신고
-$(".report").click((e) => {
+$(".report").click((e) => { 
 	const name = "report";
 	const spec = "left=500px, top=500px, width=450px, height=650px";
 	const popup = open(`<%= request.getContextPath() %>/common/report?code=\${$(e.target).val()}`, name, spec);
@@ -245,14 +261,7 @@ $(".report").click((e) => {
 		});
 		
 	});
-	//댓글삭제
-	$(".btn-deleteComment").click((e)=>{
-		if(confirm("댓글을 삭제하시겠습니까?")){
-			$(document.commentDelFrm)
-				.children("[name=commentNo]").val($(e.target).val())
-				.parent().submit();
-		}
-	});
+
 	
 	/**
 	 * 대댓글 입력
