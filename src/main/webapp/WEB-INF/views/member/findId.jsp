@@ -42,7 +42,7 @@
 		<tr>
 		<td><button type="button" id="searchBtn" class= "btn btn-outline-info btn sm" onclick="searchId()">검색</button>
 		
-		<button id="button2" class="btn2" onclick ="location.href='<%=request.getContextPath()%>/member/login'">로그인</button></td>
+		<button type="button" id="button2" class="btn btn-outline-info btn sm" onclick ="location.href='<%=request.getContextPath()%>/member/login'">로그인</button></td>
 		</tr>
 		
 	
