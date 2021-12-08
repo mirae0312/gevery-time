@@ -19,7 +19,7 @@
 	<h1>장바구니</h1>
 	<input type="button" value="전체 선택/해제하기" id="checkAllBtn"/>
 <%
-	int countNum = 1;
+
 	if(!cartlist.isEmpty()) {
 %>
 	<table id="cartTable">
@@ -41,6 +41,7 @@
 
 		<tbody>
 		<%
+		int countNum = 1;
 		/* 별도의 리스트 별 총 가격을 계산하기 위해, countNum을 추가함 */
 		for(Cart cart : cartlist) {
 		%>
@@ -90,7 +91,7 @@
 				</td>			
 			</tr>
 		<%
-		countNum++;
+			countNum++;
 		}
 		%>
 			<tr>
