@@ -12,6 +12,7 @@
 <head>
 <meta charset="UTF-8">
 <title>매매글 작성</title>
+<link rel="stylesheet" href="<%= request.getContextPath() %>/css/market/product/productForm.css" />
 </head>
  
   <script>
@@ -23,7 +24,17 @@
               focus: true,                  // 에디터 로딩후 포커스를 맞출지 여부
               lang: "ko-KR",                    // 한글 설정
               placeholder: '예쁜말만 써요',    //placeholder 설정
-              disableResizeEditor: true
+              disableResizeEditor: true,
+              height: 310,
+              width: 700,
+              toolbar: [
+                  ['style', ['bold', 'italic', 'underline', 'clear']],
+                  ['font', ['strikethrough', 'superscript', 'subscript']],
+                  ['fontsize', ['fontsize']],
+                  ['color', ['color']],
+                  ['para', ['ul', 'ol', 'paragraph']],
+                  ['height', ['height']],
+              ]
         });
     });
  
@@ -31,7 +42,7 @@
 <body>
 
 	<form action="<%= request.getContextPath() %>/product/boardUpdate" name="productEnrollFrm" enctype="multipart/form-data" method="POST">
-		<table>
+		<table id="productBoardTable">
 			<tr>
 				<td><input type="hidden" name="boardNo" value="<%= board.getBoardNo() %>"/></td>
 				<td><input type="hidden" name="orCode" value="<%= board.getOrCode() %>"/></td>
@@ -43,7 +54,7 @@
 			</tr>
 			<tr>
 				<th>작성자</th>
-				<td><input type="text" name="author" id="author" value="<%= board.getSellerId() %>"/></td>
+				<td><input type="text" name="author" class="noBorder" id="author" value="<%= board.getSellerId() %>"/></td>
 			</tr>
 			<tr>
 				<th>상품분류</th>
@@ -54,19 +65,19 @@
 			<tr>
 				<th>상품번호</th>
 				<td>
-					<input type="text" name="pdtNo" id="pdtNo" value="<%= board.getProduct().getPdtNo() %>" readonly/>
+					<input type="text" name="pdtNo" class="noBorder" id="pdtNo" value="<%= board.getProduct().getPdtNo() %>" readonly/>
 				</td>
 			</tr>
 			<tr>
 				<th>상품이름</th>
 				<td>
-					<input type="text" name="pdtName" id="pdtName" value="<%= board.getProduct().getPdtName() %>" readonly/>
+					<input type="text" name="pdtName" class="noBorder" id="pdtName" value="<%= board.getProduct().getPdtName() %>" readonly/>
 				</td>
 			</tr>
 			<tr>
 				<th>상품가격</th>
 				<td>
-					<input type="text" name="pdtPrice" id="pdtPrice" value="<%= board.getProduct().getPdtPrice() %>" readonly/>
+					<input type="text" name="pdtPrice" class="noBorder" id="pdtPrice" value="<%= board.getProduct().getPdtPrice() %>" readonly/>
 				</td>
 			</tr>
 			<tr>
@@ -85,14 +96,10 @@
 			</tr>
 			<tr>
 				<th>내용</th>
-				<td><textarea name="summernote" id="summernote" class="summernote"><%= board.getContent() %></textarea></td>		
-			</tr>
-			<tr>
-				<th colspan="2">
-					<button>제출하기</button>
-				</th>
+				<td id="summernoteArea"><textarea name="summernote" id="summernote" class="summernote"><%= board.getContent() %></textarea></td>		
 			</tr>
 		</table>
+		<button id="submit-btn">제출하기</button>
 	</form>
 	
 </body>

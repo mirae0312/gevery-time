@@ -10,6 +10,7 @@
 <head>
 <meta charset="UTF-8">
 <title>게시글 수정하기</title>
+<link rel="stylesheet" href="<%= request.getContextPath() %>/css/market/ugGoods/ugBoardForm.css" />
 </head>
 <body>
 	<!-- summernote editor -->
@@ -22,12 +23,23 @@
 	              focus: true,                  // 에디터 로딩후 포커스를 맞출지 여부
 	              lang: "ko-KR",                    // 한글 설정
 	              placeholder: '예쁜말만 써요',    //placeholder 설정
-	              disableResizeEditor: true
+	              disableResizeEditor: true,
+	              height: 310,
+	              width: 700,
+	              toolbar: [
+	                  ['style', ['bold', 'italic', 'underline', 'clear']],
+	                  ['font', ['strikethrough', 'superscript', 'subscript']],
+	                  ['fontsize', ['fontsize']],
+	                  ['color', ['color']],
+	                  ['para', ['ul', 'ol', 'paragraph']],
+	                  ['height', ['height']],
+	              ]
 	        });
 	    });
 	 </script>
+ 	<div id="form-area">
 	 <form action="<%= request.getContextPath() %>/ugGoods/boardUpdate" method="POST" enctype="multipart/form-data">
-	 	<table>
+	 	<table id="ugBoardTable">
 	 		<input type="hidden" name="boardNo" value="<%= board.getNo() %>" />
 			<tr>
 				<th>제목</th>
@@ -54,13 +66,10 @@
 				<th>내용</th>
 				<td><textarea name="summernote" id="summernote" class="summernote" ><%= board.getContent() %></textarea></td>
 			</tr>
-			<tr>
-				<th colspan=2>
-					<button>제출하기</button>
-				</th>
-			</tr>
 		</table>
+		<button id="submit-btn">제출하기</button>
 	</form>
+	</div>
 </body>
 </html>
 <%@ include file="/WEB-INF/views/common/footer.jsp" %> 
