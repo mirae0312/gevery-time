@@ -232,6 +232,7 @@ $(() => {
 							<td><%= answer.get("title") %></td>
 							<td><%= answer.get("content") %></td>
 							<td><%= answer.get("writer") %></td>
+							<% if(loginMember != null && loginMember.getMemberId().equals(answer.get("writer"))) { %>
 							<td colspan=2>
 								<form action="<%= request.getContextPath() %>/product/qaDelete" method="POST">
 									<input type="hidden" name="delCommentNo" value="<%= answer.get("no") %>" />
@@ -239,7 +240,7 @@ $(() => {
 									<input type="submit" class="aDelBtns" id="aDeleteBtn" value="삭제하기" />
 								</form>
  							</td>
-
+							<% } %>
 		<%
 							break;
 						}

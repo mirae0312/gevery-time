@@ -13,6 +13,7 @@
 <head>
 <meta charset="UTF-8">
 <title>등록 상품 조회</title>
+<link rel="stylesheet" href="<%=request.getContextPath() %>/css/market/product/productGet.css" />
 <script src="<%= request.getContextPath() %>/js/jquery-3.6.0.js"></script>
 </head>
 <body>
@@ -23,7 +24,7 @@
 		<h2>텅 비었어요. 상품을 먼저 등록해주세요</h2>
 		<input type="button" value="상품 등록하러가기" onclick="landingProductEnroll();"/>
 	<% } else { %>
-	<table>
+	<table id="pdtTable">
 		<thead>
 			<tr>
 				<th>선택</th>

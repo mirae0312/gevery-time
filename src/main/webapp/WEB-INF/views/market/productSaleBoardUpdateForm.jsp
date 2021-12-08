@@ -59,7 +59,7 @@
 			<tr>
 				<th>상품분류</th>
 				<td>
-					<input type="text" name="pdtDiv" id="pdtDiv" value="<%= board.getProduct().getPdtDiv() %>" readonly>
+					<input type="text" name="pdtDiv" class="noBorder" id="pdtDiv" value="<%= board.getProduct().getPdtDiv() %>" readonly>
 				</td>
 			</tr>
 			<tr>
