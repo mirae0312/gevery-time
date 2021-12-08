@@ -89,11 +89,18 @@ public class InfoReviewModifyServlet extends HttpServlet {
 					Attachment attach2 = MvcUtils.makeAttachment(multipartRequest, "mPic2");
 					attach2.setCode(rCode);
 					attachments.add(attach2);
-				}			
+				}		
+				
+			}
+			
+			if(re1 == null && re2 == null) {
+				infoService.insertAttachment(attachments);
+			}else {
+				infoService.updateAttachment(attachments);
 			}
 			
 			infoService.updateInfoReview(infoReview);
-			infoService.updateAttachment(attachments);
+			
 			
 			HttpSession session = request.getSession();
 			session.setAttribute("msg", "리뷰 수정 성공!");

@@ -469,8 +469,7 @@ public class InfoService {
 					result = infoDao.updateAttachment(conn, attach);
 				}				
 			}
-			if(result > 0)
-				commit(conn);
+			commit(conn);
 		}catch(Exception e) {
 			rollback(conn);
 			throw e;
@@ -552,6 +551,25 @@ public class InfoService {
 			close(conn);
 		}
 		return info;
+	}
+
+	public void insertAttachment(List<Attachment> attachments) {
+		Connection conn = null;
+		int result = 0;
+		try {
+			conn = getConnection();
+			if(attachments != null && !attachments.isEmpty()) {
+				for(Attachment attach : attachments) {
+					result = infoDao.insertReviewAttachment(conn, attach);
+				}				
+			}
+			commit(conn);
+		}catch(Exception e) {
+			rollback(conn);
+			throw e;
+		}finally {
+			close(conn);
+		}
 	}
 
 
