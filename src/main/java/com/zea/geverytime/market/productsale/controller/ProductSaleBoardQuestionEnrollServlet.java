@@ -21,21 +21,27 @@ public class ProductSaleBoardQuestionEnrollServlet extends HttpServlet {
 	private ProductSaleService pdtService = new ProductSaleService();
 
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		String writer = request.getParameter("writer");
-		String title = request.getParameter("qtitle");
-		String qcontent = request.getParameter("qcontent");
-		int boardNo = Integer.parseInt(request.getParameter("boardNo"));
+		try {
+			String writer = request.getParameter("writer");
+			String title = request.getParameter("qtitle");
+			String qcontent = request.getParameter("qcontent");
+			int boardNo = Integer.parseInt(request.getParameter("boardNo"));
 
-		Map<String, Object> map = new HashMap<>();
-		map.put("writer", writer);
-		map.put("title", title);
-		map.put("qcontent", qcontent);
-		map.put("boardNo", boardNo);
-		
-		int result = pdtService.productSaleBoardQuestionEnroll(map);
-		System.out.println("answerEnrollServ@result : "+result);
-		
-		response.sendRedirect(request.getContextPath()+"/product/boardView?no="+boardNo);
+			Map<String, Object> map = new HashMap<>();
+			map.put("writer", writer);
+			map.put("title", title);
+			map.put("qcontent", qcontent);
+			map.put("boardNo", boardNo);
+			
+			int result = pdtService.productSaleBoardQuestionEnroll(map);
+			System.out.println("answerEnrollServ@result : "+result);
+			
+			response.sendRedirect(request.getContextPath()+"/product/boardView?no="+boardNo);
+		} catch (Exception e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+			throw e;
+		}
 	}
 
 }

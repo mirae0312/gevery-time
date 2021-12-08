@@ -22,17 +22,23 @@ public class ProductSaleOnsaleProductServlet extends HttpServlet {
 	
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		
-		String sellerId = request.getParameter("sellerId");
-		String state = "%%";
-		System.out.println(sellerId);
-	
-		// 판매자 상품목록 받아오기
-		List<Product> list = pdtService.getSellerProduct(sellerId, state);
-		System.out.println("serv@@list: "+list);
-		
-		// 저장 및 전달
-		request.setAttribute("list", list);
-		request.getRequestDispatcher("/WEB-INF/views/market/productSaleOnsaleProduct.jsp").forward(request, response);
+		try {
+			String sellerId = request.getParameter("sellerId");
+			String state = "%%";
+			System.out.println(sellerId);
+
+			// 판매자 상품목록 받아오기
+			List<Product> list = pdtService.getSellerProduct(sellerId, state);
+			System.out.println("serv@@list: "+list);
+			
+			// 저장 및 전달
+			request.setAttribute("list", list);
+			request.getRequestDispatcher("/WEB-INF/views/market/productSaleOnsaleProduct.jsp").forward(request, response);
+		} catch (Exception e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+			throw e;
+		}
 	}
 
 }

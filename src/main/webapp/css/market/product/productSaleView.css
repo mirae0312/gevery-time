@@ -74,6 +74,7 @@ h1{
 	border: 1px solid gray;
 	margin-left: 50px;	
 	background-color: #dcf5d5;
+	cursor: pointer;
 }
 #purchaseBtn{
 	width: 80px;
@@ -83,10 +84,12 @@ h1{
 	float: right;
 	margin-right: 50px;
 	background-color: #ffe9efb3;
+	cursor: pointer;
 }
 #mySelfPdt{
 	text-align: center;
 	text-decoration: underline;
+	cursor: pointer;
 }
 
 
@@ -203,7 +206,16 @@ h1{
 
 
 
-
+.needSize{
+	width: 40px;
+	padding-left: 10px;
+	padding-right: 10px;
+}
+.titleNeedSize{
+	width: 120px;
+	padding-left: 10px;
+	padding-right: 10px;	
+}
 
 
 

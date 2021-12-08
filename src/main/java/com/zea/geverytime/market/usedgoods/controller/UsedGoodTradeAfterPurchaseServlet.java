@@ -18,11 +18,17 @@ public class UsedGoodTradeAfterPurchaseServlet extends HttpServlet {
 	private UsedGoodsService ugService = new UsedGoodsService();
 	
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		int boardNo = Integer.parseInt(request.getParameter("boardNo"));
-		String state = request.getParameter("state");
-		// 게시물 상태 변경
-		int stateResult = ugService.changeUgBoardState(boardNo, state);
-		System.out.println("결제 완료 시 상태 변경 성공 : "+stateResult);
+		try {
+			int boardNo = Integer.parseInt(request.getParameter("boardNo"));
+			String state = request.getParameter("state");
+			// 게시물 상태 변경
+			int stateResult = ugService.changeUgBoardState(boardNo, state);
+			System.out.println("결제 완료 시 상태 변경 성공 : "+stateResult);
+		} catch (Exception e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+			throw e;
+		}
 	}
 
 }

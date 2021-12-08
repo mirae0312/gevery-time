@@ -1,5 +1,7 @@
 package com.zea.geverytime.market.point.model.dao;
 
+import static com.zea.geverytime.common.JdbcTemplate.close;
+
 import java.io.FileReader;
 import java.io.IOException;
 import java.sql.Connection;
@@ -7,8 +9,8 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.Properties;
-import static com.zea.geverytime.common.JdbcTemplate.*;
 
+import com.zea.geverytime.market.point.model.exception.PointException;
 import com.zea.geverytime.market.point.model.vo.PointHistory;
 import com.zea.geverytime.market.productsale.model.dao.ProductSaleDao;
 
@@ -41,7 +43,7 @@ public class PointDao {
 				point = rset.getInt(1);
 			}
 		} catch (SQLException e) {
-			e.printStackTrace();
+			throw new PointException("포인트 잔액 조회 오류", e);
 		} finally {
 			close(pstmt);
 			close(rset);
@@ -61,7 +63,7 @@ public class PointDao {
 			
 			result = pstmt.executeUpdate();
 		} catch (SQLException e) {
-			e.printStackTrace();
+			throw new PointException("포인트 출금 오류", e);
 		} finally {
 			close(pstmt);
 		}
@@ -84,7 +86,7 @@ public class PointDao {
 				pointNo = rset.getInt(1);
 			}
 		} catch (SQLException e) {
-			e.printStackTrace();
+			throw new PointException("포인트 번호 조회 오류", e);
 		} finally {
 			close(pstmt);
 			close(rset);
@@ -114,7 +116,7 @@ public class PointDao {
 			
 			result = pstmt.executeUpdate();
 		} catch (SQLException e) {
-			e.printStackTrace();
+			throw new PointException("포인트 내역 추가 오류", e);
 		}
 		return result;
 	}

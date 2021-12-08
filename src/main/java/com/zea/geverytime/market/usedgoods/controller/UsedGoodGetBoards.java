@@ -11,6 +11,7 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 import com.google.gson.Gson;
+import com.google.gson.JsonIOException;
 import com.zea.geverytime.common.model.vo.Attachment;
 import com.zea.geverytime.market.usedgoods.model.service.UsedGoodsService;
 import com.zea.geverytime.market.usedgoods.model.vo.UsedGoodsBoard;
@@ -25,23 +26,29 @@ public class UsedGoodGetBoards extends HttpServlet {
 	
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		
-		int countNum = Integer.parseInt(request.getParameter("countNum"));
-		
-		List<UsedGoodsBoard> ugList = new ArrayList<>();
-		for(int i = 1; i < countNum; i++) {
-			int boardNo = Integer.parseInt(request.getParameter("boardNo"+i));
-			UsedGoodsBoard board = ugService.getUgGoodsBoard(boardNo);
-			String orCode = board.getOrCode();
-			String state = ugService.getUgGoodsBoardState(boardNo);
-			board.setState(state);
-			List<Attachment> attachments = ugService.getUgBoardAttachment(orCode); 
-			board.setAttachments(attachments);
-			ugList.add(board);
+		try {
+			int countNum = Integer.parseInt(request.getParameter("countNum"));
+			
+			List<UsedGoodsBoard> ugList = new ArrayList<>();
+			for(int i = 1; i < countNum; i++) {
+				int boardNo = Integer.parseInt(request.getParameter("boardNo"+i));
+				UsedGoodsBoard board = ugService.getUgGoodsBoard(boardNo);
+				String orCode = board.getOrCode();
+				String state = ugService.getUgGoodsBoardState(boardNo);
+				board.setState(state);
+				List<Attachment> attachments = ugService.getUgBoardAttachment(orCode); 
+				board.setAttachments(attachments);
+				ugList.add(board);
+			}
+			System.out.println("UGLIST :" +ugList);
+			
+			response.setContentType("application/json; charset=utf-8");
+			new Gson().toJson(ugList, response.getWriter());
+		} catch (Exception e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+			throw e;
 		}
-		System.out.println("UGLIST :" +ugList);
-		
-		response.setContentType("application/json; charset=utf-8");
-		new Gson().toJson(ugList, response.getWriter());
 		
 	}
 
