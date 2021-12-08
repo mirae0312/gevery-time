@@ -220,9 +220,10 @@ select * from qna_board where reply_ref = 122)
 where reply_ref = 122;
 
 select * from qna_board where no=308;
-
+commit;
 update qna_board set category_b='OK' where no = 188;
- 
+ update member set member_name ='관리자' where member_id = 'admin';
+select * from member;
 create table CLIENT_REPORT(
     report_no number,
     title varchar2(500) not null,
@@ -269,4 +270,39 @@ update client_report set report_check = 'C' where report_no = 6;
 rollback;
 
 select * from (select row_number() over(order by report_no asc) rnum, b.* from client_report b) where rnum between 1 and 3;
-delete client_report where report_no = 32;
+
+
+
+commit;
+
+select * from member;
+
+update 
+
+
+select * from client_report;
+ 
+select * from member;
+
+commit;
+delete qna_board;
+
+delete client_report where report_code = 'ib1b-8';
+ 
+select * from client_report;
+
+-------------------qna
+select * from faq_board;
+select * from member;
+commit;
+delete faq_board where title='게시글을 신고하고 싶어요';
+insert into
+    faq_board
+values(
+    seq_faq_board_no.nextval,
+    '게시글을 신고하고 싶어요',
+    null,
+    'A 신고하고 싶은 게시글 상단에 "신고하기" 버튼이 있습니다.제목과 신고내용 작성 후 제출하시면 됩니다.',
+    '[신고문의]',
+    default
+    );
