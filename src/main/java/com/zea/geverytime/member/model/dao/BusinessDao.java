@@ -43,6 +43,7 @@ public class BusinessDao {
                 business.setMemberId(rset.getString("business_id"));
                 business.setPassword(rset.getString("password"));
                 business.setMemberName(rset.getString("name"));
+                business.setEmail(rset.getString("email"));
                 business.setbName(rset.getString("business_name"));
                 business.setbAddress(rset.getString("business_address"));
                 business.setBusinessNo(rset.getString("business_no"));
