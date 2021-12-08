@@ -38,3 +38,15 @@ table {
     text-align: center;
     background-color: #fde85300;
 }
+#pageBar {
+	display: flex;
+    justify-content: center;
+    margin: 10px;
+}
+#pageBar span{
+	cursor: pointer;
+}
+#pageBar a{
+	margin: 5px;
+	cursor: pointer;
+}

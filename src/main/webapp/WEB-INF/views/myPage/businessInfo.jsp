@@ -36,7 +36,8 @@
 					<th>승인상태</th>
 				</tr>
 			</thead>
-			<tbody id="myPageTbody"></tbody>
+			<tbody id="myPageTbody">
+			</tbody>
 		</table>
 		<div id="pageBar"></div>
 	</ul>
@@ -52,6 +53,7 @@ $("#pageBar").click((e) => {
 });
 const checkYN = (cPage) => {
 	console.log(cPage);
+
 	$.ajax({
 		url: "<%= request.getContextPath() %>/myPage/businessList",
 		dataType: "json",
@@ -65,8 +67,8 @@ const checkYN = (cPage) => {
 			$(data.list).each((i, e) => { 				
 				
 				// 날짜포멧
-				let rd = new Date(data.regDate);
-				let value = `\${rd.getFullYear()}.\${(rd.getMonth() + 1)}.\${(rd.getDate())}`;
+				const rd = new Date(e.regDate);
+                const value = `\${rd.getFullYear()}.\${(rd.getMonth() + 1)}.\${(rd.getDate())}`;
 			
 				// 상태
 				var state = "상태";

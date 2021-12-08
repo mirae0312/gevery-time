@@ -84,3 +84,15 @@ form {
 	background-position: top;
  	background-color: #cccccc;
 }
+#pageBar {
+	display: flex;
+    justify-content: center;
+    margin: 10px;
+}
+#pageBar span{
+	cursor: pointer;
+}
+#pageBar a{
+	margin: 5px;
+	cursor: pointer;
+}

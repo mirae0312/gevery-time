@@ -49,10 +49,10 @@ public class InfoService {
 			conn = getConnection();
 			if("all".equals(sido.getLocation())) {
 				switch(n) {
-				case "new": 
+				case "old": 
 					list = infoDao.selectAllListAsc(board, conn, start, end);
 					break;
-				case "old": 
+				case "new": 
 					list = infoDao.selectAllList(board, conn, start, end);
 					break;
 				case "view": 
@@ -64,10 +64,10 @@ public class InfoService {
 				}				
 			} else {
 				switch(n) {
-				case "new": 
+				case "old": 
 					list = infoDao.selectAllListAscSido(board, conn, start, end, sido);
 					break;
-				case "old": 
+				case "new": 
 					list = infoDao.selectAllListSido(board, conn, start, end, sido);
 					break;
 				case "view": 
@@ -469,8 +469,7 @@ public class InfoService {
 					result = infoDao.updateAttachment(conn, attach);
 				}				
 			}
-			if(result > 0)
-				commit(conn);
+			commit(conn);
 		}catch(Exception e) {
 			rollback(conn);
 			throw e;
@@ -552,6 +551,25 @@ public class InfoService {
 			close(conn);
 		}
 		return info;
+	}
+
+	public void insertAttachment(List<Attachment> attachments) {
+		Connection conn = null;
+		int result = 0;
+		try {
+			conn = getConnection();
+			if(attachments != null && !attachments.isEmpty()) {
+				for(Attachment attach : attachments) {
+					result = infoDao.insertReviewAttachment(conn, attach);
+				}				
+			}
+			commit(conn);
+		}catch(Exception e) {
+			rollback(conn);
+			throw e;
+		}finally {
+			close(conn);
+		}
 	}
 
 

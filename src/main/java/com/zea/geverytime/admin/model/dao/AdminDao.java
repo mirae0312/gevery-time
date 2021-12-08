@@ -68,9 +68,9 @@ public class AdminDao {
 //	}
 	public List<Info> selectInfoBoard(Connection conn, Map<String, Object> param) {
 			PreparedStatement pstmt = null;
-			String sql = prop.getProperty("selectInfoBoard");	
 			ResultSet rset = null;
 			List<Info> list = new ArrayList<>();
+			String sql = prop.getProperty("selectInfoBoard");	
 			
 			try {
 				pstmt = conn.prepareStatement(sql);

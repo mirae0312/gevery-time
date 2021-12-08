@@ -10,7 +10,7 @@
 <link rel="stylesheet" href="<%=request.getContextPath()%>/css/myPage/myPageMain.css" />
 <link rel="stylesheet" href="<%=request.getContextPath()%>/css/myPage/myPagePurchase.css" />
 <%
-	Map<String, Object> delCartMap = (Map<String, Object>) new HashMap<String, Object>();
+	String id = (String) request.getAttribute("memberId");
 	Business businessMember  =  (Business)session.getAttribute("businessMember");
 %>
 <div id="myPage-container">
@@ -42,30 +42,59 @@
 						<th>구매 일</th>
 					</tr>
 				</thead>
-				<tbody>
-					<tr>
-						<%
-						List<Purchase> list = (List<Purchase>) request.getAttribute("list");
-						for (Purchase pc : list) {
-						%>
-						<td><%=pc.getUid()%></td>
-						<td><%=pc.getMuid()%></td>
-						<td><%=pc.getName()%></td>
-						<td><%=pc.getProductCount()%></td>
-						<td><%=pc.getPrice()%></td>
-						<td><%=pc.getRegDate()%></td>
-					</tr>
-					<%
-					}
-					%>
+				<tbody id="purchaseTbody">
 				</tbody>
 			</table>
+			<div id="pageBar"></div>
 		</li>
 	</ul>
 </div>
 <script>
-	$("#searchDiv").change((e) => {
-	
-	});		
+
+$(() => {
+	purchaseList(1);
+});
+
+$("#pageBar").click((e) => {
+	purchaseList($(e.target).data('page'));
+});
+const purchaseList = (cPage) => {
+	console.log(cPage);
+	console.log('<%= loginMember.getMemberId() %>');
+	$.ajax({
+		url: "<%= request.getContextPath() %>/myPage/purchaseList",
+		dataType: "json",
+		data: {
+				cPage,
+				'id':'<%= loginMember.getMemberId() %>'},
+		success(data){
+			$("#purchaseTable tbody").empty();
+				
+			console.log(data.list);
+			$(data.list).each((i, e) => { 				
+					
+			// 날짜포멧
+			const rd = new Date(e.regDate);
+            const value = `\${rd.getFullYear()}.\${(rd.getMonth() + 1)}.\${(rd.getDate())}`;
+				
+			const tr = `<tr>
+				<td>\${e.uid}</td>
+	            <td>\${e.muid}</td>
+	            <td>\${e.name}</td>
+	            <td>\${e.productCount}</td>
+	            <td>\${e.price}</td>
+	            <td>\${value}</td>
+	            </tr>`;
+				
+	            $("#purchaseTable tbody").append(tr);
+			}),
+			// pageBar
+			console.log(data.pagebar);
+	        $("#pageBar").empty();
+	        $("#pageBar").append(data.pagebar);
+		},
+		error: console.log
+	});
+};
 </script>
 <%@ include file="/WEB-INF/views/common/footer.jsp" %> 
