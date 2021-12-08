@@ -22,17 +22,23 @@ public class ProductSaleGetSelectDivBoardServlet extends HttpServlet {
 	private ProductSaleService pdtService = new ProductSaleService();
 
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		String div = request.getParameter("div");
-		System.out.println("DivBoardListServ@div : "+div);
-		
-		List<ProductBoard> list = pdtService.getSelectedDivBoardList(div);
-		System.out.println("SelectedDivBoardListServlet@list : "+ list);
-		
-		Gson gson = new Gson();
-		String jsonStr = gson.toJson(list);
-		System.out.println("jsonStr : "+jsonStr);
-		
-		response.setContentType("application/json; charset=utf-8");
-		response.getWriter().append(jsonStr);
+		try {
+			String div = request.getParameter("div");
+			System.out.println("DivBoardListServ@div : "+div);
+			
+			List<ProductBoard> list = pdtService.getSelectedDivBoardList(div);
+			System.out.println("SelectedDivBoardListServlet@list : "+ list);
+			
+			Gson gson = new Gson();
+			String jsonStr = gson.toJson(list);
+			System.out.println("jsonStr : "+jsonStr);
+			
+			response.setContentType("application/json; charset=utf-8");
+			response.getWriter().append(jsonStr);
+		} catch (Exception e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+			throw e;
+		}
 	}
 }

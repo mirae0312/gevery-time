@@ -23,26 +23,32 @@ public class ProductSaleBoardUpdateFormServlet extends HttpServlet {
 	private ProductSaleService pdtService = new ProductSaleService();
 	
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		int boardNo = Integer.parseInt(request.getParameter("no"));
-		
-		ProductBoard board = pdtService.getProductSaleBoard(boardNo);
-		
-		// 기존 첨부파일 삭제
-		// 1. server 삭제
-		List<Attachment> attachments = board.getAttachments();
-		for(Attachment attachment : attachments) {
-			String rfn = attachment.getRenamedFilename();
-			File delFile = new File(getServletContext().getRealPath("/upload/market/productSale"), rfn);
-			boolean removed = delFile.delete();
+		try {
+			int boardNo = Integer.parseInt(request.getParameter("no"));
+			
+			ProductBoard board = pdtService.getProductSaleBoard(boardNo);
+			
+			// 기존 첨부파일 삭제
+			// 1. server 삭제
+			List<Attachment> attachments = board.getAttachments();
+			for(Attachment attachment : attachments) {
+				String rfn = attachment.getRenamedFilename();
+				File delFile = new File(getServletContext().getRealPath("/upload/market/productSale"), rfn);
+				boolean removed = delFile.delete();
+			}
+			// 2. db attachment 삭제
+			String orCode = board.getOrCode();
+			int result = pdtService.productBoardDeleteAttachment(orCode);
+			
+			
+			request.setAttribute("board", board);
+			
+			request.getRequestDispatcher("/WEB-INF/views/market/productSaleBoardUpdateForm.jsp").forward(request, response);
+		} catch (Exception e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+			throw e;
 		}
-		// 2. db attachment 삭제
-		String orCode = board.getOrCode();
-		int result = pdtService.productBoardDeleteAttachment(orCode);
-		
-		
-		request.setAttribute("board", board);
-		
-		request.getRequestDispatcher("/WEB-INF/views/market/productSaleBoardUpdateForm.jsp").forward(request, response);
 		
 	}
 

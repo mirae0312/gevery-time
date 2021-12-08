@@ -23,21 +23,25 @@ public class ProductSaleBoardView extends HttpServlet {
 	private ProductSaleService pdtService = new ProductSaleService();
 	
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		int no = Integer.parseInt(request.getParameter("no"));
-		
-		// 게시글 번호 통해서 board 정보 가져오기(첨부파일 포함)
-		ProductBoard board = pdtService.getProductSaleBoard(no);
-		
-		// 댓글 가져오기
-		List<Map<String, Object>> questions = pdtService.getProductSaleBoardQuestion(no);
-		
-		// set
-		request.setAttribute("questions", questions);
-		request.setAttribute("board", board);
-		
-		
-		
-		request.getRequestDispatcher("/WEB-INF/views/market/productSaleBoardView.jsp").forward(request, response);
+		try {
+			int no = Integer.parseInt(request.getParameter("no"));
+			
+			// 게시글 번호 통해서 board 정보 가져오기(첨부파일 포함)
+			ProductBoard board = pdtService.getProductSaleBoard(no);
+			
+			// 댓글 가져오기
+			List<Map<String, Object>> questions = pdtService.getProductSaleBoardQuestion(no);
+			
+			// set
+			request.setAttribute("questions", questions);
+			request.setAttribute("board", board);
+			
+			request.getRequestDispatcher("/WEB-INF/views/market/productSaleBoardView.jsp").forward(request, response);
+		} catch (Exception e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+			throw e;
+		}
 	}
 
 }

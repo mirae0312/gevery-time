@@ -12,6 +12,7 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Properties;
 
+import com.zea.geverytime.market.cart.model.exception.CartException;
 import com.zea.geverytime.market.cart.model.vo.Cart;
 import com.zea.geverytime.market.cart.model.vo.WishList;
 import com.zea.geverytime.market.productsale.model.dao.ProductSaleDao;
@@ -43,7 +44,7 @@ public class CartDao {
 			
 			result = pstmt.executeUpdate();
 		} catch (SQLException e) {
-			e.printStackTrace();
+			throw new CartException("장바구니 추가 중 오류", e);
 		} finally {
 			close(pstmt);
 		}
@@ -67,7 +68,7 @@ public class CartDao {
 				result = rset.getInt(1);
 			}
 		} catch (SQLException e) {
-			e.printStackTrace();
+			throw new CartException("장바구니 중복 확인 중 오류", e);
 		} finally {
 			close(pstmt);
 		}
@@ -107,7 +108,7 @@ public class CartDao {
 				cartList.add(cart);
 			}
 		} catch (SQLException e) {
-			e.printStackTrace();
+			throw new CartException("장바구니 목록 조회 중 오류", e);
 		} finally {
 			close(pstmt);
 			close(rset);
@@ -128,7 +129,7 @@ public class CartDao {
 			
 			result = pstmt.executeUpdate();
 		} catch (SQLException e) {
-			e.printStackTrace();
+			throw new CartException("카트 삭제 중 오류", e);
 		} finally {
 			close(pstmt);
 		}
@@ -147,7 +148,7 @@ public class CartDao {
 			
 			result = pstmt.executeUpdate();
 		} catch (SQLException e) {
-			e.printStackTrace();
+			throw new CartException("찜목록 추가 중 오류", e);
 		} finally {
 			close(pstmt);
 		}
@@ -171,7 +172,7 @@ public class CartDao {
 				result = 1;
 			}
 		} catch (SQLException e) {
-			e.printStackTrace();
+			throw new CartException("찜목록 중복 확인 중 오류", e);
 		} finally {
 			close(pstmt);
 		}
@@ -197,7 +198,7 @@ public class CartDao {
 				list.add(wish);
 			}
 		} catch (SQLException e) {
-			e.printStackTrace();
+			throw new CartException("찜목록 조회 중 오류", e);
 		} finally {
 			close(pstmt);
 		}
@@ -216,7 +217,7 @@ public class CartDao {
 			
 			result = pstmt.executeUpdate();
 		} catch (SQLException e) {
-			e.printStackTrace();
+			throw new CartException("찜목록 삭제 중 오류", e);
 		} finally {
 			close(pstmt);
 		}

@@ -11,6 +11,7 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 import com.google.gson.Gson;
+import com.google.gson.JsonIOException;
 import com.zea.geverytime.market.point.model.service.PointService;
 
 /**
@@ -22,17 +23,23 @@ public class PointGetBalanceServlet extends HttpServlet {
 	private PointService pointService = new PointService();
 	
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		String memberId = request.getParameter("memberId");
-		
-		// 포인트 잔액 받아오기
-		int pointBal = pointService.getPointBalance(memberId);
-		System.out.println("pointbal : "+pointBal);
-		
-		Map<String, Object> map = new HashMap<>();
-		map.put("pointBal", pointBal);
-		
-		response.setContentType("application/json; charset=utf-8");
-		new Gson().toJson(map, response.getWriter());
+		try {
+			String memberId = request.getParameter("memberId");
+			
+			// 포인트 잔액 받아오기
+			int pointBal = pointService.getPointBalance(memberId);
+			System.out.println("pointbal : "+pointBal);
+			
+			Map<String, Object> map = new HashMap<>();
+			map.put("pointBal", pointBal);
+			
+			response.setContentType("application/json; charset=utf-8");
+			new Gson().toJson(map, response.getWriter());
+		} catch (Exception e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+			throw e;
+		}
 	}
 
 }

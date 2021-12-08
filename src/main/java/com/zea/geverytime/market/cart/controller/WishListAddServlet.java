@@ -12,6 +12,7 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 import com.google.gson.Gson;
+import com.google.gson.JsonIOException;
 import com.zea.geverytime.common.model.vo.Attachment;
 import com.zea.geverytime.market.cart.model.service.CartService;
 import com.zea.geverytime.market.usedgoods.model.service.UsedGoodsService;
@@ -27,27 +28,22 @@ public class WishListAddServlet extends HttpServlet {
 	private UsedGoodsService ugService = new UsedGoodsService();
 
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		int boardNo = Integer.parseInt(request.getParameter("boardNo"));
-		String memberId = request.getParameter("memberId");
-		
-//		UsedGoodsBoard board = ugService.getUgGoodsBoard(boardNo);
-//		String orCode = board.getOrCode();
-//		
-//		List<Attachment> attachments = ugService.getUgBoardAttachment(orCode);
-//		
-//		String thumbNail = "";
-//		for(Attachment attachment : attachments) {
-//			thumbNail = attachment.getRenamedFilename();
-//			break;
-//		}
-		
-		int result = cartService.addWishList(boardNo, memberId);
-		
-		Map<String, Object> map = new HashMap<>();
-		map.put("result", result);
-		
-		response.setContentType("application/json; charset=utf-8");
-		new Gson().toJson(map, response.getWriter());
+		try {
+			int boardNo = Integer.parseInt(request.getParameter("boardNo"));
+			String memberId = request.getParameter("memberId");
+			
+			int result = cartService.addWishList(boardNo, memberId);
+			
+			Map<String, Object> map = new HashMap<>();
+			map.put("result", result);
+			
+			response.setContentType("application/json; charset=utf-8");
+			new Gson().toJson(map, response.getWriter());
+		} catch (Exception e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+			throw e;
+		}
 	}
 
 }

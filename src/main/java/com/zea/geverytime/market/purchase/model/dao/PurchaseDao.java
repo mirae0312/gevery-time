@@ -11,6 +11,7 @@ import java.sql.SQLException;
 import java.util.Properties;
 
 import com.zea.geverytime.market.productsale.model.dao.ProductSaleDao;
+import com.zea.geverytime.market.purchase.model.exception.PurchaseException;
 import com.zea.geverytime.market.purchase.model.vo.PurchaseHistory;
 
 public class PurchaseDao {
@@ -41,7 +42,7 @@ public class PurchaseDao {
 			
 			result = pstmt.executeUpdate();
 		} catch (SQLException e) {
-			e.printStackTrace();
+			throw new PurchaseException("결제 내역 추가 중 오류 발생", e);
 		} finally {
 			close(pstmt);
 		}
@@ -65,7 +66,7 @@ public class PurchaseDao {
 				historyNo = rset.getInt(1);
 			}
 		} catch (SQLException e) {
-			e.printStackTrace();
+			throw new PurchaseException("내역 번호 조회 오류", e);
 		}
 		
 		return historyNo;
@@ -84,7 +85,7 @@ public class PurchaseDao {
 			
 			result = pstmt.executeUpdate();
 		} catch (SQLException e) {
-			e.printStackTrace();
+			throw new PurchaseException("결제 내역 추가 오류", e);
 		} finally {
 			close(pstmt);
 		}
