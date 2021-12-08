@@ -183,8 +183,8 @@ $(() => {
 		</thead>
 		<tbody>
 			<tr>
-				<th>번호</th>
-				<th id="testTtitle">제목</th>
+				<th class="needSize">번호</th>
+				<th  class="titleNeedSize" id="testTtitle">제목</th>
 				<th>내용</th>
 				<th>작성자</th>
 				<% if(loginMember != null && loginMember.getMemberId().equals(board.getSellerId())) { %>
@@ -204,7 +204,7 @@ $(() => {
 				<td class="myQ"><%= question.get("content") %></td>
 				<td class="myQ"><%= question.get("writer") %></td>
 			<% } else {%>
-				<td><%= listNum %>번</td>
+				<td ><%= listNum %>번</td>
 				<td><%= question.get("title") %></td>
 				<td><%= question.get("content") %></td>
 				<td><%= question.get("writer") %></td>

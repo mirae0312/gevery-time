@@ -203,7 +203,16 @@ h1{
 
 
 
-
+.needSize{
+	width: 40px;
+	padding-left: 10px;
+	padding-right: 10px;
+}
+.titleNeedSize{
+	width: 120px;
+	padding-left: 10px;
+	padding-right: 10px;	
+}
 
 
 
