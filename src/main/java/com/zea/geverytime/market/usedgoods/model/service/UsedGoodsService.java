@@ -43,7 +43,7 @@ public class UsedGoodsService {
 			commit(conn);
 		} catch(Exception e) {
 			rollback(conn);
-			e.printStackTrace();
+			throw e;
 		} finally {
 			close(conn);
 		}
@@ -86,7 +86,7 @@ public class UsedGoodsService {
 			commit(conn);
 		} catch(Exception e) {
 			rollback(conn);
-			e.printStackTrace();
+			throw e;
 		} finally {
 			close(conn);
 		}
@@ -109,7 +109,7 @@ public class UsedGoodsService {
 			commit(conn);
 		} catch(Exception e) {
 			rollback(conn);
-			e.printStackTrace();
+			throw e;
 		} finally {
 			close(conn);
 		}
@@ -135,7 +135,7 @@ public class UsedGoodsService {
 			commit(conn);
 		} catch(Exception e) {
 			rollback(conn);
-			e.printStackTrace();
+			throw e;
 		} finally {
 			close(conn);
 		}
@@ -160,7 +160,7 @@ public class UsedGoodsService {
 			commit(conn);
 		} catch(Exception e) {
 			rollback(conn);
-			e.printStackTrace();
+			throw e;
 		} finally {
 			close(conn);
 		}
@@ -175,7 +175,7 @@ public class UsedGoodsService {
 			commit(conn);
 		} catch(Exception e) {
 			rollback(conn);
-			e.printStackTrace();
+			throw e;
 		} finally {
 			close(conn);
 		}
@@ -198,7 +198,7 @@ public class UsedGoodsService {
 			commit(conn);
 		} catch(Exception e) {
 			rollback(conn);
-			e.printStackTrace();
+			throw e;
 		} finally {
 			close(conn);
 		}
@@ -215,7 +215,7 @@ public class UsedGoodsService {
 			commit(conn);
 		} catch(Exception e) {
 			rollback(conn);
-			e.printStackTrace();
+			throw e;
 		} finally {
 			close(conn);
 		}

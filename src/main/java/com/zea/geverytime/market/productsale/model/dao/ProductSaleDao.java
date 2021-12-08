@@ -15,6 +15,7 @@ import java.util.Map;
 import java.util.Properties;
 
 import com.zea.geverytime.common.model.vo.Attachment;
+import com.zea.geverytime.market.productsale.model.exception.ProductSaleException;
 import com.zea.geverytime.market.productsale.model.vo.Product;
 import com.zea.geverytime.market.productsale.model.vo.ProductBoard;
 
@@ -45,7 +46,7 @@ public class ProductSaleDao {
 			result = pstmt.executeUpdate();
 			System.out.println("dao@result : "+result);
 		} catch (SQLException e) {
-			e.printStackTrace();
+			throw new ProductSaleException("상품 등록 실패", e);
 		} finally {
 			close(pstmt);
 		}
@@ -66,7 +67,7 @@ public class ProductSaleDao {
 				boardNo = rset.getInt("currval");
 			}
 		} catch (SQLException e) {
-			e.printStackTrace();
+			throw new ProductSaleException("게시글 정보를 가져오지 못했습니다.", e);
 		} finally {
 			close(pstmt);
 			close(rset);
@@ -98,7 +99,7 @@ public class ProductSaleDao {
 				list.add(pdt);
 			}
 		} catch (SQLException e) {
-			e.printStackTrace();
+			throw new ProductSaleException("판매자의 상품을 가져오지 못했습니다.", e);
 		} finally {
 			close(pstmt);
 			close(rset);
@@ -142,7 +143,7 @@ public class ProductSaleDao {
 				list.add(pb);
 			}
 		} catch (SQLException e) {
-			e.printStackTrace();
+			throw new ProductSaleException("상품 리스트를 가져오지 못했습니다.", e);
 		} finally {
 			close(rset);
 			close(pstmt);
@@ -181,8 +182,7 @@ public class ProductSaleDao {
 				board.setProduct(pdt);
 			}
 		} catch (SQLException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
+			throw new ProductSaleException("게시글을 가져오지 못했습니다.", e);
 		}
 		return board;
 	}
@@ -201,7 +201,7 @@ public class ProductSaleDao {
 			
 			result = pstmt.executeUpdate();
 		} catch (SQLException e) {
-			e.printStackTrace();
+			throw new ProductSaleException("상품을 등록하지 못했습니다.", e);
 		} finally {
 			close(pstmt);
 		}
@@ -223,7 +223,7 @@ public class ProductSaleDao {
 			System.out.println("pdtDao@map : "+ map);
 			result = pstmt.executeUpdate();
 		} catch (SQLException e) {
-			e.printStackTrace();
+			throw new ProductSaleException("문의 등록 중 오류가 발생했습니다.", e);
 		} finally {
 			close(pstmt);
 		}
@@ -244,7 +244,7 @@ public class ProductSaleDao {
 			System.out.println("pdtDao@AnswerMap : "+ map);
 			result = pstmt.executeUpdate();
 		} catch (SQLException e) {
-			e.printStackTrace();
+			throw new ProductSaleException("답변 등록 중 오류가 발생했습니다.", e);
 		} finally {
 			close(pstmt);
 		}
@@ -275,7 +275,7 @@ public class ProductSaleDao {
 				System.out.println("dao@question : "+question);
 			}
 		} catch (SQLException e) {
-			e.printStackTrace();
+			throw new ProductSaleException("해당 글의 문의를 가져오는데 오류가 발생했습니다.", e);
 		} finally {
 			close(pstmt);
 			close(rset);
@@ -296,7 +296,7 @@ public class ProductSaleDao {
 			result = pstmt.executeUpdate();
 			
 		} catch (SQLException e) {
-			e.printStackTrace();
+			throw new ProductSaleException("삭제 중 오류가 발생했습니다.", e);
 		} finally {
 			close(pstmt);
 		}
@@ -335,7 +335,7 @@ public class ProductSaleDao {
 				list.add(pb);
 			}
 		} catch (SQLException e) {
-			e.printStackTrace();
+			throw new ProductSaleException("조회 중 오류 발생", e);
 		}
 		return list;
 	}
@@ -361,7 +361,7 @@ public class ProductSaleDao {
 			result = pstmt.executeUpdate();
 			System.out.println("pdtDao@optionChange : "+result);
 		} catch (SQLException e) {
-			e.printStackTrace();
+			throw new ProductSaleException("옵션 변경 중 오류 발생", e);
 		} finally {
 			close(pstmt);
 		}
@@ -386,7 +386,7 @@ public class ProductSaleDao {
 				System.out.println("pdtDao@count: "+ count);
 			}
 		} catch (SQLException e) {
-			e.printStackTrace();
+			throw new ProductSaleException("게시글 개수 조회 오류", e);
 		} finally {
 			close(pstmt);
 			close(rset);
@@ -412,7 +412,7 @@ public class ProductSaleDao {
 			result = pstmt.executeUpdate();
 			System.out.println("pdtDao@attachmentEnrollREsult : "+result);
 		} catch (SQLException e) {
-			e.printStackTrace();
+			throw new ProductSaleException("첨부파일 등록 중 오류 발생", e);
 		} finally {
 			close(pstmt);
 		}
@@ -437,7 +437,7 @@ public class ProductSaleDao {
 			}
 			System.out.println("pdtDao@orCode : "+orCode);
 		} catch (SQLException e) {
-			e.printStackTrace();
+			throw new ProductSaleException("고유 코드 조회 오류", e);
 		} finally {
 			close(pstmt);
 		}
@@ -461,7 +461,7 @@ public class ProductSaleDao {
 				attachments.add(attach);
 			}
 		} catch (SQLException e) {
-			e.printStackTrace();
+			throw new ProductSaleException("첨부파일 조회 오류", e);
 		}
 		
 		return attachments;
@@ -481,7 +481,7 @@ public class ProductSaleDao {
 			result = pstmt.executeUpdate();
 			System.out.println("updateResult(DAO) : "+result);
 		} catch (SQLException e) {
-			e.printStackTrace();
+			throw new ProductSaleException("게시물 업데이트 중 오류 발생", e);
 		} finally {
 			close(pstmt);
 		}
@@ -501,7 +501,7 @@ public class ProductSaleDao {
 			result = pstmt.executeUpdate();
 			System.out.println("deleteAttachment : "+result);
 		} catch (SQLException e) {
-			e.printStackTrace();
+			throw new ProductSaleException("게시물 첨부파일 삭제 중 오류 발생", e);
 		} finally {
 			close(pstmt);
 		}
@@ -520,7 +520,7 @@ public class ProductSaleDao {
 			result = pstmt.executeUpdate();
 			System.out.println("deleteBoard : "+result);
 		} catch (SQLException e) {
-			e.printStackTrace();
+			throw new ProductSaleException("게시물 삭제 중 오류 발생", e);
 		} finally {
 			close(pstmt);
 		}
@@ -544,7 +544,7 @@ public class ProductSaleDao {
 				pdt.setPdtPrice(rset.getInt("price"));
 			}
 		} catch (SQLException e) {
-			e.printStackTrace();
+			throw new ProductSaleException("상품 조회 오류 발생", e);
 		}
 		return pdt;
 	}

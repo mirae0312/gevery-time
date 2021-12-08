@@ -19,14 +19,19 @@ public class ProductSaleBoardQaDeleteServlet extends HttpServlet {
 	private ProductSaleService pdtService = new ProductSaleService();
 
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		int commentNo = Integer.parseInt(request.getParameter("delCommentNo"));
-		int boardNo = Integer.parseInt(request.getParameter("delCommentBoardNo"));
-		System.out.println("delComment : "+commentNo);
-		
-		int result = pdtService.productSaleBoardQaDelete(commentNo);
-		System.out.println("QA delete result : "+result);
-		
-		response.sendRedirect(request.getContextPath()+"/product/boardView?no="+boardNo);
+		try {
+			int commentNo = Integer.parseInt(request.getParameter("delCommentNo"));
+			int boardNo = Integer.parseInt(request.getParameter("delCommentBoardNo"));
+			System.out.println("delComment : "+commentNo);
+			
+			int result = pdtService.productSaleBoardQaDelete(commentNo);
+			System.out.println("QA delete result : "+result);
+			
+			response.sendRedirect(request.getContextPath()+"/product/boardView?no="+boardNo);
+		} catch (Exception e) {
+			e.printStackTrace();
+			throw e;
+		}
 	}
 
 }
