@@ -23,25 +23,31 @@ public class PointAddSellerServlet extends HttpServlet {
 	private PointService pointService = new PointService();
 	
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		int countNum = Integer.parseInt(request.getParameter("countNum"));
-		for(int i = 1; i < countNum; i++) {
-			int pdtNo = Integer.parseInt(request.getParameter("pdtNo"+i));
-			int pdtCount = Integer.parseInt(request.getParameter("pdtCount"+i));
-			
-			Product pdt = pdtService.getProduct(pdtNo);
-					
-			String sellerId = pdt.getSellerId();
-			int price = pdt.getPdtPrice();
-			
-			int withdrawVal = (int)Math.round((price*pdtCount)/100*97/10) * 10;
-			
-			PointHistory ht = new PointHistory();
-			ht.setDiv("I");
-			ht.setDeposit(withdrawVal);
-			ht.setHistory("판매자 상품 판매 : "+pdtNo);
-			ht.setPurchaseUid(null);
-			
-			int result = pointService.insertPointHistory(ht, sellerId);
+		try {
+			int countNum = Integer.parseInt(request.getParameter("countNum"));
+			for(int i = 1; i < countNum; i++) {
+				int pdtNo = Integer.parseInt(request.getParameter("pdtNo"+i));
+				int pdtCount = Integer.parseInt(request.getParameter("pdtCount"+i));
+				
+				Product pdt = pdtService.getProduct(pdtNo);
+						
+				String sellerId = pdt.getSellerId();
+				int price = pdt.getPdtPrice();
+				
+				int withdrawVal = (int)Math.round((price*pdtCount)/100*97/10) * 10;
+				
+				PointHistory ht = new PointHistory();
+				ht.setDiv("I");
+				ht.setDeposit(withdrawVal);
+				ht.setHistory("판매자 상품 판매 : "+pdtNo);
+				ht.setPurchaseUid(null);
+				
+				int result = pointService.insertPointHistory(ht, sellerId);
+			}
+		} catch (Exception e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+			throw e;
 		}
 	}
 

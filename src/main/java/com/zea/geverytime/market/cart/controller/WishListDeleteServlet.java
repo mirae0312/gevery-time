@@ -19,20 +19,26 @@ public class WishListDeleteServlet extends HttpServlet {
 	private CartService cartService = new CartService();
 	
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		String memberId = request.getParameter("memberId");
-		int boardNo = Integer.parseInt(request.getParameter("boardNo"));
-		
-		int result = cartService.deleteWishList(memberId, boardNo);
-		
-		String msg = "";
-		if(result > 0) {
-			msg = "찜목록에서 삭제되었습니다.";
-		} else {
-			msg = "삭제되지 않았습니다.";
+		try {
+			String memberId = request.getParameter("memberId");
+			int boardNo = Integer.parseInt(request.getParameter("boardNo"));
+			
+			int result = cartService.deleteWishList(memberId, boardNo);
+			
+			String msg = "";
+			if(result > 0) {
+				msg = "찜목록에서 삭제되었습니다.";
+			} else {
+				msg = "삭제되지 않았습니다.";
+			}
+			
+			request.getSession().setAttribute("msg", msg);
+			response.sendRedirect(request.getContextPath()+"/wishList/main?memberId="+memberId);
+		} catch (Exception e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+			throw e;
 		}
-		
-		request.getSession().setAttribute("msg", msg);
-		response.sendRedirect(request.getContextPath()+"/wishList/main?memberId="+memberId);
 	}
 
 }

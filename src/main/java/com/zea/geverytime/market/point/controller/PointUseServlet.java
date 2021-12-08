@@ -11,6 +11,7 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 import com.google.gson.Gson;
+import com.google.gson.JsonIOException;
 import com.zea.geverytime.market.point.model.service.PointService;
 
 /**
@@ -23,21 +24,27 @@ public class PointUseServlet extends HttpServlet {
 	
 	
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		String memberId = request.getParameter("memberId");
-		int usePoint = Integer.parseInt(request.getParameter("point"));
-		
-		int result = pointService.withdrawPoint(memberId, usePoint);
-		System.out.println("usePointResult : "+result);
-		
-		int pointNo = pointService.getPointNo(memberId);
-		System.out.println("pointUse : "+pointNo);
-		
-		Map<String, Object> map = new HashMap<>();
-		map.put("pointNo", pointNo);
-		map.put("usePoint", usePoint);
-		
-		response.setContentType("application/json; charset=utf-8");
-		new Gson().toJson(map, response.getWriter());
+		try {
+			String memberId = request.getParameter("memberId");
+			int usePoint = Integer.parseInt(request.getParameter("point"));
+			
+			int result = pointService.withdrawPoint(memberId, usePoint);
+			System.out.println("usePointResult : "+result);
+			
+			int pointNo = pointService.getPointNo(memberId);
+			System.out.println("pointUse : "+pointNo);
+			
+			Map<String, Object> map = new HashMap<>();
+			map.put("pointNo", pointNo);
+			map.put("usePoint", usePoint);
+			
+			response.setContentType("application/json; charset=utf-8");
+			new Gson().toJson(map, response.getWriter());
+		} catch (Exception e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+			throw e;
+		}
 	}
 
 }

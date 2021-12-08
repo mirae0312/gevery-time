@@ -15,17 +15,23 @@ public class PurchaseCompleteServlet extends HttpServlet {
 	private static final long serialVersionUID = 1L;
 
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		String uid = request.getParameter("uid");
-		String muid = request.getParameter("muid");
-		String amount = request.getParameter("amount");
-		
-		System.out.println("결제완료페이지 : "+uid+", "+muid+", "+amount);
-		
-		request.setAttribute("uid", uid);
-		request.setAttribute("muid", muid);
-		request.setAttribute("amount", amount);
-		
-		request.getRequestDispatcher("/WEB-INF/views/market/purchase/purchaseComplete.jsp").forward(request, response);
+		try {
+			String uid = request.getParameter("uid");
+			String muid = request.getParameter("muid");
+			String amount = request.getParameter("amount");
+			
+			System.out.println("결제완료페이지 : "+uid+", "+muid+", "+amount);
+			
+			request.setAttribute("uid", uid);
+			request.setAttribute("muid", muid);
+			request.setAttribute("amount", amount);
+			
+			request.getRequestDispatcher("/WEB-INF/views/market/purchase/purchaseComplete.jsp").forward(request, response);
+		} catch (Exception e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+			throw e;
+		}
 	}
 
 }

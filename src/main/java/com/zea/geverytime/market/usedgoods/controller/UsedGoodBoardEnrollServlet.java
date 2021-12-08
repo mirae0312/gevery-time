@@ -29,52 +29,58 @@ public class UsedGoodBoardEnrollServlet extends HttpServlet {
 	private UsedGoodsService ugService = new UsedGoodsService();
 
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		// 첨부파일 관리
-		String saveDirectory = getServletContext().getRealPath("/upload/market/UgSale");
-		int maxPostSize = 1024*1024*10;
-		
-		FileRenamePolicy policy = new MvcFileRenamePolicy();
-		
-		MultipartRequest multipartRequest = new MultipartRequest(request, saveDirectory, maxPostSize, "utf-8", policy);
-		
-		// 요청 파라미터
-		String title = multipartRequest.getParameter("title");
-		String writer = multipartRequest.getParameter("writer");
-		int price = Integer.parseInt(multipartRequest.getParameter("price"));
-		String content = multipartRequest.getParameter("summernote");
-		
-		// attachment DB 등록
-		Enumeration fileNames = multipartRequest.getFileNames();
-		List<Attachment> attachments = new ArrayList<>();
-		while(fileNames.hasMoreElements()) {
-			String fileName = (String) fileNames.nextElement();
+		try {
+			// 첨부파일 관리
+			String saveDirectory = getServletContext().getRealPath("/upload/market/UgSale");
+			int maxPostSize = 1024*1024*10;
 			
-			File upFile = multipartRequest.getFile(fileName);
-			if(upFile != null) {
-				Attachment attach = MvcUtils.makeAttachment(multipartRequest, fileName);
-				attachments.add(attach);
+			FileRenamePolicy policy = new MvcFileRenamePolicy();
+			
+			MultipartRequest multipartRequest = new MultipartRequest(request, saveDirectory, maxPostSize, "utf-8", policy);
+			
+			// 요청 파라미터
+			String title = multipartRequest.getParameter("title");
+			String writer = multipartRequest.getParameter("writer");
+			int price = Integer.parseInt(multipartRequest.getParameter("price"));
+			String content = multipartRequest.getParameter("summernote");
+			
+			// attachment DB 등록
+			Enumeration fileNames = multipartRequest.getFileNames();
+			List<Attachment> attachments = new ArrayList<>();
+			while(fileNames.hasMoreElements()) {
+				String fileName = (String) fileNames.nextElement();
+				
+				File upFile = multipartRequest.getFile(fileName);
+				if(upFile != null) {
+					Attachment attach = MvcUtils.makeAttachment(multipartRequest, fileName);
+					attachments.add(attach);
+				}
 			}
+			
+			UsedGoodsBoard ugBoard = new UsedGoodsBoard(0, title, content, null, null, writer, price);
+			ugBoard.setAttachments(attachments);
+			
+			// 게시물 DB 등록
+			int result = ugService.insertUgBoard(ugBoard, attachments);
+			
+			// 게시물 상태 등록
+			int boardNo = ugBoard.getNo();
+			int stateResult = ugService.insertUgBoardState(boardNo);
+			
+			String msg = "";
+			if(result == 1 && stateResult == 1) {
+				msg = "판매글이 등록되었습니다.";
+			} else if(result != 1 || stateResult != 1){
+				msg = "판매글이 정상적으로 등록되지 않았습니다.";
+			}
+			
+			request.getSession().setAttribute("msg", msg);
+			response.sendRedirect(request.getContextPath()+"/ugGoods/boardView?boardNo="+boardNo);
+		} catch (Exception e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+			throw e;
 		}
-		
-		UsedGoodsBoard ugBoard = new UsedGoodsBoard(0, title, content, null, null, writer, price);
-		ugBoard.setAttachments(attachments);
-		
-		// 게시물 DB 등록
-		int result = ugService.insertUgBoard(ugBoard, attachments);
-		
-		// 게시물 상태 등록
-		int boardNo = ugBoard.getNo();
-		int stateResult = ugService.insertUgBoardState(boardNo);
-		
-		String msg = "";
-		if(result == 1 && stateResult == 1) {
-			msg = "판매글이 등록되었습니다.";
-		} else if(result != 1 || stateResult != 1){
-			msg = "판매글이 정상적으로 등록되지 않았습니다.";
-		}
-		
-		request.getSession().setAttribute("msg", msg);
-		response.sendRedirect(request.getContextPath()+"/ugGoods/boardView?boardNo="+boardNo);
 	}
 
 }
