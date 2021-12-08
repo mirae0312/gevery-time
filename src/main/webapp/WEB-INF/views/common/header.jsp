@@ -15,7 +15,7 @@
 <html>
 <head>
 <meta charset="UTF-8">
-<title>index</title>
+<title>개브리타임</title>
 <link rel="stylesheet" type="text/css" href="//cdn.jsdelivr.net/npm/slick-carousel@1.8.1/slick/slick.css"/>
 <link rel="stylesheet" href="<%=request.getContextPath() %>/css/style.css" />
 <link rel="stylesheet" href="<%=request.getContextPath() %>/css/board.css" />
