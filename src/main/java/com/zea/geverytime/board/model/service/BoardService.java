@@ -269,5 +269,22 @@ public class BoardService {
 		return count;
 	}
 
+	public int deleteComment(int no) {
+		Connection conn = null;
+		int result = 0;
+		try {
+			conn = getConnection();
+			result = boardDao.deleteComment(conn, no);
+			commit(conn);
+		}catch(Exception e) {
+			rollback(conn);
+			throw e;
+		}finally {
+			close(conn);
+		}
+		
+		return result;
+	}
+
 
 }

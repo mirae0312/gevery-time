@@ -676,6 +676,25 @@ public class BoardDao {
 		
 		return check;
 	}
+
+	public int deleteComment(Connection conn, int no) {
+		int result = 0;
+		String sql = prop.getProperty("deleteComment");
+		PreparedStatement pstmt = null;
+		try {
+			pstmt = conn.prepareStatement(sql);
+			pstmt.setInt(1, no);
+			result = pstmt.executeUpdate();
+		} catch (SQLException e) {
+			e.printStackTrace();
+		} catch(Exception e) {
+			e.printStackTrace();
+			throw new BoardException("댓글 삭제 오류");
+		} finally {
+			close(pstmt);
+		}
+		return result;
+	}
 	
 
 }
