@@ -1,7 +1,7 @@
 @charset "UTF-8";
  
 #contents{
-    height: 235px;
+    height: 265px;
 }
 .content{
 	height: 1600px;
@@ -78,7 +78,7 @@ a {
 	height:220px;
 }
 .board_list {
-    width: 90%;
+    width: 95%;
     border-top: 2px solid rgba(128, 128, 128, 0.616);
     border-bottom : 2px solid rgba(128, 128, 128, 0.616);
     margin: auto;

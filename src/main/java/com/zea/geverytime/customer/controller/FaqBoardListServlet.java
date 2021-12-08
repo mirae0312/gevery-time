@@ -29,7 +29,7 @@ public class FaqBoardListServlet extends HttpServlet {
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		try {
 			 request.setCharacterEncoding("utf-8");
-			 final int numPerPage = 8;
+			 final int numPerPage = 9;
 				int cPage = 1;
 				try {
 					cPage = Integer.parseInt(request.getParameter("cPage"));
