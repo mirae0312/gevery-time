@@ -15,11 +15,11 @@
 	<input type="hidden" name="orCode" value="<%=board.getOrCode()%>"/>
 	<table id="tbl-board-view">
 	<tr>
-		<th>제 목</th>
+		<th class="write">제 목</th>
 		<td><input type="text" name="title" value="<%=board.getTitle() %>"></td>
 	</tr>
 	<tr>
-		<th>작성자</th>
+		<th class="write">작성자</th>
 		<td>
 			<input type="text" name="writer" value="<%=board.getWriter() %>" readonly/>
 		</td>
@@ -27,7 +27,7 @@
 	<!-- 첨부파일이 있는 경우에만 -->
 	<%if (board.getAttachCount()>0) { %>
 	<tr>
-		<th>기존 첨부파일</th>
+		<th class="write">기존 첨부파일</th>
 		<td>
 <%
 		for(Attachment attach : board.getAttachments()){
@@ -50,7 +50,7 @@
 	</tr>
 	<%} %>
 	<tr>
-		<th>첨부파일</th>
+		<th class="write">첨부파일</th>
 		<td>			
 			<input type="file" name="upFile1">
 			<br>
@@ -58,7 +58,7 @@
 		</td>
 	</tr>
 	<tr>
-		<th>내 용</th>
+		<th class="write">내 용</th>
 		<td><textarea id="summernote" rows="5" cols="40" name="content"><%=board.getContent() %></textarea></td>
 	</tr>
 	<tr>

@@ -116,7 +116,7 @@ const selectContent = (cPage) => {
 			//boardList부분
 			$(data.list).each((i,e)=>{
 				const d = new Date(e.regDate);
-				const date = `\${d.getFullYear()}-\${f(d.getMonth())}-\${f(d.getDate())}`
+				const date = `\${d.getFullYear()}-\${f(d.getMonth()+1)}-\${f(d.getDate())}`
 				console.log($(e.no));
 				let img = "";
 				let commentCount = "";

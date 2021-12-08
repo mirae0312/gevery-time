@@ -24,17 +24,17 @@
 		</td>
 	</tr>
 	<tr>
-		<th>제 목</th>
+		<th class="write">제 목</th>
 		<td><input type="text" name="title"></td>
 	</tr>
 	<tr>
-		<th>작성자</th>
+		<th class="write">작성자</th>
 		<td>
 			<input type="text" name="writer" value="<%=loginMember.getMemberId() %>" readonly/>
 		</td>
 	</tr>
 	<tr>
-		<th>첨부파일</th>
+		<th class="write">첨부파일</th>
 		<td>			
 			<input type="file" name="file1">
 			<br>
@@ -42,7 +42,7 @@
 		</td>
 	</tr>
 	<tr>
-		<th>내 용</th>
+		<th class="write">내 용</th>
 		<td><textarea id="summernote" rows="5" cols="40" name="content"></textarea></td>
 	</tr>
 	<tr>

@@ -165,7 +165,7 @@ create or replace trigger trig_point_out
     when (new.div='O')
 begin
     if inserting then
-         update point set balance = balance + :new.deposit where member_id = :new.member_id;
+         update point set balance = balance - :new.withdraw where member_id = :new.member_id;
     end if;
 end;
 /
@@ -206,3 +206,11 @@ create table pointhistory(
  constraint ck_pointhistory_div check (div in ('I', 'O')),
  constraint pk_pointhistory_user foreign key(member_id)  references member(member_id) on delete set null
 );
+select * from pointhistory;
+select * from point;
+commit;
+
+select * from member;
+select * from comment_like;
+
+select * from board_comment;
