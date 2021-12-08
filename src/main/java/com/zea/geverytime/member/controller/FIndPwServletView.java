@@ -52,8 +52,8 @@ public class FIndPwServletView extends HttpServlet {
 		        response.sendRedirect(location);
         		//mail server 설정
                 String host = "smtp.naver.com";
-                String user = "wonyoung2309"; //자신의 네이버 계정
-                String password = "champion34#$";//자신의 네이버 패스워드
+                String user = ""; //자신의 네이버 계정
+                String password = "";//자신의 네이버 패스워드
                 int port = 465;
                 //메일 받을 주소
                 String to_email = m.getEmail();
