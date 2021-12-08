@@ -52,8 +52,8 @@ public class FIndPwServletView extends HttpServlet {
 		        response.sendRedirect(location);
         		//mail server 설정
                 String host = "smtp.naver.com";
-                String user = "zero2317"; //자신의 네이버 계정
-                String password = "rpqmflxkdla";//자신의 네이버 패스워드
+                String user = ""; //자신의 네이버 계정
+                String password = "";//자신의 네이버 패스워드
                 int port = 465;
                 //메일 받을 주소
                 String to_email = m.getEmail();
@@ -110,7 +110,7 @@ public class FIndPwServletView extends HttpServlet {
                 //email 전송
                 try {
                     MimeMessage msg = new MimeMessage(session);
-                    msg.setFrom(new InternetAddress("zero2317@naver.com"));
+                    msg.setFrom(new InternetAddress("wonyoung2309@naver.com"));
                     msg.setRecipient(Message.RecipientType.TO, new InternetAddress(to_email));
                     
                     //메일 제목
@@ -129,7 +129,7 @@ public class FIndPwServletView extends HttpServlet {
                 saveKey.setAttribute("AuthenticationKey", AuthenticationKey);
               
                 request.setAttribute("id", memberId);
-                RequestDispatcher rd =  request.getRequestDispatcher("/WEB-INF/views/common/redirect.jsp");
+                RequestDispatcher rd =  request.getRequestDispatcher("/WEB-INF/views/member/redirect.jsp");
                 rd.include(request, response);
                 }
 				    
