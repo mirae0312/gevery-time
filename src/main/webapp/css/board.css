@@ -1,5 +1,10 @@
 @charset "UTF-8";
 
+/*게시물 작성 부분*/
+.write {
+	white-space:nowrap;
+}
+
 /*게시물부분*/
 #tbl-board-view {
 	width:100%;
