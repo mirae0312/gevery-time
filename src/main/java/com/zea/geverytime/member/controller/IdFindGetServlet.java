@@ -41,7 +41,7 @@ public class IdFindGetServlet extends HttpServlet {
 			rd.forward(request, response);
 			}else {
 			request.setAttribute("msg", "정확한 정보를 입력해 주세요!");
-			RequestDispatcher rd = request.getRequestDispatcher("/WEB-INF/views/common/checkidmsg.jsp");
+			RequestDispatcher rd = request.getRequestDispatcher("/WEB-INF/views/member/checkidmsg.jsp");
 			rd.forward(request, response);	
 		}
 		
