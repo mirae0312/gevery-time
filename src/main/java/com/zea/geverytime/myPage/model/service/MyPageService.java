@@ -111,14 +111,14 @@ public class MyPageService {
 		}
 
 
-		public List<Purchase> getPurchase(String memberId) {
+		public List<Purchase> getPurchase(Map<String, Object> param) {
 			Connection conn = null;
 			List<Purchase> list = null;
 			try {
 				conn = getConnection();
-				list = myPageDao.getPurchase(conn, memberId);
+				list = myPageDao.getPurchase(conn, param);
 			} catch (Exception e) {
-				e.printStackTrace();
+				throw e;
 			} finally {
 				close(conn);			
 			}
@@ -145,6 +145,20 @@ public class MyPageService {
 			try {
 				conn = getConnection();
 				totalCount = myPageDao.myPageinfoListCount(conn, param);
+			} catch (Exception e) {
+				e.printStackTrace();
+			} finally {
+				close(conn);	
+			}
+			return totalCount;
+		}
+
+		public int getPurchaseCount(Map<String, Object> param) {
+			Connection conn = null;
+			int totalCount = 0;
+			try {
+				conn = getConnection();
+				totalCount = myPageDao.getPurchaseCount(conn, param);
 			} catch (Exception e) {
 				e.printStackTrace();
 			} finally {

@@ -22,13 +22,13 @@ public class MyPagePurchaseServlet extends HttpServlet {
 
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		
-		String memberId = request.getParameter("memberId");
-		System.out.println("[MyPagePurchase@Servlet] memberId = " + memberId);
-		
-		List<Purchase> list = myPageService.getPurchase(memberId);
-		System.out.println("[MyPagePurchase@Servlet] list = " + list);
-		
-		request.setAttribute("list", list);
+//		String memberId = request.getParameter("memberId");
+//		System.out.println("[MyPagePurchase@Servlet] memberId = " + memberId);
+//		
+//		List<Purchase> list = myPageService.getPurchase(memberId);
+//		System.out.println("[MyPagePurchase@Servlet] list = " + list);
+//		
+//		request.setAttribute("list", list);
 		request
 			.getRequestDispatcher("/WEB-INF/views/myPage/myPageSalesList.jsp")
 			.forward(request, response);
