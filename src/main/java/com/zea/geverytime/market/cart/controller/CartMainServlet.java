@@ -24,21 +24,27 @@ public class CartMainServlet extends HttpServlet {
 	private ProductSaleService pdtService = new ProductSaleService();
 	
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		String memberId = request.getParameter("memberId");
-		System.out.println(memberId);
-		
-		List<Cart> cartlist = cartService.getCartList(memberId);
-		
-		for(Cart cart : cartlist) {
-			String orCode = cart.getPdtBoard().getOrCode();
-			List<Attachment> list = pdtService.getproductSaleBoardAttachment(orCode);
-			cart.getPdtBoard().setAttachments(list);
+		try {
+			String memberId = request.getParameter("memberId");
+			System.out.println(memberId);
+			
+			List<Cart> cartlist = cartService.getCartList(memberId);
+			
+			for(Cart cart : cartlist) {
+				String orCode = cart.getPdtBoard().getOrCode();
+				List<Attachment> list = pdtService.getproductSaleBoardAttachment(orCode);
+				cart.getPdtBoard().setAttachments(list);
+			}
+			
+			System.out.println("cartList : "+cartlist);
+			
+			request.setAttribute("cartlist", cartlist);
+			request.getRequestDispatcher("/WEB-INF/views/market/cart/cartMain.jsp").forward(request, response);
+		} catch (Exception e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+			throw e;
 		}
-		
-		System.out.println("cartList : "+cartlist);
-		
-		request.setAttribute("cartlist", cartlist);
-		request.getRequestDispatcher("/WEB-INF/views/market/cart/cartMain.jsp").forward(request, response);
 	}
 
 }

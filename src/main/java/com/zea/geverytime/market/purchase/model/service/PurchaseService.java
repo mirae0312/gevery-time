@@ -19,7 +19,7 @@ public class PurchaseService {
 			result = purchaseDao.insertPurchaseHistory(conn, ph);
 		} catch(Exception e) {
 			rollback(conn);
-			e.printStackTrace();
+			throw e;
 		} finally {
 			close(conn);
 		}
@@ -41,7 +41,7 @@ public class PurchaseService {
 			commit(conn);
 		} catch(Exception e) {
 			rollback(conn);
-			e.printStackTrace();
+			throw e;
 		} finally {
 			close(conn);
 		}

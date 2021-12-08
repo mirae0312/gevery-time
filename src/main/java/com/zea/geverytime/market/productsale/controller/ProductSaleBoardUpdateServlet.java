@@ -30,6 +30,7 @@ public class ProductSaleBoardUpdateServlet extends HttpServlet {
 
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		// 첨부파일 
+			try {
 				String saveDirectory = getServletContext().getRealPath("/upload/market/productSale");
 				System.out.println("saveDirectory : "+saveDirectory);
 
@@ -79,6 +80,11 @@ public class ProductSaleBoardUpdateServlet extends HttpServlet {
 				request.getSession().setAttribute("msg", msg);
 				
 				response.sendRedirect(request.getContextPath()+"/product/boardView?no="+boardNo);
+			} catch (Exception e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+				throw e;
+			}
 	}
 
 }

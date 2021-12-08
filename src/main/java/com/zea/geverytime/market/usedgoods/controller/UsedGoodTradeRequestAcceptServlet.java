@@ -20,21 +20,27 @@ public class UsedGoodTradeRequestAcceptServlet extends HttpServlet {
 
 	protected void doPost(HttpServletRequest request, HttpServletResponse response)
 			throws ServletException, IOException {
-		String userId = request.getParameter("userId");
-		int boardNo = Integer.parseInt(request.getParameter("thisBoardNo"));
-		System.out.println("유저아이디 : "+userId);
+		try {
+			String userId = request.getParameter("userId");
+			int boardNo = Integer.parseInt(request.getParameter("thisBoardNo"));
+			System.out.println("유저아이디 : "+userId);
 
-		// 요청 수락 시 request state 변경
-		int result = ugService.tradeRequestAccept(userId, boardNo);
-		  
-		// 게시물 상태 변경
-		String state = "거래중";
-		int stateResult = ugService.changeUgBoardState(boardNo, state);
-		
-		 System.out.println("result : "+result);
-		  
-		 request.getSession().setAttribute("msg", "요청이 수락되었습니다.");
-		 response.sendRedirect(request.getContextPath()+"/ugGoods/boardView?boardNo="+boardNo);
-		 }
+			// 요청 수락 시 request state 변경
+			int result = ugService.tradeRequestAccept(userId, boardNo);
+			  
+			// 게시물 상태 변경
+			String state = "거래중";
+			int stateResult = ugService.changeUgBoardState(boardNo, state);
+			
+			 System.out.println("result : "+result);
+			  
+			 request.getSession().setAttribute("msg", "요청이 수락되었습니다.");
+			 response.sendRedirect(request.getContextPath()+"/ugGoods/boardView?boardNo="+boardNo);
+		} catch (Exception e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+			throw e;
+		}
+	 }
 
 }

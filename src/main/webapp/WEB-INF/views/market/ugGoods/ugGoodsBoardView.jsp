@@ -25,8 +25,8 @@
 	<input type="button" id="reportBtn" value="신고하기" onclick="window.open('<%= request.getContextPath() %>/common/report?code=<%= board.getOrCode() %>', 'popup', 'width=500, height=600, left=100')"/>
 <% } %>
 	<h1>물품 상세보기</h1>
-	<!-- 작성자에게만 수정/삭제 버튼이 노출되도록 함 -->
-	<% if(loginMember != null && loginMember.getMemberId().equals(board.getWriter())) { %>
+	<!-- 작성자에게만 판매중 상태에서 수정/삭제 버튼이 노출되도록 함 -->
+	<% if(loginMember != null && loginMember.getMemberId().equals(board.getWriter()) && (state.equals("판매중"))) { %>
 	<input type="button" value="수정하기" id="boardUpdate"/>
 	<input type="button" value="삭제하기" id="boardDelete"/>
 	<form action="<%= request.getContextPath() %>/ugGoods/deleteBoard" name="boardDeleteFrm" method="POST">

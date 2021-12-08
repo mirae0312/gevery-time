@@ -21,7 +21,15 @@
 	              placeholder: '예쁜말만 써요',    //placeholder 설정
 	              disableResizeEditor: true,
 	              height: 310,
-	              width: 700
+	              width: 700,
+	              toolbar: [
+	                  ['style', ['bold', 'italic', 'underline', 'clear']],
+	                  ['font', ['strikethrough', 'superscript', 'subscript']],
+	                  ['fontsize', ['fontsize']],
+	                  ['color', ['color']],
+	                  ['para', ['ul', 'ol', 'paragraph']],
+	                  ['height', ['height']],
+	              ]
 	        });
 	    });
 	 </script>

@@ -43,7 +43,7 @@ public class ProductSaleService {
 			commit(conn);
 		} catch(Exception e) {
 			rollback(conn);
-			e.printStackTrace();
+			throw e;
 		} finally {
 			close(conn);
 		}
@@ -68,7 +68,7 @@ public class ProductSaleService {
 			
 		} catch(Exception e) {
 			rollback(conn);
-			e.printStackTrace();
+			throw e;
 		} finally {
 			close(conn);
 		}
@@ -126,7 +126,7 @@ public class ProductSaleService {
 			commit(conn);
 		} catch(Exception e) {
 			rollback(conn);
-			e.printStackTrace();
+			throw e;
 		} finally {
 			close(conn);
 		}
@@ -142,7 +142,7 @@ public class ProductSaleService {
 			commit(conn);
 		} catch(Exception e) {
 			rollback(conn);
-			e.printStackTrace();
+			throw e;
 		} finally {
 			close(conn);
 		}
@@ -158,7 +158,7 @@ public class ProductSaleService {
 			commit(conn);
 		} catch(Exception e) {
 			rollback(conn);
-			e.printStackTrace(); 
+			throw e;
 		} finally {
 			close(conn);
 		}
@@ -181,7 +181,7 @@ public class ProductSaleService {
 			commit(conn);
 		} catch(Exception e) {
 			rollback(conn);
-			e.printStackTrace();
+			throw e;
 		} finally {
 			close(conn);
 		}
@@ -204,7 +204,7 @@ public class ProductSaleService {
 			commit(conn);
 		} catch(Exception e) {
 			rollback(conn);
-			e.printStackTrace();
+			throw e;
 		} finally {
 			close(conn);
 		}
@@ -228,7 +228,7 @@ public class ProductSaleService {
 			commit(conn);
 		} catch(Exception e) {
 			rollback(conn);
-			e.printStackTrace();
+			throw e;
 		} finally {
 			close(conn);
 		}
@@ -243,7 +243,7 @@ public class ProductSaleService {
 			 commit(conn);
 		} catch(Exception e) {
 			rollback(conn);
-			e.printStackTrace();
+			throw e;
 		} finally {
 			close(conn);			
 		}
@@ -259,7 +259,7 @@ public class ProductSaleService {
 			commit(conn);
 		} catch(Exception e) {
 			rollback(conn);
-			e.printStackTrace();
+			throw e;
 		} finally {
 			close(conn);			
 		}
