@@ -1470,7 +1470,7 @@ public class InfoDao {
 		
 		try {
 			pstmt = conn.prepareStatement(sql);
-			
+			System.out.println("aaaaa: " + attach);
 			pstmt.setString(1, attach.getOriginalFilename());
 			pstmt.setString(2, attach.getRenamedFilename());
 			pstmt.setString(3, attach.getCode());

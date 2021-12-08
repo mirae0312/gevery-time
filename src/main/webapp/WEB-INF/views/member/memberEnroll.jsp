@@ -46,7 +46,6 @@ input[type="number"]::-webkit-inner-spin-button
 </style>
 <title>회원가입</title>
 
-
 </head>
 <body>
 <section id =enroll-container>
@@ -76,7 +75,7 @@ input[type="number"]::-webkit-inner-spin-button
 
         <td>비밀번호:</td>
 
-        <td><input type="password" name="password" id="password" required> </td>
+        <td><input type="password" name="password" id="password" required  placeholder="4자리이상"> </td>
 
       </tr>
 
@@ -92,7 +91,7 @@ input[type="number"]::-webkit-inner-spin-button
 
         <td>이 름:</td>
 
-        <td><input type="text" id="name" name="name"> </td>
+        <td><input type="text" id="name" name="name"  placeholder="2자리이상"> </td>
 
       </tr>
 

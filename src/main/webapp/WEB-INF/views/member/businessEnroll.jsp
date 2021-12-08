@@ -86,7 +86,7 @@ function handleOnInput(el, maxlength) {
 
         <td>비밀번호:</td>
 
-        <td><input type="password" name="password" id="password" required> </td>
+        <td><input type="password" name="password" id="password" required placeholder="4자리이상"> </td>
 
       </tr>
 
@@ -102,7 +102,7 @@ function handleOnInput(el, maxlength) {
 
         <td>이 름:</td>
 
-        <td><input type="text" name="name" id="name" required > </td>
+        <td><input type="text" name="name" id="name" required  placeholder="2자리이상"> </td>
 				
       </tr>
   	    <tr>
@@ -125,7 +125,7 @@ function handleOnInput(el, maxlength) {
       <td>사업자번호 : </td>
   		<td><input type="number"  name="businessNo1" id="businessNo1" oninput='handleOnInput(this, 2)'style="width:4em" placeholder="2자리" /> 
   			<input type="number"  name="businessNo2" id="businessNo2" oninput='handleOnInput(this, 3)'style="width:4em" placeholder="3자리"/>   
-  			<input type="number"  name="businessNo3" id="businessNo3" oninput='handleOnInput(this, 4)'style="width:4em" placeholder="4자리"/>   
+  			<input type="number"  name="businessNo3" id="businessNo3" oninput='handleOnInput(this, 4)'style="width:4em" placeholder="5자리"/>   
       		<select name="businessNo4" id="businessNo4" onchange= this.value>
       		<option value="1">1.병원</option>
       		<option value="2">2.카페</option>
