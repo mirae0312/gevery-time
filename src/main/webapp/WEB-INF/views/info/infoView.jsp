@@ -323,8 +323,8 @@ $(".info-review").one("click", function(event){
 	const $btn = $(event.currentTarget).find('div.review-writer').text();
 
 	const box = `<tr>
-	<td><label class="input-file-button" for="mPic1">업로드1</label></td>
-	<td><label class="input-file-button" for="mPic2">업로드2</label></td><br />
+	<td colspan="2"><label class="input-file-button" for="mPic1">업로드1</label>
+	<label class="input-file-button" for="mPic2">업로드2</label></td><br />
 	<td><input type="file" id="mPic1" name="mPic1" accept="image/*"/></td>
 	<td><input type="file" id="mPic2" name="mPic2" accept="image/*"/></td>
 	</tr>
