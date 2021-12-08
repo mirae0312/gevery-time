@@ -71,7 +71,7 @@
 	<tr>
 	  <td>비밀번호</td>
 		<td>
-			<input class="inputBox" type="password" name="password" maxlength="20"/>
+			<input class="inputBox" type="password" name="password" maxlength="20" required/>
 		</td>
 	 </tr>
 	<tr>
