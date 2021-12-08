@@ -1,7 +1,7 @@
 @charset "UTF-8";
 
 input[type="file"]{
-	display: none;
+	display:none;
 }
 .reviewPictures{
 	width: 200px;
