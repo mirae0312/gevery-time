@@ -211,7 +211,7 @@ $(".btn-deleteComment").click((e)=>{
 	}
 });
 //신고
-$(".report").click((e) => {
+$(".report").click((e) => { 
 	const name = "report";
 	const spec = "left=500px, top=500px, width=450px, height=650px";
 	const popup = open(`<%= request.getContextPath() %>/common/report?code=\${$(e.target).val()}`, name, spec);
