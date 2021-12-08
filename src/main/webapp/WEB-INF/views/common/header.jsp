@@ -34,8 +34,8 @@
 		<% if(loginMember != null && loginMember.getMemberType().equals("B")) { %>
 		<option value="/info/Enroll">정보게시판 글쓰기</option>
 		<option value="/product/boardForm">마켓 글쓰기</option>
-		<option value="/ugGoods/boardForm">중고거래 글쓰기</option>
 		<% } %>
+		<option value="/ugGoods/boardForm">중고거래 글쓰기</option>
 	</select>
     <div id="container">
         <section id="header" >

@@ -15,6 +15,7 @@ import java.util.Map;
 import java.util.Properties;
 
 import com.zea.geverytime.common.model.vo.Attachment;
+import com.zea.geverytime.market.usedgoods.model.exception.UsedGoodException;
 import com.zea.geverytime.market.usedgoods.model.vo.UsedGoodsBoard;
 
 public class UsedGoodsDao {
@@ -44,7 +45,7 @@ public class UsedGoodsDao {
 			
 			result = pstmt.executeUpdate();
 		} catch (SQLException e) {
-			e.printStackTrace();
+			throw new UsedGoodException("중고매매 게시글 추가 오류", e);
 		} finally {
 			close(pstmt);
 		}
@@ -63,7 +64,7 @@ public class UsedGoodsDao {
 			pstmt.setString(3, attach.getRenamedFilename());
 			result = pstmt.executeUpdate();
 		} catch (SQLException e) {
-			e.printStackTrace();
+			throw new UsedGoodException("중고매매 게시글 첨부파일 추가", e);
 		} finally {
 			close(pstmt);
 		}
@@ -84,7 +85,7 @@ public class UsedGoodsDao {
 				boardNo = rset.getInt(1);
 			}
 		} catch (SQLException e) {
-			e.printStackTrace();
+			throw new UsedGoodException("중고매매 최근게시글 조회 오류", e);
 		} finally {
 			close(pstmt);
 			close(rset);
@@ -114,7 +115,7 @@ public class UsedGoodsDao {
 				board.setPrice(rset.getInt("price"));
 			}
 		} catch (SQLException e) {
-			e.printStackTrace();
+			throw new UsedGoodException("중고매매 게시글 조회 오류", e);
 		}
 		
 		return board;
@@ -153,7 +154,7 @@ public class UsedGoodsDao {
 				list.add(board);
 			}
 		} catch (SQLException e) {
-			e.printStackTrace();
+			throw new UsedGoodException("중고매매 게시글 리스트 조회 오류", e);
 		} finally {
 			close(pstmt);
 			close(rset);
@@ -184,7 +185,7 @@ public class UsedGoodsDao {
 				list.add(attach);
 			}
 		} catch (SQLException e) {
-			e.printStackTrace();
+			throw new UsedGoodException("중고매매 게시글 첨부파일 조회 오류", e);
 		} finally {
 			close(pstmt);
 			close(rset);
@@ -205,7 +206,7 @@ public class UsedGoodsDao {
 				count = rset.getInt(1);
 			}
 		} catch (SQLException e) {
-			e.printStackTrace();
+			throw new UsedGoodException("중고매매 게시글 총 개수 조회 오류", e);
 		} finally {
 			close(pstmt);
 			close(rset);
@@ -224,7 +225,7 @@ public class UsedGoodsDao {
 			
 			result = pstmt.executeUpdate();
 		} catch (SQLException e) {
-			e.printStackTrace();
+			throw new UsedGoodException("게시글 상태 추가 오류", e);
 		} finally {
 			close(pstmt);
 		}
@@ -248,7 +249,7 @@ public class UsedGoodsDao {
 				state = rset.getString(1);
 			}
 		} catch (SQLException e) {
-			e.printStackTrace();
+			throw new UsedGoodException("게시글 상태 조회 오류", e);
 		} finally {
 			close(pstmt);
 			close(rset);
@@ -268,7 +269,7 @@ public class UsedGoodsDao {
 			
 			result = pstmt.executeUpdate();
 		} catch (SQLException e) {
-			e.printStackTrace();
+			throw new UsedGoodException("중고매매 게시글 첨부파일 삭제 오류", e);
 		} finally {
 			close(pstmt);
 		}
@@ -289,7 +290,7 @@ public class UsedGoodsDao {
 			
 			result = pstmt.executeUpdate();
 		} catch (SQLException e) {
-			e.printStackTrace();
+			throw new UsedGoodException("중고매매 게시글 수정 오류", e);
 		} finally {
 			close(pstmt);
 		}
@@ -307,7 +308,7 @@ public class UsedGoodsDao {
 			
 			result = pstmt.executeUpdate();
 		} catch (SQLException e) {
-			e.printStackTrace();
+			throw new UsedGoodException("중고매매 게시글 삭제 오류", e);
 		} finally {
 			close(pstmt);
 		}
@@ -327,7 +328,7 @@ public class UsedGoodsDao {
 			
 			result = pstmt.executeUpdate();
 		} catch (SQLException e) {
-			e.printStackTrace();
+			throw new UsedGoodException("중고매매 게시글 요청 추가 오류", e);
 		} finally {
 			close(pstmt);
 		}
@@ -358,7 +359,7 @@ public class UsedGoodsDao {
 				reqUsers.add(map);
 			}
 		} catch (SQLException e) {
-			e.printStackTrace();
+			throw new UsedGoodException("중고매매 거래 요청 유저 조회 오류", e);
 		} finally {
 			close(pstmt);
 		}
@@ -377,7 +378,7 @@ public class UsedGoodsDao {
 			
 			result = pstmt.executeUpdate();
 		} catch (SQLException e) {
-			e.printStackTrace();
+			throw new UsedGoodException("중고매매 거래 수락 오류", e);
 		} finally {
 			close(pstmt);
 		}
@@ -395,7 +396,7 @@ public class UsedGoodsDao {
 			
 			result = pstmt.executeUpdate();
 		} catch (SQLException e) {
-			e.printStackTrace();
+			throw new UsedGoodException("중고매매 게시글 상태 변경 오류", e);
 		} finally {
 			close(pstmt);
 		}

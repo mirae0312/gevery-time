@@ -21,12 +21,18 @@ public class WishListMainServlet extends HttpServlet {
 	private CartService cartService = new CartService();
 
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		String memberId = request.getParameter("memberId");
-		
-		List<WishList> list = cartService.getWishList(memberId); 
-		
-		request.setAttribute("list", list);
-		request.getRequestDispatcher("/WEB-INF/views/market/cart/wishListMain.jsp").forward(request, response);
+		try {
+			String memberId = request.getParameter("memberId");
+			
+			List<WishList> list = cartService.getWishList(memberId); 
+			
+			request.setAttribute("list", list);
+			request.getRequestDispatcher("/WEB-INF/views/market/cart/wishListMain.jsp").forward(request, response);
+		} catch (Exception e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+			throw e;
+		}
 	}
 
 }

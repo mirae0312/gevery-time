@@ -11,6 +11,7 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 import com.google.gson.Gson;
+import com.google.gson.JsonIOException;
 import com.zea.geverytime.market.cart.model.service.CartService;
 
 /**
@@ -22,16 +23,22 @@ public class WishListCheck extends HttpServlet {
     private CartService cartService = new CartService();
 
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		String memberId = request.getParameter("memberId");
-		int boardNo = Integer.parseInt(request.getParameter("boardNo"));
-		
-		int result = cartService.wishListCheck(memberId, boardNo);
-		
-		Map<String, Object> map = new HashMap<>();
-		map.put("result", result);
-		
-		response.setContentType("application/json; charset=utf-8");
-		new Gson().toJson(map, response.getWriter());
+		try {
+			String memberId = request.getParameter("memberId");
+			int boardNo = Integer.parseInt(request.getParameter("boardNo"));
+			
+			int result = cartService.wishListCheck(memberId, boardNo);
+			
+			Map<String, Object> map = new HashMap<>();
+			map.put("result", result);
+			
+			response.setContentType("application/json; charset=utf-8");
+			new Gson().toJson(map, response.getWriter());
+		} catch (Exception e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+			throw e;
+		}
 	}
 
 }

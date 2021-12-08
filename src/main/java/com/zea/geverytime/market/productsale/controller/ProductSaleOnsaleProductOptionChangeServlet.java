@@ -19,15 +19,21 @@ public class ProductSaleOnsaleProductOptionChangeServlet extends HttpServlet {
 	private ProductSaleService pdtService = new ProductSaleService();
 
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		int pdtNo = Integer.parseInt(request.getParameter("pdtNo"));
-		String colname = request.getParameter("colname");
-		String val = request.getParameter("val");
-		System.out.println("optionChangeServ@col, val : "+colname+val+pdtNo);
-		
-		// 변경요청
-		int result = pdtService.productOptionChange(colname, val, pdtNo);
-		
-		response.sendRedirect(request.getContextPath()+"/product/onsaleProduct");
+		try {
+			int pdtNo = Integer.parseInt(request.getParameter("pdtNo"));
+			String colname = request.getParameter("colname");
+			String val = request.getParameter("val");
+			System.out.println("optionChangeServ@col, val : "+colname+val+pdtNo);
+			
+			// 변경요청
+			int result = pdtService.productOptionChange(colname, val, pdtNo);
+			
+			response.sendRedirect(request.getContextPath()+"/product/onsaleProduct");
+		} catch (Exception e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+			throw e;
+		}
 	}
 
 }
