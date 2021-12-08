@@ -14,21 +14,17 @@ import javax.servlet.http.HttpServletResponse;
 import com.google.gson.Gson;
 import com.zea.geverytime.common.MvcUtils;
 import com.zea.geverytime.info.model.exception.InfoBoardException;
-import com.zea.geverytime.info.model.service.InfoService;
-import com.zea.geverytime.info.model.vo.Info;
 import com.zea.geverytime.myPage.model.service.MyPageService;
+import com.zea.geverytime.myPage.model.vo.Purchase;
 
 /**
- * Servlet implementation class MyPageInfoCheckList
+ * Servlet implementation class MyPagePurchaseListServlet
  */
-@WebServlet("/myPage/businessList")
-public class MyPageInfoCheckListServlet extends HttpServlet {
+@WebServlet("/myPage/purchaseList")
+public class MyPagePurchaseListServlet extends HttpServlet {
 	private static final long serialVersionUID = 1L;
-	private MyPageService myPageService = new MyPageService();   
-
-	/**
-	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse response)
-	 */
+	private MyPageService myPageService = new MyPageService();
+	
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		try {
 			int cPage = 1;
@@ -37,8 +33,8 @@ public class MyPageInfoCheckListServlet extends HttpServlet {
 			} catch (NumberFormatException e) {}
 			String memberId = request.getParameter("id");
 			
-			System.out.println("[MyPageInfoCheckList@Servlet] cPage = " + cPage);
-			System.out.println("[MyPageInfoCheckList@Servlet] id : " + memberId);
+			System.out.println("[MyPagePurchaseList@Servlet] cPage = " + cPage);
+			System.out.println("[MyPagePurchaseList@Servlet] id : " + memberId);
 			int numPerPage = 5;
 			int start = (cPage - 1) * numPerPage + 1;
 			int end = cPage * numPerPage;
@@ -48,11 +44,11 @@ public class MyPageInfoCheckListServlet extends HttpServlet {
 			param.put("start", start);
 			param.put("end", end);
 
-			List<Info> list = myPageService.selectInfoList(param);
+			List<Purchase> list = myPageService.getPurchase(param);
 			
 			// 페이지바 호출 MvcUtils.getPagebar(cPage, numPerPage, pageBarSize, totalContentCount, url);
-			final int pageBarSize = 10;
-			int totalContentCount = myPageService.myPageinfoListCount(param);
+			final int pageBarSize = 5;
+			int totalContentCount = myPageService.getPurchaseCount(param);
 			String url = request.getRequestURI();
 			
 			String pagebar = MvcUtils.getPagebar(cPage, numPerPage, pageBarSize, totalContentCount, url);
@@ -62,18 +58,19 @@ public class MyPageInfoCheckListServlet extends HttpServlet {
 			jMap.put("list", list);
 			jMap.put("pagebar", pagebar);
 			
-			System.out.println("[AdminList@Servlet] list : " + list);			
-			System.out.println("[AdminList@Servlet] pagebar = " + pagebar);
-				
+			System.out.println("[MyPagePurchaseList@servlet] list : " + list);			
+			System.out.println("[MyPagePurchaseList@servlet] pagebar = " + pagebar);
+						
 			response.setContentType("application/json; charset=utf-8");
 			new Gson().toJson(jMap, response.getWriter());
 			
 			
 		} catch(Exception e) {
 			e.printStackTrace();
-			throw new InfoBoardException("myPage 정보게시글불러오기 오류!", e);
+			throw new InfoBoardException("myPage 구매 내역불러오기 오류!", e);
 		}
 		
 	}
+
 
 }

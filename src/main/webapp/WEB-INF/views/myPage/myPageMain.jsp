@@ -68,9 +68,9 @@
 		</table>
 	</form>
 	<div id="form-button">
-        <input type="button" id="button"onclick="updateMember();" value="수정"/>
-        <input type="button" onclick="location.href='<%=request.getContextPath()%>/myPage/updatePassword'" value="비밀번호변경"/>
-        <input type="button" onclick="deleteMember();" value="탈퇴"/>
+        <input type="button" id="send" onclick="updateMember();" value="수정"/>
+        <input type="button" id="send" onclick="location.href='<%=request.getContextPath()%>/myPage/updatePassword'" value="비밀번호변경"/>
+        <input type="button" id="send" onclick="deleteMember();" value="탈퇴"/>
 	</div>
 	<% } %>
  </div>

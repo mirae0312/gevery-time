@@ -139,32 +139,37 @@ public class MyPageDao {
 		return result;
 	}
 
-	public List<Purchase> getPurchase(Connection conn, String memberId) {
-		PurchaseHistory ph = null;
+	public List<Purchase> getPurchase(Connection conn, Map<String, Object> param) {
+//		PurchaseHistory ph = null;
 		PreparedStatement pstmt = null;
 		ResultSet rset = null;
 		String sql = prop.getProperty("getPurchase");
-		ArrayList<Purchase> list = new ArrayList<Purchase>();
+		List<Purchase> list = new ArrayList<>();
 		try {
 			pstmt = conn.prepareStatement(sql);
-			pstmt.setString(1, memberId);
+			pstmt.setString(1,(String)param.get("memberId"));
+			pstmt.setInt(2,(int)param.get("start"));
+			pstmt.setInt(3,(int)param.get("end"));
 			rset = pstmt.executeQuery();
 			
-			if(rset.next()) {
+			while(rset.next()) {
 				Purchase pd = new Purchase();
-				pd.setUid(rset.getString(1));
-				pd.setMuid(rset.getString(2));
-				pd.setName(rset.getString(3));
-				pd.setPrice(rset.getInt(4));
-				pd.setProductCount(rset.getInt(5));
-				pd.setRegDate(rset.getDate(6));
+				pd.setUid(rset.getString("PURCHASE_UID"));
+				pd.setMuid(rset.getString("MERCHANT_ID"));
+				pd.setName(rset.getString("NAME"));
+				pd.setPrice(rset.getInt("TOTAL_PRICE"));
+				pd.setProductCount(rset.getInt("PRODUCT_COUNT"));
+				pd.setRegDate(rset.getDate("REG_DATE"));
 					
 				list.add(pd);
 				
 			}
 			
 		} catch (SQLException e) {
-			e.printStackTrace();
+			throw new InfoBoardException("구매내역 불러오기 실패!", e);
+		} finally {
+			close(rset);
+			close(pstmt);
 		}
 		
 		return list;
@@ -225,5 +230,27 @@ public class MyPageDao {
 		}	
 		return totalCount;
 	
+	}
+	public int getPurchaseCount(Connection conn, Map<String, Object> param) {
+		PreparedStatement pstmt = null;
+		String sql = prop.getProperty("getPurchaseCount");	
+		ResultSet rset = null;
+		int totalCount = 0;
+		
+		try {
+			pstmt = conn.prepareStatement(sql);
+			pstmt.setString(1, (String)param.get("memberId"));
+			rset = pstmt.executeQuery();
+			if(rset.next()) {
+				totalCount = rset.getInt(1);			
+			}
+		} catch (SQLException e) {
+			e.printStackTrace();
+			throw new InfoBoardException("myPage 구매내역 받아오기 실패!", e);
+		} finally {
+			close(rset);
+			close(pstmt);
+		}	
+		return totalCount;
 	}
 }
