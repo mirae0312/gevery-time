@@ -107,7 +107,7 @@
 	<script>
 		let getProduct = () => {
 			const name = "getProductPopup";
-			const spec = "width=400, height=600, left=400, top=400";
+			const spec = "width=800, height=600, left=400, top=400";
 			const popup = open("", name, spec);
 			
 			$("[name=sellerId]").val($("#author").val());

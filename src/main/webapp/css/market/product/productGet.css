@@ -1,0 +1,19 @@
+@charset "UTF-8";
+
+#pdtTable {
+	border: white;
+	border-radius: 5%;
+	width:100%;
+	margin-top: 10px;
+}
+#pdtTable th{
+	height: 30px;
+	background-color: #efefec;	
+}
+#pdtTable td{
+	height: 50px;
+	text-align:center;
+}
+#pdtTable td, th{
+	border-bottom: 1px solid #ebebe6;
+}

@@ -232,7 +232,7 @@
 			%>
 					<tr>
 						<td colspan=2>
-							<span id="notiMessage">판매가 완료 되었습니다! 배송 스팟에 상품을 놓아주세요.</span>
+							<span id="notiMessage">판매가 완료 되었습니다!</span>
 						</td>
 					</tr>
 			<%					
