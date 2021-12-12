@@ -12,11 +12,12 @@
 <head>
 <meta charset="UTF-8">
 <title>Insert title here</title>
-<link rel="stylesheet" href="<%=request.getContextPath() %>/css/market/product/productList.css" />
+<link rel="stylesheet" href="${pageContext.request.contextPath }/css/market/product/productList.css" />
 
 </head>
 <body>
-	<h1><%= MemberId %>님의 판매중인 상품 목록</h1>
+	<%-- <h1><%= MemberId %>님의 판매중인 상품 목록</h1> --%>
+	<h1>${sessionScope.loginMember.memberId }님의 판매중인 상품 목록(el ver)</h1>
 	<button id="pdtEnroll">상품 등록하기</button>
 	
 	<%
@@ -83,7 +84,7 @@
 			const reqval = $(e.target).val();
 			
 			$.ajax({
-				url: "<%= request.getContextPath() %>/product/onsaleProductOptionChange",
+				url: "${pageContext.request.contextPath}/product/onsaleProductOptionChange",
 				method: "POST",
 				data: {
 					pdtNo: reqpdtno,
@@ -99,7 +100,7 @@
 	
 		// 상품 등록하기
 		$("#pdtEnroll").click((e) => {
-			location.href="<%= request.getContextPath() %>/product/productForm";
+			location.href="${pageContext.request.contextPath}/product/productForm";
 		});
 	</script>
 </body>

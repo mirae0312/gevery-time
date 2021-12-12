@@ -41,6 +41,7 @@
 <link rel="stylesheet" href="<%=request.getContextPath() %>/css/market/product/productSaleView.css" />
 </head>
 <body>
+<h1>${sessionScope.loginMember }</h1>
 <% if(loginMember != null && !loginMember.getMemberId().equals(board.getSellerId())) { %>
 <input type="button" id="reportBtn" value="신고하기" onclick="window.open('<%= request.getContextPath() %>/common/report?code=<%= (String)board.getOrCode() %>', 'popup', 'width=500, height=600, left=100')"/>
 <% } %>

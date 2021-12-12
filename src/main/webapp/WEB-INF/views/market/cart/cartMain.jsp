@@ -12,16 +12,15 @@
 <head>
 <meta charset="UTF-8">
 <title>장바구니</title>
-<link rel="stylesheet" href="<%=request.getContextPath() %>/css/market/cart/cart.css" />
+<link rel="stylesheet" href="${pageContext.request.contextPath }/css/market/cart/cart.css" />
 
 </head>
 <body>
 	<h1>장바구니</h1>
-	<input type="button" value="전체 선택/해제하기" id="checkAllBtn"/>
 <%
-
 	if(!cartlist.isEmpty()) {
 %>
+	<input type="button" value="전체 선택/해제하기" id="checkAllBtn"/>
 	<table id="cartTable">
 		<thead>
 			<tr>

@@ -11,6 +11,7 @@
 <link rel="stylesheet" href="<%=request.getContextPath() %>/css/market/product/productSaleMain.css" />
 </head>
 <body>
+	<h1>${sessionScope.loginMember.memberId }</h1>
 	<h1>일반 상점</h1>
 	<div id="pdtSearchOption">
 		<input type="button" value="검색 옵션 사용하기" id="searchOptionBtn" />
