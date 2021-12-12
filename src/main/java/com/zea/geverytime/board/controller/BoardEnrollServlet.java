@@ -33,7 +33,7 @@ public class BoardEnrollServlet extends HttpServlet {
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		try {
 	
-			// 1. 사용자 입력값 처리
+			// 1. 사용자 입력값 처리s
 			String saveDirectory = getServletContext().getRealPath("/upload/board");
 			int max = 1024*1024*10; // 10메가바이트
 			String encoding = "utf-8";
