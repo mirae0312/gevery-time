@@ -134,10 +134,10 @@
 		if(usePoint < 100 || usePoint%100 != 0){
 			alert("100포인트 이상부터 100포인트 단위로 사용 가능합니다.");
 			return false;
-		} else if(usePoint > defaultTotalPrice) {
+		} else if(defaultTotalPrice - usePoint < 0) {
 			alert("적용 포인트가 구매 금액보다 큽니다.");
 			return false;
-		} else if(usePoint > pointBal) {
+		} else if(pointBal - usePoint < 0) {
 			alert("보유 포인트 이상 사용할 수 없습니다.");
 			return false;
 		}
